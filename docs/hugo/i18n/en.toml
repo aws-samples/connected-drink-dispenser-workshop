@@ -1,0 +1,22 @@
+# layouts > glossary
+
+[layouts_glossary_description]
+other = "This glossary is intended to be a standardized list of IoT terminology. It includes technical terms that are specific to IoT, as well as more general terms that provide useful context."
+
+[layouts_glossary_filter]
+other = "Filter terms according to their tags"
+
+[layouts_glossary_select_all]
+other = "Select all"
+
+[layouts_glossary_deselect_all]
+other = "Deselect all"
+
+[layouts_glossary_aka]
+other = "Also known as"
+
+[layouts_glossary_click_details_before]
+other = "Click on the"
+
+[layouts_glossary_click_details_after]
+other = "indicators below to get a longer explanation for any particular term."

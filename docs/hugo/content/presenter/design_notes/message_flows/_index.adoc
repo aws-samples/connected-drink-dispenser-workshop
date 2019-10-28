@@ -1,0 +1,265 @@
+---
+license: MIT-0
+copyright: Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+chapter: false
+pre: <i class="fas fa-greater-than"></i>&nbsp;
+next: 
+prev: 
+title: Message Flows
+weight: 10
+---
+
+:source-highlighter: pygments
+:pygments-style: monokai
+:icons: font
+:nocopyblocks:
+
+== Device and Application Message Flows ==
+
+The shadow document for devices tracks state of local resources. In the case of the motor board, this is `led` which maps to the _second_ motor controller, which is not used. This give an indicator that things are working without having to activate the motor.
+
+The `led_ring` is the round ring and `count` determine how many LED elements to light up, and the color is the RBG color for all active elements.
+
+```json
+{
+    "led_ring": {
+        "count": 0,
+        "color": "#RRGGBB"
+        },
+    "led": "on|off",
+    "dispense_time_ms": 2500
+}
+```
+
+
+The following sequence diagrams show the flows for different uses. The first flows are device-to-cloud, then Rules Engine actions, and then API generated flows.
+
+[IMPORTANT]
+.Diagram shorthand
+====
+All *SUBSCRIBE* events are to the broker and are in-place for the connection duration. Messages to the broker are _publish_ events, those from the broker are delivered to _subscribers_.
+
+. *P: foo/bar {...}* is used to denote _publishing_ to the topic `foo/bar` with the _payload_ of `{...}`
+. *device/_shadow_ {...}* indicate shadow operations for _device_ (unique) with the _payload_ of `{...}`
+====
+
+=== Device Flows
+
+==== Turn on/off LED
+
+Uses the device shadow to set the desired state of an LED. The unused motor controller's associated LED can be set `on` or `off`, while the LED ring can be addressed with an RGB color and number of LEDs to light. All LED operations take place through the device shadow.
+
+At creation, the LEDs are all set to a _desired_ state of off. The dispenser hardware should read and honor the shadow settings for the LED.
+
+.Turn on the LED
+[plantuml, Turn on the LED, svg]
+....
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v4.0/dist
+!includeurl AWSPuml/AWSCommon.puml
+
+!includeurl AWSPuml/InternetOfThings/IoTGeneric.puml
+!includeurl AWSPuml/InternetOfThings/IoTCore.puml
+!includeurl AWSPuml/InternetOfThings/IoTRule.puml
+!includeurl AWSPuml/Mobile/APIGateway.puml
+!includeurl AWSPuml/General/User.puml
+!includeurl AWSPuml/SecurityIdentityAndCompliance/Cognito.puml
+!includeurl AWSPuml/Compute/Lambda.puml
+!includeurl AWSPuml/Database/DynamoDB.puml
+
+IoTGenericParticipant(dispenser, Dispenser, Id: 123) order 5
+IoTCoreParticipant(broker, Message Broker,) order 10
+IoTRuleParticipant(rule, Rules Engine,) order 30
+LambdaParticipant(app, Dispenser App,) order 40
+LambdaParticipant(logging, Log Events,) order 50
+
+dispenser -> broker: S: 123/shadow/delta
+app -> broker: P: 123/shadow/update {"desired": {"led": "on"}}
+broker -> rule: shadow document
+rule -> logging: event: shadow document
+
+alt change between desired and reported
+    broker -> dispenser: 123/shadow/delta {"led": "on"}
+    dispenser -> dispenser: enable LED1
+    dispenser -> broker: P: 123/shadow/update {"reported": {"led": "on"}}
+    broker -> rule: shadow document
+    rule -> logging: event: shadow document
+end
+....
+
+In this flow:
+
+. Dispenser subscribes to shadow delta topic, e.g., `$aws/things/123/shadow/delta`
+. Dispenser publishes desired state change to shadow update for `led` (LED for second motor controller)
+. _If_ there is a difference between _desired_ and _reported_ states, the delta, `"led": "on"` is sent to the dispenser
+. Dispenser enables the LED locally
+. Dispenser then publishes teh _reported_ state of LED1 to the shadow update topic
+. Rules engine matches update operation and invokes logging event action
+
+This is the same flow for `led1` and `led_ring`. For `led_ring`, the attributes are the amount of LEDs to light (0-5) and the RBG color in hex, e.g., `#ff0000` for full red.
+
+[NOTE]
+====
+The LED operation can be `on` or `off`.
+====
+
+==== Activate Dispenser
+
+Uses a device-specific topic to send a command (request) to the dispenser. After the dispenser has completed the operation, it published back and acknowledgement (response) to the same `topic/response`.
+
+During a network connection or reconnection, the dispenser will not activate the motor until a request message arrives withing a 5 second period. Older messages are discarded and not logged.
+
+.Activate Dispenser
+[plantuml, Activate Dispenser, svg]
+....
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v4.0/dist
+!includeurl AWSPuml/AWSCommon.puml
+
+!includeurl AWSPuml/InternetOfThings/IoTGeneric.puml
+!includeurl AWSPuml/InternetOfThings/IoTCore.puml
+!includeurl AWSPuml/InternetOfThings/IoTRule.puml
+!includeurl AWSPuml/Mobile/APIGateway.puml
+!includeurl AWSPuml/General/User.puml
+!includeurl AWSPuml/SecurityIdentityAndCompliance/Cognito.puml
+!includeurl AWSPuml/Compute/Lambda.puml
+!includeurl AWSPuml/Database/DynamoDB.puml
+
+APIGatewayParticipant(api, API Gateway, /dispense) order 10
+IoTGenericParticipant(dispenser, Dispenser, Id: 123) order 20
+IoTCoreParticipant(broker, Message Broker,) order 30
+IoTRuleParticipant(rules, Rules Engine, cmd/123/response) order 40
+LambdaParticipant(app, Dispenser App,) order 50
+DynamoDBParticipant(db, Dispenser Table,) order 60
+DynamoDBParticipant(log_db, Events Table,) order 70
+
+skinparam noteTextAlignment left
+
+== Pre-dispense Setup ==
+dispenser -> broker: S: cmd/123
+
+== Request - Dispense operation from App ==
+api -> app : GET /dispense?dispenserId=123
+app <-> db : Read dispenser record
+alt if balance >= $1.00 and no dispense sessionId
+    app -> db : PUT dispense "requestId": "1234-5678" to session
+    app -> broker: P: cmd/123
+    note right
+        {
+            "command": "dispense",
+            "sessionId": "1234-5678",
+            "timestamp": 12345
+        }    
+    end note
+    app -> log_db : Dispense: Requested dispenser to activate
+    app -> api : 200 - Dispense requested 
+else If no credits or session already recorded
+    app -> log_db : Dispense: Error, no funds or dispense in operation
+    app x-> api : 200 - Insufficient funds or dispense in operation
+end
+... Some period of time ...
+== Response - Dispenser processes the message ==
+hnote over dispenser : Dispense message recieved on topic cmd/123
+broker -> dispenser : message (command, sessionId, timestamp)
+alt timestamp of message > 5 seconds (stale)
+    dispenser -x dispenser : discard message
+else timestamp < 5 seconds old (current)
+    dispenser -> dispenser : Activate motor for nn milliseconds
+    dispenser -> broker : P: cmd/123/<b>response</b>
+    note left
+        {
+            "command": "dispense",
+            "sessionId": "1234-5678",
+            "result": "success",
+            "timestamp": 45678
+        }
+    end note
+    broker -> rules: response message
+    rules -> app : Invoke based on command == "dispense" -> message
+    app <-> db : Read dispenser record
+    alt sessionId found in dispenser record
+        app -> db : If sessionId found, Deduct $1.00 from dispenser 123 credits, clear sessionId, update dispenser record
+        app -> log_db : Dispense: Operation completed successfully for dispenser
+    else sessionId was <i>NOT</i> found
+        app -> log_db : Dispense: ERROR, no corresponding sessionId found
+    end
+end
+....
+
+In this flow:
+
+* Pre-dispense setup
+** Dispenser subscribes to command topic `cmd/123`
+* Request - User clicks on "dispense" button in web application
+** Lambda is invoked for that request
+** Dispenser record read
+** If there is a good balance and no in-process requests < 5 seconds old:
+*** Record a new session in the dispenser record
+*** Publish the message to the `cmd/123` topic
+*** Log a successful request event
+*** Return to the API/web app a success message
+** If there is _not_ enough credits or a dispense session is still valid (<5 seconds old):
+*** Log an error
+*** Return to the API/web app a descriptive error
+
+The response operation is decoupled from the request in that the dispenser may be in an offline state. Once online, the response flow continues:
+
+* Dispenser received a dispense request on `cmd/123`
+** If the timestamp of the request is older than 5 seconds:
+*** Discard the message and log locally
+** If the request is current (less than 5 seconds old):
+*** Activate the motor for set duration
+*** _In parallel if possible_, publish a response message to `cmd/123/response` with the same `sessionId`
+*** The response message triggers the Rules Engine which looks at the `command` value (`dispense`) and invokes the Lambda function
+*** Lambda determines this is a rules invocation and not API
+*** Reads the dispenser record
+*** If there is a matching sessionId
+**** deduct $1.00, clear sessionId, update dispenser record
+**** Log successful dispenser operations
+*** If no matching dispense sessionId was found
+**** Log error (should not arrive here)
+
+The Lambda will also clear out a stale dispene session. There can only be one in-flight dispense session in the dispenser's record.
+
+[NOTE]
+A dispenser may get a free pour if it receives the dispense command and then goes offline before publishing the response message.
+
+=== Rules Engine Flows
+
+These flows are subscriptions made by the rules, and the actions they take.
+
+==== Logging Events
+
+The logging rule monitors all messages published to `events` and `events/#`, and invokes a Lambda to persist the events into the DynamoDB *EventsTable*.
+
+.General Event Logging
+[plantuml, General Events Logging, svg]
+....
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v4.0/dist
+!includeurl AWSPuml/AWSCommon.puml
+
+!includeurl AWSPuml/InternetOfThings/IoTCore.puml
+!includeurl AWSPuml/InternetOfThings/IoTRule.puml
+!includeurl AWSPuml/Compute/Lambda.puml
+!includeurl AWSPuml/Database/DynamoDB.puml
+
+IoTCoreParticipant(broker, Message Broker,) order 10
+IoTRuleParticipant(rule, Rules Engine,) order 20
+LambdaParticipant(logging, Log Events,) order 30
+DynamoDBParticipant(db, Events Table,) order 40
+
+== Changes to Shadow trigger rule: LogShadowEvents ==
+broker -> rule : Topic: $aws/things/+/shadow/update/documents\nMessage: (JSON)\nshadow document
+rule -> logging : Rule: LogShadowEvents\nEvent:\nmessage
+== Messages to general event topic trigger rule: LogGenericEvents ==
+broker -> rule : Topic: events\nMessage: (JSON)\n{\n  "dispenserId": "nnn"\n  "log": "message to store"\n}
+rule -> logging : Rule: LogGenericEvents\nEvent:\nmessage, timestamp() as ts
+== Messages to specific event topic trigger rule: LogDispenserEvents ==
+broker -> rule : Topic: events/<b>123</b>\nMessage (string):\n"message to store"
+rule -> logging : Rule: LogDispenserEvents\nevent:\nmessage, timestamp() as ts, topic() as dispenserId
+...
+logging -> db : Put entry:\ndispenserId: nnn (or 000 for generic)\nlog: message\ntimestamp: isoformat\n
+....
+
+There are two rules activated for the workshop, both which log events to the *EventsTable*. The *DispenserProcessEvents* rule monitors for shadow update documents, adds the topic which will identify the dispenser, then invokes the *ProcessEvents* Lambda function. Similarly for the `events` and `events/nnn` (dispenser ID), the *LogGenericEvents* and *LogDispenserEvents* rules process the messages and invoke *ProcessEvents*.
+
+The Lambda function parses the incoming details and creates the formatted entries that then published to the DynamoDB *EventsTable*.
+

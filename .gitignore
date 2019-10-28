@@ -1,0 +1,62 @@
+# IDE
+.DS_Store
+
+.vscode/
+
+
+# Common ignores
+tmp/
+*.zip
+
+# CDK
+cdk.out/
+cdk.egg-info/
+# config files (may contain specific info)
+cdk/config.json
+deploy/tests/*.json
+
+# SAM/CloudFormation build artifacts
+*-output.yaml
+
+# Working artifacts that may include sensitive or personal details
+template.yaml
+
+# Documentation (Hugo)
+.asciidoctor/
+config-template.yml
+
+# Dispenser App
+aws-exports.js
+
+## Python
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+# C extensions
+*.so
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+temp/
+
+
+# Microsoft temp files
+*.tmp
+# Word temporary
+~$*.doc*
+# Word Auto Backup File
+Backup of *.doc*
+# Excel temporary
+~$*.xls*
+# Excel Backup File
+*.xlk
+# PowerPoint temporary
+~$*.ppt*
+# Visio autosave temporary files
+*.~vsd*

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="description" content="">
+
+
+    <link rel="icon" href="../../images/favicon.png" type="image/png">
+
+    <title>Message Flows :: Connected Drink Dispenser Workshop</title>
+
+    
+    <link href="../../css/nucleus.css" rel="stylesheet">
+    <link href="../../css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="../../css/hybrid.css" rel="stylesheet">
+    <link href="../../css/featherlight.min.css" rel="stylesheet">
+    <link href="../../css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="../../css/auto-complete.css" rel="stylesheet">
+    <link href="../../css/atom-one-dark-reasonable.css" rel="stylesheet">
+    <link href="../../css/theme.css" rel="stylesheet">
+    <link href="../../css/hugo-theme.css" rel="stylesheet">
+    
+      <link href="../../css/theme-mine.css" rel="stylesheet">
+    
+
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+        :not(pre) > code + span.copy-to-clipboard {
+            display: none;
+        }
+      
+    </style>
+    <link rel="stylesheet" href="../../css/adoc.css">
+<link rel="stylesheet" href="../../css/tags.css">
+<link rel="stylesheet" href="../../css/jquery-ui.min.css">
+  </head>
+  <body class="" data-url="/presenter/design_notes/message_flows.html">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="https://cdd.example.com/docs/docs">
+    <img src="../../images/aws_logo.png" alt="Amazon Web Services" width="50%", height="50%">
+</a>
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="../../js/lunr.min.js"></script>
+<script type="text/javascript" src="../../js/auto-complete.js"></script>
+<script type="text/javascript">
+    
+        var baseurl = "https:\/\/cdd.example.com\/docs";
+    
+</script>
+<script type="text/javascript" src="../../js/search.js"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/participant.html" title="Workshop Participant" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../participant.html">
+          <i class="fas fa-user-graduate"></i>&nbsp;Workshop Participant
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/presenter.html" title="Setting Up the Workshop" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="../../presenter.html">
+          <i class="fas fa-chalkboard-teacher"></i>&nbsp;Setting Up the Workshop
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/presenter/prerequisites.html" title="Prerequisites" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../presenter/prerequisites.html">
+          <i class="fas fa-greater-than"></i>&nbsp;Prerequisites
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/presenter/deploy.html" title="Deploy Stack" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../presenter/deploy.html">
+          <i class="fas fa-greater-than"></i>&nbsp;Deploy Stack
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/presenter/repository.html" title="Repository Layout" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../presenter/repository.html">
+          <i class="fas fa-greater-than"></i>&nbsp;Repository Layout
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/presenter/design_notes.html" title="Design Notes" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="../../presenter/design_notes.html">
+          <i class="fas fa-greater-than"></i>&nbsp;Design Notes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/presenter/design_notes/message_flows.html" title="Message Flows" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="../../presenter/design_notes/message_flows.html">
+          <i class="fas fa-greater-than"></i>&nbsp;Message Flows
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://github.com/search?q=topic%3Aiot&#43;org%3Aaws-samples&#43;fork%3Atrue"><i class='fas fa-bookmark'></i> AWS Samples on GitHub</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='../../'></a> > <a href='../../presenter.html'>Setting Up the Workshop</a> > <a href='../../presenter/design_notes.html'>Design Notes</a> > Message Flows
+          
+         
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Message Flows
+            </h1>
+          
+
+        
+
+
+
+
+	<section class="doc-section level-1"><h2 id="_device_and_application_message_flows">Device and Application Message Flows</h2><p>The shadow document for devices tracks state of local resources. In the case of the motor board, this is <code>led</code> which maps to the <em>second</em> motor controller, which is not used. This give an indicator that things are working without having to activate the motor.</p>
+<p>The <code>led_ring</code> is the round ring and <code>count</code> determine how many LED elements to light up, and the color is the RBG color for all active elements.</p>
+<div class="listing-block"><pre class="pygments highlight"><code class="language-json" data-lang="json"><span></span><span class="tok-p">{</span>
+    <span class="tok-nt">&quot;led_ring&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span>
+        <span class="tok-nt">&quot;count&quot;</span><span class="tok-p">:</span> <span class="tok-mi">0</span><span class="tok-p">,</span>
+        <span class="tok-nt">&quot;color&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;#RRGGBB&quot;</span>
+        <span class="tok-p">},</span>
+    <span class="tok-nt">&quot;led&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;on|off&quot;</span><span class="tok-p">,</span>
+    <span class="tok-nt">&quot;dispense_time_ms&quot;</span><span class="tok-p">:</span> <span class="tok-mi">2500</span>
+<span class="tok-p">}</span></code></pre></div>
+<p>The following sequence diagrams show the flows for different uses. The first flows are device-to-cloud, then Rules Engine actions, and then API generated flows.</p>
+<section class="admonition-block important" role="doc-notice"><h6 class="block-title"><span class="title-label">Important: </span>Diagram shorthand</h6><p>All <strong>SUBSCRIBE</strong> events are to the broker and are in-place for the connection duration. Messages to the broker are <em>publish</em> events, those from the broker are delivered to <em>subscribers</em>.</p>
+<div class="olist arabic"><ol class="arabic"><li><strong>P: foo/bar {&#8230;&#8203;}</strong> is used to denote <em>publishing</em> to the topic <code>foo/bar</code> with the <em>payload</em> of <code>{&#8230;&#8203;}</code></li><li><strong>device/<em>shadow</em> {&#8230;&#8203;}</strong> indicate shadow operations for <em>device</em> (unique) with the <em>payload</em> of <code>{&#8230;&#8203;}</code></li></ol></div></section>
+<section class="doc-section level-2"><h3 id="_device_flows">Device Flows</h3><section class="doc-section level-3"><h4 id="_turn_onoff_led">Turn on/off LED</h4><p>Uses the device shadow to set the desired state of an LED. The unused motor controller&#8217;s associated LED can be set <code>on</code> or <code>off</code>, while the LED ring can be addressed with an RGB color and number of LEDs to light. All LED operations take place through the device shadow.</p>
+<p>At creation, the LEDs are all set to a <em>desired</em> state of off. The dispenser hardware should read and honor the shadow settings for the LED.</p>
+<figure class="image-block"><img src="../../Turn%20on%20the%20LED.svg" alt="Turn on the LED" width="999" height="587">
+<figcaption>Figure 1. Turn on the LED</figcaption></figure>
+<p>In this flow:</p>
+<div class="olist arabic"><ol class="arabic"><li>Dispenser subscribes to shadow delta topic, e.g., <code>$aws/things/123/shadow/delta</code></li><li>Dispenser publishes desired state change to shadow update for <code>led</code> (LED for second motor controller)</li><li><em>If</em> there is a difference between <em>desired</em> and <em>reported</em> states, the delta, <code>"led": "on"</code> is sent to the dispenser</li><li>Dispenser enables the LED locally</li><li>Dispenser then publishes teh <em>reported</em> state of LED1 to the shadow update topic</li><li>Rules engine matches update operation and invokes logging event action</li></ol></div>
+<p>This is the same flow for <code>led1</code> and <code>led_ring</code>. For <code>led_ring</code>, the attributes are the amount of LEDs to light (0-5) and the RBG color in hex, e.g., <code>#ff0000</code> for full red.</p>
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>The LED operation can be <code>on</code> or <code>off</code>.</p></aside></section>
+<section class="doc-section level-3"><h4 id="_activate_dispenser">Activate Dispenser</h4><p>Uses a device-specific topic to send a command (request) to the dispenser. After the dispenser has completed the operation, it published back and acknowledgement (response) to the same <code>topic/response</code>.</p>
+<p>During a network connection or reconnection, the dispenser will not activate the motor until a request message arrives withing a 5 second period. Older messages are discarded and not logged.</p>
+<figure class="image-block"><img src="../../Activate%20Dispenser.svg" alt="Activate Dispenser" width="1483" height="1559">
+<figcaption>Figure 2. Activate Dispenser</figcaption></figure>
+<p>In this flow:</p>
+<div class="ulist"><ul><li>Pre-dispense setup<ul><li>Dispenser subscribes to command topic <code>cmd/123</code></li></ul></li><li>Request - User clicks on "dispense" button in web application<ul><li>Lambda is invoked for that request</li><li>Dispenser record read</li><li>If there is a good balance and no in-process requests &lt; 5 seconds old:<ul><li>Record a new session in the dispenser record</li><li>Publish the message to the <code>cmd/123</code> topic</li><li>Log a successful request event</li><li>Return to the API/web app a success message</li></ul></li><li>If there is <em>not</em> enough credits or a dispense session is still valid (&lt;5 seconds old):<ul><li>Log an error</li><li>Return to the API/web app a descriptive error</li></ul></li></ul></li></ul></div>
+<p>The response operation is decoupled from the request in that the dispenser may be in an offline state. Once online, the response flow continues:</p>
+<div class="ulist"><ul><li>Dispenser received a dispense request on <code>cmd/123</code><ul><li>If the timestamp of the request is older than 5 seconds:<ul><li>Discard the message and log locally</li></ul></li><li>If the request is current (less than 5 seconds old):<ul><li>Activate the motor for set duration</li><li><em>In parallel if possible</em>, publish a response message to <code>cmd/123/response</code> with the same <code>sessionId</code></li><li>The response message triggers the Rules Engine which looks at the <code>command</code> value (<code>dispense</code>) and invokes the Lambda function</li><li>Lambda determines this is a rules invocation and not API</li><li>Reads the dispenser record</li><li>If there is a matching sessionId<ul><li>deduct $1.00, clear sessionId, update dispenser record</li><li>Log successful dispenser operations</li></ul></li><li>If no matching dispense sessionId was found<ul><li>Log error (should not arrive here)</li></ul></li></ul></li></ul></li></ul></div>
+<p>The Lambda will also clear out a stale dispene session. There can only be one in-flight dispense session in the dispenser&#8217;s record.</p>
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>A dispenser may get a free pour if it receives the dispense command and then goes offline before publishing the response message.</p></aside></section></section>
+<section class="doc-section level-2"><h3 id="_rules_engine_flows">Rules Engine Flows</h3><p>These flows are subscriptions made by the rules, and the actions they take.</p>
+<section class="doc-section level-3"><h4 id="_logging_events">Logging Events</h4><p>The logging rule monitors all messages published to <code>events</code> and <code>events/#</code>, and invokes a Lambda to persist the events into the DynamoDB <strong>EventsTable</strong>.</p>
+<figure class="image-block"><img src="../../General%20Events%20Logging.svg" alt="General Events Logging" width="871" height="910">
+<figcaption>Figure 3. General Event Logging</figcaption></figure>
+<p>There are two rules activated for the workshop, both which log events to the <strong>EventsTable</strong>. The <strong>DispenserProcessEvents</strong> rule monitors for shadow update documents, adds the topic which will identify the dispenser, then invokes the <strong>ProcessEvents</strong> Lambda function. Similarly for the <code>events</code> and <code>events/nnn</code> (dispenser ID), the <strong>LogGenericEvents</strong> and <strong>LogDispenserEvents</strong> rules process the messages and invoke <strong>ProcessEvents</strong>.</p>
+<p>The Lambda function parses the incoming details and creates the formatted entries that then published to the DynamoDB <strong>EventsTable</strong>.</p></section></section></section>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="../../presenter/design_notes.html" title="Design Notes"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="../../participant.html" title="Workshop Participant" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="../../js/clipboard.min.js"></script>
+    <script src="../../js/perfect-scrollbar.min.js"></script>
+    <script src="../../js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../../js/jquery.sticky.js"></script>
+    <script src="../../js/featherlight.min.js"></script>
+    <script src="../../js/html5shiv-printshiv.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="../../js/modernizr.custom-3.6.0.js"></script>
+    <script src="../../js/learn.js"></script>
+    <script src="../../js/hugo-learn.js"></script>
+
+    <link href="../../mermaid/mermaid.css" type="text/css" rel="stylesheet" />
+    <script src="../../mermaid/mermaid.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <div style="float: right;margin-right: 10px;margin-top: 10px;font-size: smaller;">Copyright © 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.</div>
+
+<script src="../../js/fix-adoc.js"></script>
+<script src="../../js/jquery-ui.min.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="description" content="">
+
+
+    <link rel="icon" href="../images/favicon.png" type="image/png">
+
+    <title>Deploy Stack :: Connected Drink Dispenser Workshop</title>
+
+    
+    <link href="../css/nucleus.css" rel="stylesheet">
+    <link href="../css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="../css/hybrid.css" rel="stylesheet">
+    <link href="../css/featherlight.min.css" rel="stylesheet">
+    <link href="../css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="../css/auto-complete.css" rel="stylesheet">
+    <link href="../css/atom-one-dark-reasonable.css" rel="stylesheet">
+    <link href="../css/theme.css" rel="stylesheet">
+    <link href="../css/hugo-theme.css" rel="stylesheet">
+    
+      <link href="../css/theme-mine.css" rel="stylesheet">
+    
+
+    <script src="../js/jquery-3.3.1.min.js"></script>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+        :not(pre) > code + span.copy-to-clipboard {
+            display: none;
+        }
+      
+    </style>
+    <link rel="stylesheet" href="../css/adoc.css">
+<link rel="stylesheet" href="../css/tags.css">
+<link rel="stylesheet" href="../css/jquery-ui.min.css">
+  </head>
+  <body class="" data-url="/presenter/deploy.html">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="https://cdd.example.com/docs/docs">
+    <img src="../images/aws_logo.png" alt="Amazon Web Services" width="50%", height="50%">
+</a>
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="../js/lunr.min.js"></script>
+<script type="text/javascript" src="../js/auto-complete.js"></script>
+<script type="text/javascript">
+    
+        var baseurl = "https:\/\/cdd.example.com\/docs";
+    
+</script>
+<script type="text/javascript" src="../js/search.js"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/participant.html" title="Workshop Participant" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../participant.html">
+          <i class="fas fa-user-graduate"></i>&nbsp;Workshop Participant
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/presenter.html" title="Setting Up the Workshop" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="../presenter.html">
+          <i class="fas fa-chalkboard-teacher"></i>&nbsp;Setting Up the Workshop
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/presenter/prerequisites.html" title="Prerequisites" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../presenter/prerequisites.html">
+          <i class="fas fa-greater-than"></i>&nbsp;Prerequisites
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/presenter/deploy.html" title="Deploy Stack" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="../presenter/deploy.html">
+          <i class="fas fa-greater-than"></i>&nbsp;Deploy Stack
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/presenter/repository.html" title="Repository Layout" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../presenter/repository.html">
+          <i class="fas fa-greater-than"></i>&nbsp;Repository Layout
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/presenter/design_notes.html" title="Design Notes" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../presenter/design_notes.html">
+          <i class="fas fa-greater-than"></i>&nbsp;Design Notes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/presenter/design_notes/message_flows.html" title="Message Flows" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../presenter/design_notes/message_flows.html">
+          <i class="fas fa-greater-than"></i>&nbsp;Message Flows
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://github.com/search?q=topic%3Aiot&#43;org%3Aaws-samples&#43;fork%3Atrue"><i class='fas fa-bookmark'></i> AWS Samples on GitHub</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='../'></a> > <a href='../presenter.html'>Setting Up the Workshop</a> > Deploy Stack
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#modify-template-files">Modify Template Files</a></li>
+<li><a href="#process-local-dependencies">Process Local Dependencies</a></li>
+<li><a href="#deploy-stack-via-cdk-and-cloudformation">Deploy Stack via CDK and CloudFormation</a></li>
+<li><a href="#deploy-application-and-documentation">Deploy Application and Documentation</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Deploy Stack
+            </h1>
+          
+
+        
+
+
+
+
+	
+
+<p>This section covers the steps to locally build and then deploy the stack to your preferred region. All steps are completed within the <code>deploy/</code> directory.</p>
+
+<h2 id="modify-template-files">Modify Template Files</h2>
+
+<p>Copy the <code>deploy/config.json.default</code> to <code>deploy/config.json</code> and modify the new file and change the following parameters with the values from the prerequisites section:</p>
+
+<ul>
+<li><code>Region</code> - AWS region to deploy and run the stack (for example, <code>us-west-2</code> from previous section).</li>
+<li><code>HostName</code> - Fully qualified domain name for the stack to build and use, must not exist, it will be created.</li>
+<li><code>ProfileName</code> - The name of the AWS CLI profile with administrative permissions.</li>
+</ul>
+
+<h2 id="process-local-dependencies">Process Local Dependencies</h2>
+
+<p>There are various python packages that need to be installed within the <code>cdk/.env</code> directory in order for CDK to run and process the stack. Follow these steps <em>once</em> to install the dependencies.</p>
+
+<p>Change to the <code>cdk</code> directory and activate the Python virtual environment.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd Connected_drink_dispenser/cdk
+$ source .env/bin/activate     <span style="color:#75715e"># sh or bash</span>
+$ pip install -r requirements.txt</code></pre></div>
+<p>Verify by running <code>cdk synth</code> which will return a <em>long</em> CloudFormation stack in YAML. As long as no errors were returned, the <code>cdk synth</code> command has verified dependencies and created the artifacts in the <code>cdk.out/</code> subdirectory (don&rsquo;t delete this directory).</p>
+
+<h2 id="deploy-stack-via-cdk-and-cloudformation">Deploy Stack via CDK and CloudFormation</h2>
+
+<p>With the prerequisites and <code>config.json</code> set, run <code>cdk deploy</code>. This will take at least 30 minutes if not longer as there is a CloudFront (CDN) distribution involved. The final output should look like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> ✅  cdd-workshop
+
+Outputs:
+cdd-workshop.StaticSiteBucket34E5D9AF <span style="color:#f92672">=</span> cdd.example.com-static-site
+cdd-workshop.APIEndpoint <span style="color:#f92672">=</span> https://xxxxxxx.execute-api.us-west-2.amazonaws.com/prod/
+cdd-workshop.CognitoIdentityPool <span style="color:#f92672">=</span> us-west-2:38c0c443-xxx-xxxx-xxxx-692ebe311dfe
+cdd-workshop.UserPoolCognitoUserPoolIdArn107A6E54 <span style="color:#f92672">=</span> arn:aws:cognito-idp:us-west-2:123456789012:userpool/us-west-2_foo
+cdd-workshop.StaticSiteDistributionId8C64EF2A <span style="color:#f92672">=</span> E1MK8XXXX2S9X
+cdd-workshop.APIEndpoint1793E782 <span style="color:#f92672">=</span> https://xxxxxxx.execute-api.us-west-2.amazonaws.com/prod/
+cdd-workshop.UserPoolCognitoClientId49B6D8C4 <span style="color:#f92672">=</span> 4hp8jitmd6virxxxxxo68p6
+cdd-workshop.UserPoolCognitoUserPoolIdA08E3514 <span style="color:#f92672">=</span> us-west-2_foo
+
+Stack ARN:
+arn:aws:cloudformation:us-west-2:123456789012:stack/cdd-workshop/deadbeef-d008-11e9-8962-02dbab669d48
+$</code></pre></div>
+<p>When completed, you should be able to navigate to <a href="https://cdd.example.com">https://cdd.example.com</a> to verify that CloudFront is working. There will be a <em>NoSuchKey</em> error, which we will fix in the next step, but you can verify that the HTTPS certificate is in place.</p>
+
+<p>If there are any errors running <code>cdk deploy</code>, the stack will automatically rollback and delete all the resources. Due to the CloudFront distribution, this will take 30 minutes or longer to complete. Review the error, correct, and re-run the deploy step. Most errors will either be related to permissions associated with the credentials used to deploy, or lack of one of the prerequisites.</p>
+
+<h2 id="deploy-application-and-documentation">Deploy Application and Documentation</h2>
+
+<p>With the stack deployed, we need to read some of the outputs from above, create the single page application, and then deploy it and this documentation. To do so, run the <code>deploy_app.py</code> script.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python deploy_app.py
+Verifying local configuration files
+Reading CloudFormation stack parameters to create files <span style="color:#66d9ef">for</span> web application
+Clearing S3 bucket of ALL objects
+Copying web application to S3 |<span style="color:#75715e">################################| xxx/xxx⏎</span>
+Copying online documentation to S3 |<span style="color:#75715e">################################| 121/121⏎</span></code></pre></div>
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="../presenter/prerequisites.html" title="Prerequisites"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="../presenter/repository.html" title="Repository Layout" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="../js/clipboard.min.js"></script>
+    <script src="../js/perfect-scrollbar.min.js"></script>
+    <script src="../js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../js/jquery.sticky.js"></script>
+    <script src="../js/featherlight.min.js"></script>
+    <script src="../js/html5shiv-printshiv.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="../js/modernizr.custom-3.6.0.js"></script>
+    <script src="../js/learn.js"></script>
+    <script src="../js/hugo-learn.js"></script>
+
+    <link href="../mermaid/mermaid.css" type="text/css" rel="stylesheet" />
+    <script src="../mermaid/mermaid.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <div style="float: right;margin-right: 10px;margin-top: 10px;font-size: smaller;">Copyright © 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.</div>
+
+<script src="../js/fix-adoc.js"></script>
+<script src="../js/jquery-ui.min.js"></script>
+
+  </body>
+</html>

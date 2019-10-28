@@ -1,0 +1,12 @@
+#!/bin/bash
+echo "$@" > /tmp/params
+# Create HTML5 styled and change images to root level (/)
+/usr/local/bin/asciidoctor -r asciidoctor-html5s -b html5s -r asciidoctor-diagram  ${@} | sed -E -e "s/img src=\"([^/]+)\"/img src=\"\/\1\"/"
+
+shopt -s nullglob
+if stat -t *.{png,svg} >/dev/null 2>&1
+then
+    cp -p *.{png,svg} public/
+    rm *.{png,svg}
+fi
+shopt -u nullglob

@@ -1,0 +1,197 @@
+---
+license: MIT-0
+copyright: Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+chapter: false
+pre: <i class="fas fa-greater-than"></i>&nbsp;
+next: 
+prev: 
+title: Design Notes
+weight: 90
+---
+
+:source-highlighter: pygments
+:pygments-style: monokai
+:icons: font
+:nocopyblocks:
+
+This is a compilation of designs used in the hardware and software.
+
+== Hardware
+
+The dispenser has four addressable components:
+
+. `led_ring`: NeoPixel-based 5-element RGB LED ring. Can set the number of LEDs to light and the RGB color of all the LEDs.
+. `motor`: Aquarium pump that can be actuated via the first addressable LED/motor h-bridge connection
+. `led`: Second addressable LED/motor h-bridge connection - used for initial testing (blinky)
+. `led2`: Second addressable LED on the h-bridge board
+
+== Software
+
+API Methods
+
+.ApiTable
+[width="80%"]
+|============
+|Method |Query parameters |response body |Notes
+| /getResources | None | {"userName": username, "dispenserId": "100", "assets": null} | All responses will include userName and dispenserId. If there are no assets, that will be null, otherwise will be JSON object with the parameters:
+|============
+
+
+=== DynamoDB Tables
+
+.UserTable
+[width="80%"]
+|============
+|Attribute |Partition/Sort Key |Format |Default |Value
+| username | Partition | string | none | user name from Cognito
+| nextDispenserId |- | string | "100" | The next dispenserId to vend, only added to the *admin* user
+| dispenserId |- | string | none | value returned by default user *admin*
+| assets | - | JSON object | varies | Default: `null`, indicator to generate users resources |
+|============
+
+The table is created empty. When the first user signs in, the Sign-in trigger will check for an *admin* user. If not present it will create one. The additional attributes for the *admin* user are:
+
+- `nextDispenserId` - The number of the next dispenser to associate with a user
+
+These are the attributes for other users:
+
+- Partition key: userName (string) - User name selected during Cognito sign-up
+- dispenserId (string) - Dispenser Id associated with user, IoT thing, etc.
+- assets (object) - During sign-in, the `/getResources` method will create and populate
+
+.DispenserTable
+[width="80%"]
+|============
+|Attribute |Partition/Sort Key |Format |Default |Value
+| dispenserId | Partition | string | - | 3-digit unique value of dispenser, associated with user
+| credits | - | Number | 1 | Credits available to dispenser. Increment in 0.25 and deduct by 1.00 for a dispense
+| leaderBoardStatus | - | Number | 1 | Stage of completion. 1 is starting with user/dispenser created, 2 is next step, etc.
+| leaderBoardTime | - | Number | - | Timestamp, without microseconds, when latest `leaderBoardStatus` stage changed.
+| sessions | - | list | [] empty list | List of active sessions ["sessionId\|command\|timestamp\|target"]
+|============
+
+The table is created empty, and entries are created or deleted as individual users are registered. The table can be _read_ by participants, but only updated by the admin user and Lambda functions.
+
+This table tracks the status of credits, in-flight requests (sessions), and other details regarding each dispenser.
+
+The `sessions` attribute contains a DynamoDB list of different in-flight sessions. In this workshop, only the following is used (in JSON format):
+
+```json
+[
+  "1234-5678|dispense|12345678|device",
+  "4567-8901|anothercommand|87654321|device",
+]
+```
+
+Both devices and applications interact with the list and construct a JSON message based on the contents, such as:
+
+```json
+{
+  "clientId": "123",
+  "sessionId": "1234-5678",
+  "command": "dispense",
+  "timestamp": "12345678",
+  "target": "device"
+}
+```
+
+This is the representation of the first entry in the list. As sessions are completed, the entity that validates the completion will remove them from the list. `clientId` maps to the dispenserId.
+
+=== User account setup and sign-in
+
+Cognito sign-up and sign-in calls are made. When signing in, the app calls the `GetResources` method which checks if the authenticated user has a resources entry in the database. If it does, the values are returns. If not, it immediately returns a message so the app can request the `CreateResources` method. This method executes the following to create the resources:
+
+- Check if at limit for workshop
+- Use username to create IAM user and credentials
+- Create thing, certificate, attach to policy
+- create Cloud9 instance for user
+- Update DynamoDB with the contents
+
+And after creation the values are returned within a 25 second period. The application should set a notice to the user that assets are being created and to wait. 
+
+.User Sign-up and Sign-in Flow
+[plantuml, User Sign-up and Sign-in Flow, svg]
+....
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v4.0/dist
+!includeurl AWSPuml/AWSCommon.puml
+
+!includeurl AWSPuml/Mobile/APIGateway.puml
+!includeurl AWSPuml/General/User.puml
+!includeurl AWSPuml/SecurityIdentityAndCompliance/Cognito.puml
+!includeurl AWSPuml/Compute/Lambda.puml
+!includeurl AWSPuml/Database/DynamoDB.puml
+
+UserParticipant(user, Participant, Web Browser) order 10
+APIGatewayParticipant(api, CDD API, All methods are POST) order 20
+LambdaParticipant(api_funct,Process API Calls,) order 25
+DynamoDBParticipant(db,UserTable, assets and status) order 27
+CognitoParticipant(cognito, Authenticate,) order 30
+LambdaParticipant(pre_sign,Pre-sign Trigger, User Pool) order 40
+CognitoParticipant(userpool, User Pool,) order 50
+LambdaParticipant(create_assets, Create User Assets,) order 60
+
+user -> cognito: Sign-up Request
+cognito -> pre_sign: Verify details
+pre_sign -> userpool: Query phone_number and participant_count
+alt failure
+    userpool -> pre_sign: Existing record found
+    pre_sign -> cognito: Failure (stop process)
+end
+alt success
+    userpool -> pre_sign: No record found
+    pre_sign -> db: Create user record (userName and assets: NULL)
+    pre_sign -> db: Increment admin user's nextDispenser value
+    pre_sign -> cognito: Success (continue sign-up)
+    cognito -> user: Success, forward to verification component
+end
+user -> userpool: Verification code
+userpool -> userpool: Create Cognito account
+
+...
+
+user -> cognito: Sign-in
+cognito -> user: idToken on success
+
+user -> api: POST /getResources
+api -> api_funct: Query DB for username (part of token)
+api_funct -> db: Querty table
+alt Assets exist or STASTUS=in-progress
+    db -> api_funct: User record
+    api_funct -> api: Parsed user details
+    api -> user: 200 - Record
+else Assets do not exist
+    db -> api_funct: No record found
+    api_funct -> db: Create user record, set STATUS=in-progress
+    api_funct -> api_funct: Create IAM user, thing, certificate, Cloud9 instance
+
+    ...
+
+    api_funct -> db: Update record STATUS=active, assets=values
+    api_funct -> api: Success (may timeout but process will continue)
+    api -> user: Success or failure
+end
+....
+
+=== Testing Lambda Functions
+
+From the `cdd/` directory, use the following `sam local` command on the test events in `tests/`:
+
+```
+$ sam local invoke "FunctionName" -e event.json
+$ # Or to use a specific profile
+$ sam local invoke --profile my-aws-profile "FunctionName" -e event.json
+
+```
+
+
+=== Installing Packages for Lambda Functions
+
+In order to properly operate in the Lambda runtime environment, use the following steps to include packages with proper share objects or binary components:
+
+1. In the root of the Lambda function, execute the following, replace python version and package(s) to install:
+
+```bash
+$ docker run -v "$PWD":/var/task -it lambci/lambda:build-python3.7 /bin/bash -c "pip install cryptography -t .; exit"
+```
+
+The `/bin/bash -c "pip install cryptography -t .; exit"` is a single line to install the packages in what is mapped to the local lambda directory. You could also use `/bin/bash` which will place you into the build container where the individual `pip install package_name -t .` lines could be processed.

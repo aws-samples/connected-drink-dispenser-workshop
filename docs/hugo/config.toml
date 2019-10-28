@@ -1,0 +1,60 @@
+baseURL = "https://cdd.example.com/docs"
+
+languageCode = "en-us"
+DefaultContentLanguage = "en"
+title = "Connected Drink Dispenser Workshop"
+theme = "hugo-theme-learn"
+themesdir = "./themes"
+pygmentsCodeFences = true
+pygmentsStyle = "monokai"
+
+RelativeURLs=true
+CanonifyURLs=true
+uglyURLs=true 
+
+timeout=20000
+
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir= false
+enableMissingTranslationPlaceholders = false
+# [Languages]
+# [Languages.en]
+# title = "Documentation for Hugo docDock"
+# weight = 1
+# languageName = "English"
+# 
+# [Languages.fr]
+# title = "Documentation du thème docDock"
+# weight = 2
+# languageName = "Français"
+
+[params]
+ showVisitedLinks = false # default is false
+ themeStyle = "flex" # "original" or "flex" # default "flex"
+ themeVariant = "mine" # choose theme variant "green", "gold" , "gray", "blue" (default)
+ ordersectionsby = "weight" # ordersectionsby = "title"
+ disableInlineCopyToClipBoard = true
+ disableAssetsBusting = true
+ disableHomeIcon = true # default is false
+ disableSearch = false # default is false
+ disableNavChevron = false # set true to hide next/prev chevron, default is false
+ highlightClientSide = false # set true to use highlight.pack.js instead of the default hugo chroma highlighter
+ menushortcutsnewtab = false # set true to open shortcuts links to a new tab/window
+ enableGitInfo = false
+ disableNextPrev = false
+
+ # Common URLs - to reference via native markdown use this in the .md files:
+ # [hyperlink text to show ]({{< param paramString >}})
+ #
+ # where the string would look like this:
+ # paramString = "https://example.com/foo/bar"
+
+[outputs]
+ home = [ "HTML", "RSS", "JSON"]
+
+[menu]
+ [[menu.shortcuts]]
+ name = "<i class='fas fa-bookmark'></i> AWS Samples on GitHub"
+ identifier = "github-aws"
+ url = "https://github.com/search?q=topic%3Aiot+org%3Aaws-samples+fork%3Atrue"
+ weight = 10

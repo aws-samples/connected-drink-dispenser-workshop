@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://cdd.example.com/docs/presenter/design_notes/message_flows.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://cdd.example.com/docs/presenter/prerequisites.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://cdd.example.com/docs/participant.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://cdd.example.com/docs/presenter/deploy.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://cdd.example.com/docs/presenter.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://cdd.example.com/docs/presenter/repository.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://cdd.example.com/docs/presenter/design_notes.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://cdd.example.com/docs/glossary.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://cdd.example.com/docs/_footer.html</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://cdd.example.com/docs/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://cdd.example.com/docs/categories.html</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://cdd.example.com/docs/tags.html</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

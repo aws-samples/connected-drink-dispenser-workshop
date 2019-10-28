@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Connected Drink Dispenser Workshop</title>
+    <link>https://cdd.example.com/docs/</link>
+    <description>Recent content on Connected Drink Dispenser Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://cdd.example.com/docs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Standardized Glossary</title>
+      <link>https://cdd.example.com/docs/glossary.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cdd.example.com/docs/glossary.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://cdd.example.com/docs/_footer.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://cdd.example.com/docs/_footer.html</guid>
+      <description>Copyright © 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.</description>
+    </item>
+    
+  </channel>
+</rss>

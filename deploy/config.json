@@ -1,0 +1,9 @@
+{
+    "Region": "us-west-2",
+    "HostName": "cdd.baah.io",
+    "ProfileName": "sandbox-admin-gadams",
+    "AdminUserName": "admin",
+    "AdminPassword": "hello123",
+    "Cloud9InstanceSize": "t3.small",
+    "ParticipantLimit": "120"
+}

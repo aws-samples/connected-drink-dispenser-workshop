@@ -1,0 +1,7 @@
+# Specifics to ensure hugo build is valid
+IgnoreInternalEmptyHash: true
+
+# When testing builds, ignore fully qualified domain names that match the
+# baseURL value in config.toml
+IgnoreURLs:
+  - "cdd.example.com"

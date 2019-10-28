@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="587px" preserveAspectRatio="none" style="width:999px;height:587px;" version="1.1" viewBox="0 0 999 587" width="999px" zoomAndPan="magnify"><defs><filter height="300%" id="f1vl8mddhekq6a" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FFFFFF" filter="url(#f1vl8mddhekq6a)" height="225.8516" style="stroke: #000000; stroke-width: 2.0;" width="975" x="13" y="256.7813"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="113" x2="113" y1="86" y2="499.6328"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="314" x2="314" y1="86" y2="499.6328"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="514" x2="514" y1="86" y2="499.6328"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="709" x2="709" y1="86" y2="499.6328"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="896" x2="896" y1="86" y2="499.6328"/><rect fill="#FFFFFF" filter="url(#f1vl8mddhekq6a)" height="78" style="stroke: #FF9900; stroke-width: 1.5;" width="177" x="23" y="3"/><image height="64" width="64" x="30" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAC8ElEQVR4Xu1asW7jMAzth98fND/gHzC6G7gbMxVdCnQpUNx0wA258VB46KgSJkowJE1RkWLXiB8egoC0rfcsSrIS36WN404GtoabNDB+vCODQR2JBIO4xED/1B1+/YBPikDbEAEe335S8PT/LwbhCwXhAAxyufqCcewGJuwG5AXjuAED0Dy0Orw8ELvjPYrgQYxAiiIoC5WVnguERrnzOWQMPP95xKuvRRAgNZ3DM0A1cJhuz8Kkpv1+8AxQvf7+9ypz1wc0iq3zcaXhGcDqhJshE0sB+wFkyATDbuCauDEDsLLAhM2JY2h1A4dpJeHki+CZATxa0DQAB/NFp57mszSfTDlnDcR7YPhaPltxsOqkrAc0UKVvoFMLUCmzBswUocoApMyujwNOd1Q6KUKtAREHQbDyF7lyVDopwpmB8WtvisRhoFUmywAOa6wHbNV/hiE4KjGFRc/Jj7lwFhIGqBLEiZGuyBrQ5JdtY4DuPXyBB2CawfrAHqWlAXju48TzswbIORdBlsQMqKnPJZAAIcw2oKEL3UzRtoFvPkp3Qo4BM0VoYIB6gBcMryKf6xtITO41xoCZIpwZgGLgRB0RA1edhUCGEMaPaTMLJWsdEOrHmTUua0DTHsSVBhCmSt9bMwOpooQcZKsrayBaQhqOSiclwAc0jG/qChrfWQNmilBlAHX4FHITs4Sd4Kh0UoRaA0GaaxwWg6PSSRGqHiUO4R7gIujcYA90wUeJJrOQBq8iPgZIcdaA5qIG6mchTdtAmhrjxJtnqowbSNPszMfMULgO9MENjYaj0knNYbTWuBQwYKYItQa0oCKM627qMVtJqivZRqkBLHo9A3augVY0VZI9IYx3+4Wz0Lj1nxaXQVkPaAzzY2AZlI0Bjd1ALW7ewHHrf7Oetv5Hdyr/ga05q141QJzUyx50dYrwRUMHe+tlDx7UFxxavexhApX1W3ndRkO3txuQF4xjNzBhYwZGa2/qBHUkEgziEgPfCruBtfEJ2LdbK6cL2EAAAAAASUVORK5CYII=" y="10"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="93" x="100" y="24">«IoTGeneric»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="71" x="111" y="40.2969">Dispenser</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="53" x="120" y="54.5938">[Id: 123]</text><rect fill="#FFFFFF" filter="url(#f1vl8mddhekq6a)" height="78" style="stroke: #FF9900; stroke-width: 1.5;" width="177" x="23" y="498.6328"/><image height="64" width="64" x="30" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAC8ElEQVR4Xu1asW7jMAzth98fND/gHzC6G7gbMxVdCnQpUNx0wA258VB46KgSJkowJE1RkWLXiB8egoC0rfcsSrIS36WN404GtoabNDB+vCODQR2JBIO4xED/1B1+/YBPikDbEAEe335S8PT/LwbhCwXhAAxyufqCcewGJuwG5AXjuAED0Dy0Orw8ELvjPYrgQYxAiiIoC5WVnguERrnzOWQMPP95xKuvRRAgNZ3DM0A1cJhuz8Kkpv1+8AxQvf7+9ypz1wc0iq3zcaXhGcDqhJshE0sB+wFkyATDbuCauDEDsLLAhM2JY2h1A4dpJeHki+CZATxa0DQAB/NFp57mszSfTDlnDcR7YPhaPltxsOqkrAc0UKVvoFMLUCmzBswUocoApMyujwNOd1Q6KUKtAREHQbDyF7lyVDopwpmB8WtvisRhoFUmywAOa6wHbNV/hiE4KjGFRc/Jj7lwFhIGqBLEiZGuyBrQ5JdtY4DuPXyBB2CawfrAHqWlAXju48TzswbIORdBlsQMqKnPJZAAIcw2oKEL3UzRtoFvPkp3Qo4BM0VoYIB6gBcMryKf6xtITO41xoCZIpwZgGLgRB0RA1edhUCGEMaPaTMLJWsdEOrHmTUua0DTHsSVBhCmSt9bMwOpooQcZKsrayBaQhqOSiclwAc0jG/qChrfWQNmilBlAHX4FHITs4Sd4Kh0UoRaA0GaaxwWg6PSSRGqHiUO4R7gIujcYA90wUeJJrOQBq8iPgZIcdaA5qIG6mchTdtAmhrjxJtnqowbSNPszMfMULgO9MENjYaj0knNYbTWuBQwYKYItQa0oCKM627qMVtJqivZRqkBLHo9A3augVY0VZI9IYx3+4Wz0Lj1nxaXQVkPaAzzY2AZlI0Bjd1ALW7ewHHrf7Oetv5Hdyr/ga05q141QJzUyx50dYrwRUMHe+tlDx7UFxxavexhApX1W3ndRkO3txuQF4xjNzBhYwZGa2/qBHUkEgziEgPfCruBtfEJ2LdbK6cL2EAAAAAASUVORK5CYII=" y="505.6328"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="93" x="100" y="519.6328">«IoTGeneric»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="71" x="111" y="535.9297">Dispenser</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="53" x="120" y="550.2266">[Id: 123]</text><rect fill="#FFFFFF" filter="url(#f1vl8mddhekq6a)" height="78" style="stroke: #FF9900; stroke-width: 1.5;" width="197" x="214" y="3"/><image height="64" width="64" x="221" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAADiElEQVR4Xu2ZsarcMBBF3w/nDwL+gOgH9gce6VIsJOVW4TWBNIGQKpAiKUPYIuXm4osvg8aWR1o5ZsHmFt61ZM0ZzYxm33tKH14/tJ78V4+lA2BvHQB76wDYWwfA3uoMMLx7RflHG6kbwOny5vnldPn6njp/fotv/LDu6gAAu7/9+nKbu37+/gESP6Wj7gKAj2X69e+fT98/0vcQ7mG9MADpp3dROwBsgtHWPkW/buzmbLQVjQDwPa2Hp/3TTNgWMmyxD40ADA9YFik4GAP3M8xAHpkSVzUAlqdHERv+6ZIwC3vFWZgOfsBA+HhnaFUDQAyehirJibwIwPtIHC6pGoDBgCVrI8FuneBVCZoZqgFYVZrTMZsIKtWDhi1NtQBYj+nbttistDPBkpCpDkDFxD+6R9gWvrahAYkC2EO3qv5EpCgiBrbCj1lSCAALMHLubAoKEcJekKW2ykchAFoff2kmNhR4CewrRwhzumq5dQDGPV7qH0WkPoIXD2M/LBMjKnLGrQPQH22RA1tpNLNTh3EhltK4D0zriNdWAGhB5EWzosW2PtK1EXcE6/UKQPO5i4m2UximBltf2vPYS73TahSFAGqPGFtMeIM36LcBXEvvAmZpK3S67QBA62ncMDXSuhSNgpxl6AbAZApWtGSO6pPp+3UI2o5NJi6d68HisQKQKpvn2Ry17rQ7qUD3OabmInu/1wpAYQ0vWulHluNh1kF0fwY8qxWAZBqVwuvwiEsSIHtaAHiefg/YiVVxuw6Qpjdqjdntvo0JSmuytWcBhum0shOV4ngUDNoQQDKuuo5//zmbvlfbnUzbxwFMhiwH+L0yW70nP/pdKisKkEbjVPtupiO4jr9uOUa26gJPtgOKmZtJ02EquD6FyqoAoIBxHv/wJlcpC4fxuNVpxRuaaAFoOp6qZHEivVN15qQGAMquoXIOC6zRyWxOBsBtocuzicHQlxoBMtnQgnEyogDAATbersudRUF9AJLJEBvEqwCnqd9uMJ3qBkDZsObHMoAKUVXcW3UGUFjTowUAZa1g2tQZIJmwPo8/CZYAmrM2U3+A5FITJgpApy8x7rQ+bQSQxpObR/LS5VumNm0FQDGnRYKPvGcO+PEN2hxgKQf84DYdAEUxhNLjAsDiy9gtP4//A2fNuYz/ivWD27QtgJWytlf6Uv8PYCMdAHvrANhbB8DeOgD21sMD/AOOEtGV8t6vTQAAAABJRU5ErkJggg==" y="10"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="72" x="311.5" y="24">«IoTCore»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="113" x="291" y="40.2969">Message Broker</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="10" x="342.5" y="54.5938">[]</text><rect fill="#FFFFFF" filter="url(#f1vl8mddhekq6a)" height="78" style="stroke: #FF9900; stroke-width: 1.5;" width="197" x="214" y="498.6328"/><image height="64" width="64" x="221" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAADiElEQVR4Xu2ZsarcMBBF3w/nDwL+gOgH9gce6VIsJOVW4TWBNIGQKpAiKUPYIuXm4osvg8aWR1o5ZsHmFt61ZM0ZzYxm33tKH14/tJ78V4+lA2BvHQB76wDYWwfA3uoMMLx7RflHG6kbwOny5vnldPn6njp/fotv/LDu6gAAu7/9+nKbu37+/gESP6Wj7gKAj2X69e+fT98/0vcQ7mG9MADpp3dROwBsgtHWPkW/buzmbLQVjQDwPa2Hp/3TTNgWMmyxD40ADA9YFik4GAP3M8xAHpkSVzUAlqdHERv+6ZIwC3vFWZgOfsBA+HhnaFUDQAyehirJibwIwPtIHC6pGoDBgCVrI8FuneBVCZoZqgFYVZrTMZsIKtWDhi1NtQBYj+nbttistDPBkpCpDkDFxD+6R9gWvrahAYkC2EO3qv5EpCgiBrbCj1lSCAALMHLubAoKEcJekKW2ykchAFoff2kmNhR4CewrRwhzumq5dQDGPV7qH0WkPoIXD2M/LBMjKnLGrQPQH22RA1tpNLNTh3EhltK4D0zriNdWAGhB5EWzosW2PtK1EXcE6/UKQPO5i4m2UximBltf2vPYS73TahSFAGqPGFtMeIM36LcBXEvvAmZpK3S67QBA62ncMDXSuhSNgpxl6AbAZApWtGSO6pPp+3UI2o5NJi6d68HisQKQKpvn2Ry17rQ7qUD3OabmInu/1wpAYQ0vWulHluNh1kF0fwY8qxWAZBqVwuvwiEsSIHtaAHiefg/YiVVxuw6Qpjdqjdntvo0JSmuytWcBhum0shOV4ngUDNoQQDKuuo5//zmbvlfbnUzbxwFMhiwH+L0yW70nP/pdKisKkEbjVPtupiO4jr9uOUa26gJPtgOKmZtJ02EquD6FyqoAoIBxHv/wJlcpC4fxuNVpxRuaaAFoOp6qZHEivVN15qQGAMquoXIOC6zRyWxOBsBtocuzicHQlxoBMtnQgnEyogDAATbersudRUF9AJLJEBvEqwCnqd9uMJ3qBkDZsObHMoAKUVXcW3UGUFjTowUAZa1g2tQZIJmwPo8/CZYAmrM2U3+A5FITJgpApy8x7rQ+bQSQxpObR/LS5VumNm0FQDGnRYKPvGcO+PEN2hxgKQf84DYdAEUxhNLjAsDiy9gtP4//A2fNuYz/ivWD27QtgJWytlf6Uv8PYCMdAHvrANhbB8DeOgD21sMD/AOOEtGV8t6vTQAAAABJRU5ErkJggg==" y="505.6328"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="72" x="311.5" y="519.6328">«IoTCore»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="113" x="291" y="535.9297">Message Broker</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="10" x="342.5" y="550.2266">[]</text><rect fill="#FFFFFF" filter="url(#f1vl8mddhekq6a)" height="78" style="stroke: #FF9900; stroke-width: 1.5;" width="175" x="425" y="3"/><image height="64" width="64" x="432" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAADAklEQVR4Xu2aPW7cMBCFfXDfIL4AL2CkF5CUWwVpDKQxEKQKkGJdGsYWKZkHPuxgdvhjkqK03oAPU2gpUppvSInkrO78jevOFhR1+vuWM1u1WiubNwA8fncPX+9ztvz4bBsUBacPP7+4wyc2xwF+dpDUAuDSsdPa4IFtk9fx9Y+4bi6CU7Z2Uc0A6Ien39+0sWfqAXApE3jTFU390AwAj80pDJ4mALjLS+GgprysKwAw2Mn6hVM57Q0g10mGWTqhfhRNgEYAXxwnhVM5NQPg6vBYW+tdcw9rrrysZoCC4X367lscFfSE6HZ7jfowVHBv3CA2jVGIn8Q4Z267iawsxIxPAi3uChN4VEaJCfxh06VEjX69POvegJensFDTbKiAaroV6+iSJo0E8OclmnZXI/XFuKzBAJQZMA+pQTVKmwBQfa/FVm0IgJATYKPYUxMgr5sH8IFhU+/9EAC4aFZHlTaEbQDAouapJlsa8wBJjQfAzJVcMrHwBgDgaHK6RaGZ3T4WgF41uGhJfLrMRPD4+gD0kgAMvMTYqYXxUWWBdDUCJLurXp0AfPMw0tIDPKVHFBaeMPkpIZceYM+seSP1AGBbrF00AD6zcdErIgHQePFuu0bNAPqWXGPGAP4SMnZOAI6X61azVahRM4CMEPEpCeDP+xsX7WC8AuBPoe14rPsBZImPcdy6ZGB9Pr66E3YFEAwM7ibvqWPYE6+fGdYCGBichVvMWmPkmAOcWkJqI267NwBf8zqt0GcuJCNkotgVQEpwe0SXoX2Xx4VFESqjiR541wQwYpqEjyknMnlkC5PuBwLo0wSo1gRIawJUawKkNQGqNQHSmgDVmgBpTYBqTYC0JkC1/h+Awv6wQ/sBSN4Te/M45dYhXEQSLR3/KDcD+MsPSF3ILXPnbuvlxf3+cv7WSCJi61WoB8Bn8s8upEwkvWVsCXmXXOqlI/ZUJ4AP6ZOn80ej3fYYvkJd8zj1A4hwe4wHibGLPoGisVz6B03W+C0aAJAU01jabI1B2gpgN/0DhZeoXa1FkWQAAAAASUVORK5CYII=" y="10"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="70" x="512.5" y="24">«IoTRule»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="91" x="502" y="40.2969">Rules Engine</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="10" x="542.5" y="54.5938">[]</text><rect fill="#FFFFFF" filter="url(#f1vl8mddhekq6a)" height="78" style="stroke: #FF9900; stroke-width: 1.5;" width="175" x="425" y="498.6328"/><image height="64" width="64" x="432" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAADAklEQVR4Xu2aPW7cMBCFfXDfIL4AL2CkF5CUWwVpDKQxEKQKkGJdGsYWKZkHPuxgdvhjkqK03oAPU2gpUppvSInkrO78jevOFhR1+vuWM1u1WiubNwA8fncPX+9ztvz4bBsUBacPP7+4wyc2xwF+dpDUAuDSsdPa4IFtk9fx9Y+4bi6CU7Z2Uc0A6Ien39+0sWfqAXApE3jTFU390AwAj80pDJ4mALjLS+GgprysKwAw2Mn6hVM57Q0g10mGWTqhfhRNgEYAXxwnhVM5NQPg6vBYW+tdcw9rrrysZoCC4X367lscFfSE6HZ7jfowVHBv3CA2jVGIn8Q4Z267iawsxIxPAi3uChN4VEaJCfxh06VEjX69POvegJensFDTbKiAaroV6+iSJo0E8OclmnZXI/XFuKzBAJQZMA+pQTVKmwBQfa/FVm0IgJATYKPYUxMgr5sH8IFhU+/9EAC4aFZHlTaEbQDAouapJlsa8wBJjQfAzJVcMrHwBgDgaHK6RaGZ3T4WgF41uGhJfLrMRPD4+gD0kgAMvMTYqYXxUWWBdDUCJLurXp0AfPMw0tIDPKVHFBaeMPkpIZceYM+seSP1AGBbrF00AD6zcdErIgHQePFuu0bNAPqWXGPGAP4SMnZOAI6X61azVahRM4CMEPEpCeDP+xsX7WC8AuBPoe14rPsBZImPcdy6ZGB9Pr66E3YFEAwM7ibvqWPYE6+fGdYCGBichVvMWmPkmAOcWkJqI267NwBf8zqt0GcuJCNkotgVQEpwe0SXoX2Xx4VFESqjiR541wQwYpqEjyknMnlkC5PuBwLo0wSo1gRIawJUawKkNQGqNQHSmgDVmgBpTYBqTYC0JkC1/h+Awv6wQ/sBSN4Te/M45dYhXEQSLR3/KDcD+MsPSF3ILXPnbuvlxf3+cv7WSCJi61WoB8Bn8s8upEwkvWVsCXmXXOqlI/ZUJ4AP6ZOn80ej3fYYvkJd8zj1A4hwe4wHibGLPoGisVz6B03W+C0aAJAU01jabI1B2gpgN/0DhZeoXa1FkWQAAAAASUVORK5CYII=" y="505.6328"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="70" x="512.5" y="519.6328">«IoTRule»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="91" x="502" y="535.9297">Rules Engine</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="10" x="542.5" y="550.2266">[]</text><rect fill="#FFFFFF" filter="url(#f1vl8mddhekq6a)" height="78" style="stroke: #FF9900; stroke-width: 1.5;" width="186" x="614" y="3"/><image height="64" width="64" x="621" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAACcUlEQVR4Xu2ZwUoEMQyG99l9Ax/BFxC8edWzB29e9VwWZEEQYdGwgVCaNn+nTacudPjxMI01X/5OMusewv3NVeugb12XFsBsLYDZWgCztQBmqxHg+Hh7enmolP51RzUC/IT33+prKEMXwNfbk653LAqgsPPXp97BS10AdJD0UjZynAnDAT6f7yiS4vWSi4YDSDCR6KV+7QFA52ecCXsAkOg5HmTCTgDjTOgCoIoSQyIdHC6Db5AJXQD6ovslBjbh++NVL/WoEYAmFOVKRRUJUqnliwklwjY1AmQFWz4PZl8TPAECmrtUe3bJ0QRnANht2AT6qZfa5AwQUMt3N8EfAJpAz4CjCT4AlE2cUI0JFONiggMAN5844z1NcACQCSD9Ec5dZnYxoRdAUkmGFGz5bEKp4darF0DySDKGc1fI9dImdQHEJ0H3R2iCPfUq1QWQPIvahAQpkYsJ7QA6P31nBxPaAbKtMHlT0EiJYMOFagQoZabvZzljyWcjvVSjRgDjbCQZa6REnSa0ANg56VVogj31bLUAGOVnJUMKzt0eEzYDHNFrQjbAnrvZX6nUZgD42TwbAE2Arpa0DaCmVKUAu+XLzvxadb78l6AUHGsbADysRgCcu2xCfBnPvWgbQKm6Irup2yaEiw8sLoQzgFFdFte4JyCJdAawqysBRoErY8IIAFg8eMRZ0EaWPwCsHAxIIg0ngzsArK4ElNp8rBoTnAFgde1BqwW7mScA78XbndQXqafou9Sa8rPEBL0bC77/iTCAni/Zq+aPiWTu2lfNnhiAxwpUfflZZKzepGFPDPDPtQBmawHM1gKYrQUwW1cP8AfjyenJIZ4BygAAAABJRU5ErkJggg==" y="10"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="72" x="706" y="24">«Lambda»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="102" x="691" y="40.2969">Dispenser App</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="10" x="737" y="54.5938">[]</text><rect fill="#FFFFFF" filter="url(#f1vl8mddhekq6a)" height="78" style="stroke: #FF9900; stroke-width: 1.5;" width="186" x="614" y="498.6328"/><image height="64" width="64" x="621" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAACcUlEQVR4Xu2ZwUoEMQyG99l9Ax/BFxC8edWzB29e9VwWZEEQYdGwgVCaNn+nTacudPjxMI01X/5OMusewv3NVeugb12XFsBsLYDZWgCztQBmqxHg+Hh7enmolP51RzUC/IT33+prKEMXwNfbk653LAqgsPPXp97BS10AdJD0UjZynAnDAT6f7yiS4vWSi4YDSDCR6KV+7QFA52ecCXsAkOg5HmTCTgDjTOgCoIoSQyIdHC6Db5AJXQD6ovslBjbh++NVL/WoEYAmFOVKRRUJUqnliwklwjY1AmQFWz4PZl8TPAECmrtUe3bJ0QRnANht2AT6qZfa5AwQUMt3N8EfAJpAz4CjCT4AlE2cUI0JFONiggMAN5844z1NcACQCSD9Ec5dZnYxoRdAUkmGFGz5bEKp4darF0DySDKGc1fI9dImdQHEJ0H3R2iCPfUq1QWQPIvahAQpkYsJ7QA6P31nBxPaAbKtMHlT0EiJYMOFagQoZabvZzljyWcjvVSjRgDjbCQZa6REnSa0ANg56VVogj31bLUAGOVnJUMKzt0eEzYDHNFrQjbAnrvZX6nUZgD42TwbAE2Arpa0DaCmVKUAu+XLzvxadb78l6AUHGsbADysRgCcu2xCfBnPvWgbQKm6Irup2yaEiw8sLoQzgFFdFte4JyCJdAawqysBRoErY8IIAFg8eMRZ0EaWPwCsHAxIIg0ngzsArK4ElNp8rBoTnAFgde1BqwW7mScA78XbndQXqafou9Sa8rPEBL0bC77/iTCAni/Zq+aPiWTu2lfNnhiAxwpUfflZZKzepGFPDPDPtQBmawHM1gKYrQUwW1cP8AfjyenJIZ4BygAAAABJRU5ErkJggg==" y="505.6328"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="72" x="706" y="519.6328">«Lambda»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="102" x="691" y="535.9297">Dispenser App</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="10" x="737" y="550.2266">[]</text><rect fill="#FFFFFF" filter="url(#f1vl8mddhekq6a)" height="78" style="stroke: #FF9900; stroke-width: 1.5;" width="160" x="814" y="3"/><image height="64" width="64" x="821" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAACcUlEQVR4Xu2ZwUoEMQyG99l9Ax/BFxC8edWzB29e9VwWZEEQYdGwgVCaNn+nTacudPjxMI01X/5OMusewv3NVeugb12XFsBsLYDZWgCztQBmqxHg+Hh7enmolP51RzUC/IT33+prKEMXwNfbk653LAqgsPPXp97BS10AdJD0UjZynAnDAT6f7yiS4vWSi4YDSDCR6KV+7QFA52ecCXsAkOg5HmTCTgDjTOgCoIoSQyIdHC6Db5AJXQD6ovslBjbh++NVL/WoEYAmFOVKRRUJUqnliwklwjY1AmQFWz4PZl8TPAECmrtUe3bJ0QRnANht2AT6qZfa5AwQUMt3N8EfAJpAz4CjCT4AlE2cUI0JFONiggMAN5844z1NcACQCSD9Ec5dZnYxoRdAUkmGFGz5bEKp4darF0DySDKGc1fI9dImdQHEJ0H3R2iCPfUq1QWQPIvahAQpkYsJ7QA6P31nBxPaAbKtMHlT0EiJYMOFagQoZabvZzljyWcjvVSjRgDjbCQZa6REnSa0ANg56VVogj31bLUAGOVnJUMKzt0eEzYDHNFrQjbAnrvZX6nUZgD42TwbAE2Arpa0DaCmVKUAu+XLzvxadb78l6AUHGsbADysRgCcu2xCfBnPvWgbQKm6Irup2yaEiw8sLoQzgFFdFte4JyCJdAawqysBRoErY8IIAFg8eMRZ0EaWPwCsHAxIIg0ngzsArK4ElNp8rBoTnAFgde1BqwW7mScA78XbndQXqafou9Sa8rPEBL0bC77/iTCAni/Zq+aPiWTu2lfNnhiAxwpUfflZZKzepGFPDPDPtQBmawHM1gKYrQUwW1cP8AfjyenJIZ4BygAAAABJRU5ErkJggg==" y="10"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="72" x="893" y="24">«Lambda»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="76" x="891" y="40.2969">Log Events</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="10" x="924" y="54.5938">[]</text><rect fill="#FFFFFF" filter="url(#f1vl8mddhekq6a)" height="78" style="stroke: #FF9900; stroke-width: 1.5;" width="160" x="814" y="498.6328"/><image height="64" width="64" x="821" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAACcUlEQVR4Xu2ZwUoEMQyG99l9Ax/BFxC8edWzB29e9VwWZEEQYdGwgVCaNn+nTacudPjxMI01X/5OMusewv3NVeugb12XFsBsLYDZWgCztQBmqxHg+Hh7enmolP51RzUC/IT33+prKEMXwNfbk653LAqgsPPXp97BS10AdJD0UjZynAnDAT6f7yiS4vWSi4YDSDCR6KV+7QFA52ecCXsAkOg5HmTCTgDjTOgCoIoSQyIdHC6Db5AJXQD6ovslBjbh++NVL/WoEYAmFOVKRRUJUqnliwklwjY1AmQFWz4PZl8TPAECmrtUe3bJ0QRnANht2AT6qZfa5AwQUMt3N8EfAJpAz4CjCT4AlE2cUI0JFONiggMAN5844z1NcACQCSD9Ec5dZnYxoRdAUkmGFGz5bEKp4darF0DySDKGc1fI9dImdQHEJ0H3R2iCPfUq1QWQPIvahAQpkYsJ7QA6P31nBxPaAbKtMHlT0EiJYMOFagQoZabvZzljyWcjvVSjRgDjbCQZa6REnSa0ANg56VVogj31bLUAGOVnJUMKzt0eEzYDHNFrQjbAnrvZX6nUZgD42TwbAE2Arpa0DaCmVKUAu+XLzvxadb78l6AUHGsbADysRgCcu2xCfBnPvWgbQKm6Irup2yaEiw8sLoQzgFFdFte4JyCJdAawqysBRoErY8IIAFg8eMRZ0EaWPwCsHAxIIg0ngzsArK4ElNp8rBoTnAFgde1BqwW7mScA78XbndQXqafou9Sa8rPEBL0bC77/iTCAni/Zq+aPiWTu2lfNnhiAxwpUfflZZKzepGFPDPDPtQBmawHM1gKYrQUwW1cP8AfjyenJIZ4BygAAAABJRU5ErkJggg==" y="505.6328"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="72" x="893" y="519.6328">«Lambda»</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="76" x="891" y="535.9297">Log Events</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="10" x="924" y="550.2266">[]</text><polygon fill="#666666" points="302.5,111.9688,312.5,115.9688,302.5,119.9688,306.5,115.9688" style="stroke: #666666; stroke-width: 1.0;"/><line style="stroke: #666666; stroke-width: 1.0;" x1="113.5" x2="308.5" y1="115.9688" y2="115.9688"/><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="128" x="120.5" y="111.1387">S: 123/shadow/delta</text><polygon fill="#666666" points="325.5,167.875,315.5,171.875,325.5,175.875,321.5,171.875" style="stroke: #666666; stroke-width: 1.0;"/><line style="stroke: #666666; stroke-width: 1.0;" x1="319.5" x2="708" y1="171.875" y2="171.875"/><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="141" x="331.5" y="139.1074">P: 123/shadow/update</text><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="114" x="331.5" y="153.0762">{"desired": {"led":</text><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="42" x="331.5" y="167.0449">"on"}}</text><polygon fill="#666666" points="502.5,195.8438,512.5,199.8438,502.5,203.8438,506.5,199.8438" style="stroke: #666666; stroke-width: 1.0;"/><line style="stroke: #666666; stroke-width: 1.0;" x1="314.5" x2="508.5" y1="199.8438" y2="199.8438"/><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="115" x="321.5" y="195.0137">shadow document</text><polygon fill="#666666" points="884,237.7813,894,241.7813,884,245.7813,888,241.7813" style="stroke: #666666; stroke-width: 1.0;"/><line style="stroke: #666666; stroke-width: 1.0;" x1="514.5" x2="890" y1="241.7813" y2="241.7813"/><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="91" x="521.5" y="222.9824">event: shadow</text><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="63" x="521.5" y="236.9512">document</text><path d="M13,256.7813 L77,256.7813 L77,263.7813 L67,273.7813 L13,273.7813 L13,256.7813 " fill="#EEEEEE" style="stroke: #000000; stroke-width: 1.0;"/><rect fill="none" height="225.8516" style="stroke: #000000; stroke-width: 2.0;" width="975" x="13" y="256.7813"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="19" x="28" y="269.8481">alt</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="256" x="92" y="268.9917">[change between desired and reported]</text><polygon fill="#666666" points="124.5,303.8516,114.5,307.8516,124.5,311.8516,120.5,307.8516" style="stroke: #666666; stroke-width: 1.0;"/><line style="stroke: #666666; stroke-width: 1.0;" x1="118.5" x2="313.5" y1="307.8516" y2="307.8516"/><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="112" x="130.5" y="289.0527">123/shadow/delta</text><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="79" x="130.5" y="303.0215">{"led": "on"}</text><line style="stroke: #666666; stroke-width: 1.0;" x1="113.5" x2="155.5" y1="335.8203" y2="335.8203"/><line style="stroke: #666666; stroke-width: 1.0;" x1="155.5" x2="155.5" y1="335.8203" y2="348.8203"/><line style="stroke: #666666; stroke-width: 1.0;" x1="114.5" x2="155.5" y1="348.8203" y2="348.8203"/><polygon fill="#666666" points="124.5,344.8203,114.5,348.8203,124.5,352.8203,120.5,348.8203" style="stroke: #666666; stroke-width: 1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="78" x="120.5" y="330.9902">enable LED1</text><polygon fill="#666666" points="302.5,400.7266,312.5,404.7266,302.5,408.7266,306.5,404.7266" style="stroke: #666666; stroke-width: 1.0;"/><line style="stroke: #666666; stroke-width: 1.0;" x1="113.5" x2="308.5" y1="404.7266" y2="404.7266"/><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="141" x="120.5" y="371.959">P: 123/shadow/update</text><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="122" x="120.5" y="385.9277">{"reported": {"led":</text><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="42" x="120.5" y="399.8965">"on"}}</text><polygon fill="#666666" points="502.5,428.6953,512.5,432.6953,502.5,436.6953,506.5,432.6953" style="stroke: #666666; stroke-width: 1.0;"/><line style="stroke: #666666; stroke-width: 1.0;" x1="314.5" x2="508.5" y1="432.6953" y2="432.6953"/><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="115" x="321.5" y="427.8652">shadow document</text><polygon fill="#666666" points="884,470.6328,894,474.6328,884,478.6328,888,474.6328" style="stroke: #666666; stroke-width: 1.0;"/><line style="stroke: #666666; stroke-width: 1.0;" x1="514.5" x2="890" y1="474.6328" y2="474.6328"/><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="91" x="521.5" y="455.834">event: shadow</text><text fill="#666666" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="63" x="521.5" y="469.8027">document</text><!--
+@startuml
+
+
+
+
+skinparam defaultTextAlignment center
+
+skinparam wrapWidth 200
+skinparam maxMessageSize 150
+
+skinparam rectangle {
+    StereotypeFontSize 12
+}
+
+skinparam Arrow {
+    Color #666666
+    FontColor #666666
+    FontSize 12
+}
+
+
+
+
+
+
+
+
+
+
+sprite $IoTGeneric [64x64/16z] {
+xPS7ZiGm24MD9mR_-rzuOvafHA0bcbwUIkfB0TpAfq54PhCvzoy26RS2RTrKeAwR1f1U2ldvjV5A1yO6wCmiW6pFSQkklY3DuhqTG4y1mFc21XnAYiECpGP6
+Bqaw-9DyaW7s-901gO-9-iGXf3ucvBwV4SBk-rMxyAEwuKpy69sA0_MqF- -lL0oXJmEnFZ40he4lD2Wc_iQdFa-HxqyezXdWHG39-6tGBtq2UAP2pk3izpQW
+C7uLM9mk9Hr_cbykzlqxyYVU_qT-7SYU-4iTsFnv-ISjfDtvKyqyoF73xrVCZqJVhvhl2o0B0pAqPFnjqZIHbFSjMaWry6tz1aNBvlscVatyu__dHFxoyLS_
+xZ_EL2__GeD4_apzFQZ_pFVVruqVruzVruwVl_d7jVEtw-UFryzVxVmP03FBTluifqlSwhNpzvz_nVhni_W3
+}
+
+skinparam rectangle<<IoTGeneric>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+skinparam participant<<IoTGeneric>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+sprite $IoTCore [64x64/16z] {
+xPI7akCW44Hx0fF-_tytGEsXjMKjqkKxlwBIu9xaHlb7ykH9LULrmbjh5XVLBXYmNQaj06apKmROJnUdTr7L-t41x6HrWkQa0USwOBJAIHaeQbbT3N8JKKXZ
+8bcRWn3t8O08q0MvGMkdfUXhNKWWUzlgeOhUsZ75Y8FLjFgoVJem1iZYA-F9eJD0xU2UzzrQyr7fKG7UktDXZPag-6420-ST3G0eSaAmH-Nlcm-GXK9gTk3W
+_Udtujh_Ce9_gXEBpZC2j2e9aDYy1zlNjxej3W6Q2vX1FcsqfbUGbm40zrn-h7V8hHMZkgTqg6ZkUUNb4loZN8snntvyt-Bp1uC6hTdk9Z_3we6zvuqne9_7
+TG9qZhc30vgZHu09ij7N276cnz6NczIYzvZ1iF0nVtW8MgR0yeXG0599r0i3u5wV0Bo7kiSE2LFhgweIi83oNGy8mQk6dO-fldpITstIq8FBHYXo2GN0iT6F
+bqoUYqHtmrOVg-hflzhgPSw-X85ywal1UOu6s3VzNDsf1A1eC1_RF8qpFj2y1841Od1Tqy_z_oOzlazlBRr5DilhL3z_84-Ul08
+}
+
+skinparam rectangle<<IoTCore>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+skinparam participant<<IoTCore>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+sprite $IoTRule [64x64/16z] {
+xTS5SWD134HHmKZgll-5KwkAfnBZ68ClOFpBA8-bEqS_aqkAExaV1qY4oZdA2VA9WGrseQ-ngRrUU-Gz2Ng-7xB9lJx8c8ytz23canjwdQCDKb_Gtpxzo0rk
+NdvJcKnMN5f_aWKqyiEOWXDCbcZs9CoHfytjTv5ZoxG719_xppgDhGJ9KBc9rLoGjvZhwtP6sa_knUosB0-ON25v8A_kKMY5s_fIQLetz9Zxge84hkbLagN5
+tbiDx1SfkhhieKdqJD2TFUbWAfRMmTYgxYNOGhftaaCkyTxZkkzXTTDzxuqk5sG7xxqui1NTz-1oeIyJDTlVZbMirdgomcIFHP6BVQkCCRn_8xjTx6417e4m
+BFKYOYCBd50vJ4IM-wPgvcwcAcsvF-47z3-y_-__-_zUx-c3B9UZlCXOkWL4-lxvnnCaIouBDbHbjAm2MyWA7SKZQgYiKeyiW0se3DURxwRbcTu
+}
+
+skinparam rectangle<<IoTRule>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+skinparam participant<<IoTRule>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+sprite $APIGateway [64x64/16z] {
+xTO5SiKm30JGZME1r_U_RySfjmhfbvlz67Z66KturtBbYei7fmxh2WZVH83gHtNiZxJWCp2fHTvq0cRVr-onxssxXQ6BZd-n7pzQLbkm1xtb7rgmoEj0-txy
+rTZhCQz7VEUhz9E-UcCpU_YYUJtd0H_VHWU43S0vNwInYVZJL_co-SVhd_NDR_C2pNgh90jSBEKLS3gA0vhm5PCD9hG9zRHtmFeoV7O3FDF_CdpIC_sJ0ZI1
+qW5XmbFhCdnMpUw_et0awnLwawUtoF-2-fMe7udwbQYVlw1-vNq_ulkgBzhsVTCIUvy0pDgsVDCPmEGCu_MXYTW_uEfSZyjeeaI-32m13aOH-A3dnFFZdygL
+AtS
+}
+
+skinparam rectangle<<APIGateway>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+skinparam participant<<APIGateway>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+sprite $User [64x64/16z] {
+jPO7elGW28GH4vKozp_kNxRmMehXxNvRKqR6g0YzbVAFj7OTQkwcOqsqmSCH-E2BiRi3S1rZYDx-zal15O0-RVDwEoppSWDieK-i1XXVaCktQ4K0ctIWmA0V
+220qGzk-iIYmqZd5uPj6sM5puHjjqgSC6ApiEbCwWu5EEupesJuhi2Ik1HtE1zuQdJ1WvM1eEfqWC3hGZpV4J_K___ppuoyJuq-Qc7-9-PzRV-MDwp-GNFu9
+oaR-OuqCdCo_ytAgWbl-Pxh1pG10wkIsftZW9cE8EMx4Zh97E8LhUxGIodOxjfKEOG7W_MQyDZ7_Xqcx7NDt0C97mHtmNYWepENRhkhx5dgqV-YlqoP5el4J
+Yr9sv5Rfb6hR3GYWF5iSo5RVhSpFx_upDHbVgI_MxslRAqrJ_LkMbQsaCvyZbZYSHO250Wqxix13FuVlT94U1Y9yra051brc03MiLBfCZKuRZAuHijZn4dI0
+OrTDi03hN5LrN8qeZ58OzFuZb49WOIF1hUDH52Nehz8tIj5UfTUUGkzw84yX8l4qGlyfQUZt_0K
+}
+
+skinparam rectangle<<User>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+skinparam participant<<User>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+sprite $Cognito [64x64/16z] {
+xTHRSeCm38NX8yd2Fkh-zzknubmP1vndlfTSu1ygTwAukLmkhHvfCKV5CMNC6CoF63Gc28rZYZOR7XRl-2aYod4_FmzRwm5z0-5QRz5LzriZl_HD0C2OVVnz
+wyNqJUyfA7NBjo5GaozzsfsNzukAsljktXlVv40AvXcWH8WqskBy8jatb37_Oc-e_Nt1zjlvDqWb7S8pVT6XZ9uEG038gUSR1hlrL4WnaLA0SgBdG_QgC8wh
+YY9Od1yepqyYPd7GRzwrSA_P2-E1-Nuh_D8hkes0PUznMlQjTenQM_RjOvr4jp1_PPTNNG6eSwL__Y-znwe0_7GVnP9754W-cGwKetxFdskVEliB2E5qipol
+SBf17D2TDdvyGwr_stG25-pK28hmdWCa96QuytOm5TWY38mLkNjA6Ndlss9lGO6FVBdFWPjWvBa6bkGER3Bo2eir5HeHR94KDHOPRFT-1HNQnXg3CfRH02rU
+5336BwgYqng_OcwcfylbyWy
+}
+
+skinparam rectangle<<Cognito>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+skinparam participant<<Cognito>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+sprite $Lambda [64x64/16z] {
+xPQ7QWGn44CrFV__m-bcPHy63-b5ARTDw1qZXhtxLlhNloecjVsAIT7t-vNkaBw_fhDuap-XVVzycc_o1xJlPmcoxNyBW2BhMQDF1D3fZzO0W7Nyhl8e1U82
+g8R_Tl3U0hXjNW7LzmS3UDVDWtyxW7K1t1S0QG4aa6y1KC2cvcKB8262cWPldJrY28TDpKj89xuA1D1SP0P_jHRQ0CFK1k3uKLe626WZVdmQlBL92Tcw01pF
+0ArDkdOc8Gs0qLawD4HZamPiEIG0Xnt6yzTL1X0HZOETGOVKF0S0-C7Eed5pywegu2VnkHuEvTRFcHpAntl_cYaBre6VSkYGkBP-pgIX4y21dp8DiPdBtf-0
+NwzjjGucNcKxluFaQo_vti6BQwrmoxtle7_zwm4
+}
+
+skinparam rectangle<<Lambda>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+skinparam participant<<Lambda>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+sprite $DynamoDB [64x64/16z] {
+xPP7bkiu40IpOChb_Uyx3P8DIEE0xtQALHl5AqaCcFm3VFZ0RtvApGYtWSVz-pbCrofObAQHFBQr091IMrVLtkhu5TKETHEWghzzVXya1riTQF7-EiOBkK5W
+ZxnqmQBnVySxAlCTDfHwqyhUb_ZxU4ZoeS5tFiIIV1klyrT8vcu-K3IID_VuzUKsxlpc5O3KhkRkyJgU5RxtoLZv-HW_URw9ZQyzcM7QM-jlumr51niVS2Pl
+nlZfTzm4_wyVj_xsvUSap4o1dlyD5T2vNXc03EpvdLdGkUaVqYoIWoZ31lHsXjwuwxyBW38UODuK1AUUs_wPrWe0bDiAb6TwHTtt5_SZ3ZVx_aYTKsSUziyl
+LdLBF-XVkh_kFY8vQ2X3t_ORxUg_gPb_SILreg_-S_MFoWPZig74qW_wzsi1D4z1a1qIZ3DVPly3HtrqBxb7uAxlGUkjhwrnqsz_FQzO40fnEX07ljw7JQm5
+N1IuTFZoj_tBTNmP3NBfLHLr-fl-lJyFiB02C6OaxuwslZW7L__gAPUUIHgEV41d_qCQEideMFvv_rwCpB06oFBt_QCy_PlsMW183pdpv_wnADsJUUhtzjt_
+5whccMJceLzd_vCSB7_NZsl-4x8VznzpvfJJAoJui_UdNe0I_BNx6t_b_aZ-gVlh_lxyv_ZmuIy
+}
+
+skinparam rectangle<<DynamoDB>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+skinparam participant<<DynamoDB>> {
+    BackgroundColor #FFFFFF
+    BorderColor #FF9900
+}
+
+participant "Dispenser\n<size:12>[Id: 123]</size>" as dispenser << ($IoTGeneric, #3F8624) IoTGeneric>> order 5
+participant "Message Broker\n<size:12>[]</size>" as broker << ($IoTCore, #3F8624) IoTCore>> order 10
+participant "Rules Engine\n<size:12>[]</size>" as rule << ($IoTRule, #3F8624) IoTRule>> order 30
+participant "Dispenser App\n<size:12>[]</size>" as app << ($Lambda, #D86613) Lambda>> order 40
+participant "Log Events\n<size:12>[]</size>" as logging << ($Lambda, #D86613) Lambda>> order 50
+
+dispenser -> broker: S: 123/shadow/delta
+app -> broker: P: 123/shadow/update {"desired": {"led": "on"}}
+broker -> rule: shadow document
+rule -> logging: event: shadow document
+
+alt change between desired and reported
+    broker -> dispenser: 123/shadow/delta {"led": "on"}
+    dispenser -> dispenser: enable LED1
+    dispenser -> broker: P: 123/shadow/update {"reported": {"led": "on"}}
+    broker -> rule: shadow document
+    rule -> logging: event: shadow document
+end
+@enduml
+
+PlantUML version 1.2019.06(Fri May 24 17:10:25 GMT 2019)
+(APACHE source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 11.0.4+11-post-Ubuntu-1ubuntu218.04.3
+Operating System: Linux
+OS Version: 4.9.184-linuxkit
+Default Encoding: ANSI_X3.4-1968
+Language: en
+Country: US
+--></g></svg>

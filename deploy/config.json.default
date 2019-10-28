@@ -1,0 +1,9 @@
+{
+    "Region": "us-west-2",
+    "HostName": "cdd.example.com",
+    "ProfileName": "cdk-user",
+    "AdminUserName": "admin",
+    "AdminPassword": "",
+    "cloud9InstanceSize": "t3.small",
+    "ParticipantLimit": 20
+}
