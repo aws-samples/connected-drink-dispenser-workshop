@@ -1,8 +1,8 @@
----
+<!--
 license: MIT-0
 copyright: Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 title: Repository Main README file
----
+-->
 
 ## Connected Drink Dispenser Workshop
 
