@@ -13,6 +13,7 @@ title: Repository Main README file
 <p>The workshop participants will work with hardware and micro controllers, and then interact with their, and others, drink dispensers through a software-a-a-service (SaaS) set of Cloud components.</p>
 
 <br clear="left" />
+
 ## Getting Started Quickly
 
 First clone the repository locally:
