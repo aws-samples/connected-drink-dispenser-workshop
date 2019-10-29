@@ -4,13 +4,14 @@ copyright: Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserve
 title: Repository Main README file
 -->
 
-## Connected Drink Dispenser Workshop
+# Connected Drink Dispenser Workshop
 
-Code and walk-through to assemble, program and build a multi-user Amazon FreeRTOS and AWS IoT enabled drink dispenser.
+<img align="left" height="400" src="docs/hugo/static/images/model-trans-bg.png">
+Code and walk-through to assemble, program and build your very own multi-user Amazon FreeRTOS and AWS IoT enabled drink dispenser.
 
 This is the base repository that when cloned, will walk you through the steps to build, deploy, and run in your own AWS account.
 
-### Getting Started Quickly
+## Getting Started Quickly
 
 First clone the repository locally:
 
@@ -21,11 +22,11 @@ Next, navigate to the `connected-drink-dispenser-workshop/hugo/public` directory
 
 From the main *Welcome to the Connected Drink Dispenser Workshop!* page, click on the *Setting Up the Workshop* link in the left navigation column. From there you can navigate through the steps to complete prerequisites, deploy the stack, and then to deploy the documentation for participants to use.
 
-### Contributing
+## Contributing
 
 Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for details on how to contribute to this repository.
 
 
-## License Summary
+# License Summary
 
 This sample code is made available under the MIT-0 license. See the LICENSE file for a complete description.
