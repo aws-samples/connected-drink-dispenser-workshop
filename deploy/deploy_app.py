@@ -144,7 +144,7 @@ def spa_deploy(s3, s3_bucket):
 
     try:
         # Error out if dependencies are not in place
-        prev_cwd = Path.cwd()
+        # prev_cwd = Path.cwd()
         os.chdir(Path("../dispenser_app"))
         # cwd ../dispenser_app
         # clear local node_modules and dist directories
