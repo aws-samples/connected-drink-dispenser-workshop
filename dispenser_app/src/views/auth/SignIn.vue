@@ -62,8 +62,7 @@
 </template>
 
 <script>
-import { Auth, API } from "aws-amplify";
-//import { AmplifyEventBus } from "aws-amplify-vue";
+import { Auth } from "aws-amplify";
 
 export default {
   name: "SignUp",
@@ -93,39 +92,30 @@ export default {
       console.log("signing in user from", this.$route);
       Auth.signIn(this.username, this.password)
         .then(user => {
-          console.log(user);
+          this.isLoading = false;
           Auth.currentUserInfo()
             .then(info => {
-              this.$store.dispatch("setLoggedIn", user);
-              this.statusMessage =
-                "Loading or creating resources, please wait, may take 30 seconds on first login";
-              console.log("user_info is ", info);
-              API.post("CDD_API", "/getResources", {
-                body: { password: this.password , cognitoIdentityId: info.id}
-              })
-                .then(response => {
-                  this.isLoading = false;
-                  this.statusMessage = "";
-                  this.$store.dispatch("setAssets", response);
-                  if (!this.redirectTo) {
-                    // No called route, send to root (/)
-                    this.$router.push({
-                      path: "/"
-                    });
-                  } else {
-                    // When authenticated, forward to auth required route
-                    this.$router.push({
-                      path: this.redirectTo
-                    });
-                  }
-                })
-                .catch(error => {
-                  this.statusMessage = "Error loading or creating resources";
-                  this.isLoading = false;
-                  console.log("err", error);
-                });
-
+              const payload = { username: user.username, password: this.password, jwt: user.signInUserSession.idToken.jwtToken };
+              this.$store.dispatch("setLoggedIn", payload );
+              this.statusMessage = "Loading user details";
               console.log("current user info ", info);
+
+              if (!this.redirectTo) {
+                // No called route, send to root (/)
+                this.$router.push({
+                  path: "/",
+                  params: {
+                    userPW: this.password
+                  }
+                });
+              } else {
+                // When authenticated, forward to auth required route
+                this.$router.push({
+                  path: this.redirectTo
+                });
+              }
+
+
             })
             .catch(error => {
               console.log(error);

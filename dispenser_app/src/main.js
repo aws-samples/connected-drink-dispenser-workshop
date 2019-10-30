@@ -20,6 +20,7 @@ Vue.config.productionTip = false
 
 import Amplify, { API, Auth } from 'aws-amplify'
 // import Amplify, * as AmplifyModules from 'aws-amplify'
+import { AWSIoTProvider } from '@aws-amplify/pubsub/lib/Providers';
 import { AmplifyPlugin } from 'aws-amplify-vue'
 import awsconfig from './aws-exports'
 
@@ -42,11 +43,16 @@ Amplify.configure({
     ]
   }
 })
-// AmplifyModules.API.configure(awsconfig)
+Amplify.addPluggable(new AWSIoTProvider({
+  aws_pubsub_region: awsconfig.aws_cognito_region,
+  aws_pubsub_endpoint: 'wss://' + awsconfig.aws_iot_endpoint + '/mqtt',
+}));
+
+// Setup a separate Vue instance for messages
+export const bus = new Vue();
+
 Vue.use(AmplifyPlugin, API, Auth)
-
 // It's important that you instantiate the Vue instance after calling Vue.use!
-
 new Vue({
   store,
   router,

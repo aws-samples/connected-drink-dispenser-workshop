@@ -28,7 +28,11 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      props: {
+        header: true,
+        content: true
+      }
     },
     {
       path: '/about',
@@ -74,11 +78,14 @@ const router = new VueRouter({
 export default router;
 
 router.beforeEach((to, from, next) => {
+  console.log("at beforeEach entry")
   if (to.matched.some(record => record.meta.requiresLogin)) {
     Auth.currentAuthenticatedUser()
       .then(data => {
         console.log('beforeEach valid log in, to route is', to)
-        store.dispatch('setLoggedIn', data)
+        if (!store.getters.isAuth) {
+          store.dispatch('setLoggedIn', data)
+        }
         next()
       })
       .catch(err => {
@@ -87,12 +94,14 @@ router.beforeEach((to, from, next) => {
         console.log(err);
         // Pass path of next component
         console.log("next obj to: ", next)
-        next({ path: "/signIn", query: {redirectTo: to.path }});
+        next({ path: "/signIn", query: { redirectTo: to.path } });
       });
   } else {
     Auth.currentAuthenticatedUser()
       .then(data => {
-        store.dispatch('setLoggedIn', data)
+        if (!store.getters.isAuth) {
+          store.dispatch('setLoggedIn', data)
+        }
         next()
       })
       .catch(err => {
@@ -100,5 +109,6 @@ router.beforeEach((to, from, next) => {
         console.log(err);
         next()
       });
+
   }
 })

@@ -627,7 +627,8 @@ class CddBase(core.Stack):
                         "Effect": "Allow",
                         "Action": ["iot:Subscribe"],
                         "Resource": [
-                            f"arn:aws:iot:{stack.region}:{stack.account}:topicfilter/dispenser/event/*"
+                            f"arn:aws:iot:{stack.region}:{stack.account}:topicfilter/events/*",
+                            f"arn:aws:iot:{stack.region}:{stack.account}:topicfilter/$aws/things/*/shadow/update/delta",
                         ],
                     },
                 ],

@@ -18,6 +18,7 @@
         </v-col>
         <v-col cols="6" md="4">
           <v-card outline tile>
+            <!-- change to component -->
             <v-card-title>Leaderboard</v-card-title>
             <v-card-text>list</v-card-text>
           </v-card>
@@ -29,7 +30,7 @@
         <v-row class="align-start justify-end">
           <v-card max-width="344px" outlined tile>
             <v-card-title class="justify-end">
-              New User?
+              Sign In!
               <v-icon>mdi-arrow-up-bold</v-icon>
             </v-card-title>
             <v-card-text>
@@ -37,7 +38,7 @@
                 Please sign in or
                 <a href="/SignUp">create a new account</a>
               </p>
-              <p>When logged in, your username will show, and you can view your unique details by clicking your name.</p>
+              <p>When logged in, your username will show and you be directed to the main dispenser view.</p>
             </v-card-text>
           </v-card>
         </v-row>
@@ -70,20 +71,74 @@
 </template>
 
 <script>
-import Dispenser from '@/components/Dispenser'
+import Dispenser from "@/components/Dispenser";
+import { PubSub } from "aws-amplify";
+const sub1 = PubSub;
+
 export default {
   name: "home",
   components: { Dispenser },
-data() {
+  props: ['userPW'],
+  data() {
     return {
-      drawer: false
+      drawer: false,
+      sub1: sub1
     };
+  },
+  created() {
+    // If created with valid authentication, read in user assets,
+    // read initial dispenser status then sub to MQTT topics
+    //
+    console.log("/Home route is", this.$route)
+    if (this.$store.getters.isAuth == true) {
+      console.log("did we get the value: " + this.$props.userPW)
+      // Load user assets and set vuex
+      // API.post("CDD_API", "/getResources", {
+      //   body: { password: this.password, cognitoIdentityId: info.id }
+      // })
+      //   .then(response => {
+      //     this.isLoading = false;
+      //     this.statusMessage = "";
+      //     this.$store.dispatch("setAssets", response);
+      //     // // With resources loaded (iot policy applied), subscribe
+      //     // PubSub.subscribe('events/' + this.$store.getters.dispenserId).subscribe({
+      //     //   next: data => console.log('Message received', data),
+      //     //   error: error => console.error(error),
+      //     //   close: () => console.log('Done'),
+      //     // });
+
+      //   })
+      //   .catch(error => {
+      //     this.statusMessage = "Error loading or creating resources";
+      //     this.isLoading = false;
+      //     console.log("err", error);
+      //   });
+
+      // Subscribe to the MQTT topics
+      // With resources loaded (iot policy applied), subscribe
+      this.sub1.subscribe("events/" + this.$store.getters.userName).subscribe({
+        next: data => console.log("Message received", data),
+        error: error => console.error(error),
+        close: () => console.log("Done")
+      });
+      console.log("got to subscribe stuff");
+    }
   },
   computed: {
     isAuth() {
       if (this.$store.getters.isAuth == false) {
         return false;
       } else {
+        // Subscribe to the MQTT topics
+        // With resources loaded (iot policy applied), subscribe
+        sub1.subscribe("events/" + this.$store.getters.dispenserId).subscribe({
+          next: data => console.log("Message received", data),
+          error: error => console.error(error),
+          close: () => console.log("Done")
+        });
+        console.log(
+          "subscribed to topic: " + "events/" + this.$store.getters.dispenserId
+        );
         return true;
       }
     }

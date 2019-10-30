@@ -12,15 +12,14 @@
 
 import Vuex from 'vuex';
 import Vue from 'vue';
-import createPersistedState from 'vuex-persistedstate';
-
+// import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  plugins: [createPersistedState()],
+  // plugins: [createPersistedState()],
   state: {
-    // user: "",
+    username: "",
     jwt: "",
     signedIn: false,
     dispenserId: "",
@@ -29,13 +28,26 @@ const store = new Vuex.Store({
     certificatePem: "",
     privateKey: "",
     rootCA: "",
-    accountUrl: ""
+    accountUrl: "",
+    ledStatus: "",
+    ringLedStatus: {
+      count: 0,
+      color: ""
+    },
+    credits: 0,
   },
 
   getters: {
     userName: state => {
       if (state.signedIn) {
         return state.username
+      } else {
+        return false
+      }
+    },
+    getPassword: state => {
+      if (state.signedIn) {
+        return state.password
       } else {
         return false
       }
@@ -106,16 +118,20 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    loggedIn(state, userObj) {
-      console.log("state object is", state);
-      state.username = userObj.username;
-      state.jwt = userObj.signInUserSession.idToken.jwtToken;
+    loggedIn(state, payload) {
+      console.log("payload object is", payload);
+      state.username = payload.username;
+      // temporarily hold password before call to getAssets()
+      state.password = payload.password;
+      console.log("Passowrd is: " + state.password);
+      state.jwt = payload.jwt;
       state.signedIn = true;
       console.log('logged in set');
     },
     loggedOut(state) {
       if (state) {
         state.username = "";
+        state.password = "";
         state.jwt = "";
         state.signedIn = false;
         state.dispenserId = "";
@@ -125,6 +141,12 @@ const store = new Vuex.Store({
         state.privateKey = "";
         state.rootCA = "";
         state.accountUrl = "";
+        state.ledStatus = "",
+        state.ringLedStatus = {
+          count: 0,
+          color: ""
+        },
+        state.credits = 0
       }
       console.log('logged OUT set');
     },
@@ -141,15 +163,15 @@ const store = new Vuex.Store({
   },
 
   actions: {
-    setLoggedIn(context, userObj) {
-      context.commit('loggedIn', userObj)
+    setLoggedIn(context, payload ) {
+      context.commit('loggedIn', payload )
     },
     setLoggedOut(context) {
       context.commit('loggedOut')
     },
     setAssets(context, assetObj) {
       context.commit('updateAssets', assetObj)
-    }
+    },
   }
 });
 

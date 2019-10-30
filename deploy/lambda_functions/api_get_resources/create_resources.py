@@ -11,6 +11,7 @@ import os
 import json
 import logging
 import time
+import random
 import boto3
 from decimal import Decimal
 from datetime import datetime
@@ -71,8 +72,22 @@ class DecimalEncoder(json.JSONEncoder):
         return super(DecimalEncoder, self).default(o)
 
 
-def iam_user(username, password, iam_group):
-    "Create user with password and assign to IAM group name"
+def create_password():
+    """Create a random password"""
+    animal_word_list = [
+        "bat", "cat", "dog", "fish", "bird", "horse", "tiger", "mouse", "chicken", "cow", "donkey"
+    ]
+    building_word_list = [
+        "house", "bridge", "store", "station", "attic", "floor", "wall", "window", "porch", "door", "room"
+    ]
+    if bool(random.getrandbits(1)):
+        return f"{animal_word_list[random.randint(0, 10)]}{random.randint(100, 999)}{building_word_list[random.randint(0, 10)]}"
+    else:
+        return f"{building_word_list[random.randint(0, 10)]}{random.randint(100, 999)}{animal_word_list[random.randint(0, 10)]}"
+
+
+def iam_user(username, iam_group):
+    "Create user with random password and assign to IAM group name"
 
     iam_client = boto3.client("iam")
     asset = {"iam_user": {}}
@@ -94,8 +109,9 @@ def iam_user(username, password, iam_group):
     result = iam_client.create_user(UserName=username)
     asset["iam_user"]["userArn"] = result["User"]["Arn"]
     asset["iam_user"]["username"] = result["User"]["UserName"]
+    asset["iam_user"]["password"] = create_password()
     iam_client.create_login_profile(
-        UserName=username, Password=password, PasswordResetRequired=False
+        UserName=username, Password=create_password(), PasswordResetRequired=False
     )
     iam_client.add_user_to_group(GroupName=iam_group, UserName=username)
     # Reset password policy back to original

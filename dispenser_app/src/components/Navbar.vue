@@ -13,10 +13,11 @@
   <v-app-bar app color="primary" dark>
     <v-toolbar-title>Connected Drink Dispenser</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn text rounded href="/">Home</v-btn>
     <v-btn text rounded href="/docs/index.html" target="_blank">Documentation</v-btn>
     <div v-if="userName">
-      <v-btn text rounded @click="signOut">
+      <!-- <v-btn text rounded @click="signOut"> -->
+      <v-btn text rounded>
+        <!-- TODO Add modal with user details formatted from vuex -->
         {{userName}}
       </v-btn>
       <v-btn text rounded @click="signOut">
@@ -50,9 +51,11 @@ export default {
   },
   methods: {
     signOut() {
+      
       Auth.signOut()
         .then(data => {
           console.log(data);
+          this.$store.dispatch("setLoggedOut")
           this.$router.go();
         })
         .catch(err => {

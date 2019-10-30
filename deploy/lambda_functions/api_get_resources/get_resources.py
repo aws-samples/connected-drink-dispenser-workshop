@@ -60,7 +60,6 @@ def handler(event, context):
      details of the user based on username in token"""
 
     try:
-        password = json.loads(event["body"])["password"]
         cognito_identity_id = json.loads(event["body"])["cognitoIdentityId"]
         scrubbed_event = scrub_event(event, ["body"])
     except Exception as e:
@@ -111,7 +110,7 @@ def handler(event, context):
             try:
                 # IAM user
                 iam_user = AWS_resource.iam_user(
-                    username, password, os.environ["USER_PERMISSIONS_GROUP"]
+                    username, os.environ["USER_PERMISSIONS_GROUP"]
                 )
                 assets.update(iam_user)
                 # IoT Thing and certificates

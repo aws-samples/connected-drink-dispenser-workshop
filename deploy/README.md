@@ -1,11 +1,17 @@
 
-# Welcome to the Connected Drink Dispenser Resource Seutp!
+# Welcome to the Connected Drink Dispenser Resource Setup!
 
 This project will setup all AWS resources.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+The `cdk.json` file tells the CDK Toolkit how to execute your app, while the `config.json` file provides the unique parameters for creating the cloud infrastructure.
 
-explain what is going to happen
+Overall there are three steps to complete build and deployment:
+
+1. Modify/create the `config.json` file with your parameters, `HostName` being the most important
+1. Run the `cdk ... deploy` command to fully deploy the CloudFormation stack
+1. Run the `python3 deploy_app.py` command to locally build the singe page application and copy it and the documentation to the provisioned S3 bucket
+
+There are some individual steps to get started with CloudFormation Development Kit below, but also check out the documentation for more details.
 
 ## Individual Steps
 
