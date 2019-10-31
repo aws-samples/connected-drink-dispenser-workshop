@@ -45,13 +45,6 @@ const store = new Vuex.Store({
         return false
       }
     },
-    getPassword: state => {
-      if (state.signedIn) {
-        return state.password
-      } else {
-        return false
-      }
-    },
     isAuth: state => {
       if (state.signedIn) {
         return true
@@ -119,11 +112,7 @@ const store = new Vuex.Store({
 
   mutations: {
     loggedIn(state, payload) {
-      console.log("payload object is", payload);
       state.username = payload.username;
-      // temporarily hold password before call to getAssets()
-      state.password = payload.password;
-      console.log("Passowrd is: " + state.password);
       state.jwt = payload.jwt;
       state.signedIn = true;
       console.log('logged in set');
@@ -131,7 +120,6 @@ const store = new Vuex.Store({
     loggedOut(state) {
       if (state) {
         state.username = "";
-        state.password = "";
         state.jwt = "";
         state.signedIn = false;
         state.dispenserId = "";
@@ -151,6 +139,7 @@ const store = new Vuex.Store({
       console.log('logged OUT set');
     },
     updateAssets(state, assetObj) {
+      console.log("in updateAssets mutation")
       state.dispenserId = assetObj.dispenserId;
       state.certificateArn = assetObj.assets.iot.certificateArn;
       state.certificateName = assetObj.assets.iot.certificateArn.split("/").pop().substring(0, 10);
@@ -170,8 +159,8 @@ const store = new Vuex.Store({
       context.commit('loggedOut')
     },
     setAssets(context, assetObj) {
-      context.commit('updateAssets', assetObj)
-    },
+        context.commit('updateAssets', assetObj);
+    }
   }
 });
 

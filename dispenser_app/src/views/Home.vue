@@ -72,13 +72,13 @@
 
 <script>
 import Dispenser from "@/components/Dispenser";
-import { PubSub } from "aws-amplify";
+import { Auth, API, PubSub } from "aws-amplify";
 const sub1 = PubSub;
 
 export default {
   name: "home",
   components: { Dispenser },
-  props: ['userPW'],
+  props: ["userPW"],
   data() {
     return {
       drawer: false,
@@ -89,39 +89,43 @@ export default {
     // If created with valid authentication, read in user assets,
     // read initial dispenser status then sub to MQTT topics
     //
-    console.log("/Home route is", this.$route)
     if (this.$store.getters.isAuth == true) {
-      console.log("did we get the value: " + this.$props.userPW)
-      // Load user assets and set vuex
-      // API.post("CDD_API", "/getResources", {
-      //   body: { password: this.password, cognitoIdentityId: info.id }
-      // })
-      //   .then(response => {
-      //     this.isLoading = false;
-      //     this.statusMessage = "";
-      //     this.$store.dispatch("setAssets", response);
-      //     // // With resources loaded (iot policy applied), subscribe
-      //     // PubSub.subscribe('events/' + this.$store.getters.dispenserId).subscribe({
-      //     //   next: data => console.log('Message received', data),
-      //     //   error: error => console.error(error),
-      //     //   close: () => console.log('Done'),
-      //     // });
+      Auth.currentUserInfo()
+        .then(info => {
+          // Load user assets and set vuex
+          API.post("CDD_API", "/getResources", {
+            body: { cognitoIdentityId: info.id }
+          })
+            .then( response => {
+              this.$store.dispatch("setAssets", response)
+              .then( response => {
+              // Subscribe to the MQTT topics
+              // With resources loaded (iot policy applied), subscribe
+              console.log("why do I need this", response)
+              this.sub1
+                .subscribe("events/" + this.$store.getters.userName)
+                .subscribe({
+                  next: data => console.log("Message received", data),
+                  error: error => console.error(error),
+                  close: () => console.log("Done")
+                });
+              console.log(
+                "subscribed to topic: " +
+                  "events/" +
+                  this.$store.getters.dispenserId
+              );
+              })
 
-      //   })
-      //   .catch(error => {
-      //     this.statusMessage = "Error loading or creating resources";
-      //     this.isLoading = false;
-      //     console.log("err", error);
-      //   });
-
-      // Subscribe to the MQTT topics
-      // With resources loaded (iot policy applied), subscribe
-      this.sub1.subscribe("events/" + this.$store.getters.userName).subscribe({
-        next: data => console.log("Message received", data),
-        error: error => console.error(error),
-        close: () => console.log("Done")
-      });
-      console.log("got to subscribe stuff");
+            })
+            .catch(error => {
+              this.statusMessage = "Error loading or creating resources";
+              this.isLoading = false;
+              console.log("err", error);
+            });
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   computed: {
@@ -129,16 +133,6 @@ export default {
       if (this.$store.getters.isAuth == false) {
         return false;
       } else {
-        // Subscribe to the MQTT topics
-        // With resources loaded (iot policy applied), subscribe
-        sub1.subscribe("events/" + this.$store.getters.dispenserId).subscribe({
-          next: data => console.log("Message received", data),
-          error: error => console.error(error),
-          close: () => console.log("Done")
-        });
-        console.log(
-          "subscribed to topic: " + "events/" + this.$store.getters.dispenserId
-        );
         return true;
       }
     }

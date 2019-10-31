@@ -95,7 +95,7 @@ export default {
           this.isLoading = false;
           Auth.currentUserInfo()
             .then(info => {
-              const payload = { username: user.username, password: this.password, jwt: user.signInUserSession.idToken.jwtToken };
+              const payload = { username: user.username, jwt: user.signInUserSession.idToken.jwtToken };
               this.$store.dispatch("setLoggedIn", payload );
               this.statusMessage = "Loading user details";
               console.log("current user info ", info);
@@ -104,9 +104,6 @@ export default {
                 // No called route, send to root (/)
                 this.$router.push({
                   path: "/",
-                  params: {
-                    userPW: this.password
-                  }
                 });
               } else {
                 // When authenticated, forward to auth required route
@@ -114,8 +111,6 @@ export default {
                   path: this.redirectTo
                 });
               }
-
-
             })
             .catch(error => {
               console.log(error);

@@ -409,7 +409,9 @@ class CddBase(core.Stack):
                         ],
                         resources=["*"],
                     ),
-                    iam.PolicyStatement(actions=["iot:Publish"], resources=["*"]),
+                    # Provide full access to IoT for the authenticated user
+                    # The AWS IoT policy scopes down the access
+                    iam.PolicyStatement(actions=["iot:*"], resources=["*"]),
                 ],
             )
         )
