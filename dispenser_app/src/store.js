@@ -108,7 +108,26 @@ const store = new Vuex.Store({
       } else {
         return state.accountUrl
       }
+    },
+    getIamUsername: state => {
+      if (state.iamUsername == null) {
+        return false
+      } else {
+        return state.iamUsername
+      }
+    },
+    getIamPassword: state => {
+      if (state.iamPassword == null) {
+        return false
+      } else {
+        return state.iamPassword
+      }
+    },
+    getCredits: state => {
+      return state.credits
     }
+
+
   },
 
   mutations: {
