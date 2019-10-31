@@ -11,7 +11,7 @@
 */
 <template>
   <div class="home">
-    <v-container class="grey lighten-5" v-if="isAuth" fluid>
+    <v-container class="grey lighten-5" v-if="pageState === 'completePage'" fluid>
       <v-row>
         <v-col cols="12" md="8">
           <Dispenser />
@@ -21,9 +21,33 @@
             <!-- change to component -->
             <v-card-title>Leaderboard</v-card-title>
             <v-card-text>list</v-card-text>
+            <v-card-text>stuff</v-card-text>
           </v-card>
         </v-col>
       </v-row>
+    </v-container>
+    <v-container v-else-if="pageState === 'loadingAssets'" fluid>
+      <v-col cols="12">
+        <v-row class="align-start justify-center">
+          <v-card max-width="344px" outlined tile>
+            <v-card-title class="justify-center">
+              Loading Resources
+            </v-card-title>
+            <v-card-text v-if="!loadingText" class="justify-center">
+              <p>
+                Reading values from AWS Cloud
+              </p>
+            </v-card-text>
+            <v-card-text v-else class="justify-center">
+              <p>
+                Reading values from AWS Cloud
+              </p>
+              <p class="red--text">This may take up to 30 seconds after account creation, please wait and <i>DO NOT</i> refresh or reload.
+              </p>
+            </v-card-text>
+          </v-card>
+        </v-row>
+      </v-col>
     </v-container>
     <v-container v-else fluid>
       <v-col cols="12">
@@ -78,55 +102,60 @@ const sub1 = PubSub;
 export default {
   name: "home",
   components: { Dispenser },
-  props: ["userPW"],
   data() {
     return {
       drawer: false,
-      sub1: sub1
+      sub1: sub1,
+      loadingText: false
     };
   },
-  created() {
-    // If created with valid authentication, read in user assets,
-    // read initial dispenser status then sub to MQTT topics
-    //
+  async created() {
     if (this.$store.getters.isAuth == true) {
-      Auth.currentUserInfo()
-        .then(info => {
-          // Load user assets and set vuex
-          API.post("CDD_API", "/getResources", {
-            body: { cognitoIdentityId: info.id }
-          })
-            .then( response => {
-              this.$store.dispatch("setAssets", response)
-              .then( response => {
-              // Subscribe to the MQTT topics
-              // With resources loaded (iot policy applied), subscribe
-              console.log("why do I need this", response)
-              this.sub1
-                .subscribe("events/" + this.$store.getters.userName)
-                .subscribe({
-                  next: data => console.log("Message received", data),
-                  error: error => console.error(error),
-                  close: () => console.log("Done")
-                });
-              console.log(
-                "subscribed to topic: " +
-                  "events/" +
-                  this.$store.getters.dispenserId
-              );
-              })
-
-            })
-            .catch(error => {
-              this.statusMessage = "Error loading or creating resources";
-              this.isLoading = false;
-              console.log("err", error);
-            });
-        })
-        .catch(error => {
-          console.log(error);
+      // If created with valid authentication, read in user assets,
+      // read initial dispenser status then sub to MQTT topics
+      let response;
+      let authInfo;
+      authInfo = await Auth.currentUserInfo();
+      response = await API.post("CDD_API", "/getResources", {
+        body: { cognitoIdentityId: authInfo.id }
+      });
+      console.log("resources response is ", response)
+      // Get resources needed to complete setup
+      await this.$store.dispatch("setAssets", response);
+      // Read dispenser shadow and credit status, and set
+      response = await API.get("CDD_API", "/status", {
+        "queryStringParameters": {
+          "dispenserId": this.$store.getters.dispenserId
+        }
+      });
+      this.$store.dispatch("setStatus", response);
+      console.log("/status response is ", response)
+      console.log("before subscribe");
+      this.sub1
+        .subscribe("events/" + this.$store.getters.dispenserId)
+        .subscribe({
+          next: data => {
+            console.log("Message received", data)
+            console.log("loadingText is: ",this.loadingText)
+          },
+          error: error => console.error(error),
+          close: () => console.log("Done")
         });
+      console.log(
+        "subscribed to topic: " + "events/" + this.$store.getters.dispenserId
+      );
     }
+  },
+  mounted () {
+    console.log("triggering loadingText going true")
+    setTimeout(function () {
+      this.loadingText = true;
+    }.bind(this), 3000);
+  },
+  beforeDestroy() {
+    // unsubscribe from "events/dispenserId"
+    console.log("unsubscribing from events/nnn topic")
+    this.sub1.unsubscribe()
   },
   computed: {
     isAuth() {
@@ -134,6 +163,20 @@ export default {
         return false;
       } else {
         return true;
+      }
+    },
+    pageState() {
+      if (this.$store.getters.isAuth == false) {
+        // unauthed visit
+        return "unAuth"
+      } else {
+        if (this.$store.getters.isAssets == false) {
+          // loading or creating assets
+          return "loadingAssets"
+        } else {
+          // authed used and resources have been loaded
+          return "completePage"
+        }
       }
     }
   }

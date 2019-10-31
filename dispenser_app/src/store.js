@@ -20,7 +20,6 @@ const store = new Vuex.Store({
   // plugins: [createPersistedState()],
   state: {
     username: "",
-    jwt: "",
     signedIn: false,
     dispenserId: "",
     certificateName: "",
@@ -29,6 +28,8 @@ const store = new Vuex.Store({
     privateKey: "",
     rootCA: "",
     accountUrl: "",
+    iamUsername: "",
+    iamPassword: "",
     ledStatus: "",
     ringLedStatus: {
       count: 0,
@@ -52,11 +53,11 @@ const store = new Vuex.Store({
         return false
       }
     },
-    jwt: state => {
-      if (state.signedIn) {
-        return state.jwt
+    isAssets: state => {
+      if (state.dispenserId === "") {
+        return false
       } else {
-        return ""
+        return true
       }
     },
     dispenserId: state => {
@@ -120,7 +121,6 @@ const store = new Vuex.Store({
     loggedOut(state) {
       if (state) {
         state.username = "";
-        state.jwt = "";
         state.signedIn = false;
         state.dispenserId = "";
         state.certificateName = "";
@@ -129,6 +129,8 @@ const store = new Vuex.Store({
         state.privateKey = "";
         state.rootCA = "";
         state.accountUrl = "";
+        state.iamUsername = "";
+        state.iamPassword = "";
         state.ledStatus = "",
         state.ringLedStatus = {
           count: 0,
@@ -148,6 +150,14 @@ const store = new Vuex.Store({
       state.rootCA = assetObj.assets.iot.rootCA;
       // Set the sign-in link as the account number is in the arn
       state.accountUrl = `https://${state.certificateArn.split(":")[4]}.signin.aws.amazon.com/console/`
+      state.iamUsername = assetObj.assets.iam_user.username;
+      state.iamPassword = assetObj.assets.iam_user.password;
+    },
+    updateStatus(state, statusObj) {
+      console.log("in updateStatus mutation")
+      state.credits = statusObj.credits;
+      state.ringLedStatus = statusObj.led_ring_state;
+      state.ledStatus = statusObj.led_status;
     }
   },
 
@@ -159,7 +169,12 @@ const store = new Vuex.Store({
       context.commit('loggedOut')
     },
     setAssets(context, assetObj) {
-        context.commit('updateAssets', assetObj);
+      // body response from call to /getResources API
+      context.commit('updateAssets', assetObj);
+    },
+    setStatus(context, statusObj) {
+      // body response from call to /status API
+      context.commit('updateStatus', statusObj);
     }
   }
 });
