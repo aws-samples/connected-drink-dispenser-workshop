@@ -111,7 +111,7 @@ def iam_user(username, iam_group):
     asset["iam_user"]["username"] = result["User"]["UserName"]
     asset["iam_user"]["password"] = create_password()
     iam_client.create_login_profile(
-        UserName=username, Password=create_password(), PasswordResetRequired=False
+        UserName=username, Password=asset["iam_user"]["password"], PasswordResetRequired=False
     )
     iam_client.add_user_to_group(GroupName=iam_group, UserName=username)
     # Reset password policy back to original

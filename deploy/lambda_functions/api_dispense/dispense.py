@@ -1,5 +1,7 @@
 """Actuates the dispenser by setting the desired state of the shadow"""
 
+# TODO: Add error handling to return 500 with CORS set
+
 import json
 import os
 import logging
@@ -192,13 +194,23 @@ def process_api_event(event, dispenser_table, event_table):
                 )
                 write_dispenser_record(dispenser_record, dispenser_table)
                 message = {
-                    "command": "dispense",
-                    "requestId": request_id,
-                    "timestamp": time.time(),
+                    "state": {
+                        "desired": {
+                            "command": "dispense",
+                            "requestId": request_id,
+                            "timestamp": time.time(),
+                        }
+                    }
                 }
-                iot_client.publish(
-                    topic=f"cmd/{dispenser}", qos=0, payload=json.dumps(message)
+
+                # Read shadow and add/replace request to desired state
+                iot_client.update_thing_shadow(
+                    thingName=dispenser, payload=json.dumps(message)
                 )
+
+                # iot_client.publish(
+                #     topic=f"cmd/{dispenser}", qos=0, payload=json.dumps(message)
+                # )
                 log_event(
                     event_table,
                     dispenser,
@@ -223,17 +235,23 @@ def process_api_event(event, dispenser_table, event_table):
 
 
 def process_iot_event(event, dispenser_table, event_table):
-    """Process event sent via IoT Rules Engine action, this originates from the dispenser"""
+    """Process event sent via IoT Rules Engine action, this originates from the dispenser,
+       and the event comes from the topic $aws/things/NNN/shadow/update/accepted
 
-    dispenser = event["topic"].split("/")[1]
+        Event contains the accepted update, which will include state.reported.response
+
+    """
+
+    dispenser = event["topic"].split("/")[2]
     try:
         # Check for corresponding requestId in event from DynamoDB table
+        event_request_id = event["state"]["reported"]["response"]["requestId"]
         dispenser_record = read_dispenser(dispenser, dispenser_table)
         dispense_request = request_details(
             requests=dispenser_record["requests"], command="dispense"
         )
         if dispense_request is not None:
-            if event["requestId"] == dispense_request["requestId"]:
+            if event_request_id == dispense_request["requestId"]:
                 # request still current - delete request, deduct $1.00 from  dispenser, and log
                 dispenser_record = remove_request(
                     record=dispenser_record, command="dispense"
@@ -242,16 +260,20 @@ def process_iot_event(event, dispenser_table, event_table):
                     1.00
                 )
                 write_dispenser_record(dispenser_record, dispenser_table)
-                # Set ring LED with new state (if needed)
+                # Set ring LED with new state (if needed) and clear out request and response objects
                 count, color = set_led_ring(dispenser_record["credits"])
-                desired_state = {
-                    "state": {"desired": {"led_ring": {"count": count, "color": color}}}
+                new_state = {
+                    "state": {
+                        "desired": {
+                            "led_ring": {"count": count, "color": color},
+                            "request": None,
+                        },
+                        "reported": {"response": None},
+                    }
                 }
                 iot_client.update_thing_shadow(
-                    thingName=dispenser, payload=json.dumps(desired_state)
+                    thingName=dispenser, payload=json.dumps(new_state)
                 )
-
-
 
                 # Place on events topic to trigger app to refresh - will also generate log entry
                 iot_publish_event(

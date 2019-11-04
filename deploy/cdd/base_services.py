@@ -957,7 +957,7 @@ class CddBase(core.Stack):
                 description="Invoke Lambda to process dispense commands from dispenser",
                 rule_disabled=False,
                 aws_iot_sql_version="2016-03-23",
-                sql="select *, topic() AS topic FROM 'cmd/+/response' WHERE command = 'dispense' AND isUndefined(requestId) = False AND isUndefined(timestamp) = False AND isUndefined(result) = False",
+                sql="select *, topic() AS topic FROM '$aws/things/+/shadow/update/accepted' WHERE isUndefined(state.reported.response) = False",
                 actions=[
                     iot.CfnTopicRule.ActionProperty(
                         lambda_=iot.CfnTopicRule.LambdaActionProperty(
