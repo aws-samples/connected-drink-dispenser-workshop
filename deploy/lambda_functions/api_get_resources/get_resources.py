@@ -41,38 +41,12 @@ class DecimalEncoder(json.JSONEncoder):
         return super(DecimalEncoder, self).default(o)
 
 
-def scrub_event(event, keys):
-    """Removes body which is POSTed data"""
-    keys_set = set(keys)
-
-    modified_dict = {}
-    for key, value in event.items():
-        if key not in keys_set:
-            if isinstance(value, MutableMapping):
-                modified_dict[key] = scrub_event(value, keys_set)
-            else:
-                modified_dict[key] = value
-    return modified_dict
-
-
 def handler(event, context):
     """This function does not process any parameters, but returns complete
      details of the user based on username in token"""
 
-    try:
-        cognito_identity_id = json.loads(event["body"])["cognitoIdentityId"]
-        scrubbed_event = scrub_event(event, ["body"])
-    except Exception as e:
-        logger.error("Password parameter not found in body, error: %s", e)
-        retval = {
-            "body": "ERROR: password parameter not sent",
-            "headers": httpHeaders,
-            "statusCode": 200,
-        }
-        return retval
-    # Log event without body component (which contains password)
-    logger.info("Received event: {}".format(json.dumps(scrubbed_event)))
-    print(f"cog id: {cognito_identity_id}")
+    # Log event
+    logger.info("Received event: %s", json.dumps(event))
 
     username = event["requestContext"]["authorizer"]["claims"]["cognito:username"]
     dispenser_id = event["requestContext"]["authorizer"]["claims"]["custom:dispenserId"]
@@ -96,6 +70,18 @@ def handler(event, context):
             return retval
         if response["Items"][0]["assets"] == None:
             # Create assets
+
+            # Validate that required parameters have been provided
+            try:
+                cognito_identity_id = json.loads(event["body"])["cognitoIdentityId"]
+            except Exception as e:
+                logger.error("cognitoIdentityId parameter not found in body, error: %s", e)
+                retval = {
+                    "body": "ERROR: cognitoIdentityId parameter and value not sent",
+                    "headers": httpHeaders,
+                    "statusCode": 200,
+                }
+                return retval
 
             # First set user record to status of creating in case multiple API calls are made
             response = table.put_item(

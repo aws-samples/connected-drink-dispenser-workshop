@@ -226,7 +226,7 @@ def initialize_dispenser_tables(dispenser_id):
             "credits": Decimal(str(1.00)),
             "leaderBoardStatus": Decimal(str(1)),
             "leaderBoardTime": Decimal(int(time.time())),
-            "sessions": [],
+            "requests": [],
         }
         dispenser_table.put_item(Item=item)
 

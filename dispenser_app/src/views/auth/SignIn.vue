@@ -99,6 +99,7 @@ export default {
               this.$store.dispatch("setLoggedIn", payload );
               this.statusMessage = "Loading user details";
               console.log("current user info ", info);
+              console.log("initial JWT", user.signInUserSession.idToken.jwtToken)
 
               if (!this.redirectTo) {
                 // No called route, send to root (/)

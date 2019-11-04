@@ -139,26 +139,26 @@ dispenser -> broker: S: cmd/123
 == Request - Dispense operation from App ==
 api -> app : GET /dispense?dispenserId=123
 app <-> db : Read dispenser record
-alt if balance >= $1.00 and no dispense sessionId
-    app -> db : PUT dispense "requestId": "1234-5678" to session
+alt if balance >= $1.00 and no dispense requestId
+    app -> db : PUT dispense "requestId": "1234-5678" to request
     app -> broker: P: cmd/123
     note right
         {
             "command": "dispense",
-            "sessionId": "1234-5678",
+            "requestId": "1234-5678",
             "timestamp": 12345
         }    
     end note
     app -> log_db : Dispense: Requested dispenser to activate
     app -> api : 200 - Dispense requested 
-else If no credits or session already recorded
+else If no credits or request already recorded
     app -> log_db : Dispense: Error, no funds or dispense in operation
     app x-> api : 200 - Insufficient funds or dispense in operation
 end
 ... Some period of time ...
 == Response - Dispenser processes the message ==
-hnote over dispenser : Dispense message recieved on topic cmd/123
-broker -> dispenser : message (command, sessionId, timestamp)
+hnote over dispenser : Dispense message received on topic cmd/123
+broker -> dispenser : message (command, requestId, timestamp)
 alt timestamp of message > 5 seconds (stale)
     dispenser -x dispenser : discard message
 else timestamp < 5 seconds old (current)
@@ -167,7 +167,7 @@ else timestamp < 5 seconds old (current)
     note left
         {
             "command": "dispense",
-            "sessionId": "1234-5678",
+            "requestId": "1234-5678",
             "result": "success",
             "timestamp": 45678
         }
@@ -175,11 +175,11 @@ else timestamp < 5 seconds old (current)
     broker -> rules: response message
     rules -> app : Invoke based on command == "dispense" -> message
     app <-> db : Read dispenser record
-    alt sessionId found in dispenser record
-        app -> db : If sessionId found, Deduct $1.00 from dispenser 123 credits, clear sessionId, update dispenser record
+    alt requestId found in dispenser record
+        app -> db : If requestId found, Deduct $1.00 from dispenser 123 credits, clear requestId, update dispenser record
         app -> log_db : Dispense: Operation completed successfully for dispenser
-    else sessionId was <i>NOT</i> found
-        app -> log_db : Dispense: ERROR, no corresponding sessionId found
+    else requestId was <i>NOT</i> found
+        app -> log_db : Dispense: ERROR, no corresponding requestId found
     end
 end
 ....
@@ -192,11 +192,11 @@ In this flow:
 ** Lambda is invoked for that request
 ** Dispenser record read
 ** If there is a good balance and no in-process requests < 5 seconds old:
-*** Record a new session in the dispenser record
+*** Record a new request in the dispenser record
 *** Publish the message to the `cmd/123` topic
 *** Log a successful request event
 *** Return to the API/web app a success message
-** If there is _not_ enough credits or a dispense session is still valid (<5 seconds old):
+** If there is _not_ enough credits or a dispense request is still valid (<5 seconds old):
 *** Log an error
 *** Return to the API/web app a descriptive error
 
@@ -207,17 +207,17 @@ The response operation is decoupled from the request in that the dispenser may b
 *** Discard the message and log locally
 ** If the request is current (less than 5 seconds old):
 *** Activate the motor for set duration
-*** _In parallel if possible_, publish a response message to `cmd/123/response` with the same `sessionId`
+*** _In parallel if possible_, publish a response message to `cmd/123/response` with the same `requestId`
 *** The response message triggers the Rules Engine which looks at the `command` value (`dispense`) and invokes the Lambda function
 *** Lambda determines this is a rules invocation and not API
 *** Reads the dispenser record
-*** If there is a matching sessionId
-**** deduct $1.00, clear sessionId, update dispenser record
+*** If there is a matching requestId
+**** deduct $1.00, clear requestId, update dispenser record
 **** Log successful dispenser operations
-*** If no matching dispense sessionId was found
+*** If no matching dispense requestId was found
 **** Log error (should not arrive here)
 
-The Lambda will also clear out a stale dispene session. There can only be one in-flight dispense session in the dispenser's record.
+The Lambda will also clear out a stale dispense request. There can only be one in-flight dispense request in the dispenser's record.
 
 [NOTE]
 A dispenser may get a free pour if it receives the dispense command and then goes offline before publishing the response message.

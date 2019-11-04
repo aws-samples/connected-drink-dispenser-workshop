@@ -630,7 +630,7 @@ class CddBase(core.Stack):
                         "Action": ["iot:Subscribe"],
                         "Resource": [
                             f"arn:aws:iot:{stack.region}:{stack.account}:topicfilter/events/*",
-                            f"arn:aws:iot:{stack.region}:{stack.account}:topicfilter/$aws/things/*/shadow/update/delta",
+                            f"arn:aws:iot:{stack.region}:{stack.account}:topicfilter/$aws/things/*/shadow/update/accepted",
                         ],
                     },
                 ],
@@ -957,7 +957,7 @@ class CddBase(core.Stack):
                 description="Invoke Lambda to process dispense commands from dispenser",
                 rule_disabled=False,
                 aws_iot_sql_version="2016-03-23",
-                sql="select *, topic() AS topic FROM 'cmd/+/response' WHERE command = 'dispense' AND isUndefined(sessionId) = False AND isUndefined(timestamp) = False AND isUndefined(result) = False",
+                sql="select *, topic() AS topic FROM 'cmd/+/response' WHERE command = 'dispense' AND isUndefined(requestId) = False AND isUndefined(timestamp) = False AND isUndefined(result) = False",
                 actions=[
                     iot.CfnTopicRule.ActionProperty(
                         lambda_=iot.CfnTopicRule.LambdaActionProperty(
@@ -967,7 +967,7 @@ class CddBase(core.Stack):
                 ],
             ),
         )
-        # Allow command_response rule to Invoke the dispense function to reconcile outstanding sessions
+        # Allow command_response rule to Invoke the dispense function to reconcile outstanding requests
         api_dispense_function.add_permission(
             "AllowIoTCommandResponseRule",
             principal=iam.ServicePrincipal("iot.amazonaws.com"),

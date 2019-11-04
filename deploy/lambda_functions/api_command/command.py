@@ -1,6 +1,5 @@
-"""Issue commands from application to interact with dispenser outside of
-
-
+"""
+    Issue commands from application to interact with dispenser as an API call
 """
 
 __copyright__ = (

@@ -67,14 +67,14 @@ These are the attributes for other users:
 | credits | - | Number | 1 | Credits available to dispenser. Increment in 0.25 and deduct by 1.00 for a dispense
 | leaderBoardStatus | - | Number | 1 | Stage of completion. 1 is starting with user/dispenser created, 2 is next step, etc.
 | leaderBoardTime | - | Number | - | Timestamp, without microseconds, when latest `leaderBoardStatus` stage changed.
-| sessions | - | list | [] empty list | List of active sessions ["sessionId\|command\|timestamp\|target"]
+| requests | - | list | [] empty list | List of active requests ["requestId\|command\|timestamp\|target"]
 |============
 
 The table is created empty, and entries are created or deleted as individual users are registered. The table can be _read_ by participants, but only updated by the admin user and Lambda functions.
 
-This table tracks the status of credits, in-flight requests (sessions), and other details regarding each dispenser.
+This table tracks the status of credits, in-flight requests (requests), and other details regarding each dispenser.
 
-The `sessions` attribute contains a DynamoDB list of different in-flight sessions. In this workshop, only the following is used (in JSON format):
+The `requests` attribute contains a DynamoDB list of different in-flight requests. In this workshop, only the following is used (in JSON format):
 
 ```json
 [
@@ -88,14 +88,14 @@ Both devices and applications interact with the list and construct a JSON messag
 ```json
 {
   "clientId": "123",
-  "sessionId": "1234-5678",
+  "requestId": "1234-5678",
   "command": "dispense",
   "timestamp": "12345678",
   "target": "device"
 }
 ```
 
-This is the representation of the first entry in the list. As sessions are completed, the entity that validates the completion will remove them from the list. `clientId` maps to the dispenserId.
+This is the representation of the first entry in the list. As requests are completed, the entity that validates the completion will remove them from the list. `clientId` maps to the dispenserId.
 
 === User account setup and sign-in
 

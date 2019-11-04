@@ -115,6 +115,7 @@ export default {
       // read initial dispenser status then sub to MQTT topics
       let response;
       let authInfo;
+      let mqttResponse;
       authInfo = await Auth.currentUserInfo();
       response = await API.post("CDD_API", "/getResources", {
         body: { cognitoIdentityId: authInfo.id }
@@ -123,38 +124,32 @@ export default {
       // Get resources needed to complete setup
       await this.$store.dispatch("setAssets", response);
       // Read dispenser shadow and credit status, and set
-      response = await API.get("CDD_API", "/status", {
-        "queryStringParameters": {
-          "dispenserId": this.$store.getters.dispenserId
-        }
-      });
+      response = await API.get("CDD_API", "/status");
       this.$store.dispatch("setStatus", response);
-      console.log("/status response is ", response)
-      console.log("before subscribe");
       this.sub1
-        .subscribe("events/" + this.$store.getters.dispenserId)
+        .subscribe([
+          "".concat("events/", this.$store.getters.dispenserId),
+          "".concat("$aws/things/", this.$store.getters.dispenserId, "/shadow/update/accepted")
+        ])
         .subscribe({
-          next: data => {
-            console.log("Message received", data)
-            console.log("loadingText is: ",this.loadingText)
+          next: async () => {
+            // Use the event to trigger a getResources call
+            Auth.currentUserInfo();
+            mqttResponse = await API.get("CDD_API", "/status");
+            this.$store.dispatch("setStatus", mqttResponse);
           },
           error: error => console.error(error),
           close: () => console.log("Done")
         });
-      console.log(
-        "subscribed to topic: " + "events/" + this.$store.getters.dispenserId
-      );
     }
   },
   mounted () {
-    console.log("triggering loadingText going true")
     setTimeout(function () {
       this.loadingText = true;
     }.bind(this), 3000);
   },
   beforeDestroy() {
-    // unsubscribe from "events/dispenserId"
-    console.log("unsubscribing from events/nnn topic")
+    // unsubscribe from MQTT topics
     this.sub1.unsubscribe()
   },
   computed: {

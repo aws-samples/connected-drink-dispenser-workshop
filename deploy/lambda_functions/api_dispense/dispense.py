@@ -96,36 +96,36 @@ def write_dispenser_record(dispenser_record, dispenser_table):
         logging.error("An error has occurred:, {}".format(e))
 
 
-def get_session_id():
+def get_request_id():
     """Generates nnnn-nnnn random string, zero padded"""
     return f"{randint(0,9999):04d}-{randint(0,9999):04d}"
 
 
-def session_details(sessions, command):
-    """Return details for command in sessions"""
+def request_details(requests, command):
+    """Return details for command in requests"""
 
-    for session in sessions:
-        # Parse record format of "sessionId|command|timestamp|target"
-        record = session.split("|")
+    for request in requests:
+        # Parse record format of "requestId|command|timestamp|target"
+        record = request.split("|")
         if record[1] == command:
             return {
-                "sessionId": record[0],
+                "requestId": record[0],
                 "command": record[1],
                 "timestamp": float(record[2]),
             }
-    # No matching sessionId for command found
+    # No matching requestId for command found
     return None
 
 
-def remove_session(record, command):
-    """Return record with session for "command" removed"""
+def remove_request(record, command):
+    """Return record with request for "command" removed"""
 
-    sessions = record["sessions"]
-    new_sessions = []
-    for i in sessions:
+    requests = record["requests"]
+    new_requests = []
+    for i in requests:
         if i.split("|")[1] != command:
-            new_sessions.append(i)
-    record["sessions"] = new_sessions
+            new_requests.append(i)
+    record["requests"] = new_requests
     return record
 
 
@@ -146,7 +146,7 @@ def process_api_event(event, dispenser_table, event_table):
         print(f"Params: {params}, dispenser: {dispenser}")
         if "dispenserId" in params:
             if params["dispenserId"] == dispenser:
-                # Get current dispenser record and validate credits and session status
+                # Get current dispenser record and validate credits and request status
                 dispenser_record = read_dispenser(dispenser, dispenser_table)
                 if dispenser_record["credits"] < 1.00:
                     # Not enough to dispense
@@ -163,16 +163,16 @@ def process_api_event(event, dispenser_table, event_table):
                         f'Dispenser: {dispenser} only has ${dispenser_record["credits"]:0.2f} '
                         f"credits, at least $1.00 required to activate dispenser",
                     )
-                dispense_session = session_details(
-                    sessions=dispenser_record["sessions"], command="dispense"
+                dispense_request = request_details(
+                    requests=dispenser_record["requests"], command="dispense"
                 )
-                if dispense_session is not None:
-                    if (time.time() - dispense_session["timestamp"]) < 5:
-                        # Session still current
+                if dispense_request is not None:
+                    if (time.time() - dispense_request["timestamp"]) < 5:
+                        # request still current
                         log_event(
                             event_table,
                             dispenser,
-                            f'Dispense: ERROR: session {dispense_session["sessionId"]} already in progress',
+                            f'Dispense: ERROR: request {dispense_request["requestId"]} already in progress',
                         )
                         return http_response(
                             httpHeaders,
@@ -180,20 +180,20 @@ def process_api_event(event, dispenser_table, event_table):
                             "Dispense operation already in progress, no action taken",
                         )
                     else:
-                        # Stale session, remove from session list and continue
-                        dispenser_record = remove_session(
+                        # Stale request, remove from request list and continue
+                        dispenser_record = remove_request(
                             record=dispenser_record, command="dispense"
                         )
-                # All session checks completed
-                # No in-flight sessions, create new one and append to sessions
-                session_id = get_session_id()
-                dispenser_record["sessions"].append(
-                    f"{session_id}|dispense|{time.time()}|dispenser"
+                # All request checks completed
+                # No in-flight requests, create new one and append to requests
+                request_id = get_request_id()
+                dispenser_record["requests"].append(
+                    f"{request_id}|dispense|{time.time()}|dispenser"
                 )
                 write_dispenser_record(dispenser_record, dispenser_table)
                 message = {
                     "command": "dispense",
-                    "sessionId": session_id,
+                    "requestId": request_id,
                     "timestamp": time.time(),
                 }
                 iot_client.publish(
@@ -202,7 +202,7 @@ def process_api_event(event, dispenser_table, event_table):
                 log_event(
                     event_table,
                     dispenser,
-                    f"Dispense: Successful request to dispense initiated, sessionId: {session_id}",
+                    f"Dispense: Successful request to dispense initiated, requestId: {request_id}",
                 )
                 return http_response(
                     httpHeaders, 200, f"Dispenser {dispenser} requested to be activated"
@@ -227,15 +227,15 @@ def process_iot_event(event, dispenser_table, event_table):
 
     dispenser = event["topic"].split("/")[1]
     try:
-        # Check for corresponding sessionId in event from DynamoDB table
+        # Check for corresponding requestId in event from DynamoDB table
         dispenser_record = read_dispenser(dispenser, dispenser_table)
-        dispense_session = session_details(
-            sessions=dispenser_record["sessions"], command="dispense"
+        dispense_request = request_details(
+            requests=dispenser_record["requests"], command="dispense"
         )
-        if dispense_session is not None:
-            if event["sessionId"] == dispense_session["sessionId"]:
-                # Session still current - delete session, deduct $1.00 from  dispenser, and log
-                dispenser_record = remove_session(
+        if dispense_request is not None:
+            if event["requestId"] == dispense_request["requestId"]:
+                # request still current - delete request, deduct $1.00 from  dispenser, and log
+                dispenser_record = remove_request(
                     record=dispenser_record, command="dispense"
                 )
                 dispenser_record["credits"] = dispenser_record["credits"] - Decimal(
@@ -257,31 +257,31 @@ def process_iot_event(event, dispenser_table, event_table):
                 iot_publish_event(
                     topic=f"events/{dispenser}",
                     message=(
-                        f"Dispense: Successfully dispensed for session "
-                        f'{dispense_session["sessionId"]} after '
-                        f'{(time.time() - dispense_session["timestamp"]):0.2f} seconds, '
+                        f"Dispense: Successfully dispensed for request "
+                        f'{dispense_request["requestId"]} after '
+                        f'{(time.time() - dispense_request["timestamp"]):0.2f} seconds, '
                         f"$1.00 deducted from credits",
                     ),
                 )
             else:
-                # sessionId does not match, clear and do not deduct
-                dispenser_record = remove_session(
+                # requestId does not match, clear and do not deduct
+                dispenser_record = remove_request(
                     record=dispenser_record, command="dispense"
                 )
                 write_dispenser_record(dispenser_record, dispenser_table)
                 log_event(
                     event_table,
                     dispenser,
-                    f'Dispense: ERROR, dispenser sessionID {event["sessionId"]} '
-                    f'does not match stored session {dispense_session["sessionId"]}, '
-                    f"reset session state and NO credits deducted",
+                    f'Dispense: ERROR, dispenser requestId {event["requestId"]} '
+                    f'does not match stored request {dispense_request["requestId"]}, '
+                    f"reset request state and NO credits deducted",
                 )
         else:
             # Should not get here normally, discard response and log
             log_event(
                 event_table,
                 dispenser,
-                f'Dispense: ERROR, sessionId: {event["sessionId"]} not found '
+                f'Dispense: ERROR, requestId: {event["requestId"]} not found '
                 f"in Dispenser database, no action taken",
             )
     except KeyError as e:

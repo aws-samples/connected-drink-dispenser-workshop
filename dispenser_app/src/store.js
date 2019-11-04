@@ -30,7 +30,11 @@ const store = new Vuex.Store({
     accountUrl: "",
     iamUsername: "",
     iamPassword: "",
-    ledStatus: "",
+    ledStatus: {
+      state: "",
+      color: "",
+      text: ""
+    },
     ringLedStatus: {
       count: 0,
       color: ""
@@ -125,9 +129,19 @@ const store = new Vuex.Store({
     },
     getCredits: state => {
       return state.credits
+    },
+    getLedStatus: state => {
+      return state.ledStatus.state
+    },
+    getLedColor: state => {
+      return state.ledStatus.color
+    },
+    getLedText: state => {
+      return state.ledStatus.text
+    },
+    getRingLed: state => {
+      return state.ringLedStatus
     }
-
-
   },
 
   mutations: {
@@ -150,7 +164,11 @@ const store = new Vuex.Store({
         state.accountUrl = "";
         state.iamUsername = "";
         state.iamPassword = "";
-        state.ledStatus = "",
+        state.ledStatus = {
+          color: "",
+          state: "",
+          text: ""
+        },
         state.ringLedStatus = {
           count: 0,
           color: ""
@@ -175,8 +193,17 @@ const store = new Vuex.Store({
     updateStatus(state, statusObj) {
       console.log("in updateStatus mutation")
       state.credits = statusObj.credits;
-      state.ringLedStatus = statusObj.led_ring_state;
-      state.ledStatus = statusObj.led_status;
+      state.ringLedStatus.count = statusObj.led_ring_state.count;
+      state.ringLedStatus.color = statusObj.led_ring_state.color;
+      // Set LED values to be easily read from components
+      state.ledStatus.state = statusObj.led_state;
+      if (statusObj.led_state === "on") {
+        state.ledStatus.color = "red";
+        state.ledStatus.text = "ON"
+       } else {
+        state.ledStatus.color = "grey";
+        state.ledStatus.text = "OFF"
+       }
     }
   },
 
