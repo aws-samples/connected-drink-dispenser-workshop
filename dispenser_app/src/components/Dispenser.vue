@@ -19,10 +19,15 @@
         </v-list-item-title>
         <v-list-item-subtitle>
           Credits:
-          <span v-html="credits"></span>
+          <span v-html="creditText"></span>
         </v-list-item-subtitle>
       </v-list-item-content>
+    
     </v-list-item>
+    <v-card-text>
+      <v-btn v-if="credits >= 1" @click="requestDispense">Dispense!</v-btn>
+      <v-btn v-else>Sad Panda {{credits}}</v-btn>
+    </v-card-text>
     <v-card-text class="shrink">
       <v-btn outlined small color="primary" @click="expand = !expand">
         My Details
@@ -172,7 +177,11 @@ export default {
   },
   methods: {
     setLed: function(state) {
-      API.get("CDD_API", "/command?setLed=" + state);
+      API.get("CDD_API", "/command", {
+        queryStringParameters: {
+          setLed: state
+        }
+      });
     },
     dispenseDrinkCredits: function(targetDispenser) {
       API.get("CDD_API", "/credit", {
@@ -193,10 +202,20 @@ export default {
     },
     clearGuard: function() {
       this.shareGuardPassed = true;
+    },
+    requestDispense: function() {
+      API.get("CDD_API", "/dispense", {
+        queryStringParameters: {
+          dispenserId: this.getDispenserId
+        }
+      });
     }
   },
   computed: {
     credits() {
+      return this.$store.getters.getCredits
+    },
+    creditText() {
       if (this.$store.getters.getCredits > 0) {
         return (
           '<span class="green--text">' +
@@ -287,6 +306,13 @@ export default {
     },
     ringLed() {
       return this.$store.getters.getRingLed;
+    },
+    dispenseStatus() {
+      if (this.$store.getters.getCredits >= 1) {
+        return "green"
+      } else {
+        return "red"
+      }
     }
   }
 };

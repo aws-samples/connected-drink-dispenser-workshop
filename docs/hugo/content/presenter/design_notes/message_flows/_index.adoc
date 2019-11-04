@@ -27,7 +27,26 @@ The `led_ring` is the round ring and `count` determine how many LED elements to 
         "color": "#RRGGBB"
         },
     "led": "on|off",
-    "dispense_time_ms": 2500
+    "dispense_time_ms": 2500,
+
+    "desired": {
+        "request": {
+            "command": "dispense",
+            "requestId": "1234-5678",
+            "timestamp": 12345
+        }
+    },
+
+    "reported": {
+        "response": {
+            "command": "dispense",
+            "requestId": "1234-5678",
+            "result": "success",
+            "timestamp": 45678
+        }
+    },
+
+
 }
 ```
 

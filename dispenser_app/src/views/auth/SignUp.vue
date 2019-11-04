@@ -22,7 +22,7 @@
             v-model="username"
             prepend-icon="mdi-account"
             name="username"
-            label="username"
+            label="Username"
             type="text"
           ></v-text-field>
           <v-text-field
@@ -41,7 +41,7 @@
             v-model="phoneNumber"
             prepend-icon="mdi-cellphone-arrow-down"
             name="phoneNumber"
-            label="phone number"
+            label="Phone number"
             type="text"
           ></v-text-field>
           <v-card-actions>
