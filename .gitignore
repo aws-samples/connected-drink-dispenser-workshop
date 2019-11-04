@@ -1,3 +1,5 @@
+# This is to keep development components clean
+
 # IDE
 .DS_Store
 
@@ -33,6 +35,7 @@ aws-exports.js
 __pycache__/
 *.py[cod]
 *$py.class
+.python-version
 # C extensions
 *.so
 # Environments
