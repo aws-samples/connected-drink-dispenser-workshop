@@ -21,7 +21,7 @@ First clone the repository locally:
 ```bash
 $ git clone https://github.com/aws-samples/connected-drink-dispenser-workshop.git
 ```
-Next, navigate to the `connected-drink-dispenser-workshop/hugo/public` directory and double-click `index.html`. This will bring up a local version of the documentation.
+Next, navigate to the `connected-drink-dispenser-workshop/docs/hugo/public` directory and double-click `index.html`. This will bring up a local version of the documentation.
 
 From the main *Welcome to the Connected Drink Dispenser Workshop!* page, click on the *Setting Up the Workshop* link in the left navigation column. From there you can navigate through the steps to complete prerequisites, deploy the stack, and then to deploy the documentation for participants to use.
 
