@@ -18,7 +18,7 @@ weight: 10
 
 The shadow document for devices tracks state of local resources. In the case of the motor board, this is `led` which maps to the _second_ motor controller, which is not used. This give an indicator that things are working without having to activate the motor.
 
-The `led_ring` is the round ring and `count` determine how many LED elements to light up, and the color is the RBG color for all active elements.
+The `led_ring` is the round ring and `count` determine how many LED elements to light up, and the color is the RBG color for all active elements. Each of these below will always be in the _desired_ state of the shadow and once online, in the _reported_ state for the device.
 
 ```json
 {
@@ -50,6 +50,29 @@ The `led_ring` is the round ring and `count` determine how many LED elements to 
 }
 ```
 
+There is also a temporary *request* and *response* objects used to track command state. The cloud logic will create the *request* object in the _desired_ state section of the shadow, and once processed by the devices, it will create the *response* object in the _reported_ state section. Finally, cloud logic will reconcile and clean up the shadow document of any entries left.
+
+This is what the *request* and *response* objects should look like. The `command` and `requestId` attribute and values must match. For the *request* object, the `timestamp` attribute is when the request was made, while in the *response* object it is when the dispenser completed the operation.
+
+```json
+{
+    "desired": {
+        "request": {
+            "command": "dispense",
+            "requestId": "1234-5678",
+            "timestamp": 12345
+        }
+    },
+    "reported": {
+        "response": {
+            "command": "dispense",
+            "requestId": "1234-5678",
+            "result": "success",
+            "timestamp": 45678
+        }
+    },
+}
+```
 
 The following sequence diagrams show the flows for different uses. The first flows are device-to-cloud, then Rules Engine actions, and then API generated flows.
 
@@ -136,6 +159,7 @@ During a network connection or reconnection, the dispenser will not activate the
 !includeurl AWSPuml/InternetOfThings/IoTGeneric.puml
 !includeurl AWSPuml/InternetOfThings/IoTCore.puml
 !includeurl AWSPuml/InternetOfThings/IoTRule.puml
+!includeurl AWSPuml/InternetOfThings/IoTShadow.puml
 !includeurl AWSPuml/Mobile/APIGateway.puml
 !includeurl AWSPuml/General/User.puml
 !includeurl AWSPuml/SecurityIdentityAndCompliance/Cognito.puml
@@ -144,23 +168,20 @@ During a network connection or reconnection, the dispenser will not activate the
 
 APIGatewayParticipant(api, API Gateway, /dispense) order 10
 IoTGenericParticipant(dispenser, Dispenser, Id: 123) order 20
-IoTCoreParticipant(broker, Message Broker,) order 30
-IoTRuleParticipant(rules, Rules Engine, cmd/123/response) order 40
+IoTShadowParticipant(shadow, Message Broker,) order 30
+IoTRuleParticipant(rules, Rules Engine, 123/shadow/update/accepted) order 40
 LambdaParticipant(app, Dispenser App,) order 50
 DynamoDBParticipant(db, Dispenser Table,) order 60
 DynamoDBParticipant(log_db, Events Table,) order 70
 
 skinparam noteTextAlignment left
 
-== Pre-dispense Setup ==
-dispenser -> broker: S: cmd/123
-
 == Request - Dispense operation from App ==
 api -> app : GET /dispense?dispenserId=123
 app <-> db : Read dispenser record
 alt if balance >= $1.00 and no dispense requestId
     app -> db : PUT dispense "requestId": "1234-5678" to request
-    app -> broker: P: cmd/123
+    app -> shadow: Add to "desired" state
     note right
         {
             "command": "dispense",
@@ -176,13 +197,22 @@ else If no credits or request already recorded
 end
 ... Some period of time ...
 == Response - Dispenser processes the message ==
-hnote over dispenser : Dispense message received on topic cmd/123
-broker -> dispenser : message (command, requestId, timestamp)
+hnote over dispenser : Dispenser polls for shadow updates (delta or document)
+shadow -> dispenser : desired state "request" object (command, requestId, timestamp)
 alt timestamp of message > 5 seconds (stale)
+    dispenser -> shadow : reported state "response" object
+    note left
+        {
+            "command": "dispense",
+            "requestId": "1234-5678",
+            "result": "failure",
+            "timestamp": 45678
+        }
+    end note
     dispenser -x dispenser : discard message
 else timestamp < 5 seconds old (current)
     dispenser -> dispenser : Activate motor for nn milliseconds
-    dispenser -> broker : P: cmd/123/<b>response</b>
+    dispenser -> shadow : reported state "response" object
     note left
         {
             "command": "dispense",
@@ -191,28 +221,28 @@ else timestamp < 5 seconds old (current)
             "timestamp": 45678
         }
     end note
-    broker -> rules: response message
-    rules -> app : Invoke based on command == "dispense" -> message
+    shadow -> rules: shadow update accepted
+    rules -> app : Invoke based on <b>shadow.state.reported.response</b> exists
     app <-> db : Read dispenser record
     alt requestId found in dispenser record
         app -> db : If requestId found, Deduct $1.00 from dispenser 123 credits, clear requestId, update dispenser record
         app -> log_db : Dispense: Operation completed successfully for dispenser
+        app -> shadow: Delete desired.request and reported.response objects
     else requestId was <i>NOT</i> found
         app -> log_db : Dispense: ERROR, no corresponding requestId found
+        app -> shadow: Delete desired.request and reported.response objects
     end
 end
 ....
 
 In this flow:
 
-* Pre-dispense setup
-** Dispenser subscribes to command topic `cmd/123`
 * Request - User clicks on "dispense" button in web application
 ** Lambda is invoked for that request
 ** Dispenser record read
 ** If there is a good balance and no in-process requests < 5 seconds old:
 *** Record a new request in the dispenser record
-*** Publish the message to the `cmd/123` topic
+*** Publish the *request* object to the dispensers shadow _desired_ state
 *** Log a successful request event
 *** Return to the API/web app a success message
 ** If there is _not_ enough credits or a dispense request is still valid (<5 seconds old):
@@ -221,20 +251,23 @@ In this flow:
 
 The response operation is decoupled from the request in that the dispenser may be in an offline state. Once online, the response flow continues:
 
-* Dispenser received a dispense request on `cmd/123`
+* Dispenser received a shadow update on `$aws/things/shadow/123/delta` or `$aws/things/shadow/123/update/accepted`
 ** If the timestamp of the request is older than 5 seconds:
+*** Add a *response* object to the _reported_ state with a `result=ERROR` indicator
 *** Discard the message and log locally
 ** If the request is current (less than 5 seconds old):
 *** Activate the motor for set duration
-*** _In parallel if possible_, publish a response message to `cmd/123/response` with the same `requestId`
-*** The response message triggers the Rules Engine which looks at the `command` value (`dispense`) and invokes the Lambda function
+*** _In parallel if possible_, a *response* object to the _reported_ state with the same `requestId`
+*** The response message triggers the Rules Engine which looks at the shadow document for a `state.reported.response` objects and if found invokes the Lambda function
 *** Lambda determines this is a rules invocation and not API
 *** Reads the dispenser record
 *** If there is a matching requestId
 **** deduct $1.00, clear requestId, update dispenser record
 **** Log successful dispenser operations
+**** Delete (set to `null`) and request and response objects in the dispensers shadow
 *** If no matching dispense requestId was found
 **** Log error (should not arrive here)
+**** Delete (set to `null`) and request and response objects in the dispensers shadow
 
 The Lambda will also clear out a stale dispense request. There can only be one in-flight dispense request in the dispenser's record.
 
