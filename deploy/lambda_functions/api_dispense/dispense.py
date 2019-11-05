@@ -196,9 +196,11 @@ def process_api_event(event, dispenser_table, event_table):
                 message = {
                     "state": {
                         "desired": {
-                            "command": "dispense",
-                            "requestId": request_id,
-                            "timestamp": time.time(),
+                            "request": {
+                                "command": "dispense",
+                                "requestId": request_id,
+                                "timestamp": time.time(),
+                            }
                         }
                     }
                 }

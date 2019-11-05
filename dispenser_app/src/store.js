@@ -28,6 +28,7 @@ const store = new Vuex.Store({
     privateKey: "",
     rootCA: "",
     accountUrl: "",
+    iotEndpoint: "",
     iamUsername: "",
     iamPassword: "",
     ledStatus: {

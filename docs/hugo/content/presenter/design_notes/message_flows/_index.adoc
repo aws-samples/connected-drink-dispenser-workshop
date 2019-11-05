@@ -25,34 +25,15 @@ The `led_ring` is the round ring and `count` determine how many LED elements to 
     "led_ring": {
         "count": 0,
         "color": "#RRGGBB"
-        },
+    },
     "led": "on|off",
     "dispense_time_ms": 2500,
-
-    "desired": {
-        "request": {
-            "command": "dispense",
-            "requestId": "1234-5678",
-            "timestamp": 12345
-        }
-    },
-
-    "reported": {
-        "response": {
-            "command": "dispense",
-            "requestId": "1234-5678",
-            "result": "success",
-            "timestamp": 45678
-        }
-    },
-
-
 }
 ```
 
-There is also a temporary *request* and *response* objects used to track command state. The cloud logic will create the *request* object in the _desired_ state section of the shadow, and once processed by the devices, it will create the *response* object in the _reported_ state section. Finally, cloud logic will reconcile and clean up the shadow document of any entries left.
+There are also a temporary *request* and *response* objects used to track command state. The cloud logic will create the *request* object in the _desired_ state section of the shadow, and once processed by the device, it will create the *response* object in the _reported_ state section. Finally, cloud logic will reconcile and clean up the shadow document of any entries left.
 
-This is what the *request* and *response* objects should look like. The `command` and `requestId` attribute and values must match. For the *request* object, the `timestamp` attribute is when the request was made, while in the *response* object it is when the dispenser completed the operation.
+Below are what the *request* and *response* objects should look like. The `command` and `requestId` attribute and values must match. For the *request* object, the `timestamp` attribute is when the request was made, while in the *response* object it is when the dispenser completed the operation.
 
 ```json
 {
@@ -75,15 +56,6 @@ This is what the *request* and *response* objects should look like. The `command
 ```
 
 The following sequence diagrams show the flows for different uses. The first flows are device-to-cloud, then Rules Engine actions, and then API generated flows.
-
-[IMPORTANT]
-.Diagram shorthand
-====
-All *SUBSCRIBE* events are to the broker and are in-place for the connection duration. Messages to the broker are _publish_ events, those from the broker are delivered to _subscribers_.
-
-. *P: foo/bar {...}* is used to denote _publishing_ to the topic `foo/bar` with the _payload_ of `{...}`
-. *device/_shadow_ {...}* indicate shadow operations for _device_ (unique) with the _payload_ of `{...}`
-====
 
 === Device Flows
 
@@ -146,9 +118,7 @@ The LED operation can be `on` or `off`.
 
 ==== Activate Dispenser
 
-Uses a device-specific topic to send a command (request) to the dispenser. After the dispenser has completed the operation, it published back and acknowledgement (response) to the same `topic/response`.
-
-During a network connection or reconnection, the dispenser will not activate the motor until a request message arrives withing a 5 second period. Older messages are discarded and not logged.
+Uses the device's shadow _desired_ state to send a command (request) to the dispenser. After the dispenser has completed the operation, it updates the shadow's _reported_ state to  acknowledge the request.
 
 .Activate Dispenser
 [plantuml, Activate Dispenser, svg]
@@ -168,7 +138,7 @@ During a network connection or reconnection, the dispenser will not activate the
 
 APIGatewayParticipant(api, API Gateway, /dispense) order 10
 IoTGenericParticipant(dispenser, Dispenser, Id: 123) order 20
-IoTShadowParticipant(shadow, Message Broker,) order 30
+IoTShadowParticipant(shadow, Shadow Operations, thingName: 123) order 30
 IoTRuleParticipant(rules, Rules Engine, 123/shadow/update/accepted) order 40
 LambdaParticipant(app, Dispenser App,) order 50
 DynamoDBParticipant(db, Dispenser Table,) order 60
@@ -200,7 +170,7 @@ end
 hnote over dispenser : Dispenser polls for shadow updates (delta or document)
 shadow -> dispenser : desired state "request" object (command, requestId, timestamp)
 alt timestamp of message > 5 seconds (stale)
-    dispenser -> shadow : reported state "response" object
+    dispenser -> shadow : <i>Optional</i>: reported state "response" object
     note left
         {
             "command": "dispense",
@@ -253,7 +223,7 @@ The response operation is decoupled from the request in that the dispenser may b
 
 * Dispenser received a shadow update on `$aws/things/shadow/123/delta` or `$aws/things/shadow/123/update/accepted`
 ** If the timestamp of the request is older than 5 seconds:
-*** Add a *response* object to the _reported_ state with a `result=ERROR` indicator
+*** Add a *response* object to the _reported_ state with a `result=ERROR` indicator (optional - if submitted no credits will be deducted)
 *** Discard the message and log locally
 ** If the request is current (less than 5 seconds old):
 *** Activate the motor for set duration
@@ -311,7 +281,7 @@ rule -> logging : Rule: LogDispenserEvents\nevent:\nmessage, timestamp() as ts, 
 logging -> db : Put entry:\ndispenserId: nnn (or 000 for generic)\nlog: message\ntimestamp: isoformat\n
 ....
 
-There are two rules activated for the workshop, both which log events to the *EventsTable*. The *DispenserProcessEvents* rule monitors for shadow update documents, adds the topic which will identify the dispenser, then invokes the *ProcessEvents* Lambda function. Similarly for the `events` and `events/nnn` (dispenser ID), the *LogGenericEvents* and *LogDispenserEvents* rules process the messages and invoke *ProcessEvents*.
+There are three logging rules for the workshop, all which log events to the *EventsTable*. The *LogShadowEvents* rule monitors for shadow update documents, adds the topic which will identify the dispenser, then invokes the *ProcessEvents* Lambda function. Similarly for messages published to the `events` and `events/nnn` (dispenser ID) topics, the *LogGenericEvents* and *LogDispenserEvents* rules process the messages and invoke *ProcessEvents*.
 
 The Lambda function parses the incoming details and creates the formatted entries that then published to the DynamoDB *EventsTable*.
 

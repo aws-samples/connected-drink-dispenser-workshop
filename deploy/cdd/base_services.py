@@ -585,7 +585,7 @@ class CddBase(core.Stack):
                         "Effect": "Allow",
                         "Action": ["iot:Connect"],
                         "Resource": [
-                            f"arn:aws:iot:{stack.region}:{stack.account}:client/${{iot.Connection.Thing.ThingName}}"
+                            f"arn:aws:iot:{stack.region}:{stack.account}:client/${{iot:Connection.Thing.ThingName}}"
                         ],
                         "Condition": {
                             "Bool": {"iot:Connection.Thing.IsAttached": [True]}

@@ -71,6 +71,15 @@
               <b>Password:</b>
               &nbsp; {{getIamPassword}}
             </v-card-text>
+            <v-card-text>
+              <b>
+                <u>AWS IoT Details:</u>
+              </b>
+              <br />
+              <b>Endpoint:</b>
+              &nbsp; {{this.iotEndpoint}}
+            </v-card-text>
+
           </v-row>
         </v-card-text>
       </v-expand-transition>
@@ -164,6 +173,7 @@
 
 <script>
 import { API } from "aws-amplify";
+import awsmobile from '../aws-exports.js';
 
 export default {
   name: "dispenser",
@@ -172,7 +182,8 @@ export default {
       expand: false,
       lastCreditMessage: "Haven't given credits yet",
       targetDispenser: null,
-      shareGuardPassed: true
+      shareGuardPassed: true,
+      iotEndpoint: awsmobile.aws_iot_endpoint
     };
   },
   methods: {
