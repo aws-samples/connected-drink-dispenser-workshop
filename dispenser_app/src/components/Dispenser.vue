@@ -25,8 +25,8 @@
     
     </v-list-item>
     <v-card-text>
-      <v-btn v-if="credits >= 1" @click="requestDispense">Dispense!</v-btn>
-      <v-btn v-else>Sad Panda {{credits}}</v-btn>
+      <v-btn v-if="credits >= 1" @click="requestDispense" color="green">Dispense!</v-btn>
+      <v-btn v-else disabled color="red">Need Credits</v-btn>
     </v-card-text>
     <v-card-text class="shrink">
       <v-btn outlined small color="primary" @click="expand = !expand">
@@ -87,7 +87,7 @@
     <v-container class="grey lighten-5" fluid>
       <v-row>
         <v-col>
-          <v-card outline tile>
+          <v-card outline tile height="100%">
             <v-list-item three-line>
               <v-list-item-content>
                 <div class="overline mb-4">CURRENT CARRIER BOARD LED STATUS</div>
@@ -135,16 +135,18 @@
           </v-card>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col>
       <v-expansion-panels>
         <v-expansion-panel>
           <v-expansion-panel-header disable-icon-rotate>
-            Share the Love
+            Share the Love!
             <template v-slot:actions>
               <v-icon color="red">mdi-hand-heart</v-icon>
             </template>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            Select the dispenser that you wish to give credit. You cannot give yourself credits, and there is a five second delay in giving credits to others.
+            Select the dispenser that you wish to give credit. You cannot give yourself credits, and there is a five second delay in-between giving credits to others.
             <v-col>
               <v-text-field
                 label="Enter another's Dispenser ID to give credits"
@@ -167,6 +169,16 @@
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
+      </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+      <v-card>
+        <v-card-text><div>Last API Call Response</div>
+        <div class="text--primary">{{lastApiMessage}}</div></v-card-text>
+      </v-card>
+      </v-col>
+      </v-row>
     </v-container>
   </v-card>
 </template>
@@ -181,6 +193,7 @@ export default {
     return {
       expand: false,
       lastCreditMessage: "Haven't given credits yet",
+      lastApiMessage: "",
       targetDispenser: null,
       shareGuardPassed: true,
       iotEndpoint: awsmobile.aws_iot_endpoint
@@ -191,7 +204,14 @@ export default {
       API.get("CDD_API", "/command", {
         queryStringParameters: {
           setLed: state
-        }
+        },
+        responseType: "text"
+      })
+      .then(response => {
+        this.lastApiMessage = response;
+      })
+      .catch(error => {
+        console.log(error)
       });
     },
     dispenseDrinkCredits: function(targetDispenser) {
@@ -218,7 +238,15 @@ export default {
       API.get("CDD_API", "/dispense", {
         queryStringParameters: {
           dispenserId: this.getDispenserId
-        }
+        },
+        responseType: "text"
+      })
+      .then(response => {
+        this.lastApiMessage = response;
+        console.log("Dispense command: ", response);
+      })
+      .catch(error => {
+        console.log(error);
       });
     }
   },

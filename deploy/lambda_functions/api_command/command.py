@@ -65,7 +65,7 @@ def set_led(thing, state):
     return http_response(
         http_headers,
         200,
-        f"Led state state {led_new_state} successfully put into shadow",
+        f'Led state "{led_new_state}" successfully put into device shadow',
     )
 
 

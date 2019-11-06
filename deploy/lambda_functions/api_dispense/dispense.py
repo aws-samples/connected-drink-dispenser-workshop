@@ -248,12 +248,15 @@ def process_iot_event(event, dispenser_table, event_table):
     try:
         # Check for corresponding requestId in event from DynamoDB table
         event_request_id = event["state"]["reported"]["response"]["requestId"]
+        event_response_result = event["state"]["reported"]["response"]["result"]
         dispenser_record = read_dispenser(dispenser, dispenser_table)
         dispense_request = request_details(
             requests=dispenser_record["requests"], command="dispense"
         )
         if dispense_request is not None:
-            if event_request_id == dispense_request["requestId"]:
+            if (event_request_id == dispense_request["requestId"]) and (
+                event_response_result == "success"
+            ):
                 # request still current - delete request, deduct $1.00 from  dispenser, and log
                 dispenser_record = remove_request(
                     record=dispenser_record, command="dispense"
@@ -286,6 +289,35 @@ def process_iot_event(event, dispenser_table, event_table):
                         f'{(time.time() - dispense_request["timestamp"]):0.2f} seconds, '
                         f"$1.00 deducted from credits",
                     ),
+                )
+            elif (event_request_id == dispense_request["requestId"]) and (
+                event_response_result == "failure"
+            ):
+                # dispenser reporting error, remove dispense entry but do not deduct credits
+                dispenser_record = remove_request(
+                    record=dispenser_record, command="dispense"
+                )
+                write_dispenser_record(dispenser_record, dispenser_table)
+
+                # Clean out any request/response objects, no need to touch rest of dispenser
+                new_state = {
+                    "state": {
+                        "desired": {"request": None},
+                        "reported": {"response": None},
+                    }
+                }
+                iot_client.update_thing_shadow(
+                    thingName=dispenser, payload=json.dumps(new_state)
+                )
+
+                # Log entry directly to event table, no change to state
+                log_event(
+                    event_table,
+                    dispenser,
+                    f"Dispense: ERROR, did not dispense for request "
+                    f'{dispense_request["requestId"]} after '
+                    f'{(time.time() - dispense_request["timestamp"]):0.2f} seconds, '
+                    f"dispenser reported failure. No credits deducted",
                 )
             else:
                 # requestId does not match, clear and do not deduct
