@@ -21,9 +21,9 @@ Copy the `deploy/config.json.default` to `deploy/config.json` and modify the new
 
 ## Process Local Dependencies
 
-There are various python packages that need to be installed within the `cdk/.env` directory in order for CDK to run and process the stack. Follow these steps *once* to install the dependencies.
+There are various python packages that need to be installed within the `deploy/.env` directory in order for CDK to run and process the stack. Follow these steps *once* to install the dependencies.
 
-Change to the `cdk` directory and activate the Python virtual environment.
+Change to the `deploy/` directory and activate the Python virtual environment.
 
 ```bash
 $ cd Connected_drink_dispenser/cdk

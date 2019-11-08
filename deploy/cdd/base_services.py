@@ -714,9 +714,7 @@ class CddBase(core.Stack):
             role=lambda_api_app_role,
             timeout=core.Duration.seconds(15),
             memory_size=128,
-            environment={
-                "DISPENSER_TABLE": dispenser_db.table_name,
-            },
+            environment={"DISPENSER_TABLE": dispenser_db.table_name},
         )
         # Request user details from user table, create resources if needed
         # NOTE: This uses an overley permissive policy to create the resources needed
@@ -729,8 +727,6 @@ class CddBase(core.Stack):
             runtime=lambda_.Runtime.PYTHON_3_7,
             role=lambda_full_access_role,
             # Timeout is for user creation: certain tasks such as Cloud9 may take longer
-            # TODO: For race conditions (double execute of API), add tag to DDB user table that
-            # creation in progress
             timeout=core.Duration.seconds(300),
             memory_size=128,
             environment={
@@ -857,17 +853,33 @@ class CddBase(core.Stack):
             groups=[user_group],
             policy_name=id + "-UserPermissions",
             statements=[
+                # Elevated permissions beyond the ReadOnlyUser
+                # Allow seeing all MQTT messages
                 iam.PolicyStatement(
                     actions=["iot:Subscribe", "iot:Connect", "iot:Receive"],
                     resources=["*"],
                 ),
+                # Allow changing of security group ingress on EC2 (Cloud9) to support mapping 443 to
                 iam.PolicyStatement(
-                    # Do not all users to see the table with credentials
+                    actions=[
+                        "ec2:AuthorizeSecurityGroupIngress",
+                        "ec2:RevokeSecurityGroupIngress",
+                    ],
+                    resources=[
+                        f"arn:aws:ec2:{stack.region}:{stack.account}:security-group/*"
+                    ],
+                ),
+                # DENY access to credentials table
+                iam.PolicyStatement(
                     effect=iam.Effect.DENY,
                     actions=["dynamodb:*"],
                     resources=[
                         f"arn:aws:dynamodb:{stack.region}:{stack.account}:table/{user_db.table_name}"
                     ],
+                ),
+                # DENY access to S3 overall
+                iam.PolicyStatement(
+                    effect=iam.Effect.DENY, actions=["s3:*"], resources=["*"]
                 ),
             ],
         )

@@ -23,7 +23,7 @@ We have strived to keep the amount of prerequisites to a minimum in order to set
 
     The following commands will verify that the command line tools are properly installed:
     {{< highlight bash >}}
-$ iam get-account-summary          # AWS CLI
+$ aws iam get-account-summary       # AWS CLI
 {
     "SummaryMap": {
       ...

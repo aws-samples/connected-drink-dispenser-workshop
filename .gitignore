@@ -9,6 +9,7 @@
 # Common ignores
 tmp/
 *.zip
+virtual_dispenser/
 
 # CDK
 cdk.out/
