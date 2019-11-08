@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="generator" content="Hugo 0.59.0" />
     <meta name="description" content="">
 
 
@@ -27,7 +27,7 @@
 
     <script src="../js/jquery-3.3.1.min.js"></script>
 
-    <style type="text/css">
+    <style>
       :root #header + #content > #left > #rlblock_left{
           display:none !important;
       }
@@ -378,7 +378,7 @@
 </ul>
 
 <p>The following commands will verify that the command line tools are properly installed:
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ iam get-account-summary          <span style="color:#75715e"># AWS CLI</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ aws iam get-account-summary       <span style="color:#75715e"># AWS CLI</span>
 <span style="color:#f92672">{</span>
     <span style="color:#e6db74">&#34;SummaryMap&#34;</span>: <span style="color:#f92672">{</span>
       ...
@@ -395,30 +395,29 @@ pip <span style="color:#ae81ff">19</span>.2.2 from ...
 $ cdk --version                    <span style="color:#75715e"># CDK utility (from npm)</span>
 <span style="color:#ae81ff">1</span>.4.0 <span style="color:#f92672">(</span>build 175471f<span style="color:#f92672">)</span>
     </code></pre></div></p></li>
-</ul>
 
-<p>
-<div class="notices info" ><p>You can also use a Cloud 9 instance to manage the deployment of the stack. Make sure the AWS account used to launch Cloud 9 has full permissions needed by CloudFormation. You can then use the following command to clone the repository and setup the above dependencies.</p>
+<li><p><a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html">An AWS CLI named profile.</a> The profile in <code>~/.aws/config</code> should contain the target region, and the <code>~/.aws/credentials</code> file should have an access key and secret access key with administrative access (or minimum to deploy and run the stack). The profile name <code>cdk-user</code> will be used throughout this guide.</p></li>
 
-<pre><code>line 1
-</code></pre>
-</div>
+<li><p>A registered domain name managed by Route 53 in the workshop account. This can either be through registration in Route 53, or <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html">making Amazon Route 53 the DNS service for the domain</a>. If we want the URL for the workshop to be  <code>cdd.example.com</code>, in Route 53 there needs to be a public hosted zone for <code>example.com</code>.</p></li>
 
-* <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html">An AWS CLI named profile.</a> The profile in <code>~/.aws/config</code> should contain the target region, and the <code>~/.aws/credentials</code> file should have an access key and secret access key with administrative access (or minimum to deploy and run the stack). The profile name <code>cdk-user</code> will be used throughout this guide.
-* A registered domain name managed by Route 53 in the workshop account. This can either be through registration in Route 53, or <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html">making Amazon Route 53 the DNS service for the domain</a>. If we want the URL for the workshop to be  <code>cdd.example.com</code>, in Route 53 there needs to be a public hosted zone for <code>example.com</code>.
-* To target the appropriate account, region and other aspects, the following entries need to be considered and changed in the <code>config.json</code> file (the default value used in this guide listed first):
-    * <strong>Region</strong> - <code>us-west-2</code><br/>Region identifier, must support all AWS resources being used.
-  * <strong>HostName</strong> - <code>cdd.example.com</code><br/>The fully qualified domain name entry to be created from the Route 53 hosted zone details above (<code>example.com</code>). Note, subdomain entries can also be used such as <code>cdd.foo.example.com</code>, but must be created from Route 53.
-  * <strong>ProfileName</strong> - <code>cdk-user</code><br />The AWS CLI profile name referenced above. It is used by the build and deploy steps to use the right account and credentials.
-  * <strong>AdminUserName</strong> - <code>admin</code><br/>The username to log into the web application for administrative purposes.
-  * <strong>AdminPassword</strong> - <code>NO DEFAULT VALUE</code><br/>This needs to be completed in the <code>config.json</code> file and is only used for web application related tasks, and <em>not</em> for AWS account activities.
-  * <strong>cloud9InstanceSize</strong> - <code>t3.small</code><br/>Instance size for each participants Cloud 9 environment. Select larger (or smaller) depending upon how long the Amazon FreeRTOS compilation should take.
-  * <strong>ParticipantLimit</strong> - <code>20</code><br/>The maximum amount of user accounts that can be created, after which, new account creation will fail. It is best to set this to 5-10% above total expected participants.
-* A Amazon Certificate Manager (ACM) validated server certificate in N. Virginia, to encrypt access to the web application.
+<li><p>To target the appropriate account, region and other aspects, the following entries need to be considered and changed in the <code>config.json</code> file (the default value used in this guide listed first):</p>
+
+<ul>
+<li><strong>Region</strong> - <code>us-west-2</code><br/>Region identifier, must support all AWS resources being used.</li>
+<li><strong>HostName</strong> - <code>cdd.example.com</code><br/>The fully qualified domain name entry to be created from the Route 53 hosted zone details above (<code>example.com</code>). Note, subdomain entries can also be used such as <code>cdd.foo.example.com</code>, but must be created from Route 53.</li>
+<li><strong>ProfileName</strong> - <code>cdk-user</code><br />The AWS CLI profile name referenced above. It is used by the build and deploy steps to use the right account and credentials.</li>
+<li><strong>AdminUserName</strong> - <code>admin</code><br/>The username to log into the web application for administrative purposes.</li>
+<li><strong>AdminPassword</strong> - <code>NO DEFAULT VALUE</code><br/>This needs to be completed in the <code>config.json</code> file and is only used for web application related tasks, and <em>not</em> for AWS account activities.</li>
+<li><strong>cloud9InstanceSize</strong> - <code>t3.small</code><br/>Instance size for each participants Cloud 9 environment. Select larger (or smaller) depending upon how long the Amazon FreeRTOS compilation should take.</li>
+<li><strong>ParticipantLimit</strong> - <code>20</code><br/>The maximum amount of user accounts that can be created, after which, new account creation will fail. It is best to set this to 5-10% above total expected participants.</li>
+</ul></li>
+
+<li><p>An Amazon Certificate Manager (ACM) validated server certificate in N. Virginia, to encrypt access to the web application.
 
 <div class="notices warning" ><p>The certificate needs to be created in the N. Virginia region to work with Amazon CloudFront. Also, the issued certificate must support the fully qualified domain name you wish to use. For example, a certificate for <code>*.example.com</code> is valid for the domain name <code>cdd.example.com</code>, but would <em>not</em> work for <code>cdd.foo.example.com</code> since the wildcard is only matches the third element <code>foo</code>, and not the  fourth one, <code>cdd</code>.</p>
 </div>
-</p>
+</p></li>
+</ul>
 
 
 
@@ -604,14 +603,13 @@ $ cdk --version                    <span style="color:#75715e"># CDK utility (fr
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/jquery.sticky.js"></script>
     <script src="../js/featherlight.min.js"></script>
-    <script src="../js/html5shiv-printshiv.min.js"></script>
     <script src="../js/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <script src="../js/modernizr.custom-3.6.0.js"></script>
     <script src="../js/learn.js"></script>
     <script src="../js/hugo-learn.js"></script>
 
-    <link href="../mermaid/mermaid.css" type="text/css" rel="stylesheet" />
+    <link href="../mermaid/mermaid.css" rel="stylesheet" />
     <script src="../mermaid/mermaid.js"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });

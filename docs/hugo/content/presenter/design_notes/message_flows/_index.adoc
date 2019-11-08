@@ -179,7 +179,7 @@ alt timestamp of message > 5 seconds (stale)
             "timestamp": 45678
         }
     end note
-    dispenser -x dispenser : discard message
+    dispenser ->> dispenser : discard message
 else timestamp < 5 seconds old (current)
     dispenser -> dispenser : Activate motor for nn milliseconds
     dispenser -> shadow : reported state "response" object
