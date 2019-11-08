@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 # Run command to build new local image
-# docker build -t gadams999/hugo-ubuntu:0.56.3 .
-ARG HUGO_VERSION=0.56.3
+# docker build -t gadams999/hugo-ubuntu:0.59.1 .
+ARG HUGO_VERSION=0.59.0
 
 # docker build -t gavinaws/hugo54.0-ubuntu .
 # ARG HUGO_VERSION=0.54.0

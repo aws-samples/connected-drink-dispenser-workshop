@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="generator" content="Hugo 0.59.1" />
     <meta name="description" content="">
 
 
@@ -27,7 +27,7 @@
 
     <script src="../js/jquery-3.3.1.min.js"></script>
 
-    <style type="text/css">
+    <style>
       :root #header + #content > #left > #rlblock_left{
           display:none !important;
       }
@@ -372,17 +372,16 @@
 
 <h2 id="repository-layout">Repository Layout</h2>
 
-<p>An understanding of the repository is not required to run the workshop, but can be helpful when deploying the cloud assets or to understand supporting resources. The <a href="https://github.com/aws-samples/REPO_NAME">Connected Drink Dispenser Repository</a> directory structure looks similar to this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">├── cdk                     &lt;--- CloudFormation Development Kit to build all resources
+<p>An understanding of the repository is not required to run the workshop, but can be helpful when deploying the cloud assets or to understand supporting resources. The <a href="https://github.com/aws-samples/connected-drink-dispenser-workshop">Connected Drink Dispenser Repository</a> directory structure looks similar to this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">├── deploy                  &lt;--- Build and deploy the CloudFormation stack
 ├── dispenser_app           &lt;--- Single Page App (SPA)
 ├── docs                    &lt;--- Participant and presenter docs
-├── LICENSE
-├── NOTICE
+...
 └── README.md                &lt;--- Main GitHub documentation page</code></pre></div>
 <p>The main directories of interest are:</p>
 
 <ul>
-<li><code>cdk</code> - Creates and optionally deploys all assets to the cloud for the workshop.</li>
+<li><code>deploy</code> - Creates and optionally deploys all assets to the cloud for the workshop.</li>
 <li><code>dispenser_app</code> - The SPA for managing per-workshop resources (admin user) and the web app for participants to interact with the device.</li>
 <li><code>docs</code> - The source files to create the documentation site for inclusion into the main web site along side the dispenser app. <em>You are current here!</em></li>
 </ul>
@@ -571,14 +570,13 @@
     <script src="../js/perfect-scrollbar.jquery.min.js"></script>
     <script src="../js/jquery.sticky.js"></script>
     <script src="../js/featherlight.min.js"></script>
-    <script src="../js/html5shiv-printshiv.min.js"></script>
     <script src="../js/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <script src="../js/modernizr.custom-3.6.0.js"></script>
     <script src="../js/learn.js"></script>
     <script src="../js/hugo-learn.js"></script>
 
-    <link href="../mermaid/mermaid.css" type="text/css" rel="stylesheet" />
+    <link href="../mermaid/mermaid.css" rel="stylesheet" />
     <script src="../mermaid/mermaid.js"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
