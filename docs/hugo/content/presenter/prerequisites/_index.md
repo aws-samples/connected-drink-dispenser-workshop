@@ -45,7 +45,7 @@ $ cdk --version                    # CDK utility (from npm)
 * [An AWS CLI named profile.](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) The profile in `~/.aws/config` should contain the target region, and the `~/.aws/credentials` file should have an access key and secret access key with administrative access (or minimum to deploy and run the stack). The profile name `cdk-user` will be used throughout this guide.
 * A registered domain name managed by Route 53 in the workshop account. This can either be through registration in Route 53, or [making Amazon Route 53 the DNS service for the domain](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html). If we want the URL for the workshop to be  `cdd.example.com`, in Route 53 there needs to be a public hosted zone for `example.com`.
 * To target the appropriate account, region and other aspects, the following entries need to be considered and changed in the `config.json` file (the default value used in this guide listed first):
-    * **Region** - `us-west-2`<br/>Region identifier, must support all AWS resources being used.
+  * **Region** - `us-west-2`<br/>Region identifier, must support all AWS resources being used.
   * **HostName** - `cdd.example.com`<br/>The fully qualified domain name entry to be created from the Route 53 hosted zone details above (`example.com`). Note, subdomain entries can also be used such as `cdd.foo.example.com`, but must be created from Route 53. 
   * **ProfileName** - `cdk-user`<br />The AWS CLI profile name referenced above. It is used by the build and deploy steps to use the right account and credentials.
   * **AdminUserName** - `admin`<br/>The username to log into the web application for administrative purposes.
