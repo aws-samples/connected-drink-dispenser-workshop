@@ -1,9 +1,9 @@
 ---
 chapter: false
-pre: <i class="fas fa-user-graduate"></i>&nbsp;
+pre: 
 next: 
 prev: 
-title: Build Dispenser
+title: 8. Build Dispenser
 weight: 80
 ---
 

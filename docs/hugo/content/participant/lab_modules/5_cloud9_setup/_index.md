@@ -1,9 +1,9 @@
 ---
 chapter: false
-pre: <i class="fas fa-user-graduate"></i>&nbsp;
+pre: 
 next: 
 prev: 
-title: Cloud9 Development Environment
+title: 5. Cloud9 Development Environment
 weight: 50
 ---
 

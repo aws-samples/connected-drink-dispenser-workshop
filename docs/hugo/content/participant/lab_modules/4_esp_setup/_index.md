@@ -1,9 +1,9 @@
 ---
 chapter: false
-pre: <i class="fas fa-user-graduate"></i>&nbsp;
+pre: 
 next: 
 prev: 
-title: MCU Setup & Test
+title: 4. MCU Setup & Test
 weight: 40
 ---
 

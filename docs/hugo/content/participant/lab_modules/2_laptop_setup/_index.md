@@ -1,9 +1,8 @@
 ---
 chapter: false
-pre: <i class="fas fa-user-graduate"></i>&nbsp;
 next: 
 prev: 
-title: Laptop Setup
+title: 2. Laptop Setup
 weight: 20
 ---
 

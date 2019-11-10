@@ -1,9 +1,9 @@
 ---
 chapter: false
-pre: <i class="fas fa-user-graduate"></i>&nbsp;
+pre: 
 next: 
 prev: 
-title: Review Cloud Architecture
+title: 7. Review Cloud Architecture
 weight: 70
 ---
 

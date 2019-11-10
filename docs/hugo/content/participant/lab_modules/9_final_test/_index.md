@@ -1,9 +1,9 @@
 ---
 chapter: false
-pre: <i class="fas fa-user-graduate"></i>&nbsp;
+pre: 
 next: 
 prev: 
-title: Dispense a Drink!
+title: 9. Dispense a Drink!
 weight: 90
 ---
 

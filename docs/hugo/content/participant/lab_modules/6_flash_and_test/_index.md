@@ -1,9 +1,9 @@
 ---
 chapter: false
-pre: <i class="fas fa-user-graduate"></i>&nbsp;
+pre: 
 next: 
 prev: 
-title: Flash & Test MCU
+title: 6. Flash & Test MCU
 weight: 60
 ---
 

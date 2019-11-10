@@ -1,9 +1,9 @@
 ---
 chapter: false
-pre: <i class="fas fa-user-graduate"></i>&nbsp;
+pre: 
 next: 
 prev: 
-title: Architecture Overview
+title: 1. Architecture Overview
 weight: 10
 ---
 

@@ -1,9 +1,9 @@
 ---
 chapter: false
-pre: <i class="fas fa-user-graduate"></i>&nbsp;
+pre: 
 next: 
 prev: 
-title: Create Account/Resources
+title: 3. Create Account/Resources
 weight: 30
 ---
 
