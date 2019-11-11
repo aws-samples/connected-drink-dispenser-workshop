@@ -1,0 +1,1 @@
+The files in this directory are the source files for creating image files for the Hugo document structure.
