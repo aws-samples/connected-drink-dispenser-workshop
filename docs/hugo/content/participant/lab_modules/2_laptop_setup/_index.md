@@ -99,8 +99,16 @@ To interact with the microcontroller, you will be doing so from a terminal windo
     1. For macOS, `ls -l /dev/tty.*` will show the ports. You should *not* see a `tty.SLAB_USBtoUART` entry yet.
     1. FOr Linux, `ls -l /dev/tty.*` and note the port numbers.
 1. Connect the ESP32, then run the same commands and look for a new addition. That will be the *port* you will use when flashing and monitoring the microcontroller.
+    <img src="/images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/>
+    When added to a MacBookPro, a valid driver installation and good data+power USB connection would show this:
 
-
+    ```bash
+    $ # Before connecting ESP32 to laptop
+    $ ls /dev/tty.*
+    /dev/tty.Bluetooth-Incoming-Port
+    $ # After connecting as above
+    /dev/tty.Bluetooth-Incoming-Port /dev/tty.SLAB_USBtoUART
+    ```
 
 
 {{% /expand%}}
