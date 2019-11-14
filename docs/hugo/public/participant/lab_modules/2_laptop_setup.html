@@ -613,7 +613,10 @@
 <li><a href="#objectives">Objectives</a></li>
 <li><a href="#steps-to-complete">Steps to Complete</a>
 <ul>
-<li><a href="#specific-action-to-complete">Specific action to complete</a></li>
+<li><a href="#1-create-local-folder">1. Create Local Folder</a></li>
+<li><a href="#2-download-and-install-serial-driver">2. Download and Install Serial Driver</a></li>
+<li><a href="#download-and-install-esptool-py">Download and Install esptool.py</a></li>
+<li><a href="#open-command-line-interface-and-test-all-components">Open Command Line Interface and Test All Components</a></li>
 </ul></li>
 <li><a href="#checkpoints">Checkpoints</a></li>
 <li><a href="#optional-outcomes">(optional) Outcomes</a></li>
@@ -648,15 +651,29 @@
 
 <h2 id="objectives">Objectives</h2>
 
-<p>Statement of what and why we are doing this. Then more detailed list if needed.</p>
+<p>In this lab you will configure your laptop for the workshop. By the end of the module you will have:</p>
+
+<ul>
+<li>A directory or folder to hold all the files required for your dispenser</li>
+<li>Installed and tested a device driver to communicate with the miicrocontroller</li>
+<li>Downloaded a command line utility to program (flashed) the microcontroller</li>
+<li>Have an open terminal or command prompt ready to issue commands</li>
+</ul>
+
+<p>The microcontroller is programmed, or flashed, via a USB serial connection from a computer or laptop. Based on the microcontoller chipset, a specific driver is required.</p>
+
+
+<div class="notices note" ><p>Each persons laptop is unique and the general instructions may not work for a variety of reasons such as having a older version of the driver loaded, insufficient permissions to install, or older versions of Operating Systems. Please ensure that the checkpoint at the end has been completed prior to starting the next lab.</p>
+</div>
+
 
 <h2 id="steps-to-complete">Steps to Complete</h2>
 
-<p>For each step, use the follow expand for each section:</p>
+<p>Follow each step in order and use the <em>Open for detailed step-by-step instructions</em> if required.</p>
 
-<h3 id="specific-action-to-complete">Specific action to complete</h3>
+<h3 id="1-create-local-folder">1. Create Local Folder</h3>
 
-<p>Short description of what to do for experienced people</p>
+<p>Create a local folder called <code>cdd</code> that will contain all downloads and assets needed for the workshop. It is recommended to create this within your web browsers default download location. When asked to <em>download resource</em> X <em>to <code>cdd</code> folder</em>, save or move the files to that folder.</p>
 
 
 <div class="expand">
@@ -670,7 +687,127 @@
     	</span>
     </div>
     <div class="expand-content" style="display: none;">
-        <p>detailed steps with markdown.</p>
+        <ol>
+<li>Open a file browser for your operating system (Windows: Explorer, macOS: Finder) and navigate to the default download folder used by your web browser.</li>
+<li>Create a folder named <code>cdd</code> within Downloads.</li>
+<li>Leave the file browser open as we will be using it to move files around in later modules.</li>
+</ol>
+
+    </div>
+</div>
+
+<h3 id="2-download-and-install-serial-driver">2. Download and Install Serial Driver</h3>
+
+<p>The microcontroller used in this workshop, the <a href="https://www.espressif.com/en/products/hardware/esp32-devkitc/overview">ESP32-DevKitC</a> has a built-in Silicon Labs CP210x serial controller. In order for you laptop to communicate, download and install the <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP210x USB to UART Bridge VCP Drivers</a> for your operating system. Follow the instructions <em>exactly</em>, you may be required to provide permissions to the driver and in some cases restart you laptop to complete the installation process.</p>
+
+
+<div class="notices warning" ><p>Use the installer specific to the <em>exact version</em> of your operating system. Using the wrong driver will not work and may make it difficult to install the proper version later.</p>
+</div>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+        <span>
+        
+    	
+    	Open for detailed step-by-step instructions
+    	
+    	</span>
+    </div>
+    <div class="expand-content" style="display: none;">
+        <ol>
+<li>Open a browser window to the the <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP210x USB to UART Bridge VCP Drivers</a>  download page.</li>
+<li>Download the software (the <em>Download VCP</em> link) for your operating system. If in doubt, please verify the version and read the release notes to confirm.</li>
+<li>Once downloaded, follow the instructions to complete the installation of the driver.</li>
+</ol>
+
+<p>Here are some tips for popular operating systems:</p>
+
+<ul>
+<li>Windows 10 - Unzip and use installer for either 32-bit or 64-bit. The VCP driver may have been installed by Windows Update, but using the SIlicon Labs provided driver will work with the ESP32-DevKitC.</li>
+<li>WIndows 7/8/8.1 - Use the default driver, <em>not</em> the serial emulation one. The VCP driver may have been installed by Windows Update, but using the SIlicon Labs provided driver will work with the ESP32-DevKitC. If the default driver does not work, you may try the other driver.</li>
+<li>macOS/OSX - Mount the DMG file, or use the legacy folder for OSX 10.9 or 101.10. <strong>NOTE:</strong> On MacOS 10.13 and later, the installation of the driver may be blocked. To unblock, open the System Preferences Security &amp; Privacy pane and unblock the system extension. See <a href="https://developer.apple.com/library/archive/technotes/tn2459/_index.html">Apple Technical Note TN2459</a> &ldquo;User-Approved Kernel Extension Loading&rdquo; for more information.</li>
+</ul>
+
+    </div>
+</div>
+
+<h3 id="download-and-install-esptool-py">Download and Install esptool.py</h3>
+
+<p>To interact with the microcontroller via the serial USB connection, there is a specific application used. <a href="https://github.com/espressif/esptool">Follow the instructions</a> for your operating system to download and/or install the application. If installed correctly the command should accessible from any directory.</p>
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+        <span>
+        
+    	
+    	Open for detailed step-by-step instructions
+    	
+    	</span>
+    </div>
+    <div class="expand-content" style="display: none;">
+        <ol>
+<li>Navigate to the <a href="https://github.com/espressif/esptool">esptool.py</a> GitHub repository and scroll down to the installation instructions.</li>
+<li>For your operating system, follow the instructions to install the python modules.</li>
+</ol>
+
+<p><strong><em>Optional Tools</em></strong></p>
+
+<p>If you are unable to install the esptool via the Espressif GitHub repository, there are optional versions available for different operating systems. Please note that these have not been tested, and there may be differences between the arguments referenced in the lab modules and the actual software.</p>
+
+<ul>
+<li><strong>macOS</strong> - If you have <a href="https://brew.sh/">brew</a> installed, you can install esptool via <code>brew install esptool</code>.</li>
+<li><strong>All Operating Systems</strong> - <a href="https://github.com/igrr/esptool-ck">esptool-ck</a> has compiled versions, please check the <a href="https://github.com/igrr/esptool-ck/releases">releases</a> section.</li>
+</ul>
+
+    </div>
+</div>
+
+<h3 id="open-command-line-interface-and-test-all-components">Open Command Line Interface and Test All Components</h3>
+
+<p>To interact with the microcontroller, you will be doing so from a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the <code>cdd</code> directory you created. Verify that you can run the esptool command, and then verify when you connect just the ESP32 via the serial cable that a new serial device is created.</p>
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+        <span>
+        
+    	
+    	Open for detailed step-by-step instructions
+    	
+    	</span>
+    </div>
+    <div class="expand-content" style="display: none;">
+        <ol>
+<li>For macOS or Linux, launch a terminal window, for Windows launch a command prompt.
+
+<ol>
+<li>Windows - <a href="https://renenyffenegger.ch/notes/Windows/dirs/Windows/System32/cmd_exe/index">Launch a cmd.exe (Command Prompt)</a>.</li>
+<li>macOS -  + <code>Space</code> -&gt; terminal.app</li>
+<li>Linux - <code>Control</code> + <code>Alt</code> + <code>T</code></li>
+</ol></li>
+
+<li><p>From the terminal window, run esptool and verify proper operation:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ esptool.py -h                                                                                                             
+usage: esptool <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--chip <span style="color:#f92672">{</span>auto,esp8266,esp32<span style="color:#f92672">}]</span> <span style="color:#f92672">[</span>--port PORT<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--baud BAUD<span style="color:#f92672">]</span> 
+    ...
+$</code></pre></div></li>
+
+<li><p>Monitor what serial ports are in use <em>before</em> connecting the ESP32.</p>
+
+<ol>
+<li>For Windows, <a href="https://superuser.com/questions/1059447/how-to-check-com-ports-in-windows-10">check the current COMx ports</a>. Note that as you connect and disconnect the ESP32, the COMx number may change for each connection.</li>
+<li>For macOS, <code>ls -l /dev/tty.*</code> will show the ports. You should <em>not</em> see a <code>tty.SLAB_USBtoUART</code> entry yet.</li>
+<li>FOr Linux, <code>ls -l /dev/tty.*</code> and note the port numbers.</li>
+</ol></li>
+
+<li><p>Connect the ESP32, then run the same commands and look for a new addition. That will be the <em>port</em> you will use when flashing and monitoring the microcontroller.</p></li>
+</ol>
 
     </div>
 </div>
@@ -678,6 +815,14 @@
 <h2 id="checkpoints">Checkpoints</h2>
 
 <p>Please ensure the following checkpoints are validated before moving on to the next module.</p>
+
+<ol>
+<li><p>Folder <code>cdd</code> - Verify and note the location of the folder</p></li>
+
+<li><p>Serial driver installed and tested - When the ESP32 is connected, the driver is working if a new serial port is created (/dev/tty.SLAB_USBtoUART or similar for macOS, a COMx port for Windows).</p></li>
+
+<li><p>Command line window left open for other lab modules.</p></li>
+</ol>
 
 <h2 id="optional-outcomes">(optional) Outcomes</h2>
 

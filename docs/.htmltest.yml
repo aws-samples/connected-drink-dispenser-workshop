@@ -5,3 +5,4 @@ IgnoreInternalEmptyHash: true
 # baseURL value in config.toml
 IgnoreURLs:
   - "cdd.example.com"
+  - "https://github.com/aws-samples/connected-drink-dispenser-workshop"

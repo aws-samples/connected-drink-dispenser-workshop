@@ -20,6 +20,7 @@ Follow each step in order and use the *Open for detailed step-by-step instructio
 Short description of what to do for experienced people
 
 {{%expand "Open for detailed step-by-step instructions" %}}
+
 detailed steps with markdown.
 {{% /expand%}}
 
