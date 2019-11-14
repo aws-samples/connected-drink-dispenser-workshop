@@ -13,7 +13,7 @@ Statement of what and why we are doing this. Then more detailed list if needed.
 
 ## Steps to Complete
 
-For each step, use the follow expand for each section:
+Follow each step in order and use the *Open for detailed step-by-step instructions* if required.
 
 ### Specific action to complete
 
