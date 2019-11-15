@@ -6,7 +6,7 @@ $( document ).ready(function() {
     var selectAllKey = "all";
     var deselectAllKey = "none";
   
-    var defaultActiveTag = "deisgn-pattern";
+    var defaultActiveTag = "design-pattern";
     var activeTags = {};
   
     var paramSize = function(paramHash) {

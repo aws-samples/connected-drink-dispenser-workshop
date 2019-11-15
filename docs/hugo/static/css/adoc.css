@@ -26,6 +26,10 @@ pre .conum[data-value]{position:relative;top:-.125em}
 b.conum *{color:inherit!important}
 .conum:not([data-value]):empty{display:none}
 
+/* blue underline test for lab 3 */
+.blue.underline {color:blue; text-decoration: underline;}
+
+
 /* test pygments */
 .pygments.highlight .tok-hll { background-color: #49483e }
 .pygments.highlight  { background: #272822; color: #f8f8f2 }

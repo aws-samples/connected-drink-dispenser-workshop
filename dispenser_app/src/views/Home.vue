@@ -16,14 +16,13 @@
         <v-col cols="12" md="8">
           <Dispenser />
         </v-col>
-        <v-col cols="6" md="4">
+        <!-- <v-col cols="6" md="4">
           <v-card outline tile>
-            <!-- change to component -->
             <v-card-title>Leaderboard</v-card-title>
             <v-card-text>list</v-card-text>
             <v-card-text>stuff</v-card-text>
-          </v-card>
-        </v-col>
+          </v-card> 
+        </v-col> -->
       </v-row>
     </v-container>
     <v-container v-else-if="pageState === 'loadingAssets'" fluid>
