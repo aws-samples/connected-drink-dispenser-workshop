@@ -49,7 +49,6 @@ env.bak/
 venv.bak/
 temp/
 
-
 # Microsoft temp files
 *.tmp
 # Word temporary

@@ -58,25 +58,37 @@ Here are some tips for popular operating systems:
 
 {{% /expand%}}
 
-### Download and Install esptool.py
+### 3. Download and Install esptool
 
-To interact with the microcontroller via the serial USB connection, there is a specific application used. [Follow the instructions](https://github.com/espressif/esptool) for your operating system to download and/or install the application. If installed correctly the command should accessible from any directory.
+To interact with the microcontroller via the serial USB connection, there is a specific application to be used called *esptool*. A pre-built executable can be downloaded [here for macOS](https://dl.espressif.com/dl/esptool-2.6.1-macos.tar.gz) and [here for Windows](https://dl.espressif.com/dl/esptool-2.6.1-windows.zip). Unzip or untar the file and place the file in the `cdd` directory.
+
+For Linux users, or to have installed as a Python package, [Follow the instructions](https://github.com/espressif/esptool) for your operating system to install the application. If installed correctly the command should accessible from any directory.
 
 {{%expand "Open for detailed step-by-step instructions" %}}
 
-1. Navigate to the [esptool.py](https://github.com/espressif/esptool) GitHub repository and scroll down to the installation instructions.
-1. For your operating system, follow the instructions to install the python modules.
+**Option 1 - Executable for macOS and Windows**
 
-***Optional Tools***
+1. Save the [macOS](https://dl.espressif.com/dl/esptool-2.6.1-macos.tar.gz) or [Windows](https://dl.espressif.com/dl/esptool-2.6.1-windows.zip) compressed esptool file to your browsers *Downloads* directory.
+1. Unzip or untar and move the *esptool* file from the `esptool` folder to the `cdd` folder.
+1. This will allow you to run *esptool* without having to add it to your PATH.
 
-If you are unable to install the esptool via the Espressif GitHub repository, there are optional versions available for different operating systems. Please note that these have not been tested, and there may be differences between the arguments referenced in the lab modules and the actual software.
+**Option 2 - Install as Python Module**
+
+1. Navigate to the [esptool.py](https://github.com/espressif/esptool) GitHub repository and scroll down to the installation instructions section.
+1. For your operating system, follow the instructions to install the Python modules. It is recommended to install in a virtual environment or in such a way so that is doesn't affect your operating system's Python installation.
+
+
+***Optional Installations***
+
+If you are unable to install the esptool or run it via the options above, there are optional versions available for different operating systems. Please note that these have not been tested, and there may be differences between the arguments referenced in the lab modules and the actual software.
 
 * **macOS** - If you have [brew](https://brew.sh/) installed, you can install esptool via `brew install esptool`.
+* **Ubuntu** - Recent versions of Ubuntu have *esptool* as an installable package: `sudo apt-get install -y esptool`. Other mainline Linux distributions may also have similar packages for installation.
 * **All Operating Systems** - [esptool-ck](https://github.com/igrr/esptool-ck) has compiled versions, please check the [releases](https://github.com/igrr/esptool-ck/releases) section.
 
 {{% /expand%}}
 
-### Open Command Line Interface and Test All Components
+### 4. Open Command Line Interface and Test All Components
 
 To interact with the microcontroller, you will be doing so from a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the `cdd` directory you created. Verify that you can run the esptool command, and then verify when you connect just the ESP32 via the serial cable that a new serial device is created.
 
@@ -100,7 +112,7 @@ To interact with the microcontroller, you will be doing so from a terminal windo
     1. FOr Linux, `ls -l /dev/tty.*` and note the port numbers.
 1. Connect the ESP32, then run the same commands and look for a new addition. That will be the *port* you will use when flashing and monitoring the microcontroller.
     <img src="/images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/>
-    When added to a MacBookPro, a valid driver installation and good data+power USB connection would show this:
+    When added to a MacBook Pro, a valid driver installation and good data+power USB connection would show this:
 
     ```bash
     $ # Before connecting ESP32 to laptop
@@ -110,7 +122,6 @@ To interact with the microcontroller, you will be doing so from a terminal windo
     /dev/tty.Bluetooth-Incoming-Port /dev/tty.SLAB_USBtoUART
     ```
 
-
 {{% /expand%}}
 
 ## Checkpoints
@@ -118,13 +129,11 @@ To interact with the microcontroller, you will be doing so from a terminal windo
 Please ensure the following checkpoints are validated before moving on to the next module.
 
 1. Folder `cdd` - Verify and note the location of the folder
-
-1. Serial driver installed and tested - When the ESP32 is connected, the driver is working if a new serial port is created (/dev/tty.SLAB_USBtoUART or similar for macOS, a COMx port for Windows).
-
-
-
+1. Serial driver installed and tested - When the ESP32 is connected, the driver is working if a new serial port is created (`/dev/tty.SLAB_USBtoUART` or similar for macOS, a `COMx` port for Windows).
 1. Command line window left open for other lab modules.
 
-## (optional) Outcomes
+## Outcomes
 
-Lead off with something like "so why did we do x, y, and z?
+Installation of device drivers, tool chains, and utilities such as *esptool* to interact with microcontrollers is complex, so why do we do it? Unlike cloud environments that can be stood up with infrastructure as code (IaaC), firmware development and testing takes place locally.
+
+By completing and testing the installation of the tools in advance of work, we know that our environment is working properly. And if we need to fix or have another laptop or desktop to develop from, the steps to complete setup are documented.
