@@ -1,4 +1,6 @@
 ---
+license: MIT-0
+copyright: Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 chapter: false
 pre: 
 next: 

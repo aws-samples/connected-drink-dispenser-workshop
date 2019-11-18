@@ -859,6 +859,11 @@ class CddBase(core.Stack):
                     actions=["iot:Subscribe", "iot:Connect", "iot:Receive"],
                     resources=["*"],
                 ),
+                # Allow search indexing
+                iam.PolicyStatement(
+                    actions=["iot:SearchIndex"],
+                    resources=[f"arn:aws:iot:{stack.region}:index/AWS_Things"],
+                ),
                 # Allow changing of security group ingress on EC2 (Cloud9) to support mapping 443 to
                 iam.PolicyStatement(
                     actions=[
