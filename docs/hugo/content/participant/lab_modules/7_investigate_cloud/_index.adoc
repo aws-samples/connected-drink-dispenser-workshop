@@ -44,21 +44,76 @@ From the webapp, open the _MY DETAILS_ section and open a new browser tab or win
 . Click on the _Services_ menu dropdown (upper left next to AWS logo), and type in _iot core_, then click on _IoT Core_ when the drop-down populates. This will direct you the the AWS IoT Core service page.
 +
 TIP: During the workshop you will be changing from service to service quite often. When navigating to a different service via the _Service->SERVICENAME_, right-click on the service name and select "Open in a new tab" (or equivalent). This will have all the services referenced within a single browser window on separate tabs.
-+ . Click on _Get Started_ to take you to the main page, then select _Manage_ from the left tab. Click on _Skip tour_. Now from the 
-
-
++
+. Click on _Get Started_ to take you to the main page, then select _Manage_ from the left tab. Click on _Skip tour_. This will take you to the list of things. Either select your thing (same as dispenserId), or click on _Search things_, which is helpful for large amounts of items.
+. From your things page, click on _Security_. This shows that you have a single X.509 certificate (long hash value) associated with your thing. Click on the certificate which will show details on it. Note that the *Subject* contains values that are parsed when the certificate is presented, and the value for _CN_ (Common Name) is value of the dispenserId. This is how we relate different resources together.
+. To continue viewing the IoT relationship, from the Certificate page, click on _Policies_. This shows what IoT policies are associated with the certificate, and by relationship, to the thing. Click on the policy to view its content, which is a JSON document.
++
+Notice that all of the resources use the substitution variable `${iot:Certificate.Subject.CommonName}` as part of the string. What this does is on a per-certificate connection, evaluates the _CommonName_, or _CN_, of the certificate and replaces it. This allows for a single policy to used by all the dispensers.
++
+.Abbreviated DispenserLimitedAccess Policy
+[source,json]
+----
+ {
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Condition": {
+        "Bool": {
+          "iot:Connection.Thing.IsAttached": [
+            "true"
+          ]
+        }
+      },
+      "Action": [
+        "iot:Connect"
+      ],
+      "Resource": [
+        "arn:aws:iot:REGION:ACCOUNT:client/${iot:Connection.Thing.ThingName}"
+      ],
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "iot:Subscribe"
+      ],
+      "Resource": [
+        "arn:aws:iot:REGION:ACCOUNT:topicfilter/$aws/things/${iot:Certificate.Subject.CommonName}/shadow/*",
+        "arn:aws:iot:REGION:ACCOUNT:topicfilter/$aws/things/${iot:Certificate.Subject.CommonName}/cmd/${iot:Certificate.Subject.CommonName}"
+      ],
+      "Effect": "Allow"
+    }
+  ]
+}
+----
++
+. Next, from the _Services_ menu, select Cognito, click _Manage User Pools_, and then click on the _workshop-users_ pool. This is the service that manages the user account you created from the webapp. Under _General Settings_ select _Users and groups_ to display all of the user account. Search for your username and click on it. At the bottom you will notice a couple `custom:` attributes. The first, `custom:group user` denotes that your account is a general user account (extra credit, check out the admin user). The second attribute, `custom:dispenserId` shows  your dispenserId value. These fields are passed whenever you make an API call from the webapp and used by the Lambda functions to validate what actions you are allowed to take.
+. From the _Services_ menu navigate to DynamoDB, which contains the database tables. Select _Tables_ from the left menu, select the _DispenserTable_ name, then select Items from the right pane. This table holds a single record for each dispenser. This most important field is _credits_, and should correspond to the value in the webapp ("1" in the table is $1.00 in the webapp). This record is modified every time someone gives you credits, or whenever you issue a dispense operation.
+. Finally, changes tables by selecting _DispenserEvents_ from the left pane. You will see all the various log entries for all dispensers. To view just your dispensers events, click on the _Scan_ dropdown and change to _Query_, the for `Partition key` enter your dispenser's value and click on _Start Search_.
 
 {{% /expand%}}
 
-=== Monitor Shadow changes for a simple operation (change LED status)
+=== Monitor Shadow Changes for a Simple Operation (change LED Status)
 
+The https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html[Device Shadow Service for AWS IoT] is an always available service that can be used by things and applications to set and track the state of device. There are two main sections to the shadow document, the _desired_ state and the _reported_ state. In this workshop, our desired settings will originate from the webapp and the dispenser will act upon them and set the correct reported state.
+
+TODO: diagram showing desired and reported state and general interaction examples (setting desired, delta, setting reported)
+
+To see this in action, from the AWS navigate to your thing in IoT Core, then select _Shadow_ which will show the current shadow. Note the `led` attribute in the _desired_ and _sections_, which should be the same. Also notice the value for `version` in the metadata. This increments each time the shadow is updated. To show the shadow is working, use the webapp to change the state of the LED by either toggling or setting to the other state. You will see the value for `led` has changed in the shadow document, and `version` has incremented.
+
+To see how the shadow works when the device is in a disconnected state, unplug the microcontroller from your laptop. Now, in the webapp change the state of the LED and notice that the _desired_ and _delta_ states show this new value. Plug the microcontroller back into your laptop. Once it has booted and connected AWS IoT, the LED will change to the _desired_ state value and the dispenser will update the _reported_ state. Since _desired_ and _reported_ states are the same, the _delta_ state for the LED is removed.
 
 {{%expand "Open for detailed step-by-step instructions" %}}
+
+NOTE: In this expanded details section, we will only use a small subset of the entire shadow document and hierarchy to show the _desired_, _reported_, and _delta_ sections.
+
+. Navigate to IoT Core->Manage->Things->Your Thing
+
 
 detailed steps with markdown.
 {{% /expand%}}
 
-=== Monitor Shadow  MQTT topics for a dispense operation
+=== Monitor Shadow  MQTT topics for a Complex Operation (Dispense Drink)
 
 
 {{%expand "Open for detailed step-by-step instructions" %}}
