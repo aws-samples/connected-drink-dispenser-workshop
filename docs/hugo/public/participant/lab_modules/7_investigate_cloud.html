@@ -606,20 +606,7 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#objectives">Objectives</a></li>
-<li><a href="#steps-to-complete">Steps to Complete</a>
-<ul>
-<li><a href="#specific-action-to-complete">Specific action to complete</a></li>
-</ul></li>
-<li><a href="#checkpoints">Checkpoints</a></li>
-<li><a href="#optional-outcomes">(optional) Outcomes</a></li>
-</ul></li>
-</ul>
-</nav>
+
     </div>
 </div>
 
@@ -644,20 +631,118 @@
 
 
 
-	
+	<section class="doc-section level-1"><h2 id="_objectives">Objectives</h2><p>This lab module will walk through how the dispenser, webapp, and coupled services interact. It will go into level of detail specific for the workshop. If you would like to review more details, please reference the <a href="../../presenter.html">Setting Up the Workshop</a> documentation for deeper insights. By then end of this module you will have:</p>
+<div class="ulist"><ul><li>An understanding of the relationship between the dispenser (<em>thing</em>), your Cognito user, and the DynamoDB database tables that track and log dispenser activity and state.</li><li>Seen how the dispenser <em>thing</em> uses the <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html">Device Shadow Service for AWS IoT</a> to listen for requested state changes, and also uses it for processing a dispense <em>request</em> and acknowledging a <em>dispense</em> response.</li><li>Tested a <em>dispense</em> request/response operation and monitored what takes place in different scenarios.</li><li>Reviewed dispenser activity from both the DynamoDB <em>EventsTable</em> and also webapp logging.</li><li>An understanding of how the webapp along with the API Lambda functions control how to give credits to others, as well as only initiating a dispense event when there sufficient credits.</li></ul></div></section>
+<section class="doc-section level-1"><h2 id="_steps_to_complete">Steps to Complete</h2><p>Follow each step in order and use the <strong>Open for detailed step-by-step instructions</strong> if required.</p>
+<section class="doc-section level-2"><h3 id="_understand_the_aws_iot_thing_cognito_user_and_dynamodb_table_relationships">Understand the AWS IoT Thing, Cognito User, and DynamoDB Table Relationships</h3><p>As a software-as-a-service (SaaS) environment, there needs to be a specific relationship between all of the resources to help enforce the security and operational controls of the actions. At a high level, for each user, this is how the resources are associated with each other:</p>
+<p>TODO: puml of thing - cert      - cog user - ddb tables
+                      to policy</p>
+<p>Each thing has a unique X.509 client certificate for authentication allowing the dispenser to connect publish and subscribe to the MQTT topics specific for that dispenser. This authorization of MQTT topics comes from a common policy that uses substitution variables that read the <em>Common Name</em> value (which is the dispenser Id). The relationship continues into a Cognito User attribute, <code>custom:dispenserId</code>, that is read for every API call. Finally, your dispenser has an entry in the DynamoDB <em>DispenserTable</em> that tracks current the credit balance and also any in-flight or stale command operations.</p>
+<p>From the webapp, open the <em>MY DETAILS</em> section and open a new browser tab or window to the Sign-in URL, then login in with the credentials provided. From the AWS Console, review the relationships by view your dispenser and user details in the following AWS services:</p>
+<div class="ulist"><ul><li><strong>AWS IoT Core</strong> - View your thing, the attached certificate details, and the policy associated with the certificate. Also, view the other security policy that is associated with your Cognito user (used to monitor update events).</li><li><strong>Amazon Cognito</strong> - From <em>Manage User Pools</em>, select the <em>workshop-users</em>, Users and Groups, then your select your username. Note the <code>custom:user</code> and <code>custom:dispenserId</code> attribute values.</li><li><strong>Amazon DynamoDB</strong> - From the <em>DispenserTable</em> review the credits value for your dispenser via the <em>dispenserId</em> sort key. From the <em>DispenserEvents</em> table, query with the partition key equal to your dispenserId. As others start to create and operate their dispensers, filtering will limit to just your events.</li></ul></div>
 
-<h2 id="objectives">Objectives</h2>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+        <span>
+        
+    	
+    	Open for detailed step-by-step instructions
+    	
+    	</span>
+    </div>
+    <div class="expand-content" style="display: none;">
+        <div class="olist arabic"><ol class="arabic"><li>From the webapp, open the <em>MY DETAILS</em> section and open a new browser tab or window to the Sign-in URL, then login in with the credentials provided (username the same as the webapp, and use the generated password).</li><li><p>Click on the <em>Services</em> menu dropdown (upper left next to AWS logo), and type in <em>iot core</em>, then click on <em>IoT Core</em> when the drop-down populates. This will direct you the the AWS IoT Core service page.</p><aside class="admonition-block tip" role="doc-tip"><h6 class="block-title label-only"><span class="title-label">Tip: </span></h6><p>During the workshop you will be changing from service to service quite often. When navigating to a different service via the <em>Service&#8594;SERVICENAME</em>, right-click on the service name and select "Open in a new tab" (or equivalent). This will have all the services referenced within a single browser window on separate tabs.</p></aside></li><li>Click on <em>Get Started</em> to take you to the main page, then select <em>Manage</em> from the left tab. Click on <em>Skip tour</em>. This will take you to the list of things. Either select your thing (same as dispenserId), or click on <em>Search things</em>, which is helpful for large amounts of items.</li><li>From your things page, click on <em>Security</em>. This shows that you have a single X.509 certificate (long hash value) associated with your thing. Click on the certificate which will show details on it. Note that the <strong>Subject</strong> contains values that are parsed when the certificate is presented, and the value for <em>CN</em> (Common Name) is value of the dispenserId. This is how we relate different resources together.</li><li><p>To continue viewing the IoT relationship, from the Certificate page, click on <em>Policies</em>. This shows what IoT policies are associated with the certificate, and by relationship, to the thing. Click on the policy to view its content, which is a JSON document.</p><p>Notice that all of the resources use the substitution variable <code>${iot:Certificate.Subject.CommonName}</code> as part of the string. What this does is on a per-certificate connection, evaluates the <em>CommonName</em>, or <em>CN</em>, of the certificate and replaces it. This allows for a single policy to used by all the dispensers.</p>
+<figure class="listing-block"><figcaption>Abbreviated DispenserLimitedAccess Policy</figcaption>
+<pre class="highlight"><code class="language-json" data-lang="json"> {
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Condition": {
+        "Bool": {
+          "iot:Connection.Thing.IsAttached": [
+            "true"
+          ]
+        }
+      },
+      "Action": [
+        "iot:Connect"
+      ],
+      "Resource": [
+        "arn:aws:iot:REGION:ACCOUNT:client/${iot:Connection.Thing.ThingName}"
+      ],
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "iot:Subscribe"
+      ],
+      "Resource": [
+        "arn:aws:iot:REGION:ACCOUNT:topicfilter/$aws/things/${iot:Certificate.Subject.CommonName}/shadow/*",
+        "arn:aws:iot:REGION:ACCOUNT:topicfilter/$aws/things/${iot:Certificate.Subject.CommonName}/cmd/${iot:Certificate.Subject.CommonName}"
+      ],
+      "Effect": "Allow"
+    }
+  ]
+}</code></pre></figure></li><li>Next, from the <em>Services</em> menu, select Cognito, click <em>Manage User Pools</em>, and then click on the <em>workshop-users</em> pool. This is the service that manages the user account you created from the webapp. Under <em>General Settings</em> select <em>Users and groups</em> to display all of the user account. Search for your username and click on it. At the bottom you will notice a couple <code>custom:</code> attributes. The first, <code>custom:group user</code> denotes that your account is a general user account (extra credit, check out the admin user). The second attribute, <code>custom:dispenserId</code> shows  your dispenserId value. These fields are passed whenever you make an API call from the webapp and used by the Lambda functions to validate what actions you are allowed to take.</li><li>From the <em>Services</em> menu navigate to DynamoDB, which contains the database tables. Select <em>Tables</em> from the left menu, select the <em>DispenserTable</em> name, then select Items from the right pane. This table holds a single record for each dispenser. This most important field is <em>credits</em>, and should correspond to the value in the webapp ("1" in the table is $1.00 in the webapp). This record is modified every time someone gives you credits, or whenever you issue a dispense operation.</li><li>Finally, changes tables by selecting <em>DispenserEvents</em> from the left pane. You will see all the various log entries for all dispensers. To view just your dispensers events, click on the <em>Scan</em> dropdown and change to <em>Query</em>, the for <code>Partition key</code> enter your dispenser&#8217;s value and click on <em>Start Search</em>.</li></ol></div>
 
-<p>Statement of what and why we are doing this. Then more detailed list if needed.</p>
+    </div>
+</div></section>
+<section class="doc-section level-2"><h3 id="_monitor_shadow_changes_for_a_simple_operation_change_led_status">Monitor Shadow Changes for a Simple Operation (change LED Status)</h3><p>The <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html">Device Shadow Service for AWS IoT</a> is an always available service that can be used by things and applications to set and track the state of device. There are two main sections to the shadow document, the <em>desired</em> state and the <em>reported</em> state. In this workshop, our desired settings will originate from the webapp and the dispenser will act upon them and set the correct reported state.</p>
+<p>TODO: diagram showing desired and reported state and general interaction examples (setting desired, delta, setting reported)</p>
+<p>To see this in action, from the AWS navigate to your thing in IoT Core, then select <em>Shadow</em> which will show the current shadow. Note the <code>led</code> attribute in the <em>desired</em> and <em>sections</em>, which should be the same. Also notice the value for <code>version</code> in the metadata. This increments each time the shadow is updated. To show the shadow is working, use the webapp to change the state of the LED by either toggling or setting to the other state. You will see the value for <code>led</code> has changed in the shadow document, and <code>version</code> has incremented.</p>
+<p>To see how the shadow works when the device is in a disconnected state, unplug the microcontroller from your laptop. Now, in the webapp change the state of the LED and notice that the <em>desired</em> and <em>delta</em> states show this new value. Plug the microcontroller back into your laptop. Once it has booted and connected AWS IoT, the LED will change to the <em>desired</em> state value and the dispenser will update the <em>reported</em> state. Since <em>desired</em> and <em>reported</em> states are the same, the <em>delta</em> state for the LED is removed.</p>
 
-<h2 id="steps-to-complete">Steps to Complete</h2>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+        <span>
+        
+    	
+    	Open for detailed step-by-step instructions
+    	
+    	</span>
+    </div>
+    <div class="expand-content" style="display: none;">
+        <aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>In this expanded details section, we will only use a small subset of the entire shadow document and hierarchy to show the <em>desired</em>, <em>reported</em>, and <em>delta</em> sections.</p></aside>
+<div class="olist arabic"><ol class="arabic"><li>Navigate to IoT Core&#8594;Manage&#8594;Things&#8594;Your Thing</li></ol></div>
+<p>detailed steps with markdown.</p>
 
-<p>Follow each step in order and use the <em>Open for detailed step-by-step instructions</em> if required.</p>
+    </div>
+</div></section>
+<section class="doc-section level-2"><h3 id="_monitor_shadow_mqtt_topics_for_a_complex_operation_dispense_drink">Monitor Shadow  MQTT topics for a Complex Operation (Dispense Drink)</h3>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+        <span>
+        
+    	
+    	Open for detailed step-by-step instructions
+    	
+    	</span>
+    </div>
+    <div class="expand-content" style="display: none;">
+        <p>detailed steps with markdown.</p>
 
-<h3 id="specific-action-to-complete">Specific action to complete</h3>
+    </div>
+</div></section>
+<section class="doc-section level-2"><h3 id="_view_dynamodb_for_logging_events_and_change_in_credits">View dynamoDB for logging events and change in credits</h3>
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+        <span>
+        
+    	
+    	Open for detailed step-by-step instructions
+    	
+    	</span>
+    </div>
+    <div class="expand-content" style="display: none;">
+        <p>detailed steps with markdown.</p>
 
-<p>Short description of what to do for experienced people</p>
-
+    </div>
+</div></section>
+<section class="doc-section level-2"><h3 id="_webapp_overviewe">Webapp overviewe</h3><p>uses cognito to auth for both API and MQTT connections. No polling, uses MQTT events to trigger making changes.</p>
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
@@ -673,15 +758,9 @@
         <p>detailed steps with markdown.</p>
 
     </div>
-</div>
-
-<h2 id="checkpoints">Checkpoints</h2>
-
-<p>Please ensure the following checkpoints are validated before moving on to the next module.</p>
-
-<h2 id="optional-outcomes">(optional) Outcomes</h2>
-
-<p>Lead off with something like &ldquo;so why did we do x, y, and z?</p>
+</div></section></section>
+<section class="doc-section level-1"><h2 id="_checkpoints">Checkpoints</h2><p>Please ensure the following checkpoints are validated before moving on to the next module.</p></section>
+<section class="doc-section level-1"><h2 id="_optional_outcomes">(optional) Outcomes</h2><p>Lead off with something like "so why did we do x, y, and z?</p></section>
 
 
 
