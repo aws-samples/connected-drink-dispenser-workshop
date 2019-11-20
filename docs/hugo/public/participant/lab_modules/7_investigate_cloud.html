@@ -690,8 +690,8 @@
 </div></section>
 <section class="doc-section level-2"><h3 id="_monitor_shadow_changes_for_a_simple_operation_change_led_status">Monitor Shadow Changes for a Simple Operation (change LED Status)</h3><p>The <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html">Device Shadow Service for AWS IoT</a> is an always available service that can be used by things and applications to set and track the state of device. There are two main sections to the shadow document, the <em>desired</em> state and the <em>reported</em> state. In this workshop, our desired settings will originate from the webapp and the dispenser will act upon them and set the correct reported state.</p>
 <p>TODO: diagram showing desired and reported state and general interaction examples (setting desired, delta, setting reported)</p>
-<p>To see this in action, from the AWS navigate to your thing in IoT Core, then select <em>Shadow</em> which will show the current shadow. Note the <code>led</code> attribute in the <em>desired</em> and <em>sections</em>, which should be the same. Also notice the value for <code>version</code> in the metadata. This increments each time the shadow is updated. To show the shadow is working, use the webapp to change the state of the LED by either toggling or setting to the other state. You will see the value for <code>led</code> has changed in the shadow document, and <code>version</code> has incremented.</p>
-<p>To see how the shadow works when the device is in a disconnected state, unplug the microcontroller from your laptop. Now, in the webapp change the state of the LED and notice that the <em>desired</em> and <em>delta</em> states show this new value. Plug the microcontroller back into your laptop. Once it has booted and connected AWS IoT, the LED will change to the <em>desired</em> state value and the dispenser will update the <em>reported</em> state. Since <em>desired</em> and <em>reported</em> states are the same, the <em>delta</em> state for the LED is removed.</p>
+<p>To see this in action, from the AWS Console navigate to your thing in IoT Core, then select <em>Shadow</em> which will show the current shadow. Note the <code>led</code> attribute in the <em>desired</em> and <em>reported</em> sections, which should be the same. Also notice the value for <code>version</code> in the metadata. This increments each time the shadow is updated. To show the shadow is working, use the webapp to change the state of the LED by either toggling or setting to the other state. You will see the value for <code>led</code> has changed in the shadow document, and <code>version</code> has incremented.</p>
+<p>To see how the shadow works when the device is in a disconnected state, unplug the microcontroller from your laptop. Now, in the webapp change the state of the LED and notice that the <em>desired</em> and <em>delta</em> states show this new value,but that the <em>reported</em> state is still what the dispenser was in before being disconnected. Plug the microcontroller back into your laptop. Once it has booted and connected AWS IoT, the LED will change to the <em>desired</em> state value and the dispenser will update the <em>reported</em> state. Since <em>desired</em> and <em>reported</em> states are the same, the <em>delta</em> state for the LED is removed.</p>
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
@@ -705,12 +705,79 @@
     </div>
     <div class="expand-content" style="display: none;">
         <aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>In this expanded details section, we will only use a small subset of the entire shadow document and hierarchy to show the <em>desired</em>, <em>reported</em>, and <em>delta</em> sections.</p></aside>
-<div class="olist arabic"><ol class="arabic"><li>Navigate to IoT Core&#8594;Manage&#8594;Things&#8594;Your Thing</li></ol></div>
-<p>detailed steps with markdown.</p>
+<div class="olist arabic"><ol class="arabic"><li><p>Navigate to IoT Core&#8594;Manage&#8594;Things&#8594;Your Thing&#8594;Shadow and review the shadow document. Note that the <em>desired</em> and <em>reported</em> sections are the same. This indicates that the device and requested state from the webapp are in sync. At the bottom of the shadow document review the value for <code>version</code> in the metadata. This increments each time the shadow is updated.</p><div class="listing-block"><pre class="highlight"><code class="language-json" data-lang="json">"desired": {
+  "led": "off",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+"reported": {
+  "led": "off",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+...
+"version": 100</code></pre></div></li><li><p>From the webapp, toggle or change the state of the LED (in this example from <em>off</em> to <em>on</em>). The webapp sets the <em>desired</em> state of the shadow, the dispenser reads this value, turns on the LED, and modifies the <em>reported</em> state to <em>on</em>. You may miss the update in the AWS Console, but check the metatdata and notice that the value for <code>version</code> has increased by at least 2 (once for the webapp setting the <em>desired</em> state and once when the dispenser updated the <em>reported</em> state).</p><div class="listing-block"><pre class="highlight"><code class="language-json" data-lang="json">"desired": {
+  "led": "on",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+"reported": {
+  "led": "on",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+...
+"version": 102</code></pre></div></li><li><p>To see how the shadow works when the device is in a disconnected state, unplug the microcontroller from your laptop, then toggle or set the LED to the alternate state (in this case from <em>on</em> to <em>off</em>). Notice that the <em>desired</em> and <em>reported</em> states are different, and that there is a <em>delta</em> state which show only those differences. This is useful when you only want to focus on the changes between <em>desired</em> and <em>reported</em> states.</p><div class="listing-block"><pre class="highlight"><code class="language-json" data-lang="json">"desired": {
+  "led": "off",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+"delta": {
+  "led": "off",
+},
+"reported": {
+  "led": "on",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+...
+"version": 103</code></pre></div></li><li><p>To verify that the dispenser reads the shadow state upon restart, plug the dispenser back into your laptop and watch the shadow document. The dispenser will reconcile the states which will remove the attribute from the <em>delta</em> section (or completely remove it).</p><div class="listing-block"><pre class="highlight"><code class="language-json" data-lang="json">"desired": {
+  "led": "off",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+"reported": {
+  "led": "off",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+...
+"version": 105</code></pre></div></li></ol></div>
 
     </div>
 </div></section>
-<section class="doc-section level-2"><h3 id="_monitor_shadow_mqtt_topics_for_a_complex_operation_dispense_drink">Monitor Shadow  MQTT topics for a Complex Operation (Dispense Drink)</h3>
+<section class="doc-section level-2"><h3 id="_monitor_shadow_mqtt_topics_for_a_complex_operation_dispense_drink">Monitor Shadow  MQTT topics for a Complex Operation (Dispense Drink)</h3><p>The shadow can also be used for more complex operations. While changing the state of the LED can tracked via a single attribute, operations such as dispensing a drink are more complex and considered a <em>request</em>/<em>response</em> pattern. The webapp initiates the dispense operation as a <em>request</em>, and when the dispenser completes the operation it, in turn, sends a corresponding <em>response</em>. We use a short, random, <code>requestId</code> value to match the correlate the <em>request</em> and <em>response</em> operations.</p>
+<p>TODO: sequence diagram with request, response, and lambda via DDB</p>
+<p>As we cannot be sure that the dispenser is online, the webapp initiates the request and sets the <em>desired</em> state of the shadow with a <code>request</code> object containing the <code>command</code> to execute, a unique <code>requestId</code>, and the <code>timestamp</code> of when the user clicked "Dispense a Drink" in the webapp.</p>
+<p>To verify, ensure the microcontroller is connected and LED operations take place. Next, use  <em>Test</em> from the IoT Core console and subscribe to the topic <code>$aws/things/dispenserId/shadow/#</code> (replace <code>dispenserId</code> with your value) to track all shadow operations. Next, from another tab or window, click the <em>Dispense!</em> button (should still be green) to initiate a dispense operation. From the <em>MQTT Client</em> tab, you should see a few shadow topic messages. Scroll through and review how the first message sets the <code>request</code> object, and after the dispenser completes turning the pump (indicated by the other LED on the controller board) the <em>reported</em> state is updated with a <code>response</code> object that has the same <code>requestId</code>, and finally that the the <code>request</code> <strong>and</strong> <code>response</code> objects are both deleted from all shadow sections once the response has been reconciliated.</p>
+<p>In this situation, we are using the shadow to track the status of a command sent to the dispenser, and the response once it acts upon it.</p>
+
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
         <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
@@ -722,27 +789,15 @@
     	</span>
     </div>
     <div class="expand-content" style="display: none;">
-        <p>detailed steps with markdown.</p>
+        <div class="olist arabic"><ol class="arabic"><li>Ensure the microcontroller is connected and response to LED on/off events.</li><li>Navigate to IoT Core&#8594;Test and in the <em>Subscription topic</em> field, enter <code>$aws/things/dispenserId/shadow/#</code> (replace <code>dispenserId</code> with your value) and click <em>Subscribe to topic</em>.</li><li>From the webapp, click the <em>Dispense!</em> button (should still be green) to initiate a dispense operation. This should turn the other LED on the controller board on for a short period of time and create a few messages in the <em>MQTT Client</em>.</li><li><p>Scroll to the bottom (oldest message) and look for the shadow update with <em>desired</em> state that has the first <code>request</code> object.</p><div class="listing-block"><pre class="highlight"><code class="language-json" data-lang="json">{} initial request</code></pre></div></li><li><p>The next message by time will be the dispenser responding to the event publishing to the <em>reported</em> state a <code>response</code> object with the same <code>requestId</code>, signifying that it has completed that request (either with a <em>success</em> or <em>failed</em> indicator).</p><div class="listing-block"><pre class="highlight"><code class="language-json" data-lang="json">{} request and response</code></pre></div></li><li><p>On the cloud side, the matching <code>request</code> and <code>response</code> objects trigger a Lambda function to log the transaction and clear out both objects from the shadow. This is essence reconciling the <em>request</em> to the <em>response</em>, and readying the dispenser for its next operation.</p><div class="listing-block"><pre class="highlight"><code class="language-json" data-lang="json">{} cleared of both</code></pre></div></li></ol></div>
 
     </div>
 </div></section>
-<section class="doc-section level-2"><h3 id="_view_dynamodb_for_logging_events_and_change_in_credits">View dynamoDB for logging events and change in credits</h3>
-<div class="expand">
-    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
-        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
-        <span>
-        
-    	
-    	Open for detailed step-by-step instructions
-    	
-    	</span>
-    </div>
-    <div class="expand-content" style="display: none;">
-        <p>detailed steps with markdown.</p>
-
-    </div>
-</div></section>
-<section class="doc-section level-2"><h3 id="_webapp_overviewe">Webapp overviewe</h3><p>uses cognito to auth for both API and MQTT connections. No polling, uses MQTT events to trigger making changes.</p>
+<section class="doc-section level-2"><h3 id="_review_logging_and_credits">Review Logging and Credits</h3><p>We did something bad! We used up all of our credits testing the dispenser operation above. Each dispense operation costs $1.00, and has been deducted from our dispenser, as shown by the webapp. Navigate to the DynamoDB <em>DispenserTable</em> and verify the credits match the webapp. Also, review the <em>EventsTable</em> for your dispenser (review the first steps in this lab if needed) to see the various logging entries made while testing the LED and drink dispense test.</p>
+<p>We use these tables as the <em>source of truth</em> for the status of our dispenser. While the dispenser code you compiled and installed could be modified, a dispense operation only is created if there are sufficient credits in your account (e.g., DynamoDB DispenserTable entry). We use the relationship of the <code>dispenserId</code> in your user account via the webapp, associated with the same values in IoT Core and DynamoDB, to track the business logic we want to enforce in the overall SaaS application.</p></section>
+<section class="doc-section level-2"><h3 id="_webapp_overview">Webapp Overview</h3><p>The webapp is your main interface for seeing the state of the dispenser via LEDs, and how to initiate a dispense action. As the webapp is running inside your local browser, there are two methods that can be used to track what is the current status. We can continuously <a href="https://en.wikipedia.org/wiki/Polling_(computer_science)">poll</a> via API to return the status, or use a <a href="https://en.wikipedia.org/wiki/Callback_(computer_programming)">callback</a> mechanism to alert the webapp when something has changed. In this case, the <em>callback</em> method is used. It reduces the overall load on the SaaS service and demonstrates how we again use AWS IoT Core to facilitate this.</p>
+<p>Modern web browsers have the ability to monitor what is running locally. Our webapp has additional debug, or <code>console.log()</code> statements to give an indication when something is happening. It does this b subscribing to the MQTT topics for your specific dispenser. From your browser, enable the <em>Web Console</em> (name varies based on browser), and select the <em>Console</em> tab. Now change the status of the LED. Every time you make a change, you will see an <em>Received MQTT message with change in LED or credit status</em> message. This is alerted when an incoming MQTT message of interest such as a shadow update occurs.</p>
+<p>These messages then trigger the webapp to make an API call requesting the complete status of the dispenser (LED status, credits, etc.), which in turn updates the main dispenser page. If there are no changes being made, no MQTT messages are generated, and subsequently, no API calls are made to request an update to the webapp.</p>
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
@@ -755,12 +810,19 @@
     	</span>
     </div>
     <div class="expand-content" style="display: none;">
-        <p>detailed steps with markdown.</p>
+        <p>TODO: other browsers</p>
+<div class="olist arabic"><ol class="arabic"><li>Open the <em>Web Console</em> for your browser:<ol class="loweralpha" type="a"><li>FireFox: Select menu Tool&#8594;Web Developer&#8594;Web Console</li><li>Google Chrome: View&#8594;Developer&#8594;JavaScript Console</li><li>Internet Explorer:</li><li>Internet Edge:</li><li>Safari: Preferences&#8594;Advanced Tab&#8594;Show developer menu in menu bar (close Preferences), Develop&#8594;Show JavaScript Console</li></ol></li><li>Change the status of the LED with the dispenser connected. Notice the <em>Received MQTT message with change in LED or credit status</em> lines. These a created when the webapp, which is subscribed to a set of MQTT topics receives a message. This is an indication that something may have changes and triggers the webapp to make an API call to the <code>/status</code> method, which returns the dispenser status parsed from the shadow document <em>and</em> the DynamoDB <em>DispenserTable</em>.</li><li>If there are no changes being made, no MQTT messages are generated, and subsequently, no API calls are made to request an update to the webapp.</li></ol></div>
 
     </div>
-</div></section></section>
-<section class="doc-section level-1"><h2 id="_checkpoints">Checkpoints</h2><p>Please ensure the following checkpoints are validated before moving on to the next module.</p></section>
-<section class="doc-section level-1"><h2 id="_optional_outcomes">(optional) Outcomes</h2><p>Lead off with something like "so why did we do x, y, and z?</p></section>
+</div></section>
+<section class="doc-section level-2"><h3 id="_share_the_love">Share the Love!</h3><p>So far we have shown how the you interact with your dispenser via the webapp. Next, let&#8217;s build our credits back up to a sufficient level to complete the rest of the lab. To do this, click on the <em>Share the Love!</em> card underneath the LED status cards and follow the instructions. First, try giving credit to another dispenser number and monitor the <em>Last credit response</em> message (with or without browser logging). Next, try to give yourself credits and note that the gray button to the right does not change to <em>SEND CREDIT!</em>. This is a constraint built into the webapp. However, even if you were to make a direct API call, the backend will also deny the request.</p>
+<p>Finally, talk to you neighbor to either side of you and ask them to start sending you credits. You may alsop see that as the credits increase, the ring LED will also start to fill until you have at least $1.00, and after that the colors will changes as your balance goes above $2.00, $3.00, etc.</p>
+<p>It is recommended that you have at least $2.00 or $3.00 to perform a couple dispenses with a fully built dispenser unit.</p>
+<p>Good work!</p></section></section>
+<section class="doc-section level-1"><h2 id="_checkpoints">Checkpoints</h2><p>Please ensure the following checkpoints are validated before moving on to the next module.</p>
+<div class="olist arabic"><ol class="arabic"><li>The dispenser properly operates and toggles the LED status from the webapp</li><li>A dispense operation enabled the <em>other</em> LED on the controller board (motor control)</li><li>You have an understanding of how the shadow document and DynamoDB tables are used to track the status of state (LEDs) and perform command and control (request/response) operations.</li></ol></div></section>
+<section class="doc-section level-1"><h2 id="_outcomes">Outcomes</h2><p>Why do we use the shadow document for command and control, when it could also be done with regular MQTT messages? While either pattern are good practices, combining all of the operations into a single location makes it easier to follow for the workshop. As long as there is a way to track each request, the mechanism used doesn&#8217;t matter.</p>
+<p>One thing that we didn&#8217;t discuss is the ring LED. In this case, it is used to give a visual indication of the credit levels. From the dispensers perspective, it is another shadow attribute set to manage. But instead of being set by clicking buttons in the webapp, this value is programmatically set by the cloud services whenever there is a change in the credit state of a dispenser. This demonstrates that functionality in not static and can be modified in either device (dispenser) or SaaS application (cloud-side).</p></section>
 
 
 
