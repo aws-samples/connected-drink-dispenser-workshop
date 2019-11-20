@@ -254,21 +254,39 @@ These messages then trigger the webapp to make an API call requesting the comple
 
 {{%expand "Open for detailed step-by-step instructions" %}}
 
+TODO: other browsers
+
 . Open the _Web Console_ for your browser:
 .. FireFox: Select menu Tool->Web Developer->Web Console
 .. Google Chrome: View->Developer->JavaScript Console
-.. Internet Explorer
-.. Internet Edge
+.. Internet Explorer: 
+.. Internet Edge: 
 .. Safari: Preferences->Advanced Tab->Show developer menu in menu bar (close Preferences), Develop->Show JavaScript Console
+. Change the status of the LED with the dispenser connected. Notice the _Received MQTT message with change in LED or credit status_ lines. These a created when the webapp, which is subscribed to a set of MQTT topics receives a message. This is an indication that something may have changes and triggers the webapp to make an API call to the `/status` method, which returns the dispenser status parsed from the shadow document _and_ the DynamoDB _DispenserTable_.
+. If there are no changes being made, no MQTT messages are generated, and subsequently, no API calls are made to request an update to the webapp.
 
-detailed steps with markdown.
 {{% /expand%}}
 
+=== Share the Love!
+
+So far we have shown how the you interact with your dispenser via the webapp. Next, let's build our credits back up to a sufficient level to complete the rest of the lab. To do this, click on the _Share the Love!_ card underneath the LED status cards and follow the instructions. First, try giving credit to another dispenser number and monitor the _Last credit response_ message (with or without browser logging). Next, try to give yourself credits and note that the gray button to the right does not change to _SEND CREDIT!_. This is a constraint built into the webapp. However, even if you were to make a direct API call, the backend will also deny the request.
+
+Finally, talk to you neighbor to either side of you and ask them to start sending you credits. You may alsop see that as the credits increase, the ring LED will also start to fill until you have at least $1.00, and after that the colors will changes as your balance goes above $2.00, $3.00, etc.
+
+It is recommended that you have at least $2.00 or $3.00 to perform a couple dispenses with a fully built dispenser unit.
+
+Good work!
 
 == Checkpoints
 
 Please ensure the following checkpoints are validated before moving on to the next module.
 
-## (optional) Outcomes
+. The dispenser properly operates and toggles the LED status from the webapp
+. A dispense operation enabled the _other_ LED on the controller board (motor control)
+. You have an understanding of how the shadow document and DynamoDB tables are used to track the status of state (LEDs) and perform command and control (request/response) operations.
 
-Lead off with something like "so why did we do x, y, and z?
+## Outcomes
+
+Why do we use the shadow document for command and control, when it could also be done with regular MQTT messages? While either pattern are good practices, combining all of the operations into a single location makes it easier to follow for the workshop. As long as there is a way to track each request, the mechanism used doesn't matter.
+
+One thing that we didn't discuss is the ring LED. In this case, it is used to give a visual indication of the credit levels. From the dispensers perspective, it is another shadow attribute set to manage. But instead of being set by clicking buttons in the webapp, this value is programmatically set by the cloud services whenever there is a change in the credit state of a dispenser. This demonstrates that functionality in not static and can be modified in either device (dispenser) or SaaS application (cloud-side).
