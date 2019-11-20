@@ -16,6 +16,7 @@ weight: 30
 
 ## Objectives
 
+
 This lab module will walk though creation of user and account resources, and accessing your unique resources. By the end of the module you will have:
 
 * Created and verify a user account.
