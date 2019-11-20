@@ -99,41 +99,167 @@ The https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.htm
 
 TODO: diagram showing desired and reported state and general interaction examples (setting desired, delta, setting reported)
 
-To see this in action, from the AWS navigate to your thing in IoT Core, then select _Shadow_ which will show the current shadow. Note the `led` attribute in the _desired_ and _sections_, which should be the same. Also notice the value for `version` in the metadata. This increments each time the shadow is updated. To show the shadow is working, use the webapp to change the state of the LED by either toggling or setting to the other state. You will see the value for `led` has changed in the shadow document, and `version` has incremented.
+To see this in action, from the AWS Console navigate to your thing in IoT Core, then select _Shadow_ which will show the current shadow. Note the `led` attribute in the _desired_ and _reported_ sections, which should be the same. Also notice the value for `version` in the metadata. This increments each time the shadow is updated. To show the shadow is working, use the webapp to change the state of the LED by either toggling or setting to the other state. You will see the value for `led` has changed in the shadow document, and `version` has incremented.
 
-To see how the shadow works when the device is in a disconnected state, unplug the microcontroller from your laptop. Now, in the webapp change the state of the LED and notice that the _desired_ and _delta_ states show this new value. Plug the microcontroller back into your laptop. Once it has booted and connected AWS IoT, the LED will change to the _desired_ state value and the dispenser will update the _reported_ state. Since _desired_ and _reported_ states are the same, the _delta_ state for the LED is removed.
+To see how the shadow works when the device is in a disconnected state, unplug the microcontroller from your laptop. Now, in the webapp change the state of the LED and notice that the _desired_ and _delta_ states show this new value,but that the _reported_ state is still what the dispenser was in before being disconnected. Plug the microcontroller back into your laptop. Once it has booted and connected AWS IoT, the LED will change to the _desired_ state value and the dispenser will update the _reported_ state. Since _desired_ and _reported_ states are the same, the _delta_ state for the LED is removed.
 
 {{%expand "Open for detailed step-by-step instructions" %}}
 
 NOTE: In this expanded details section, we will only use a small subset of the entire shadow document and hierarchy to show the _desired_, _reported_, and _delta_ sections.
 
-. Navigate to IoT Core->Manage->Things->Your Thing
-
-
-detailed steps with markdown.
+. Navigate to IoT Core->Manage->Things->Your Thing->Shadow and review the shadow document. Note that the _desired_ and _reported_ sections are the same. This indicates that the device and requested state from the webapp are in sync. At the bottom of the shadow document review the value for `version` in the metadata. This increments each time the shadow is updated.
++
+[source,json]
+----
+"desired": {
+  "led": "off",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+"reported": {
+  "led": "off",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+...
+"version": 100
+----
++
+. From the webapp, toggle or change the state of the LED (in this example from _off_ to _on_). The webapp sets the _desired_ state of the shadow, the dispenser reads this value, turns on the LED, and modifies the _reported_ state to _on_. You may miss the update in the AWS Console, but check the metatdata and notice that the value for `version` has increased by at least 2 (once for the webapp setting the _desired_ state and once when the dispenser updated the _reported_ state).
++
+[source,json]
+----
+"desired": {
+  "led": "on",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+"reported": {
+  "led": "on",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+...
+"version": 102
+----
++
+. To see how the shadow works when the device is in a disconnected state, unplug the microcontroller from your laptop, then toggle or set the LED to the alternate state (in this case from _on_ to _off_). Notice that the _desired_ and _reported_ states are different, and that there is a _delta_ state which show only those differences. This is useful when you only want to focus on the changes between _desired_ and _reported_ states.
++
+[source,json]
+----
+"desired": {
+  "led": "off",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+"delta": {
+  "led": "off",
+},
+"reported": {
+  "led": "on",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+...
+"version": 103
+----
++
+. To verify that the dispenser reads the shadow state upon restart, plug the dispenser back into your laptop and watch the shadow document. The dispenser will reconcile the states which will remove the attribute from the _delta_ section (or completely remove it).
++
+[source,json]
+----
+"desired": {
+  "led": "off",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+"reported": {
+  "led": "off",
+  "led_ring": {
+    "count": 5,
+    "color": "FF8000"
+  }
+},
+...
+"version": 105
+----
 {{% /expand%}}
 
 === Monitor Shadow  MQTT topics for a Complex Operation (Dispense Drink)
 
+The shadow can also be used for more complex operations. While changing the state of the LED can tracked via a single attribute, operations such as dispensing a drink are more complex and considered a _request_/_response_ pattern. The webapp initiates the dispense operation as a _request_, and when the dispenser completes the operation it, in turn, sends a corresponding _response_. We use a short, random, `requestId` value to match the correlate the _request_ and _response_ operations.
+
+TODO: sequence diagram with request, response, and lambda via DDB
+
+As we cannot be sure that the dispenser is online, the webapp initiates the request and sets the _desired_ state of the shadow with a `request` object containing the `command` to execute, a unique `requestId`, and the `timestamp` of when the user clicked "Dispense a Drink" in the webapp.
+
+To verify, ensure the microcontroller is connected and LED operations take place. Next, use  _Test_ from the IoT Core console and subscribe to the topic `$aws/things/dispenserId/shadow/#` (replace `dispenserId` with your value) to track all shadow operations. Next, from another tab or window, click the _Dispense!_ button (should still be green) to initiate a dispense operation. From the _MQTT Client_ tab, you should see a few shadow topic messages. Scroll through and review how the first message sets the `request` object, and after the dispenser completes turning the pump (indicated by the other LED on the controller board) the _reported_ state is updated with a `response` object that has the same `requestId`, and finally that the the `request` *and* `response` objects are both deleted from all shadow sections once the response has been reconciliated.
+
+In this situation, we are using the shadow to track the status of a command sent to the dispenser, and the response once it acts upon it.
 
 {{%expand "Open for detailed step-by-step instructions" %}}
 
-detailed steps with markdown.
+. Ensure the microcontroller is connected and response to LED on/off events.
+. Navigate to IoT Core->Test and in the _Subscription topic_ field, enter `$aws/things/dispenserId/shadow/#` (replace `dispenserId` with your value) and click _Subscribe to topic_.
+. From the webapp, click the _Dispense!_ button (should still be green) to initiate a dispense operation. This should turn the other LED on the controller board on for a short period of time and create a few messages in the _MQTT Client_.
+. Scroll to the bottom (oldest message) and look for the shadow update with _desired_ state that has the first `request` object.
++
+[source,json]
+----
+{} initial request
+----
++
+. The next message by time will be the dispenser responding to the event publishing to the _reported_ state a `response` object with the same `requestId`, signifying that it has completed that request (either with a _success_ or _failed_ indicator).
++
+[source,json]
+----
+{} request and response
+----
+. On the cloud side, the matching `request` and `response` objects trigger a Lambda function to log the transaction and clear out both objects from the shadow. This is essence reconciling the _request_ to the _response_, and readying the dispenser for its next operation.
++
+[source,json]
+----
+{} cleared of both
+----
+
 {{% /expand%}}
 
-=== View dynamoDB for logging events and change in credits
+=== Review Logging and Credits
 
+We did something bad! We used up all of our credits testing the dispenser operation above. Each dispense operation costs $1.00, and has been deducted from our dispenser, as shown by the webapp. Navigate to the DynamoDB _DispenserTable_ and verify the credits match the webapp. Also, review the _EventsTable_ for your dispenser (review the first steps in this lab if needed) to see the various logging entries made while testing the LED and drink dispense test.
+
+We use these tables as the _source of truth_ for the status of our dispenser. While the dispenser code you compiled and installed could be modified, a dispense operation only is created if there are sufficient credits in your account (e.g., DynamoDB DispenserTable entry). We use the relationship of the `dispenserId` in your user account via the webapp, associated with the same values in IoT Core and DynamoDB, to track the business logic we want to enforce in the overall SaaS application.
+
+=== Webapp Overview
+
+The webapp is your main interface for seeing the state of the dispenser via LEDs, and how to initiate a dispense action. As the webapp is running inside your local browser, there are two methods that can be used to track what is the current status. We can continuously https://en.wikipedia.org/wiki/Polling_(computer_science)[poll] via API to return the status, or use a https://en.wikipedia.org/wiki/Callback_(computer_programming)[callback] mechanism to alert the webapp when something has changed. In this case, the _callback_ method is used. It reduces the overall load on the SaaS service and demonstrates how we again use AWS IoT Core to facilitate this.
+
+Modern web browsers have the ability to monitor what is running locally. Our webapp has additional debug, or `console.log()` statements to give an indication when something is happening. It does this b subscribing to the MQTT topics for your specific dispenser. From your browser, enable the _Web Console_ (name varies based on browser), and select the _Console_ tab. Now change the status of the LED. Every time you make a change, you will see an _Received MQTT message with change in LED or credit status_ message. This is alerted when an incoming MQTT message of interest such as a shadow update occurs.
+
+These messages then trigger the webapp to make an API call requesting the complete status of the dispenser (LED status, credits, etc.), which in turn updates the main dispenser page. If there are no changes being made, no MQTT messages are generated, and subsequently, no API calls are made to request an update to the webapp.
 
 {{%expand "Open for detailed step-by-step instructions" %}}
 
-detailed steps with markdown.
-{{% /expand%}}
-
-=== Webapp overviewe
-
-uses cognito to auth for both API and MQTT connections. No polling, uses MQTT events to trigger making changes.
-
-{{%expand "Open for detailed step-by-step instructions" %}}
+. Open the _Web Console_ for your browser:
+.. FireFox: Select menu Tool->Web Developer->Web Console
+.. Google Chrome: View->Developer->JavaScript Console
+.. Internet Explorer
+.. Internet Edge
+.. Safari: Preferences->Advanced Tab->Show developer menu in menu bar (close Preferences), Develop->Show JavaScript Console
 
 detailed steps with markdown.
 {{% /expand%}}

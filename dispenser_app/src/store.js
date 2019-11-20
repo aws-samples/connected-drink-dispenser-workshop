@@ -192,7 +192,7 @@ const store = new Vuex.Store({
       state.iamPassword = assetObj.assets.iam_user.password;
     },
     updateStatus(state, statusObj) {
-      console.log("in updateStatus mutation")
+      console.log("Received MQTT message with change in LED or credit status")
       state.credits = statusObj.credits;
       state.ringLedStatus.count = statusObj.led_ring_state.count;
       state.ringLedStatus.color = statusObj.led_ring_state.color;
