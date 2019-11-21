@@ -27,8 +27,39 @@ Follow each step in order and use the *Open for detailed step-by-step instructio
 
 As a software-as-a-service (SaaS) environment, there needs to be a specific relationship between all of the resources to help enforce the security and operational controls of the actions. At a high level, for each user, this is how the resources are associated with each other:
 
-TODO: puml of thing - cert      - cog user - ddb tables
-                      to policy
+.Relationship between services
+[plantuml, Turn on the LED, svg]
+....
+@startuml
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v4.0/dist
+!includeurl AWSPuml/AWSCommon.puml
+!includeurl AWSPuml/InternetOfThings/IoTGeneric.puml
+!includeurl AWSPuml/InternetOfThings/IoTCertificateManager.puml
+!includeurl AWSPuml/InternetOfThings/IoTPolicy.puml
+!includeurl AWSPuml/SecurityIdentityAndCompliance/Cognito.puml
+!includeurl AWSPuml/Database/DynamoDBTable.puml
+
+top to bottom direction
+skinparam linetype polyline
+hide stereotype
+
+together {
+    Cognito(cognito, "testuser", "Cognito User", "custom:dispenserId: 123")
+    DynamoDBTable(db, "DispenserTable", "DynamoDB Table", "dispenserId: 123")
+}
+rectangle  "IoT Core" as iot  {
+    IoTGeneric(thing, "123", "IoT Thing", "")
+    IoTCertificateManager(cert, "0ff1ab3", "X.509 Certificate", "CN=123")
+    IoTPolicy(policy, "DispenserAccess", "IoT Policy", "Limited Shadow Access")
+}
+
+thing <-> cert
+cert <-> policy
+iot <-right-> cognito : "thingName = dispenserId"
+iot <-> db : thingName = partiton key
+cognito <--> db : custom:dispenserId = partiton key
+@enduml
+....
 
 Each thing has a unique X.509 client certificate for authentication allowing the dispenser to connect publish and subscribe to the MQTT topics specific for that dispenser. This authorization of MQTT topics comes from a common policy that uses substitution variables that read the _Common Name_ value (which is the dispenser Id). The relationship continues into a Cognito User attribute, `custom:dispenserId`, that is read for every API call. Finally, your dispenser has an entry in the DynamoDB _DispenserTable_ that tracks current the credit balance and also any in-flight or stale command operations.
 
