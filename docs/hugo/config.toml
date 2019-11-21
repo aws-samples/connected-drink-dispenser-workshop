@@ -14,7 +14,7 @@ uglyURLs=true
 
 # Adjust higher for more complex genration (e.g. Asciidoc + PlantUML)
 # timeout=20000
-timeout=40000
+timeout=60000
 
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir= false
