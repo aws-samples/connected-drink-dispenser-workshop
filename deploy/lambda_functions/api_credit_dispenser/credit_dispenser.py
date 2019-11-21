@@ -16,7 +16,6 @@ logger.setLevel(logging.INFO)
 
 # Global Variables
 httpHeaders = {"Access-Control-Allow-Origin": "*"}
-color_scale = ["#FF8000", "#666600", "#33FF33", "#66B2FF"]
 
 ddb = boto3.resource("dynamodb")
 iot_client = boto3.client("iot-data")
@@ -44,18 +43,43 @@ def http_response(headers, status_code, body):
 
 
 def set_led_ring(amount: float):
-    """Return count and color based on float amount"""
+    """Return count and color based on credit float amount
 
+    the ring LED has 8 elements and are set based on credit amounts:
+
+    credits         LEDs lit            Color
+    =============== =================== ===========================
+    0 - 0.24        8                    red (#FF0000)
+    0.25 - 0.49     2                    white (#F0F0F0)
+    0.50 - 0.74     4                    white (#F0F0F0)
+    0.75 - 0.99     6                    white (#F0F0F0)
+    1.00 - 1.99     1                    darkest green (#006600)
+    2.00 - 2.99     2                    dark green (#009900)
+    3.00 - 3.99     3                    green (#00E600)
+    4.00 - 4.99     4                    bright green(#00FF00)
+    5.00 - 5.99     5                    bright green(#00FF00)
+    6.00 - 6.99     6                    bright green(#00FF00)
+    7.00 - 7.99     7                    bright green(#00FF00)
+    8.00 >          8                    bright green(#00FF00)
+    """
+
+    # Green colors for 1, 2, 3, and greater
+    color_scale = ["#006600", "#009900", "#00E600", "#00FF00"]
     # Cast to float, most likely Decimal coming in
     amount = float(amount)
-    if amount < 1.00:
-        count = int(amount / 0.25)
+    if amount == 0.0:
+        # No credits all lit up red
+        count = 8
         color = "#FF0000"
+    elif amount < 1.00:
+        # 0.01 - 0.99 - 2 per .25, white
+        count = int(amount / 0.25) * 2
+        color = "#F0F0F0"
     else:
-        count = 5
-        scale = int(amount / 1)
-        if scale < 4:
-            color = color_scale[scale - 1]
+        # At least 1.00 or more, set count to 1-8 per 1.00
+        count = int(amount / 1.00) if amount < 8.00 else 8
+        if count < 4:
+            color = color_scale[count - 1]
         else:
             color = color_scale[3]
     return count, color

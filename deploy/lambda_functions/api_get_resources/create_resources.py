@@ -56,7 +56,7 @@ rqXRfboQnoZsG4q5WTP468SQvvG5
 
 shadow_clear = json.dumps({"state": {"reported": None, "desired": None}})
 shadow_initial = json.dumps(
-    {"state": {"desired": {"led": "off", "led_ring": {"count": 5, "color": "FF8000"}}, "dispense_time_ms": 2000
+    {"state": {"desired": {"led": "off", "led_ring": {"count": 1, "color": "#0610000"}}, "dispense_time_ms": 2000
     }}
 )
 

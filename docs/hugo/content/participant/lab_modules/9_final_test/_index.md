@@ -25,10 +25,12 @@ With all that completed, let's dispenser a real liquid drink.
 Follow each step in order and use the *Open for detailed step-by-step instructions* if required.
 
 {{% notice %}}
-The following steps are if you are using your own dispenser. If you elect to use one of the pre-built ones, bring your microcontroller (the ESP32) to one of the pre-built stations.
+The following steps are if you are using your own dispenser. If you elect to use one of the pre-built ones, bring your microcontroller (the ESP32) to one of the pre-built stations. Be careful when removing from the controller board as its easy to bend the pins on the ESP32.
 {{% /notice %}}
 
-### Specific action to complete
+### Power On the Dispenser
+
+After completing the build step, ensure there is liquid in the bottle, an empty cup underneath, then connect the 9 Volt battery.
 
 Short description of what to do for experienced people
 
