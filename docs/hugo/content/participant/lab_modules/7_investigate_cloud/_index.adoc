@@ -342,13 +342,11 @@ These messages then trigger the webapp to make an API call requesting the comple
 
 {{%expand "Open for detailed step-by-step instructions" %}}
 
-TODO: other browsers
-
 . Open the _Web Console_ for your browser:
 .. FireFox: Select menu Tool->Web Developer->Web Console
 .. Google Chrome: View->Developer->JavaScript Console
-.. Internet Explorer: 
-.. Internet Edge: 
+.. Internet Explorer 11: Either press the `F12` key or from the Setting Wheel->F12 Developer Tools->Console
+.. Microsoft Edge: From upper right, select `...`->More tools->Developer tools->Console tab
 .. Safari: Preferences->Advanced Tab->Show developer menu in menu bar (close Preferences), Develop->Show JavaScript Console
 . Change the status of the LED with the dispenser connected. Notice the _Received MQTT message with change in LED or credit status_ lines. These a created when the webapp, which is subscribed to a set of MQTT topics receives a message. This is an indication that something may have changes and triggers the webapp to make an API call to the `/status` method, which returns the dispenser status parsed from the shadow document _and_ the DynamoDB _DispenserTable_.
 . If there are no changes being made, no MQTT messages are generated, and subsequently, no API calls are made to request an update to the webapp.

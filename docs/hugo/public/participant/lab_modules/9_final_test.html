@@ -613,10 +613,10 @@
 <li><a href="#objectives">Objectives</a></li>
 <li><a href="#steps-to-complete">Steps to Complete</a>
 <ul>
-<li><a href="#specific-action-to-complete">Specific action to complete</a></li>
+<li><a href="#power-on-the-dispenser">Power On the Dispenser</a></li>
 </ul></li>
 <li><a href="#checkpoints">Checkpoints</a></li>
-<li><a href="#optional-outcomes">(optional) Outcomes</a></li>
+<li><a href="#outcomes">Outcomes</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -664,13 +664,20 @@
 <p>Follow each step in order and use the <em>Open for detailed step-by-step instructions</em> if required.</p>
 
 
-<div class="notices " ><p>The following steps are if you are using your own dispenser. If you elect to use one of the pre-built ones, bring your microcontroller (the ESP32) to one of the pre-built stations.</p>
+<div class="notices " ><p>The following steps are if you are using your own dispenser. If you elect to use one of the pre-built ones, bring your microcontroller (the ESP32) to one of the pre-built stations. Be careful when removing from the controller board as its easy to bend the pins on the ESP32.</p>
 </div>
 
 
-<h3 id="specific-action-to-complete">Specific action to complete</h3>
+<h3 id="power-on-the-dispenser">Power On the Dispenser</h3>
 
-<p>Short description of what to do for experienced people</p>
+<p>After completing the build step, ensure there is liquid in the bottle, an empty cup underneath, then connect the 9 Volt battery instead of the USB cable for power. Wait until the dispenser is online by viewing the LED status. Now. from 6 inches or 6 feet away click <em>DISPENSE!</em> to pour yourself a drink!</p>
+
+
+<div class="notices tip" ><p>If you wish to record this event for posterity, have someone else video you clicking <em>DISPENSE!</em> and having the dispenser pour the drink. Workshop assistants are glad to be your personal videographer if needed!</p>
+</div>
+
+
+<p>If something does wrong or doesn&rsquo;t work, review the build steps from the previous lab, or ask a workshop assistant for help.</p>
 
 
 <div class="expand">
@@ -684,18 +691,30 @@
     	</span>
     </div>
     <div class="expand-content" style="display: none;">
-        <p>detailed steps with markdown.</p>
+        <p>. Ensure the dispenser unit is built and ready to go:
+.. Liquid in the bottle
+.. Top assembly securely screwed down and the output hose centered
+.. An empty cup under the output hose
+. Now connect the 9 Volt battery. This will provide power to the microcontroller and the aquarium motor.
+. Wait for the dispenser to fully come online by waiting for the LEDs to sync to the same status in the webapp.
+. Okay, with no physical connection between your laptop and the dispenser, click <em>DISPENSE!</em> to pour yourself a drink!
+. If the dispenser didn&rsquo;t properly dispense a drink, perform some troubleshooting.
+.. Did you hear the motor whir or make noise?
+&hellip; Yes: Check that the cap is securely seated on the bottle, there may be a air gap.
+&hellip; No: Check the connection from the motor to the control board (disconnect the 9V battery first)
+.. If the LED ring change to the animated dispense pattern, verify there are enough credits and that the dispenser is online (toggle the LED)
+.. You can also ask a workshop assistant for help in figuring out the problem.</p>
 
     </div>
 </div>
 
 <h2 id="checkpoints">Checkpoints</h2>
 
-<p>Please ensure the following checkpoints are validated before moving on to the next module.</p>
+<p>There is only one checkpoint to verify, and that is you successfully dispensed a drink!</p>
 
-<h2 id="optional-outcomes">(optional) Outcomes</h2>
+<h2 id="outcomes">Outcomes</h2>
 
-<p>Lead off with something like &ldquo;so why did we do x, y, and z?</p>
+<p>Congratulations! You have successfully completed the <em>Connected Drink Dispenser</em> workshop. We hope that you enjoyed the session and came away with a general understanding in how you can incorporate AWS IoT services into an overall multi-user or multi-tenant AWS workload.</p>
 
 
 
