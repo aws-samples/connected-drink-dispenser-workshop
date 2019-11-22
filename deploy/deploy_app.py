@@ -15,6 +15,10 @@ import boto3
 from botocore.exceptions import ClientError
 from tqdm import tqdm
 
+__copyright__ = (
+    "Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved."
+)
+__license__ = "MIT-0"
 
 def spa_exports(
     cognito_id_pool: str,

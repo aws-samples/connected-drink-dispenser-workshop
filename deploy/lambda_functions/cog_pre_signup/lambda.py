@@ -9,6 +9,11 @@ import json
 import logging
 import boto3
 
+__copyright__ = (
+    "Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved."
+)
+__license__ = "MIT-0"
+
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 

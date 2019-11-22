@@ -12,6 +12,10 @@ from botocore.exceptions import ClientError
 from aws_cdk import core
 from cdd.base_services import CddBase
 
+__copyright__ = (
+    "Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved."
+)
+__license__ = "MIT-0"
 
 def read_config():
     configfile = Path("config.json")

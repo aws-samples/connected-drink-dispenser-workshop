@@ -3,6 +3,12 @@ CloudFormation custom resource to delete all objects in S3 bucket defined in
 the BUCKET_NAME environment variable. To use, ensure there is a "DependsOn" to
 the referenced bucket on the custom resource.
 """
+
+__copyright__ = (
+    "Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved."
+)
+__license__ = "MIT-0"
+
 def main(event, context):
     import os
     import logging as log

@@ -11,6 +11,11 @@ from botocore.exceptions import ClientError
 import cfnresponse
 from boto3.dynamodb.conditions import Key, Attr
 
+__copyright__ = (
+    "Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved."
+)
+__license__ = "MIT-0"
+
 log.getLogger().setLevel(log.INFO)
 
 ddb_client = boto3.resource("dynamodb")

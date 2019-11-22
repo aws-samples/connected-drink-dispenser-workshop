@@ -8,6 +8,10 @@ import boto3
 from botocore.exceptions import ClientError
 import cfnresponse
 
+__copyright__ = (
+    "Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved."
+)
+__license__ = "MIT-0"
 
 def create_admin_user(cognito_client_id, cognito_user_pool_id, username, password):
     """Create user and set password in Cognito User Pool"""

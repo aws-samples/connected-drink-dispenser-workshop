@@ -1,5 +1,9 @@
 import setuptools
 
+__copyright__ = (
+    "Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved."
+)
+__license__ = "MIT-0"
 
 with open("README.md") as fp:
     long_description = fp.read()

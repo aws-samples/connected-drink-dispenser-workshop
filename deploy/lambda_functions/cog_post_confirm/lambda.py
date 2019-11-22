@@ -13,6 +13,11 @@ import logging
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
 
+__copyright__ = (
+    "Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved."
+)
+__license__ = "MIT-0"
+
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
