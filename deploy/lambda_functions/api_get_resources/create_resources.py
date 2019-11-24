@@ -56,8 +56,15 @@ rqXRfboQnoZsG4q5WTP468SQvvG5
 
 shadow_clear = json.dumps({"state": {"reported": None, "desired": None}})
 shadow_initial = json.dumps(
-    {"state": {"desired": {"led": "off", "led_ring": {"count": 1, "color": "#0610000"}}, "dispense_time_ms": 2000
-    }}
+    {
+        "state": {
+            "desired": {
+                "led": "off",
+                "led_ring": {"count": 1, "color": "#0610000"},
+                "dispense_time_ms": 2000,
+            }
+        }
+    }
 )
 
 
@@ -76,10 +83,30 @@ class DecimalEncoder(json.JSONEncoder):
 def create_password():
     """Create a random password"""
     animal_word_list = [
-        "bat", "cat", "dog", "fish", "bird", "horse", "tiger", "mouse", "chicken", "cow", "donkey"
+        "bat",
+        "cat",
+        "dog",
+        "fish",
+        "bird",
+        "horse",
+        "tiger",
+        "mouse",
+        "chicken",
+        "cow",
+        "donkey",
     ]
     building_word_list = [
-        "house", "bridge", "store", "station", "attic", "floor", "wall", "window", "porch", "door", "room"
+        "house",
+        "bridge",
+        "store",
+        "station",
+        "attic",
+        "floor",
+        "wall",
+        "window",
+        "porch",
+        "door",
+        "room",
     ]
     if bool(random.getrandbits(1)):
         return f"{animal_word_list[random.randint(0, 10)]}{random.randint(100, 999)}{building_word_list[random.randint(0, 10)]}"
@@ -112,7 +139,9 @@ def iam_user(username, iam_group):
     asset["iam_user"]["username"] = result["User"]["UserName"]
     asset["iam_user"]["password"] = create_password()
     iam_client.create_login_profile(
-        UserName=username, Password=asset["iam_user"]["password"], PasswordResetRequired=False
+        UserName=username,
+        Password=asset["iam_user"]["password"],
+        PasswordResetRequired=False,
     )
     iam_client.add_user_to_group(GroupName=iam_group, UserName=username)
     # Reset password policy back to original

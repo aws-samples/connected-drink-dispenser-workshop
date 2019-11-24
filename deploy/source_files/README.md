@@ -1,0 +1,1 @@
+Contains extra files used outside of the Hugo documentation content. Used by the `../deploy_app.py` script

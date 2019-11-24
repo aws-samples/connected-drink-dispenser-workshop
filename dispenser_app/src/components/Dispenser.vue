@@ -92,7 +92,7 @@
               <v-list-item-content>
                 <div class="overline mb-4">CURRENT CARRIER BOARD LED STATUS</div>
                 <v-list-item-title class="headline mb-1">LED</v-list-item-title>
-                <v-list-item-subtitle>Use the buttons below to change the LED state</v-list-item-subtitle>
+                <v-list-item-subtitle>Use the buttons below to change the Ring LED state</v-list-item-subtitle>
               </v-list-item-content>
               <v-avatar v-bind:color="ledColor" size="36">
                 <span class="white--text">{{ledText}}</span>
@@ -122,7 +122,7 @@
               <v-list-item-content>
                 <div class="overline mb-4">CREDIT INDICATOR</div>
                 <v-list-item-title class="headline mb-1">Ring LED</v-list-item-title>
-                <v-list-item-subtitle>Zero to three red LEDS indicate less than $1.00, all five show credits available for dispense</v-list-item-subtitle>
+                <v-list-item-subtitle>When the Ring LED is enabled, this shows the current amount of lights activated and the color.</v-list-item-subtitle>
               </v-list-item-content>
               <v-avatar
                 v-for="n in ringLed.count"
@@ -131,7 +131,7 @@
                 size="36"
               ></v-avatar>
             </v-list-item>
-            <v-card-actions>Zero to three red LEDS indicate less than $1.00, all five show credits available for dispense</v-card-actions>
+            <v-card-actions>White (gray) indicates $0.25 for each two LEDs; Green indicates $1.00 or more per LED, all RED indicates there are not credits (sad panda).</v-card-actions>
           </v-card>
         </v-col>
       </v-row>

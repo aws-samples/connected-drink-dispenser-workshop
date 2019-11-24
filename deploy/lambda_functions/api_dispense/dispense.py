@@ -264,19 +264,32 @@ def process_iot_event(event, dispenser_table, event_table):
     """Process event sent via IoT Rules Engine action, this originates from the dispenser,
        and the event comes from the topic $aws/things/NNN/shadow/update/accepted
 
-        Event contains the accepted update, which will include state.reported.response
-
+        If the value state.reported.response is found in the shadow event, reconcile
+        and clear the value out.
     """
 
     dispenser = event["topic"].split("/")[2]
+
+    try:
+        if event["state"]["reported"].get("response") is not None:
+            event_request_id = event["state"]["reported"]["response"]["requestId"]
+        else:
+            # Response object found but NULL, ignore as this is us clearing out the
+            # object below
+            # TODO - add logic to IoT rule to not trigger is value is null
+            logger.info("Response object found but set to null, this is a follow-up shadow update to clear, disregarding")
+            return
+    except KeyError:
+        # No response object found, shadow event not of interest
+        return
     try:
         # Check for corresponding requestId in event from DynamoDB table
-        event_request_id = event["state"]["reported"]["response"]["requestId"]
         event_response_result = event["state"]["reported"]["response"]["result"]
         dispenser_record = read_dispenser(dispenser, dispenser_table)
         dispense_request = request_details(
             requests=dispenser_record["requests"], command="dispense"
         )
+        logger.info(f"got request from shadow and DDB, shadow: {event}, DDB: {dispenser_record}")
         if dispense_request is not None:
             if (event_request_id == dispense_request["requestId"]) and (
                 event_response_result == "success"
