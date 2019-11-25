@@ -63,7 +63,7 @@ cognito <--> db : custom:dispenserId = partiton key
 
 Each thing has a unique X.509 client certificate for authentication allowing the dispenser to connect publish and subscribe to the MQTT topics specific for that dispenser. This authorization of MQTT topics comes from a common policy that uses substitution variables that read the _Common Name_ value (which is the dispenser Id). The relationship continues into a Cognito User attribute, `custom:dispenserId`, that is read for every API call. Finally, your dispenser has an entry in the DynamoDB _DispenserTable_ that tracks current the credit balance and also any in-flight or stale command operations.
 
-From the webapp, open the _MY DETAILS_ section and open a new browser tab or window to the Sign-in URL, then login in with the credentials provided. From the AWS Console, review the relationships by view your dispenser and user details in the following AWS services:
+From the browser tab opened to the AWS Console review the relationships by viewing your dispenser and user details in the following AWS services:
 
 * *AWS IoT Core* - View your thing, the attached certificate details, and the policy associated with the certificate. Also, view the other security policy that is associated with your Cognito user (used to monitor update events).
 * *Amazon Cognito* - From _Manage User Pools_, select the _workshop-users_, Users and Groups, then your select your username. Note the `custom:user` and `custom:dispenserId` attribute values.
@@ -71,8 +71,7 @@ From the webapp, open the _MY DETAILS_ section and open a new browser tab or win
 
 {{%expand "Open for detailed step-by-step instructions" %}}
 
-. From the webapp, open the _MY DETAILS_ section and open a new browser tab or window to the Sign-in URL, then login in with the credentials provided (username the same as the webapp, and use the generated password).
-. Click on the _Services_ menu dropdown (upper left next to AWS logo), and type in _iot core_, then click on _IoT Core_ when the drop-down populates. This will direct you the the AWS IoT Core service page.
+. From the browser tab opened to the AWS Console, click on the _Services_ menu dropdown (upper left next to AWS logo), and type in _iot core_, then click on _IoT Core_ when the drop-down populates. This will direct you the the AWS IoT Core service page.
 +
 TIP: During the workshop you will be changing from service to service quite often. When navigating to a different service via the _Service->SERVICENAME_, right-click on the service name and select "Open in a new tab" (or equivalent). This will have all the services referenced within a single browser window on separate tabs.
 +
