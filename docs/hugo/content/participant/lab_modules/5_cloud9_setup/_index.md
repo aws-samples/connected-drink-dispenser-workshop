@@ -76,18 +76,42 @@ cd connected-drink-dispenser-workshop/device_firmware
 
 ### Verify Default Compilation
 
-To verify that all components are in place, run the following commands to create the build environment in the `device_firmware` directory, then change to the build directory (it will be created in root of the repository, at `~/environment/connected-drink-dispenser-workshop/build`).
+To verify that all components are in place, run the following commands to create the build environment in the `device_firmware` directory, then change to the build directory (it will be created in root of the repository, at `~/environment/connected-drink-dispenser-workshop/build`). Run each of these commands and verify they completed without errors (warnings are okay).
 
 ```bash
 cd connected-drink-dispenser-workshop/device_firmware
 cmake -DVENDOR=espressif -DBOARD=esp32_devkitc -DCOMPILER=xtensa-esp32 -S . -B ./build
-
 ```
+This should only take a few seconds and end with no errors. Then run the `make` process:
+```bash
+cd build
+make all -j4
+cd ..
+```
+
+Again verify there were no errors. The final output of the build step should look like this:
+
+```bash
+...
+[100%] Building C object CMakeFiles/aws_demos.dir/demos/wifi_provisioning/aws_wifi_connect_task.c.obj
+[100%] Linking CXX executable aws_demos
+[100%] Built target aws_demos
+Scanning dependencies of target app
+[100%] Generating ../aws_demos.bin
+esptool.py v2.6
+[100%] Built target app
+```
+
+And there should be a lot of files in `~/environment/connected-drink-dispenser-workshop/build` which is the firmware output from the build process.
 
 ## Checkpoints
 
 Please ensure the following checkpoints are validated before moving on to the next module.
 
-## (optional) Outcomes
+* In the Cloud9 IDE:
+    * There is a file named `aws_demos.bin` in `~/environment/connected-drink-dispenser-workshop/build`.
+    * There were no errors (warning are okay) in either the `cmake` or `make all` steps.
 
-Lead off with something like "so why did we do x, y, and z?
+## Outcomes
+
+We used a reproducible method (all the commands above can be automated) to create a development environment and toolchain build process. By doing this, you can always recreate the environment if something gets corrupted. Having the ability to quickly iterate in changes is an important factor in developing firmware.

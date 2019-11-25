@@ -616,7 +616,8 @@
 <li><a href="#1-create-local-folder">1. Create Local Folder</a></li>
 <li><a href="#2-download-and-install-serial-driver">2. Download and Install Serial Driver</a></li>
 <li><a href="#3-download-and-install-esptool">3. Download and Install esptool</a></li>
-<li><a href="#4-open-command-line-interface-and-test-all-components">4. Open Command Line Interface and Test All Components</a></li>
+<li><a href="#4-download-or-configure-serial-monitor-tool">4. Download or Configure Serial Monitor Tool</a></li>
+<li><a href="#5-open-command-line-interface-and-test-all-components">5. Open Command Line Interface and Test All Components</a></li>
 </ul></li>
 <li><a href="#checkpoints">Checkpoints</a></li>
 <li><a href="#outcomes">Outcomes</a></li>
@@ -780,9 +781,18 @@
     </div>
 </div>
 
-<h3 id="4-open-command-line-interface-and-test-all-components">4. Open Command Line Interface and Test All Components</h3>
+<h3 id="4-download-or-configure-serial-monitor-tool">4. Download or Configure Serial Monitor Tool</h3>
+
+<p>TODO: recommendations for Windows and key sequences for screen on macOS/linux.</p>
+
+<h3 id="5-open-command-line-interface-and-test-all-components">5. Open Command Line Interface and Test All Components</h3>
 
 <p>To interact with the microcontroller, you will be doing so from a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the <code>cdd</code> directory you created. Verify that you can run the esptool command, and then verify when you connect just the ESP32 via the serial cable that a new serial device is created.</p>
+
+
+<div class="notices info" ><p>When completed, remove the USB cable from the laptop and microcontroller.</p>
+</div>
+
 
 
 <div class="expand">
@@ -827,6 +837,8 @@ $ ls /dev/tty.*
 /dev/tty.Bluetooth-Incoming-Port
 $ <span style="color:#75715e"># After connecting as above</span>
 /dev/tty.Bluetooth-Incoming-Port /dev/tty.SLAB_USBtoUART</code></pre></div></li>
+
+<li><p>Remove the USB cable from both the microcontroller and your laptop.</p></li>
 </ol>
 
     </div>

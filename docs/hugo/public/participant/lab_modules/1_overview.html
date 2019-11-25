@@ -613,9 +613,9 @@
 <li><a href="#objectives">Objectives</a></li>
 <li><a href="#steps-to-complete">Steps to Complete</a>
 <ul>
-<li><a href="#overall-cloud-architecture">Overall Cloud Architecture</a></li>
-<li><a href="#user-and-dispenser-relationships">User and Dispenser Relationships</a></li>
-<li><a href="#dispenser-operations">Dispenser Operations</a></li>
+<li><a href="#1-overall-cloud-architecture">1. Overall Cloud Architecture</a></li>
+<li><a href="#2-user-and-dispenser-relationships">2. User and Dispenser Relationships</a></li>
+<li><a href="#3-dispenser-operations">3. Dispenser Operations</a></li>
 </ul></li>
 <li><a href="#checkpoints">Checkpoints</a></li>
 </ul></li>
@@ -659,7 +659,7 @@
 
 <h2 id="steps-to-complete">Steps to Complete</h2>
 
-<h3 id="overall-cloud-architecture">Overall Cloud Architecture</h3>
+<h3 id="1-overall-cloud-architecture">1. Overall Cloud Architecture</h3>
 
 <p><img src="../../images/lab1_cloud_overview.png" alt="Cloud Architecture" width="70%"/></p>
 
@@ -671,13 +671,13 @@
 <li><strong>Webapp and Authentication/Authorization</strong> - This uses Amazon Cognito to authenticate users and provide a Jason Web Token (JWT) with signed attributes such as the corresponding drink dispenser id. The vended credentials are then use to make API calls and to establish a persistent connection to AWS IoT.</li>
 </ul>
 
-<h3 id="user-and-dispenser-relationships">User and Dispenser Relationships</h3>
+<h3 id="2-user-and-dispenser-relationships">2. User and Dispenser Relationships</h3>
 
 <p><img src="../../images/lab1_user_dispenser_relationship.png" alt="User and Dispenser Relationships" width="70%"/></p>
 
 <p>For each individual user, there is a set of resources created and related during the user account creation process. A user, <code>foo</code>, authenticates with Cognito and is returned a signed JWT that contains information used by the webapp and API Gateway. For instance, user <code>foo</code> is associated with dispenserId of <code>123</code>. Any API calls made use the <code>dispenserId</code> attribute to ensure that requests are only for the user&rsquo;s dispenser and not someone elses. The value is also used to send and receive messages on specific MQTT topics so that one dispenser cannot be affected by another dispensers actions. This is a common field used throughout the backend cloud services.</p>
 
-<h3 id="dispenser-operations">Dispenser Operations</h3>
+<h3 id="3-dispenser-operations">3. Dispenser Operations</h3>
 
 <p><img src="../../images/lab1_dispenser_operations.png" alt="Dispenser Operations" width="70%"/></p>
 

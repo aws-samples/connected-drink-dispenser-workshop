@@ -613,10 +613,13 @@
 <li><a href="#objectives">Objectives</a></li>
 <li><a href="#steps-to-complete">Steps to Complete</a>
 <ul>
-<li><a href="#specific-action-to-complete">Specific action to complete</a></li>
+<li><a href="#1-remove-the-components-to-use">1. Remove the Components to Use</a></li>
+<li><a href="#2-connect-the-led-ring-to-the-controller-board">2. Connect the LED Ring to the Controller Board</a></li>
+<li><a href="#3-install-the-microcontroller-into-the-controller-board">3. Install the Microcontroller into the Controller Board</a></li>
+<li><a href="#4-connect-the-microcontroller-to-your-laptop-and-test-serial-communication">4. Connect the Microcontroller to Your Laptop and Test Serial Communication</a></li>
 </ul></li>
 <li><a href="#checkpoints">Checkpoints</a></li>
-<li><a href="#optional-outcomes">(optional) Outcomes</a></li>
+<li><a href="#outcomes">Outcomes</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -648,17 +651,53 @@
 
 <h2 id="objectives">Objectives</h2>
 
-<p>Anton working on this.</p>
+<p>This lab module will walk you through connecting the components to test the operation of the dispenser without having to build the entire dispenser at this time.</p>
 
-<p>Statement of what and why we are doing this. Then more detailed list if needed.</p>
+<p>By the end of this module you will have:</p>
+
+<ul>
+<li>Installed all the components needed to test the operation of the dispenser firmware with the cloud backend.</li>
+<li>Have an understanding of what each component does.</li>
+<li>Be able to communicate with the microcontroller via your laptop.</li>
+</ul>
+
+
+<div class="notices warning" ><p>Building the dispenser takes up a lot of room. For now, just remove the parts mentioned below and leave the rest in the zip-top bag. Promise: You <em>will</em> build entire dispenser in a bit!</p>
+</div>
+
+
+<p>The Ring LED is controlled by the microprocessor, and is used to denote the status of the overall application. It is powered and controlled by microcontroller and the firmware you will compile and flash.</p>
+
+<p>The Controller Board serves a few functions.</p>
+
+<ul>
+<li>It acts as carrier for microcontroller, and provides easy to use connectors for the other components being connected such as the Ring LED, external power, and the aquarium motor which will be installed later.</li>
+<li>It allows for either USB provided power to test (however there is not enough power to active the motor), or can be powered by an external battery, such as the 9V provided.</li>
+<li>It also helps anchor all the components into the final design build while still providing access.</li>
+</ul>
 
 <h2 id="steps-to-complete">Steps to Complete</h2>
 
 <p>Follow each step in order and use the <em>Open for detailed step-by-step instructions</em> if required.</p>
 
-<h3 id="specific-action-to-complete">Specific action to complete</h3>
+<h3 id="1-remove-the-components-to-use">1. Remove the Components to Use</h3>
 
-<p>Short description of what to do for experienced people</p>
+<p>Remove these four components from the zip-top bag:</p>
+
+<ul>
+<li>ESP32 Microcontroller</li>
+<li>Controller Board</li>
+<li>Ring LED</li>
+<li>USB Cable (Type-A to Micro USB data and power)</li>
+</ul>
+
+<p>TODO: image of four components</p>
+
+<h3 id="2-connect-the-led-ring-to-the-controller-board">2. Connect the LED Ring to the Controller Board</h3>
+
+<p>Install the LED Ring into the <code>WS2812</code> 3-pin connector on the Controller Board with the tab aligned with the connector slot.</p>
+
+<p>TODO: image of LED connected to controller board.</p>
 
 
 <div class="expand">
@@ -672,7 +711,104 @@
     	</span>
     </div>
     <div class="expand-content" style="display: none;">
-        <p>detailed steps with markdown.</p>
+        <ol>
+<li>Hold the Ring LED cable&rsquo;s connector between your fingers.</li>
+<li>Align the tab on the connector with the slot on the 3-pin <code>WS2812</code> labeled receptacle on the Controller Board.</li>
+<li>With slight pressure, insert the connector until it is fully in.</li>
+</ol>
+
+    </div>
+</div>
+
+<h3 id="3-install-the-microcontroller-into-the-controller-board">3. Install the Microcontroller into the Controller Board</h3>
+
+<p>Align the microcontroller into the dual inline socket on the other side of the Controller Board, aligning the large metal square package with the <code>Motor A Motor B</code> text on the controller board. Make sure all pins on the ESP32 and the socket, then gently insert until all the way in.</p>
+
+<p>TODO: pic of iso view of insertion</p>
+
+
+<div class="notices tip" ><p>It is very easy to accidentally bend the pins on the microcontroller. Turn over the Controller Board with the socket facing up, and then with your other hand gently position the microcontroller pins into the holes. Once all are in place, gently apply pressure equally (center of microcontroller works best) to insert all the way in. If you accidentally install backwards, place a finger <em>underneath</em> one end of the microcontroller and apply pressure to lift slightly. The do the same on the other end and alternate back and forth until the microcontroller is out of the socket.</p>
+</div>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+        <span>
+        
+    	
+    	Open for detailed step-by-step instructions
+    	
+    	</span>
+    </div>
+    <div class="expand-content" style="display: none;">
+        <ol>
+<li>Hold the Controller Board in one hand with the socket side (opposite of the LED Ring connection) facing up.</li>
+<li>In your other hand hold the microcontroller and align the side with the large metal side with tab (antenna) to the Controller Board with <code>Motor A Motor B</code> text.</li>
+<li>Align the pins on the microcontroller to the socket and lightly place. Ensure each pin is in a hole.</li>
+</ol>
+
+<p>TODO: side image not flush</p>
+
+<ol>
+<li>With gentle, even pressure, press the microcontroller in the socket until flush.</li>
+</ol>
+
+<p>TODO: side image fully flush</p>
+
+    </div>
+</div>
+
+<h3 id="4-connect-the-microcontroller-to-your-laptop-and-test-serial-communication">4. Connect the Microcontroller to Your Laptop and Test Serial Communication</h3>
+
+<p>Insert the USB cable&rsquo;s Micro USB connector into the end of the microcontroller, and the Type-A connector into your laptop. The red LED on the microcontroller indicates power, and the Ring LED <em>may</em> light up. Next, check that the serial port tested in the <em>Laptop Setup</em> module is there. Next, use the serial monitoring software to connect to the serial port. Press the button to the left of the USB connection and verify you see text after each press. Exit your monitoring software.</p>
+
+<p>TODO: image of lit unit</p>
+
+
+<div class="notices info" ><p>A Micro USB to Type-A cable was provided. If your laptop only has Type-C connector and you have a Micro USB to Type-C cable, make sure that it supports <em>both</em> power and data connections. The workshop presenter may have Micro USB to Type-C cables to loan out.</p>
+</div>
+
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+        <span>
+        
+    	
+    	Open for detailed step-by-step instructions
+    	
+    	</span>
+    </div>
+    <div class="expand-content" style="display: none;">
+        <ol>
+<li>Insert the USB cable into the microcontroller, and then your laptop and verify that is had power via the red LED on the microcontroller.</li>
+<li>Use the serial monitoring tool to verify that the same serial port for your laptop still works. In some cases, especially in Windows, this value may change on each connection or if you use a different serial port.</li>
+
+<li><p>Press the button to the left of the USB connection and verify you see text after each press. It should look similar to this:</p>
+
+<pre><code>rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0018,len:4
+load:0x3fff001c,len:6340
+load:0x40078000,len:11276
+load:0x40080000,len:6084
+entry 0x4008032c
+I (28) boot: ESP-IDF v3.1.3-13-g44a799c47 2nd stage bootloader
+I (28) boot: compile time 18:50:42
+I (28) boot: Enabling RNG early entropy source...
+I (34) boot: SPI Speed      : 40MHz
+I (38) boot: SPI Mode       : DIO
+I (42) boot: SPI Flash Size : 4MB
+I (46) boot: Partition Table:
+</code></pre></li>
+
+<li><p>Exit the monitoring program. You may leave the microcontroller attached if you like.</p></li>
+</ol>
 
     </div>
 </div>
@@ -681,9 +817,15 @@
 
 <p>Please ensure the following checkpoints are validated before moving on to the next module.</p>
 
-<h2 id="optional-outcomes">(optional) Outcomes</h2>
+<ol>
+<li>The Ring LED and microcontroller are connected to the Controller Board.</li>
+<li>The microcontroller has power when connected to your laptop.</li>
+<li>You can see text via the serial monitoring tool.</li>
+</ol>
 
-<p>Lead off with something like &ldquo;so why did we do x, y, and z?</p>
+<h2 id="outcomes">Outcomes</h2>
+
+<p>So why are we only installing a few pieces of the entire dispenser instead of building now? When doing embedded software development, it is easier to work with a development microcontroller kit and the accessories you will be controlling. Normally this would be done with a breadboard or some other development kit (devkit). However, for those that are not familiar with that process, using the minimum pieces now will allow us to continue testing up until we do incorporate the components into the overall dispenser.</p>
 
 
 
