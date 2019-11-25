@@ -82,7 +82,7 @@ To verify that all components are in place, run the following commands to create
 cd connected-drink-dispenser-workshop/device_firmware
 cmake -DVENDOR=espressif -DBOARD=esp32_devkitc -DCOMPILER=xtensa-esp32 -S . -B ./build
 
-
+```
 
 ## Checkpoints
 
