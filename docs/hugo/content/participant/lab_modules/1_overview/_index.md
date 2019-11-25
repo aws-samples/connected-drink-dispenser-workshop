@@ -20,7 +20,7 @@ In this initial lab, we will go through the overall architecture of the CDD. At 
 
 ## Steps to Complete
 
-### Overall Cloud Architecture
+### 1. Overall Cloud Architecture
 
 <img src="/images/lab1_cloud_overview.png" alt="Cloud Architecture" width="70%"/>
 
@@ -30,13 +30,13 @@ When interacting with the cloud, the CDD utilizes two main paths, AWS IoT Core f
 * **API Logic** - Most operations are completed via API calls. By using user authentication, each call can be verified to the specific dispenser via the AWS Lambda functionality.
 * **Webapp and Authentication/Authorization** - This uses Amazon Cognito to authenticate users and provide a Jason Web Token (JWT) with signed attributes such as the corresponding drink dispenser id. The vended credentials are then use to make API calls and to establish a persistent connection to AWS IoT.
 
-### User and Dispenser Relationships
+### 2. User and Dispenser Relationships
 
 <img src="/images/lab1_user_dispenser_relationship.png" alt="User and Dispenser Relationships" width="70%"/>
 
 For each individual user, there is a set of resources created and related during the user account creation process. A user, `foo`, authenticates with Cognito and is returned a signed JWT that contains information used by the webapp and API Gateway. For instance, user `foo` is associated with dispenserId of `123`. Any API calls made use the `dispenserId` attribute to ensure that requests are only for the user's dispenser and not someone elses. The value is also used to send and receive messages on specific MQTT topics so that one dispenser cannot be affected by another dispensers actions. This is a common field used throughout the backend cloud services.
 
-### Dispenser Operations
+### 3. Dispenser Operations
 
 <img src="/images/lab1_dispenser_operations.png" alt="Dispenser Operations" width="70%"/>
 

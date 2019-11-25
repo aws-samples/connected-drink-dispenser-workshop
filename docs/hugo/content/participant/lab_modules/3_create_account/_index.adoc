@@ -87,7 +87,7 @@ Sequence diagrams a consistent way to depict the flow of steps, especially for c
 
 Follow each step in order and use the _Open for detailed step-by-step instructions_ if required to create your account and access the resources.
 
-### Register for an Account
+### 1. Register for an Account
 
 Open URL provided in the presentation, and click on the [underline blue]#create a new account# link, or from the SIGN IN link, click on the [blue underline]#Sign up# link at the bottom of the Sign in page. For your account, enter a _Username_, _Password_, and _Phone number_ for your mobile phone to receive a validation code. Once you receive the verification code, enter it to complete the account sign up process. 
 
@@ -114,7 +114,7 @@ The phone number must be in the "+county code" format. For instance, a US number
 
 {{% /expand%}}
 
-### Initial Log In
+### 2. Initial Log In
 
 With the account created and on the _Sign in_ page, log in with your _username_/_password_. Initially you will see a _Loading Resource_ page, and during this first log in, it will pause while the resources are created in the background. This can take approximately 30 seconds or so to complete. Once complete, the dispenser details page will load. Click the _MY DETAILS_ button to open the resources section. Click on the _CERTIFICATE FILE_, _PRIVATE KEY FILE_, and _AMAZON ROOT CA1 FILE_ links and save the files to your `cdd` directory on your laptop. Click the _MY DETAILS_ button to toggle closed.
 

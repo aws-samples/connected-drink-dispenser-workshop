@@ -77,7 +77,6 @@ For Linux users, or to have installed as a Python package, [Follow the instructi
 1. Navigate to the [esptool.py](https://github.com/espressif/esptool) GitHub repository and scroll down to the installation instructions section.
 1. For your operating system, follow the instructions to install the Python modules. It is recommended to install in a virtual environment or in such a way so that is doesn't affect your operating system's Python installation.
 
-
 ***Optional Installations***
 
 If you are unable to install the esptool or run it via the options above, there are optional versions available for different operating systems. Please note that these have not been tested, and there may be differences between the arguments referenced in the lab modules and the actual software.
@@ -88,9 +87,18 @@ If you are unable to install the esptool or run it via the options above, there 
 
 {{% /expand%}}
 
-### 4. Open Command Line Interface and Test All Components
+### 4. Download or Configure Serial Monitor Tool
+
+TODO: recommendations for Windows and key sequences for screen on macOS/linux.
+
+
+### 5. Open Command Line Interface and Test All Components
 
 To interact with the microcontroller, you will be doing so from a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the `cdd` directory you created. Verify that you can run the esptool command, and then verify when you connect just the ESP32 via the serial cable that a new serial device is created.
+
+{{% notice info %}}
+When completed, remove the USB cable from the laptop and microcontroller.
+{{% /notice %}}
 
 {{%expand "Open for detailed step-by-step instructions" %}}
 
@@ -121,6 +129,7 @@ To interact with the microcontroller, you will be doing so from a terminal windo
     $ # After connecting as above
     /dev/tty.Bluetooth-Incoming-Port /dev/tty.SLAB_USBtoUART
     ```
+1. Remove the USB cable from both the microcontroller and your laptop.
 
 {{% /expand%}}
 
