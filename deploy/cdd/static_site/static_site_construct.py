@@ -36,12 +36,14 @@ class StaticSiteProps(object):
         fqdn: str,
         hosted_zone_id: str,
         certificate_arn: str = None,
-        error_configuration = [],
+        error_configuration=[],
+        output_name: str = None,
     ):
         self._fqdn = fqdn
         self._hosted_zone_id = hosted_zone_id
         self._certificate_arn = certificate_arn
         self._error_configuration = error_configuration
+        self._output_name = output_name
 
     @property
     def fqdn(self) -> str:
@@ -59,6 +61,11 @@ class StaticSiteProps(object):
     @property
     def error_configuration(self) -> list:
         return self._error_configuration
+
+    # Name to apply to output if provided
+    @property
+    def output_name(self) -> str:
+        return self._output_name
 
 
 class StaticSiteConstruct(core.Construct):
@@ -147,7 +154,12 @@ class StaticSiteConstruct(core.Construct):
                 origin_configs=[source_configuration],
                 error_configurations=error_codes,
             )
-        core.CfnOutput(self, "DistributionId", value=distribution.distribution_id)
+        core.CfnOutput(
+            self,
+            "DistributionId",
+            value=distribution.distribution_id,
+            export_name=props.output_name,
+        )
 
         # Route53 alias record for the CloudFront Distribution
         zone = route53.HostedZone.from_hosted_zone_attributes(

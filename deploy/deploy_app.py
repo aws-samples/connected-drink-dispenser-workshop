@@ -7,6 +7,7 @@
 import sys
 import os
 import json
+import time
 import mimetypes
 import shutil
 from pathlib import Path
@@ -19,6 +20,7 @@ __copyright__ = (
     "Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved."
 )
 __license__ = "MIT-0"
+
 
 def spa_exports(
     cognito_id_pool: str,
@@ -148,7 +150,7 @@ def spa_deploy(s3, s3_bucket):
 
     try:
         # Error out if dependencies are not in place
-        # prev_cwd = Path.cwd()
+        prev_cwd = Path.cwd()
         os.chdir(Path("../dispenser_app"))
         # cwd ../dispenser_app
         # clear local node_modules and dist directories
@@ -158,11 +160,25 @@ def spa_deploy(s3, s3_bucket):
         os.system("yarn install")
         os.system("yarn build")
         # sync to s3
-        s3_copy(s3, s3_bucket, Path("dist"), "", "single page application")
+        s3_copy(s3, s3_bucket, Path("dist"), "", "Single page web application")
+        # Return to whence we came
+        os.chdir(prev_cwd)
 
     except Exception as e:
         print(f"Application build error (exiting): {e}")
         sys.exit(1)
+
+
+def cloudfront_invalidate(client, distribution_id):
+    """Create invalidation for CloudFront to start serving updated content"""
+    client.create_invalidation(
+        DistributionId=distribution_id,
+        InvalidationBatch={
+            "Paths": {"Quantity": 1, "Items": ["/*"]},
+            "CallerReference": f"{int(time.time())}",
+        },
+    )
+    return
 
 
 if __name__ == "__main__":
@@ -180,16 +196,20 @@ if __name__ == "__main__":
     print("Reading CloudFormation stack parameters to create files for web application")
     try:
         cfn_client = session.client("cloudformation")
+        cloudfront_client = session.client("cloudfront")
         response = cfn_client.describe_stacks(StackName=stackname)
         outputs = response["Stacks"][0]["Outputs"]
         # Get IoT endpoint for account
         iot_client = session.client("iot")
-        aws_iot_endpoint = iot_client.describe_endpoint(endpointType="iot:Data-ATS")["endpointAddress"]
+        aws_iot_endpoint = iot_client.describe_endpoint(endpointType="iot:Data-ATS")[
+            "endpointAddress"
+        ]
         aws_cognito_identity_pool_id = get_output(outputs, "CognitoIdentityPoolId")
         aws_cognito_region = config["Region"]
         aws_user_pools_id = get_output(outputs, "CognitoUserPoolId")
         aws_user_pools_web_client_id = get_output(outputs, "CognitoClientId")
         aws_api_endpoint = get_output(outputs, "APIEndpoint")
+        cloudfront_distribution = get_output(outputs, "CDDWebSite")
         s3_bucket = f"{config['HostName']}-static-site"
     except Exception as e:
         print(f"Error reading CloudFormation stack variables, exiting")
@@ -204,7 +224,7 @@ if __name__ == "__main__":
                 aws_user_pools_id,
                 aws_user_pools_web_client_id,
                 aws_api_endpoint,
-                aws_iot_endpoint
+                aws_iot_endpoint,
             )
         )
 
@@ -222,4 +242,17 @@ if __name__ == "__main__":
     spa_deploy(s3, s3_bucket)
 
     # copy up docs
-    s3_copy(s3, s3_bucket, Path("../docs/hugo/public"), "docs/", "online documentation")
+    s3_copy(s3, s3_bucket, Path("../docs/hugo/public"), "docs/", "Online documentation")
+
+    # copy up supporting non-docs related files
+    s3_copy(
+        s3,
+        s3_bucket,
+        Path("./source_files/cred_formatter"),
+        "cred_formatter/",
+        "Credential C formatter page",
+    )
+
+    # Force a CloudFront invalidation so new content is read
+    cloudfront_invalidate(cloudfront_client, cloudfront_distribution)
+

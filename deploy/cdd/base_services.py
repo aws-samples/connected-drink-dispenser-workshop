@@ -112,6 +112,7 @@ class CddBase(core.Stack):
                     "response_page_path": "/index.html",
                 },
             ],
+            output_name="CDDWebSite",
         )
         cdd_site = StaticSiteConstruct(self, "StaticSite", props)
 
@@ -862,7 +863,9 @@ class CddBase(core.Stack):
                 # Allow search indexing
                 iam.PolicyStatement(
                     actions=["iot:SearchIndex"],
-                    resources=[f"arn:aws:iot:{stack.region}:{stack.account}:index/AWS_Things"],
+                    resources=[
+                        f"arn:aws:iot:{stack.region}:{stack.account}:index/AWS_Things"
+                    ],
                 ),
                 # Allow changing of security group ingress on EC2 (Cloud9) to support mapping 443 to
                 iam.PolicyStatement(
