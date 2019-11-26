@@ -613,7 +613,9 @@
 <li><a href="#objectives">Objectives</a></li>
 <li><a href="#steps-to-complete">Steps to Complete</a>
 <ul>
-<li><a href="#specific-action-to-complete">Specific action to complete</a></li>
+<li><a href="#modify-the-source-files-for-your-dispenser">Modify the Source Files for Your Dispenser</a></li>
+<li><a href="#compile-and-download-the-code-from-cloud9">Compile and Download the Code from Cloud9</a></li>
+<li><a href="#flash-and-monitor-the-microcontroller-from-your-laptop">Flash and Monitor the Microcontroller from Your Laptop</a></li>
 </ul></li>
 <li><a href="#checkpoints">Checkpoints</a></li>
 <li><a href="#optional-outcomes">(optional) Outcomes</a></li>
@@ -648,13 +650,163 @@
 
 <h2 id="objectives">Objectives</h2>
 
-<p>Statement of what and why we are doing this. Then more detailed list if needed.</p>
+<p>In this lab module, you will complete the configuration of the dispenser firmware, download the compiled files to your laptop, and then use the tools to flash the microcontroller. At that point, the main components of the dispenser with the exception of the motor, will be fully operational. By the end of the module you will have:</p>
+
+<ul>
+<li>Modified the base firmware code to work with your specific account.</li>
+<li>Compiled and downloaded the code files to your laptop.</li>
+<li>Flashed the microcontroller with the compiled code on your laptop.</li>
+<li>Verified it is communicating with AWS IoT by turning on and off the LED.</li>
+</ul>
 
 <h2 id="steps-to-complete">Steps to Complete</h2>
 
 <p>Follow each step in order and use the <em>Open for detailed step-by-step instructions</em> if required.</p>
 
-<h3 id="specific-action-to-complete">Specific action to complete</h3>
+<h3 id="modify-the-source-files-for-your-dispenser">Modify the Source Files for Your Dispenser</h3>
+
+<p>The X.509 client certificate and private key you downloaded earlier to your laptop&rsquo;s <code>cdd</code> directory uniquely identify your dispenser from all others. In order to communicate to AWS IoT core, you need to modify two of the source files in Cloud9 with the following in <code>device_firmware/demos/include</code>:</p>
+
+<table>
+<thead>
+<tr>
+<th>Firmware Source File</th>
+<th><code>#define</code> Statement in File</th>
+<th>Content</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>aws_clientcredential.h</code></td>
+<td>clientcredentialMQTT_BROKER_ENDPOINT</td>
+<td>AWS IoT Endpoint value from <em>MY DETAILS</em> section of webapp</td>
+</tr>
+
+<tr>
+<td><code>aws_clientcredential.h</code></td>
+<td>clientcredentialIOT_THING_NAME</td>
+<td>Your assigned dispenser name (3-digit number) to use when connecting to the MQTT broker</td>
+</tr>
+
+<tr>
+<td><code>aws_clientcredential.h</code></td>
+<td>clientcredentialWIFI_SSID</td>
+<td>WiFi network name provided by workshop presenter</td>
+</tr>
+
+<tr>
+<td><code>aws_clientcredential.h</code></td>
+<td>clientcredentialWIFI_PASSWORD</td>
+<td>Provided password for the WiFi network</td>
+</tr>
+
+<tr>
+<td><code>aws_clientcredential_keys.h</code></td>
+<td>keyCLIENT_CERTIFICATE_PEM</td>
+<td>Converted X.509 certificate (<code>nnn-certificate.pem.crt</code>)  content from <a href="https://cdd.baah.io/cred_formatter/index.html" target="_blank">Credential Formatter</a></td>
+</tr>
+
+<tr>
+<td><code>aws_clientcredential_keys.h</code></td>
+<td>keyCLIENT_PRIVATE_KEY_PEM</td>
+<td>Converted certificate private key <code>nnn-private.pem.key</code>  content from <a href="https://cdd.baah.io/cred_formatter/index.html" target="_blank">Credential Formatter</a></td>
+</tr>
+</tbody>
+</table>
+
+<p>In Cloud9, navigate to the <code>device_firmware/demos/include</code> folder, then double-click on the two files above and modify the contents. The output for the last two PEM files in <code>aws_clientcredential_keys.h</code>, when copied over should look similar to this before and after (certifcate only, do the same with private key):</p>
+
+<p><strong>BEFORE</strong>:</p>
+
+<pre><code>#define keyCLIENT_CERTIFICATE_PEM                   &quot;REPLACE_WITH_CONVERTED_CERTIFICATE_STRING&quot;
+</code></pre>
+
+<p><strong>AFTER</strong>:</p>
+
+<pre><code>#define keyCLIENT_CERTIFICATE_PEM                   &quot;-----BEGIN CERTIFICATE-----\n&quot;\
+&quot;MIICxjCCAa6gAwIBAgIVAJhkG3c6wT05SEZKJ3OsVHrQov6nMA0GCSqGSIb3DQEB\n&quot;\
+...
+&quot;IdbvOv7LLT9BD2Z8Mx9H/BhCd9ylpZEyQcl948GjEXgBDGdxUKFhrEfx\n&quot;\
+&quot;-----END CERTIFICATE-----&quot; 
+</code></pre>
+
+<p>Once both files are modified, save them in the Cloud9 IDE, but leave them open to make changes if needed later.</p>
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+        <span>
+        
+    	
+    	Open for detailed step-by-step instructions
+    	
+    	</span>
+    </div>
+    <div class="expand-content" style="display: none;">
+        <ol>
+<li><p>In Cloud9, navigate to the <code>device_firmware/demos/include</code> folder then double-click the two source files to modify:</p>
+
+<p><img src="../../images/lab6_c9_includes.png" alt="Source file to update" /></p></li>
+
+<li><p>In each file reference above, replace the contents between the double-quotes. All values you need to replace start with <code>&quot;REPLACE_WITH_...&quot;</code>. Here are examples of what the WiFi and Certificate values should look like when done:</p>
+
+<p><strong>BEFORE</strong>:
+<img src="../../images/lab6_c9_mod_before.png" alt="Source files before update" /></p>
+
+<p><strong>AFTER</strong>:
+<img src="../../images/lab6_c9_mod_after.png" alt="Source files after update" /></p></li>
+</ol>
+
+<div class="notices note" ><p>The WiFi SSID must be entered exactly as given. Also, for the certificate and private key entries make sure the <code>---BEGIN</code> and <code>---END</code> look exactly as above. The data will be different and the private key will only be a few lines long as it is an ECC key.</p>
+</div>
+
+<ol>
+<li>For each file, click the tab the from the Cloud9 menu, save both files (<em>File-&gt;Save</em>). Leave both files open as it will be easier to correct and potential errors.</li>
+</ol>
+
+    </div>
+</div>
+
+<h3 id="compile-and-download-the-code-from-cloud9">Compile and Download the Code from Cloud9</h3>
+
+<p>With the updated files save, click on the terminal window where you did the compile steps in the previous lab. Run the <code>make</code> command again which will pick up the file changes and compile the firmware.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd ~/environment/connected-drink-dispenser-workshop/device_firmware/build
+make all -j4</code></pre></div>
+<p>Navigate in the Cloud9 file browser and open the <code>connected-drink-dispenser-workshop/device_firmware/build</code> folder. Scroll down and right-click on <code>aws_demos.bin</code> and select <em>Download</em> and save to your <code>cdd</code> directory. Do the same for the <code>build/bootloader/bootloader.bin</code> and <code>build/partition_table/partition_table.bin</code> files.</p>
+
+<p>In your laptop&rsquo;s <code>cdd</code> directory you should have these three files.</p>
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+        <span>
+        
+    	
+    	Open for detailed step-by-step instructions
+    	
+    	</span>
+    </div>
+    <div class="expand-content" style="display: none;">
+        <ol>
+<li><p>In Cloud9, click on the terminal window and rebuild the device firmware.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd ~/environment/connected-drink-dispenser-workshop/device_firmware/build
+make all -j4</code></pre></div>
+<p><img src="../../images/lab6_c9_build.png" alt="Update firmware build" /></p></li>
+
+<li><p>Right-click on <code>aws_demos.bin</code>, select <em>Download</em>, and save the file to your <code>cdd</code> directory. Do the same in the <code>bootloader</code> folder for <code>bootloader.bin</code>, and in <code>partition_table</code> for <code>partition-table.bin</code>.</p>
+
+<p><img src="../../images/lab6_c9_download.png" alt="Download firmware" /></p></li>
+
+<li><p>When completed, make sure that <code>aws_demos.bin</code>, <code>bootloader.bin</code>, and <code>partition_table</code> are saved and available in your laptop&rsquo;s <code>cdd</code> directory.</p></li>
+</ol>
+
+    </div>
+</div>
+
+<h3 id="flash-and-monitor-the-microcontroller-from-your-laptop">Flash and Monitor the Microcontroller from Your Laptop</h3>
 
 <p>Short description of what to do for experienced people</p>
 

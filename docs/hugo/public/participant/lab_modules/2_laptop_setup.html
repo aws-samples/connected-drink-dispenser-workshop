@@ -616,8 +616,8 @@
 <li><a href="#1-create-local-folder">1. Create Local Folder</a></li>
 <li><a href="#2-download-and-install-serial-driver">2. Download and Install Serial Driver</a></li>
 <li><a href="#3-download-and-install-esptool">3. Download and Install esptool</a></li>
-<li><a href="#4-download-or-configure-serial-monitor-tool">4. Download or Configure Serial Monitor Tool</a></li>
-<li><a href="#5-open-command-line-interface-and-test-all-components">5. Open Command Line Interface and Test All Components</a></li>
+<li><a href="#4-open-command-line-interface-and-test-all-components">4. Open Command Line Interface and Test All Components</a></li>
+<li><a href="#5-download-or-configure-serial-monitor-tool">5. Download or Configure Serial Monitor Tool</a></li>
 </ul></li>
 <li><a href="#checkpoints">Checkpoints</a></li>
 <li><a href="#outcomes">Outcomes</a></li>
@@ -757,7 +757,7 @@
 
 <ol>
 <li>Save the <a href="https://dl.espressif.com/dl/esptool-2.6.1-macos.tar.gz">macOS</a> or <a href="https://dl.espressif.com/dl/esptool-2.6.1-windows.zip">Windows</a> compressed esptool file to your browsers <em>Downloads</em> directory.</li>
-<li>Unzip or untar and move the <em>esptool</em> file from the <code>esptool</code> folder to the <code>cdd</code> folder.</li>
+<li>Unzip or untar and move the <em>esptool</em> file (<code>esptool</code> for macOS, <code>esptool.exe</code> for Windows) from the <code>esptool</code> folder to the <code>cdd</code> folder.</li>
 <li>This will allow you to run <em>esptool</em> without having to add it to your PATH.</li>
 </ol>
 
@@ -781,11 +781,7 @@
     </div>
 </div>
 
-<h3 id="4-download-or-configure-serial-monitor-tool">4. Download or Configure Serial Monitor Tool</h3>
-
-<p>TODO: recommendations for Windows and key sequences for screen on macOS/linux.</p>
-
-<h3 id="5-open-command-line-interface-and-test-all-components">5. Open Command Line Interface and Test All Components</h3>
+<h3 id="4-open-command-line-interface-and-test-all-components">4. Open Command Line Interface and Test All Components</h3>
 
 <p>To interact with the microcontroller, you will be doing so from a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the <code>cdd</code> directory you created. Verify that you can run the esptool command, and then verify when you connect just the ESP32 via the serial cable that a new serial device is created.</p>
 
@@ -840,6 +836,47 @@ $ <span style="color:#75715e"># After connecting as above</span>
 
 <li><p>Remove the USB cable from both the microcontroller and your laptop.</p></li>
 </ol>
+
+    </div>
+</div>
+
+<h3 id="5-download-or-configure-serial-monitor-tool">5. Download or Configure Serial Monitor Tool</h3>
+
+<p>For macOS and Linux, you will use the built-in <code>screen</code> utility to connect to and monitor the microcontroller. There is no configuration required.</p>
+
+<p>For Windows, you can either use a serial application already installed or download and use PuTTY.</p>
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
+        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+        <span>
+        
+    	
+    	Open for detailed step-by-step instructions for Windows Install of PuTTY
+    	
+    	</span>
+    </div>
+    <div class="expand-content" style="display: none;">
+        <ol>
+<li>Download Putty from <a href="http://www.putty.org">here</a> or <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">here</a>.</li>
+
+<li><p>Run the installation wizard and select all options:</p>
+
+<p><img src="../../images/lab2_putty_installer.png" alt="Install PuTTY" />
+<img src="../../images/lab2_putty_setup.png" alt="Configure PuTTY" /></p></li>
+
+<li><p>Configure the <em>Serial line</em> and speed using the COMx port from above (e.g., <code>COM3</code> and <code>115200</code>).</p>
+
+<p><img src="../../images/lab2_putty_setup.png" alt="Open Port" /></p></li>
+
+<li><p>Open the Console to see the microcontroller output.</p>
+
+<p><img src="../../images/lab2_putty_console_output.png" alt="PuTTY Console Output" /></p></li>
+</ol>
+
+<div class="notices warning" ><p>Only one application at a time can access a serial port. When working with <em>esptool</em>, you will have to close the PuTTY console before flashing the firmware. If you get an error about <em>port in use or unavailable</em>, this is most like;y why. Close the Putty Console and try again.</p>
+</div>
 
     </div>
 </div>

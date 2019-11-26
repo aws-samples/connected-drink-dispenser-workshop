@@ -69,7 +69,7 @@ For Linux users, or to have installed as a Python package, [Follow the instructi
 **Option 1 - Executable for macOS and Windows**
 
 1. Save the [macOS](https://dl.espressif.com/dl/esptool-2.6.1-macos.tar.gz) or [Windows](https://dl.espressif.com/dl/esptool-2.6.1-windows.zip) compressed esptool file to your browsers *Downloads* directory.
-1. Unzip or untar and move the *esptool* file from the `esptool` folder to the `cdd` folder.
+1. Unzip or untar and move the *esptool* file (`esptool` for macOS, `esptool.exe` for Windows) from the `esptool` folder to the `cdd` folder.
 1. This will allow you to run *esptool* without having to add it to your PATH.
 
 **Option 2 - Install as Python Module**
@@ -87,12 +87,7 @@ If you are unable to install the esptool or run it via the options above, there 
 
 {{% /expand%}}
 
-### 4. Download or Configure Serial Monitor Tool
-
-TODO: recommendations for Windows and key sequences for screen on macOS/linux.
-
-
-### 5. Open Command Line Interface and Test All Components
+### 4. Open Command Line Interface and Test All Components
 
 To interact with the microcontroller, you will be doing so from a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the `cdd` directory you created. Verify that you can run the esptool command, and then verify when you connect just the ESP32 via the serial cable that a new serial device is created.
 
@@ -130,6 +125,34 @@ When completed, remove the USB cable from the laptop and microcontroller.
     /dev/tty.Bluetooth-Incoming-Port /dev/tty.SLAB_USBtoUART
     ```
 1. Remove the USB cable from both the microcontroller and your laptop.
+
+{{% /expand%}}
+
+### 5. Download or Configure Serial Monitor Tool
+
+For macOS and Linux, you will use the built-in `screen` utility to connect to and monitor the microcontroller. There is no configuration required.
+
+For Windows, you can either use a serial application already installed or download and use PuTTY.
+
+{{%expand "Open for detailed step-by-step instructions for Windows Install of PuTTY" %}}
+
+1. Download Putty from [here](http://www.putty.org) or [here](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html).
+1. Run the installation wizard and select all options:
+
+    ![Install PuTTY](/images/lab2_putty_installer.png)
+    ![Configure PuTTY](/images/lab2_putty_setup.png)
+
+1. Configure the *Serial line* and speed using the COMx port from above (e.g., `COM3` and `115200`).
+
+    ![Open Port](/images/lab2_putty_setup.png)
+
+1. Open the Console to see the microcontroller output.
+
+    ![PuTTY Console Output](/images/lab2_putty_console_output.png)
+
+{{% notice warning %}}
+Only one application at a time can access a serial port. When working with *esptool*, you will have to close the PuTTY console before flashing the firmware. If you get an error about *port in use or unavailable*, this is most like;y why. Close the Putty Console and try again.
+{{% /notice %}}
 
 {{% /expand%}}
 
