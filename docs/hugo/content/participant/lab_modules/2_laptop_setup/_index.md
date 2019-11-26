@@ -109,6 +109,9 @@ When completed, remove the USB cable from the laptop and microcontroller.
         ...
     $
     ```
+
+    For Windows the command would be `esptool.exe`, and depending if you installed or just downloaded the file, for macOS/Linux `./esptool.py`, `./esptool` or just `esptool` may be the syntax needed. ***Note what syntax worked, as you will need to use that for when you get to flashing the microcontroller***.
+
 1. Monitor what serial ports are in use *before* connecting the ESP32.
     1. For Windows, [check the current COMx ports](https://superuser.com/questions/1059447/how-to-check-com-ports-in-windows-10). Note that as you connect and disconnect the ESP32, the COMx number may change for each connection.
     1. For macOS, `ls -l /dev/tty.*` will show the ports. You should *not* see a `tty.SLAB_USBtoUART` entry yet.
@@ -125,6 +128,7 @@ When completed, remove the USB cable from the laptop and microcontroller.
     /dev/tty.Bluetooth-Incoming-Port /dev/tty.SLAB_USBtoUART
     ```
 1. Remove the USB cable from both the microcontroller and your laptop.
+1. Run the *esptool* command and note which syntax works for you.
 
 {{% /expand%}}
 

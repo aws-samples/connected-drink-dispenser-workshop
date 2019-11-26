@@ -5,7 +5,7 @@ chapter: false
 pre: 
 next: 
 prev: 
-title: 6. Flash & Test MCU
+title: 6. Develop, Flash, & Test MCU
 weight: 60
 ---
 
@@ -110,19 +110,127 @@ In your laptop's `cdd` directory you should have these three files.
 
 ### Flash and Monitor the Microcontroller from Your Laptop
 
+The final step in the modify->build->download->flash sequence is to flash the microcontroller. Attach the microcontroller to your laptop. Next, from the command prompt or terminal opened earlier, ensure you are in the `cdd` directory and then use *esptool* to flash.
+
+{{% notice note %}}
+The command `esptool ...` will be used. Note the syntax that works for *your* laptop installation (e.g., `./esptool.py`, etc.).
+{{% /notice %}}
+
+Run the flashing program replacing the `--port` with your value (default for macOS used below).
+
+```
+esptool.py --chip esp32 --port /dev/tty.SLAB_USBtoUART --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m --flash_size detect 0x1000 bootloader.bin 0x20000 aws_demos.bin 0x8000 partition-table.bin
+```
+
+You should see output similar indicated the firmware was flashed.
+
+```
+esptool.py v2.8
+Serial port /dev/tty.SLAB_USBtoUART
+Connecting........__
+Chip is ESP32D0WDQ5 (revision 1)
+Features: WiFi, BT, Dual Core, Coding Scheme None
+Crystal is 40MHz
+MAC: 24:0a:c4:23:d6:5c
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 921600
+Changed.
+Configuring flash size...
+Auto-detected Flash size: 4MB
+Compressed 24272 bytes to 14397...
+Wrote 24272 bytes (14397 compressed) at 0x00001000 in 0.2 seconds (effective 1140.8 kbit/s)...
+Hash of data verified.
+Compressed 860384 bytes to 529993...
+Wrote 860384 bytes (529993 compressed) at 0x00020000 in 8.0 seconds (effective 859.5 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 118...
+Wrote 3072 bytes (118 compressed) at 0x00008000 in 0.0 seconds (effective 3733.3 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
+```
+
+At this point the microcontroller will reset and your code will be running on it! To verify, start your serial monitoring program (*PuTTY* or *screen*). Reset the microcontroller and view the output. A properly configured microcontroller will have an *I (nnn) WIFI: SYSTEM_EVENT_STA_CONNECTED* message indicating it connected to the WiFi network, and then *\[ShadowTask\]* operations with *SUCCESS*, indicating that it is communicating with AWS IoT.
+
+Exit your *screen* session (`Ctrl-a`+`Ctrl-\`) or close the console window in PuTTY if you need to correct any errors to flash the microcontroller again.
 
 
-Short description of what to do for experienced people
 
 {{%expand "Open for detailed step-by-step instructions" %}}
 
-detailed steps with markdown.
+1. Attach the microcontroller to your laptop and ensure the red LED is lit and that the serial port is available.
+1. From your command prompt or terminal in the `cdd` directory, flash the microcontroller with *esptool*.
+
+    ```
+    esptool.py --chip esp32 --port /dev/tty.SLAB_USBtoUART --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m --flash_size detect 0x1000 bootloader.bin 0x20000 aws_demos.bin 0x8000 partition-table.bin
+    ```
+
+    Look for the *Hash of data verified* messages.
+
+1. macOS/Linux: Start your serial monitoring program screen and connect to the microcontroller. Press the reset button to the left of the USB connector and nearest the red LED. Look for startup text containing *I (nnn) WIFI: SYSTEM_EVENT_STA_CONNECTED* and after a short time, *\[ShadowTask\]* operations with *SUCCESS*.
+
+    ```
+    ### <--- Comments, not part of microcontroller output
+    ### First messages
+    rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    configsip: 0, SPIWP:0xee
+    clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    mode:DIO, clock div:2
+    load:0x3fff0018,len:4
+    load:0x3fff001c,len:6372
+    load:0x40078000,len:11684
+    ho 0 tail 12 room 4
+    load:0x40080000,len:6112
+    entry 0x40080330
+    I (30) boot: ESP-IDF v3.1.5-105-g7313c836a5 2nd stage bootloader
+    I (30) boot: compile time 23:19:39
+    I (30) boot: Enabling RNG early entropy source...
+    # WiFi startup
+    2 7 [main] Connecting to network
+    I (284) wifi: wifi driver task: 3ffbb758, prio:23, stack:3584, core=0
+    I (284) system_api: Base MAC address is not set, read default base MAC address from BLK0 of EFUSE
+    I (284) system_api: Base MAC address is not set, read default base MAC address from BLK0 of EFUSE
+    I (304) wifi: wifi firmware version: 3c46a62
+    I (1554) wifi: connected with SSID_NAME, channel 1
+    I (1554) wifi: pm start, type: 1
+    # !!! Look for this
+    I (1554) WIFI: SYSTEM_EVENT_STA_CONNECTED
+    # Connection to AWS IoT Core and successful communication with the device shadow
+    54 985 [ShadowTask] [INFO ][MQTT][9850] (MQTT connection 0x3ffb6208) MQTT PUBLISH operation queued.
+    55 1006 [iot_thread] [INFO ][Shadow][10060] Shadow UPDATE of 100 was ACCEPTED.
+    56 1006 [ShadowTask] Successfully performed update.
+    57 1006 [ShadowTask] Free mem: 129952
+    ```
+
+    NOTE: The *screen* command will take full control of the terminal. The fully exit, use the `Ctrl-a`+`Ctrl-\` to kill all windows. You can also use your arrow keys to navigate up by entering `Ctrl-a`+`ESC`. There are good [primers](https://linuxize.com/post/how-to-use-linux-screen/) on how to use *screen*.
+
+1. Leave the controller and LED ring connected for the next module.
+
 {{% /expand%}}
 
 ## Checkpoints
 
 Please ensure the following checkpoints are validated before moving on to the next module.
 
-## (optional) Outcomes
+* Firmware build with no errors in Cloud9.
+* You downloaded and flashed the firmware with no errors.
+* You can monitor and see the dispenser connect to the WiFi network and establish a successful session to AWS IoT Core.
+* You have left the microcontroller connected for the next lab.
 
-Lead off with something like "so why did we do x, y, and z?
+## Outcomes
+
+In this lab we went through all the normal steps of firmware development--albeit as all manual steps. The process is similar to normal software development where you write code, compile, debug, and then repeat. In the case of firmware development, especially when working with hardware peripherals, the added step is flashing the firmware to development board.
+
+All of the steps completed manually can be automated. In a production environment, the development process could operate in this manner:
+
+1. Developer uses local IDE with integrated test and debugging tools (non-physical) to write code, commits to source control
+1. Source control commit triggers AWS CodeBuild with toolchain image to compile code and update the `.bin` files to an Amazon S3 bucket.
+1. Local workstation with attached hardware receives notice of new firmware, downloads, and flashes to microcontroller.
+1. Local workstation places serial or debugger ports into monitor mode, resets the microcontroller and it runs through it's test.
+1. Monitor output reviewed by developer to make next set of changes or corrections.
+
+By understanding what the development process looks like in this lab module, you can automate any series of steps slowly to add consistency and repeatability to your development processes. 
+

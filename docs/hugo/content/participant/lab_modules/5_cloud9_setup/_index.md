@@ -5,7 +5,7 @@ chapter: false
 pre: 
 next: 
 prev: 
-title: 5. Cloud9 Development Environment
+title: 5. Cloud9 Dev Environment
 weight: 50
 ---
 

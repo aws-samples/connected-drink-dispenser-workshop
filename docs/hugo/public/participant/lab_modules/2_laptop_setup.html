@@ -232,13 +232,13 @@
  
   
     
-    <li data-nav-id="/participant/lab_modules/5_cloud9_setup.html" title="5. Cloud9 Development Environment" class="dd-item 
+    <li data-nav-id="/participant/lab_modules/5_cloud9_setup.html" title="5. Cloud9 Dev Environment" class="dd-item 
         
         
         
         ">
       <a href="../../participant/lab_modules/5_cloud9_setup.html">
-          5. Cloud9 Development Environment
+          5. Cloud9 Dev Environment
           
       </a>
       
@@ -256,13 +256,13 @@
  
   
     
-    <li data-nav-id="/participant/lab_modules/6_flash_and_test.html" title="6. Flash &amp; Test MCU" class="dd-item 
+    <li data-nav-id="/participant/lab_modules/6_flash_and_test.html" title="6. Develop, Flash, &amp; Test MCU" class="dd-item 
         
         
         
         ">
       <a href="../../participant/lab_modules/6_flash_and_test.html">
-          6. Flash &amp; Test MCU
+          6. Develop, Flash, &amp; Test MCU
           
       </a>
       
@@ -815,7 +815,8 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ esptool.py -h                                                                                                             
 usage: esptool <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--chip <span style="color:#f92672">{</span>auto,esp8266,esp32<span style="color:#f92672">}]</span> <span style="color:#f92672">[</span>--port PORT<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--baud BAUD<span style="color:#f92672">]</span> 
     ...
-$</code></pre></div></li>
+$</code></pre></div>
+<p>For Windows the command would be <code>esptool.exe</code>, and depending if you installed or just downloaded the file, for macOS/Linux <code>./esptool.py</code>, <code>./esptool</code> or just <code>esptool</code> may be the syntax needed. <strong><em>Note what syntax worked, as you will need to use that for when you get to flashing the microcontroller</em></strong>.</p></li>
 
 <li><p>Monitor what serial ports are in use <em>before</em> connecting the ESP32.</p>
 
@@ -835,6 +836,8 @@ $ <span style="color:#75715e"># After connecting as above</span>
 /dev/tty.Bluetooth-Incoming-Port /dev/tty.SLAB_USBtoUART</code></pre></div></li>
 
 <li><p>Remove the USB cable from both the microcontroller and your laptop.</p></li>
+
+<li><p>Run the <em>esptool</em> command and note which syntax works for you.</p></li>
 </ol>
 
     </div>
