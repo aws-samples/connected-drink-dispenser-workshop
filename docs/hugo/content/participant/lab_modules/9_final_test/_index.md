@@ -22,7 +22,7 @@ With all that completed, let's dispenser a real liquid drink.
 
 ## Steps to Complete
 
-Follow each step in order and use the *Open for detailed step-by-step instructions* if required.
+Follow each step in order and use the *Click to open for detailed step-by-step instructions* if required.
 
 {{% notice %}}
 The following steps are if you are using your own dispenser. If you elect to use one of the pre-built ones, bring your microcontroller (the ESP32) to one of the pre-built stations. Be careful when removing from the controller board as its easy to bend the pins on the ESP32.
@@ -38,7 +38,7 @@ If you wish to record this event for posterity, have someone else video you clic
 
 If something does wrong or doesn't work, review the build steps from the previous lab, or ask a workshop assistant for help.
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 . Ensure the dispenser unit is built and ready to go:
 .. Liquid in the bottle

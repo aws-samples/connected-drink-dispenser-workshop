@@ -23,13 +23,13 @@ Each persons laptop is unique and the general instructions may not work for a va
 
 ## Steps to Complete
 
-Follow each step in order and use the *Open for detailed step-by-step instructions* if required.
+Follow each step in order and use the *Click to open for detailed step-by-step instructions* if required.
 
 ### 1. Create Local Folder
 
 Create a local folder called `cdd` that will contain all downloads and assets needed for the workshop. It is recommended to create this within your web browsers default download location. When asked to *download resource* X *to `cdd` folder*, save or move the files to that folder.
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 1. Open a file browser for your operating system (Windows: Explorer, macOS: Finder) and navigate to the default download folder used by your web browser.
 1. Create a folder named `cdd` within Downloads.
@@ -44,7 +44,7 @@ The microcontroller used in this workshop, the [ESP32-DevKitC](https://www.espre
 Use the installer specific to the *exact version* of your operating system. Using the wrong driver will not work and may make it difficult to install the proper version later.
 {{% /notice %}}
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 1. Open a browser window to the the [CP210x USB to UART Bridge VCP Drivers](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers)  download page.
 1. Download the software (the *Download VCP* link) for your operating system. If in doubt, please verify the version and read the release notes to confirm.
@@ -64,7 +64,7 @@ To interact with the microcontroller via the serial USB connection, there is a s
 
 For Linux users, or to have installed as a Python package, [Follow the instructions](https://github.com/espressif/esptool) for your operating system to install the application. If installed correctly the command should accessible from any directory.
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 **Option 1 - Executable for macOS and Windows**
 
@@ -95,7 +95,7 @@ To interact with the microcontroller, you will be doing so from a terminal windo
 When completed, remove the USB cable from the laptop and microcontroller.
 {{% /notice %}}
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 1. For macOS or Linux, launch a terminal window, for Windows launch a command prompt.
     1. Windows - [Launch a cmd.exe (Command Prompt)](https://renenyffenegger.ch/notes/Windows/dirs/Windows/System32/cmd_exe/index).
@@ -138,7 +138,7 @@ For macOS and Linux, you will use the built-in `screen` utility to connect to an
 
 For Windows, you can either use a serial application already installed or download and use PuTTY.
 
-{{%expand "Open for detailed step-by-step instructions for Windows Install of PuTTY" %}}
+{{%expand "Click to open for detailed step-by-step instructions for Windows Install of PuTTY" %}}
 
 1. Download Putty from [here](http://www.putty.org) or [here](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html).
 1. Run the installation wizard and select all options:

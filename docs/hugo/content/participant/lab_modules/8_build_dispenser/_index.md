@@ -15,13 +15,13 @@ Statement of what and why we are doing this. Then more detailed list if needed.
 
 ## Steps to Complete
 
-Follow each step in order and use the *Open for detailed step-by-step instructions* if required.
+Follow each step in order and use the *Click to open for detailed step-by-step instructions* if required.
 
 ### Specific action to complete
 
 Short description of what to do for experienced people
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 detailed steps with markdown.
 {{% /expand%}}

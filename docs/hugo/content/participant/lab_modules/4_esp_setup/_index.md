@@ -33,7 +33,7 @@ The Controller Board serves a few functions.
 
 ## Steps to Complete
 
-Follow each step in order and use the *Open for detailed step-by-step instructions* if required.
+Follow each step in order and use the *Click to open for detailed step-by-step instructions* if required.
 
 ### 1. Remove the Components to Use
 
@@ -52,7 +52,7 @@ Install the LED Ring into the `WS2812` 3-pin connector on the Controller Board w
 
 TODO: image of LED connected to controller board.
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 1. Hold the Ring LED cable's connector between your fingers.
 1. Align the tab on the connector with the slot on the 3-pin `WS2812` labeled receptacle on the Controller Board.
@@ -70,7 +70,7 @@ TODO: pic of iso view of insertion
 It is very easy to accidentally bend the pins on the microcontroller. Turn over the Controller Board with the socket facing up, and then with your other hand gently position the microcontroller pins into the holes. Once all are in place, gently apply pressure equally (center of microcontroller works best) to insert all the way in. If you accidentally install backwards, place a finger *underneath* one end of the microcontroller and apply pressure to lift slightly. The do the same on the other end and alternate back and forth until the microcontroller is out of the socket.
 {{% /notice %}}
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 1. Hold the Controller Board in one hand with the socket side (opposite of the LED Ring connection) facing up.
 1. In your other hand hold the microcontroller and align the side with the large metal side with tab (antenna) to the Controller Board with `Motor A Motor B` text.
@@ -94,7 +94,7 @@ TODO: image of lit unit
 A Micro USB to Type-A cable was provided. If your laptop only has Type-C connector and you have a Micro USB to Type-C cable, make sure that it supports *both* power and data connections. The workshop presenter may have Micro USB to Type-C cables to loan out.
 {{% /notice %}}
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 1. Insert the USB cable into the microcontroller, and then your laptop and verify that is had power via the red LED on the microcontroller. 
 1. Use the serial monitoring tool to verify that the same serial port for your laptop still works. In some cases, especially in Windows, this value may change on each connection or if you use a different serial port.

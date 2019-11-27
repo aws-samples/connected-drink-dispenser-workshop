@@ -633,7 +633,7 @@
 
 	<section class="doc-section level-1"><h2 id="_objectives">Objectives</h2><p>This lab module will walk through how the dispenser, webapp, and coupled services interact. It will go into level of detail specific for the workshop. If you would like to review more details, please reference the <a href="../../presenter.html">Setting Up the Workshop</a> documentation for deeper insights. By then end of this module you will have:</p>
 <div class="ulist"><ul><li>An understanding of the relationship between the dispenser (<em>thing</em>), your Cognito user, and the DynamoDB database tables that track and log dispenser activity and state.</li><li>Seen how the dispenser <em>thing</em> uses the <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html">Device Shadow Service for AWS IoT</a> to listen for requested state changes, and also uses it for processing a dispense <em>request</em> and acknowledging a <em>dispense</em> response.</li><li>Tested a <em>dispense</em> request/response operation and monitored what takes place in different scenarios.</li><li>Reviewed dispenser activity from both the DynamoDB <em>EventsTable</em> and also webapp logging.</li><li>An understanding of how the webapp along with the API Lambda functions control how to give credits to others, as well as only initiating a dispense event when there sufficient credits.</li></ul></div></section>
-<section class="doc-section level-1"><h2 id="_steps_to_complete">Steps to Complete</h2><p>Follow each step in order and use the <strong>Open for detailed step-by-step instructions</strong> if required.</p>
+<section class="doc-section level-1"><h2 id="_steps_to_complete">Steps to Complete</h2><p>Follow each step in order and use the <strong>Click to open for detailed step-by-step instructions</strong> if required.</p>
 <section class="doc-section level-2"><h3 id="_understand_the_aws_iot_thing_cognito_user_and_dynamodb_table_relationships">Understand the AWS IoT Thing, Cognito User, and DynamoDB Table Relationships</h3><p>As a software-as-a-service (SaaS) environment, there needs to be a specific relationship between all of the resources to help enforce the security and operational controls of the actions. At a high level, for each user, this is how the resources are associated with each other:</p>
 <figure class="image-block"><img src="../../Relationship_services.svg" alt="Relationship services" width="806" height="646">
 <figcaption>Figure 1. Relationship between services</figcaption></figure>
@@ -642,12 +642,12 @@
 <div class="ulist"><ul><li><strong>AWS IoT Core</strong> - View your thing, the attached certificate details, and the policy associated with the certificate. Also, view the other security policy that is associated with your Cognito user (used to monitor update events).</li><li><strong>Amazon Cognito</strong> - From <em>Manage User Pools</em>, select the <em>workshop-users</em>, Users and Groups, then your select your username. Note the <code>custom:user</code> and <code>custom:dispenserId</code> attribute values.</li><li><strong>Amazon DynamoDB</strong> - From the <em>DispenserTable</em> review the credits value for your dispenser via the <em>dispenserId</em> sort key. From the <em>DispenserEvents</em> table, query with the partition key equal to your dispenserId. As others start to create and operate their dispensers, filtering will limit to just your events.</li></ul></div>
 
 <div class="expand">
-    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
-        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+    <div class="expand-label" style="cursor: pointer;text-decoration: underline" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-circle-down' : 'fas fa-chevron-circle-right';});});">
+        <i style="font-size:large;" class="fas fa-chevron-circle-right"></i>
         <span>
         
     	
-    	Open for detailed step-by-step instructions
+    	Click to open for detailed step-by-step instructions
     	
     	</span>
     </div>
@@ -695,12 +695,12 @@
 <p>To see how the shadow works when the device is in a disconnected state, unplug the microcontroller from your laptop. Now, in the webapp change the state of the LED and notice that the <em>desired</em> and <em>delta</em> states show this new value,but that the <em>reported</em> state is still what the dispenser was in before being disconnected. Plug the microcontroller back into your laptop. Once it has booted and connected AWS IoT, the LED will change to the <em>desired</em> state value and the dispenser will update the <em>reported</em> state. Since <em>desired</em> and <em>reported</em> states are the same, the <em>delta</em> state for the LED is removed.</p>
 
 <div class="expand">
-    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
-        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+    <div class="expand-label" style="cursor: pointer;text-decoration: underline" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-circle-down' : 'fas fa-chevron-circle-right';});});">
+        <i style="font-size:large;" class="fas fa-chevron-circle-right"></i>
         <span>
         
     	
-    	Open for detailed step-by-step instructions
+    	Click to open for detailed step-by-step instructions
     	
     	</span>
     </div>
@@ -781,12 +781,12 @@
 <p>In this situation, we are using the shadow to track the status of a command sent to the dispenser, and the response once it acts upon it.</p>
 
 <div class="expand">
-    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
-        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+    <div class="expand-label" style="cursor: pointer;text-decoration: underline" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-circle-down' : 'fas fa-chevron-circle-right';});});">
+        <i style="font-size:large;" class="fas fa-chevron-circle-right"></i>
         <span>
         
     	
-    	Open for detailed step-by-step instructions
+    	Click to open for detailed step-by-step instructions
     	
     	</span>
     </div>
@@ -802,12 +802,12 @@
 <p>These messages then trigger the webapp to make an API call requesting the complete status of the dispenser (LED status, credits, etc.), which in turn updates the main dispenser page. If there are no changes being made, no MQTT messages are generated, and subsequently, no API calls are made to request an update to the webapp.</p>
 
 <div class="expand">
-    <div class="expand-label" style="cursor: pointer;" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-down' : 'fas fa-chevron-right';});});">
-        <i style="font-size:x-small;" class="fas fa-chevron-right"></i>
+    <div class="expand-label" style="cursor: pointer;text-decoration: underline" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-circle-down' : 'fas fa-chevron-circle-right';});});">
+        <i style="font-size:large;" class="fas fa-chevron-circle-right"></i>
         <span>
         
     	
-    	Open for detailed step-by-step instructions
+    	Click to open for detailed step-by-step instructions
     	
     	</span>
     </div>

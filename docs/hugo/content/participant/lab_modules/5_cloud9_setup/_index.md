@@ -23,14 +23,14 @@ Using Cloud9 is good because it gives a consistent compilation experience no mat
 
 ## Steps to Complete
 
-Follow each step in order and use the *Open for detailed step-by-step instructions* if required.
+Follow each step in order and use the *Click to open for detailed step-by-step instructions* if required.
 
 ### Open New Browser Tab to Cloud9 Service and Launch IDE
 
 From the webapp, open the *MY DETAILS* section and open a new browser tab or window to the Sign-in URL, then login in with the credentials provided. From the AWS Console, open a new tab to the *Cloud9* service. From the *Your Environments* menu, click on the *Open IDE* button for your user. This will open a new tab with the IDE and start up the EC2 instance (it may take a minute to fully launch).
 
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 1. For the webapp, open the *MY DETAILS* section and click on the *Sign-In URL* to open a new browser tab. 
 1. Use the username and password credentials from the web app to log into the AWS Console.

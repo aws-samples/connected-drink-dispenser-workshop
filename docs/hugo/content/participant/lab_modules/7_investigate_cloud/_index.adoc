@@ -21,7 +21,7 @@ This lab module will walk through how the dispenser, webapp, and coupled service
 
 == Steps to Complete
 
-Follow each step in order and use the *Open for detailed step-by-step instructions* if required.
+Follow each step in order and use the *Click to open for detailed step-by-step instructions* if required.
 
 === Understand the AWS IoT Thing, Cognito User, and DynamoDB Table Relationships
 
@@ -69,7 +69,7 @@ From the browser tab opened to the AWS Console review the relationships by viewi
 * *Amazon Cognito* - From _Manage User Pools_, select the _workshop-users_, Users and Groups, then your select your username. Note the `custom:user` and `custom:dispenserId` attribute values.
 * *Amazon DynamoDB* - From the _DispenserTable_ review the credits value for your dispenser via the _dispenserId_ sort key. From the _DispenserEvents_ table, query with the partition key equal to your dispenserId. As others start to create and operate their dispensers, filtering will limit to just your events.
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 . From the browser tab opened to the AWS Console, click on the _Services_ menu dropdown (upper left next to AWS logo), and type in _iot core_, then click on _IoT Core_ when the drop-down populates. This will direct you the the AWS IoT Core service page.
 +
@@ -158,7 +158,7 @@ To see this in action, from the AWS Console navigate to your thing in IoT Core, 
 
 To see how the shadow works when the device is in a disconnected state, unplug the microcontroller from your laptop. Now, in the webapp change the state of the LED and notice that the _desired_ and _delta_ states show this new value,but that the _reported_ state is still what the dispenser was in before being disconnected. Plug the microcontroller back into your laptop. Once it has booted and connected AWS IoT, the LED will change to the _desired_ state value and the dispenser will update the _reported_ state. Since _desired_ and _reported_ states are the same, the _delta_ state for the LED is removed.
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 NOTE: In this expanded details section, we will only use a small subset of the entire shadow document and hierarchy to show the _desired_, _reported_, and _delta_ sections.
 
@@ -298,7 +298,7 @@ To verify, ensure the microcontroller is connected and LED operations take place
 
 In this situation, we are using the shadow to track the status of a command sent to the dispenser, and the response once it acts upon it.
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 . Ensure the microcontroller is connected and response to LED on/off events.
 . Navigate to IoT Core->Test and in the _Subscription topic_ field, enter `$aws/things/dispenserId/shadow/#` (replace `dispenserId` with your value) and click _Subscribe to topic_.
@@ -339,7 +339,7 @@ Modern web browsers have the ability to monitor what is running locally. Our web
 
 These messages then trigger the webapp to make an API call requesting the complete status of the dispenser (LED status, credits, etc.), which in turn updates the main dispenser page. If there are no changes being made, no MQTT messages are generated, and subsequently, no API calls are made to request an update to the webapp.
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 . Open the _Web Console_ for your browser:
 .. FireFox: Select menu Tool->Web Developer->Web Console

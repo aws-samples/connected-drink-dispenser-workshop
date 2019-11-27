@@ -20,7 +20,7 @@ In this lab module, you will complete the configuration of the dispenser firmwar
 
 ## Steps to Complete
 
-Follow each step in order and use the *Open for detailed step-by-step instructions* if required.
+Follow each step in order and use the *Click to open for detailed step-by-step instructions* if required.
 
 ### Modify the Source Files for Your Dispenser
 
@@ -53,7 +53,7 @@ In Cloud9, navigate to the `device_firmware/demos/include` folder, then double-c
 
 Once both files are modified, save them in the Cloud9 IDE, but leave them open to make changes if needed later.
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 1. In Cloud9, navigate to the `device_firmware/demos/include` folder then double-click the two source files to modify:
 
@@ -88,7 +88,7 @@ Navigate in the Cloud9 file browser and open the `connected-drink-dispenser-work
 
 In your laptop's `cdd` directory you should have these three files.
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 1. In Cloud9, click on the terminal window and rebuild the device firmware.
 
@@ -159,7 +159,7 @@ Exit your *screen* session (`Ctrl-a`+`Ctrl-\`) or close the console window in Pu
 
 
 
-{{%expand "Open for detailed step-by-step instructions" %}}
+{{%expand "Click to open for detailed step-by-step instructions" %}}
 
 1. Attach the microcontroller to your laptop and ensure the red LED is lit and that the serial port is available.
 1. From your command prompt or terminal in the `cdd` directory, flash the microcontroller with *esptool*.
