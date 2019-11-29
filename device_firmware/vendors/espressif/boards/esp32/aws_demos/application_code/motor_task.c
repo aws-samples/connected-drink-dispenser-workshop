@@ -106,8 +106,8 @@ void showCredits(struct State *state){
     prvLedTurnOff( &led_strip, LED_STRIP_LENGTH );
     if (state->led_state){
         configPRINTF(( "Show credits %d, color: #%2x%2x%2x\n", state->led_ring_count, (uint8_t)state->led_ring_color.r, (uint8_t)state->led_ring_color.g, (uint8_t)state->led_ring_color.b ));
-        prvLedShowNumber(&led_strip, state->led_ring_count > 8? 8 : state->led_ring_count ,
-                     (uint8_t)state->led_ring_color.r, (uint8_t)state->led_ring_color.g, (uint8_t)state->led_ring_color.b);
+        prvLedShowNumber(&led_strip, state->led_ring_count > LED_STRIP_LENGTH ? LED_STRIP_LENGTH : state->led_ring_count,
+                         (uint8_t)state->led_ring_color.r, (uint8_t)state->led_ring_color.g, (uint8_t)state->led_ring_color.b);
     }
 #endif
 }
