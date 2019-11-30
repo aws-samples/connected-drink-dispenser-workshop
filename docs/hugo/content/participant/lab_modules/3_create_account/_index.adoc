@@ -17,10 +17,10 @@ weight: 30
 ## Objectives
 
 
-This lab module will walk though creation of user and account resources, and accessing your unique resources. By the end of the module you will have:
+This lab module will walk though creation of user and account resources, and how to access your unique resources. By the end of the module you will have:
 
-* Created and verify a user account.
-* Understand what takes places during account creation.
+* Created and verified a user account
+* Understood what takes place during account creation
 * Know where to navigate in order to download and access your specific resources such as certificate and private key, and access other user details.
 * Been introduced to UML https://en.wikipedia.org/wiki/Sequence_diagram[sequence diagrams] used to illustrate operations.
 
@@ -32,17 +32,16 @@ When you first go through the user creation process, there are no resources crea
 <img src="/images/lab3_res_creation.png" alt="Visual flow of resource creation" width="70%"/>
 ++++
 
-. User John Doe registers and verifies new account `jdoe`.
-. User created in Cognito User Pool and valid JSON web token returned.
-. As this is the first login, a call to the `/getResources` method is called and invokes a Lambda function.
-. The function creates all of the unique resources for John on a per-service basis.
-. The following resources are created and the results return to the Lambda function:
-.. An AWS IoT thing (dispenser) and certificate are created, and associated
-.. An IAM user account is created with generated password
-.. A Cloud9 development environment is create
+. User John Doe registers and verifies new account `jdoe`
+. The user is created in Cognito User Pool and a valid JSON web token is returned
+. As this is the first login, the `/getResources` method is called which invokes a Lambda function
+. The function creates all of the unique resources for John on a per-service basis. As a result the following resource get created:
+.. An AWS IoT thing (the dispenser) and an associated certificate
+.. An IAM user account with an automatically generated password
+.. A Cloud9 development environment
 . All of the created resources are stored in a DynamoDB table that can only be accessed by the Lambda function.
 
-Finally, the `/getResources` returns John's specific details to be used or displayed in the webapp. This same sequence of events can also be presented using a sequence diagram. Each actor or participant is a column, and from top to bottom are the activities. See if you can associate the diagram above from this sequence diagram figure:
+Finally, the `/getResources` returns John's specific details to be displayed in the webapp. This same sequence of events can also be presented using a sequence diagram. Each actor or participant is a column, and from top to bottom are the activities. See if you can associate the diagram above from this sequence diagram figure:
 
 .Create User Resources Process
 [plantuml, Turn on the LED, svg]
@@ -81,7 +80,9 @@ lambda -> api: Return resources
 api -> user: Return resources
 ....
 
-Sequence diagrams a consistent way to depict the flow of steps, especially for complex or multi-step operations. Depending upon what is being described, either of these may be used in the lab modules. Now that you have an understanding of what is taking place behind the scenes, it's time to create your account!
+Sequence diagrams are a consistent way to depict the flow of steps, especially for complex or multi-step operations. Depending upon what is being described, we are going to use a textual description or a sequence diagram in the lab modules.
+
+Now that you have an understanding of what is taking place behind the scenes, it's time to create your account!
 
 ## Steps to Complete
 
@@ -89,7 +90,7 @@ Follow each step in order and use the _Click to open for detailed step-by-step i
 
 ### 1. Register for an Account
 
-Open URL provided in the presentation, and click on the [underline blue]#create a new account# link, or from the SIGN IN link, click on the [blue underline]#Sign up# link at the bottom of the Sign in page. For your account, enter a _Username_, _Password_, and _Phone number_ for your mobile phone to receive a validation code. Once you receive the verification code, enter it to complete the account sign up process. 
+Open the URL provided in the presentation, and click on the [underline blue]#create a new account# link, or from the SIGN IN link, click on the [blue underline]#Sign up# link at the bottom of the Sign in page. For your account, enter a _Username_, _Password_, and _Phone number_ for your mobile phone to receive a validation code. Once you receive the verification code, enter it to complete the account sign up process. 
 
 {{% notice info %}}
 The phone number must be in the "+county code" format. For instance, a US number would be "+18005551212" and for the UK "+447624...", etc. If you have questions about the format, or are unable to receive an SMS message, please let one of the lab helpers know and they can complete the process for you.
@@ -116,7 +117,7 @@ The phone number must be in the "+county code" format. For instance, a US number
 
 ### 2. Initial Log In
 
-With the account created and on the _Sign in_ page, log in with your _username_/_password_. Initially you will see a _Loading Resource_ page, and during this first log in, it will pause while the resources are created in the background. This can take approximately 30 seconds or so to complete. Once complete, the dispenser details page will load. Click the _MY DETAILS_ button to open the resources section. Click on the _CERTIFICATE FILE_, _PRIVATE KEY FILE_, and _AMAZON ROOT CA1 FILE_ links and save the files to your `cdd` directory on your laptop. Click the _MY DETAILS_ button to toggle closed.
+With the account created and on the _Sign in_ page, log in with your _username_/_password_. Initially you will see a _Loading Resource_ page, and during this first log in, it will pause while the resources are created in the background. This can take approximately 30 seconds or so to complete. Once complete, the dispenser details page will load. Click the _MY DETAILS_ button to open the resources section. Click on the _CERTIFICATE FILE_ and _PRIVATE KEY FILE_, and save the files to your  `cdd` directory on your laptop. If the files are automatically saved in the Download folder, move them to the `cdd` directory. Click the _MY DETAILS_ button to hide the details.
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
@@ -145,10 +146,10 @@ With the account created and on the _Sign in_ page, log in with your _username_/
 Please ensure the following checkpoints are validated before moving on to the next module.
 
 . You have successfully created a user account and saved the user username and password for future use.
-. You have downloaded the certificate file (e.g., `34ea05fe7b-certificate.pem.crt`), private key (e.g., `34ea05fe7b-private.pem.key`) and root certificate CA (`AmazonRootCA1.pem`). This validates that all resources have been created in the cloud based on your username and assigned dispenser Id.
+. You have downloaded the certificate file (e.g., `34ea05fe7b-certificate.pem.crt`), private key (e.g., `34ea05fe7b-private.pem.key`). This validates that all resources have been created in the cloud based on your username and assigned dispenser Id.
 
 ## Outcomes
 
-We provided a detailed explanation of what happens during account and resource creation to show a process for just in time registration of resources. In our case, it was the creation of the user account and resources, but a similar pattern can also be used to generate AWS IoT things, certificates, and policies _just_ as a new device needs them, and not in advance.
+We provided a detailed explanation of what happens during account and resource creation and showed a process for just in time registration of resources. In our case, it was the creation of the user account and resources, but a similar pattern can also be used to generate AWS IoT things, certificates, and policies _just_ as a new device needs them, and not in advance.
 
 If you are interested in how the resource creation process takes place, look at the code for the `ApiGetResourcesFunction` Lambda function when you are logged into the AWS Console.

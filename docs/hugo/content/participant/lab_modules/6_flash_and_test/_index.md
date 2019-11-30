@@ -11,12 +11,14 @@ weight: 60
 
 ## Objectives
 
-In this lab module, you will complete the configuration of the dispenser firmware, download the compiled files to your laptop, and then use the tools to flash the microcontroller. At that point, the main components of the dispenser with the exception of the motor, will be fully operational. By the end of the module you will have:
+In this lab module, you will complete the configuration of the dispenser firmware, download the compiled files to your laptop, and then use the tools to flash the microcontroller. At that point, the main components of the dispenser with the exception of the motor, will be fully operational. 
 
-* Modified the base firmware code to work with your specific account.
-* Compiled and downloaded the code files to your laptop.
-* Flashed the microcontroller with the compiled code on your laptop.
-* Verified it is communicating with AWS IoT by turning on and off the LED.
+By the end of the module you will have:
+
+* Modified the base firmware code to work with your specific account
+* Compiled and downloaded the code files to your laptop
+* Flashed the microcontroller with the compiled code on your laptop
+* Verified it is communicating with AWS IoT by turning on and off the LED
 
 ## Steps to Complete
 
@@ -24,7 +26,7 @@ Follow each step in order and use the *Click to open for detailed step-by-step i
 
 ### Modify the Source Files for Your Dispenser
 
-The X.509 client certificate and private key you downloaded earlier to your laptop's `cdd` directory uniquely identify your dispenser from all others. In order to communicate to AWS IoT core, you need to modify two of the source files in Cloud9 with the following in `device_firmware/demos/include`:
+The X.509 client certificate and private key you downloaded earlier to your laptop's `cdd` directory uniquely identify your dispenser from all others. In order to communicate to AWS IoT core, the firmware must be configured with this information. To do so, you need to modify two of the source files in in `device_firmware/demos/include` with the following:
 
 | Firmware Source File  | `#define` Statement in File | Content  |
 |---|---|---|
@@ -35,7 +37,7 @@ The X.509 client certificate and private key you downloaded earlier to your lapt
 | `aws_clientcredential_keys.h` | keyCLIENT_CERTIFICATE_PEM | Converted X.509 certificate (`nnn-certificate.pem.crt`)  content from <a href="https://cdd.baah.io/cred_formatter/index.html" target="_blank">Credential Formatter</a> |
 | `aws_clientcredential_keys.h` | keyCLIENT_PRIVATE_KEY_PEM | Converted certificate private key `nnn-private.pem.key`  content from <a href="https://cdd.baah.io/cred_formatter/index.html" target="_blank">Credential Formatter</a> |
 
-In Cloud9, navigate to the `device_firmware/demos/include` folder, then double-click on the two files above and modify the contents. The output for the last two PEM files in `aws_clientcredential_keys.h`, when copied over should look similar to this before and after (certifcate only, do the same with private key):
+In Cloud9, navigate to the `device_firmware/demos/include` folder, then double-click on the two files above and modify the contents. The content of the `aws_clientcredential_keys.h` file should look similar to the following before and after copying the converted content of the two PEM files:
 
 **BEFORE**:
 ```
@@ -51,7 +53,9 @@ In Cloud9, navigate to the `device_firmware/demos/include` folder, then double-c
 "-----END CERTIFICATE-----" 
 ```
 
-Once both files are modified, save them in the Cloud9 IDE, but leave them open to make changes if needed later.
+Ensure that you update both the Certificate and Private Key sections. Leave the rest as-is.
+
+Once both files are modified, save them from the Cloud9 IDE. You can leave the tabs open to quickly go back to the files if needed.
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
@@ -71,22 +75,22 @@ Once both files are modified, save them in the Cloud9 IDE, but leave them open t
 The WiFi SSID must be entered exactly as given. Also, for the certificate and private key entries make sure the `---BEGIN` and `---END` look exactly as above. The data will be different and the private key will only be a few lines long as it is an ECC key.
 {{% /notice %}}
 
-1. For each file, click the tab the from the Cloud9 menu, save both files (*File->Save*). Leave both files open as it will be easier to correct and potential errors.
+1. For each file, click the tab the from the Cloud9 menu, save both files (*File->Save*). Leave both files open as it will be easier to correct any potential errors.
 
 {{% /expand%}}
 
 ### Compile and Download the Code from Cloud9
 
-With the updated files save, click on the terminal window where you did the compile steps in the previous lab. Run the `make` command again which will pick up the file changes and compile the firmware.
+After saving the updated files, click on the terminal window where you did the compile steps in the previous lab. Run the `make` command again which will pick up the file changes and recompile the firmware.
 
 ```bash
 cd ~/environment/connected-drink-dispenser-workshop/device_firmware/build
 make all -j4
 ```
 
-Navigate in the Cloud9 file browser and open the `connected-drink-dispenser-workshop/device_firmware/build` folder. Scroll down and right-click on `aws_demos.bin` and select *Download* and save to your `cdd` directory. Do the same for the `build/bootloader/bootloader.bin` and `build/partition_table/partition_table.bin` files.
+In the Cloud9 file browser navigate to the `connected-drink-dispenser-workshop/device_firmware/build` folder and expand it. Scroll down and right-click on `aws_demos.bin` and select *Download* and save to your `cdd` directory. Do the same for the `build/bootloader/bootloader.bin` and `build/partition_table/partition_table.bin` files.
 
-In your laptop's `cdd` directory you should have these three files.
+In your laptop's `cdd` directory you should now have these three files.
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
@@ -99,6 +103,8 @@ In your laptop's `cdd` directory you should have these three files.
 
     ![Update firmware build](/images/lab6_c9_build.png)
 
+1. In the Cloud9 file browser navigate to the `connected-drink-dispenser-workshop/device_firmware/build` folder and expand it.
+
 1. Right-click on `aws_demos.bin`, select *Download*, and save the file to your `cdd` directory. Do the same in the `bootloader` folder for `bootloader.bin`, and in `partition_table` for `partition-table.bin`.
 
     ![Download firmware](/images/lab6_c9_download.png)
@@ -110,7 +116,7 @@ In your laptop's `cdd` directory you should have these three files.
 
 ### Flash and Monitor the Microcontroller from Your Laptop
 
-The final step in the modify->build->download->flash sequence is to flash the microcontroller. Attach the microcontroller to your laptop. Next, from the command prompt or terminal opened earlier, ensure you are in the `cdd` directory and then use *esptool* to flash.
+The final step in the modify->build->download->flash sequence is to flash the microcontroller. Connect the microcontroller to your laptop. Next, from the command prompt or terminal opened earlier, ensure you are in the `cdd` directory and then use *esptool* to flash.
 
 {{% notice note %}}
 The command `esptool ...` will be used. Note the syntax that works for *your* laptop installation (e.g., `./esptool.py`, etc.).
@@ -153,15 +159,15 @@ Leaving...
 Hard resetting via RTS pin...
 ```
 
-At this point the microcontroller will reset and your code will be running on it! To verify, start your serial monitoring program (*PuTTY* or *screen*). Reset the microcontroller and view the output. A properly configured microcontroller will have an *I (nnn) WIFI: SYSTEM_EVENT_STA_CONNECTED* message indicating it connected to the WiFi network, and then *\[ShadowTask\]* operations with *SUCCESS*, indicating that it is communicating with AWS IoT.
+At this point the microcontroller will reset and your code will be running on it! To verify that the process was performed correctly, start your serial monitoring program (*PuTTY* or *screen*). Reset the microcontroller via the button right to the Micro USB connector, and view the output. A properly configured microcontroller will have an *I (nnn) WIFI: SYSTEM_EVENT_STA_CONNECTED* message indicating it connected to the WiFi network, and then *\[ShadowTask\]* operations with *SUCCESS*, indicating that it is communicating with AWS IoT.
 
-Exit your *screen* session (`Ctrl-a`+`Ctrl-\`) or close the console window in PuTTY if you need to correct any errors to flash the microcontroller again.
+If you need to correct any errors in the firwmare, ensure to exit your *screen* session (`Ctrl-a`+`Ctrl-\`) alt close the console window in PuTTY before re-flashing it since the serial port can only be used by one process at the time.
 
 
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
-1. Attach the microcontroller to your laptop and ensure the red LED is lit and that the serial port is available.
+1. Connect the microcontroller to your laptop and ensure the red LED is lit and that the serial port is available.
 1. From your command prompt or terminal in the `cdd` directory, flash the microcontroller with *esptool*.
 
     ```
@@ -207,18 +213,18 @@ Exit your *screen* session (`Ctrl-a`+`Ctrl-\`) or close the console window in Pu
 
     NOTE: The *screen* command will take full control of the terminal. The fully exit, use the `Ctrl-a`+`Ctrl-\` to kill all windows. You can also use your arrow keys to navigate up by entering `Ctrl-a`+`ESC`. There are good [primers](https://linuxize.com/post/how-to-use-linux-screen/) on how to use *screen*.
 
-1. Leave the controller and LED ring connected for the next module.
+1. Leave the microcontroller and the LED Ring connected for the next module.
 
-{{% /expand%}}
+{{% /expand %}}
 
 ## Checkpoints
 
 Please ensure the following checkpoints are validated before moving on to the next module.
 
-* Firmware build with no errors in Cloud9.
-* You downloaded and flashed the firmware with no errors.
-* You can monitor and see the dispenser connect to the WiFi network and establish a successful session to AWS IoT Core.
-* You have left the microcontroller connected for the next lab.
+* Firmware build with no errors in Cloud9
+* You downloaded and flashed the firmware with no errors
+* You can monitor and see the dispenser connect to the WiFi network and establish a successful session to AWS IoT Core
+* You have left the microcontroller connected for the next lab
 
 ## Outcomes
 
