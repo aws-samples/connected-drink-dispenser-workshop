@@ -89,6 +89,9 @@ If you are unable to install the esptool or run it via the options above, there 
 
 ### 4. Open Command Line Interface and Test All Components
 
+Before testing, remove the ESP32 microcontroller (labeled as *Provided ESP32*) from the zip-top bag:
+<img src="/images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/>
+
 To interact with the microcontroller, you will be doing so from a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the `cdd` directory you created. Verify that you can run the esptool command, and then verify when you connect just the ESP32 via the serial cable that a new serial device is created.
 
 {{% notice info %}}
@@ -115,7 +118,7 @@ When completed, remove the USB cable from the laptop and microcontroller.
 1. Monitor what serial ports are in use *before* connecting the ESP32.
     1. For Windows, [check the current COMx ports](https://superuser.com/questions/1059447/how-to-check-com-ports-in-windows-10). Note that as you connect and disconnect the ESP32, the COMx number may change for each connection.
     1. For macOS, `ls -l /dev/tty.*` will show the ports. You should *not* see a `tty.SLAB_USBtoUART` entry yet.
-    1. FOr Linux, `ls -l /dev/tty.*` and note the port numbers.
+    1. For Linux, `ls -l /dev/tty.*` and note the port numbers.
 1. Connect the ESP32, then run the same commands and look for a new addition. That will be the *port* you will use when flashing and monitoring the microcontroller.
     <img src="/images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/>
     When added to a MacBook Pro, a valid driver installation and good data+power USB connection would show this:

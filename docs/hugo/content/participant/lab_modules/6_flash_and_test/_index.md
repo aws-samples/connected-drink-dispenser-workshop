@@ -32,8 +32,8 @@ The X.509 client certificate and private key you downloaded earlier to your lapt
 | `aws_clientcredential.h` | clientcredentialIOT_THING_NAME | Your assigned dispenser name (3-digit number) to use when connecting to the MQTT broker  |
 | `aws_clientcredential.h` | clientcredentialWIFI_SSID | WiFi network name provided by workshop presenter  |
 | `aws_clientcredential.h` | clientcredentialWIFI_PASSWORD | Provided password for the WiFi network  |
-| `aws_clientcredential_keys.h` | keyCLIENT_CERTIFICATE_PEM | Converted X.509 certificate (`nnn-certificate.pem.crt`)  content from <a href="https://cdd.baah.io/cred_formatter/index.html" target="_blank">Credential Formatter</a> |
-| `aws_clientcredential_keys.h` | keyCLIENT_PRIVATE_KEY_PEM | Converted certificate private key `nnn-private.pem.key`  content from <a href="https://cdd.baah.io/cred_formatter/index.html" target="_blank">Credential Formatter</a> |
+| `aws_clientcredential_keys.h` | keyCLIENT_CERTIFICATE_PEM | Converted X.509 certificate (`nnn-certificate.pem.crt`)  content from <a href="../../../cred_formatter/index.html" target="_blank">Credential Formatter</a> |
+| `aws_clientcredential_keys.h` | keyCLIENT_PRIVATE_KEY_PEM | Converted certificate private key `nnn-private.pem.key`  content from <a href="../../../cred_formatter/index.html" target="_blank">Credential Formatter</a> |
 
 In Cloud9, navigate to the `device_firmware/demos/include` folder, then double-click on the two files above and modify the contents. The output for the last two PEM files in `aws_clientcredential_keys.h`, when copied over should look similar to this before and after (certifcate only, do the same with private key):
 
@@ -59,7 +59,11 @@ Once both files are modified, save them in the Cloud9 IDE, but leave them open t
 
     ![Source file to update](/images/lab6_c9_includes.png)
 
-1. In each file reference above, replace the contents between the double-quotes. All values you need to replace start with `"REPLACE_WITH_..."`. Here are examples of what the WiFi and Certificate values should look like when done:
+1. In each file reference above, replace the contents between the double-quotes. All values you need to replace start with `"REPLACE_WITH_..."`. For all values except *keyCLIENT_CERTIFICATE_PEM* and *keyCLIENT_PRIVATE_KEY_PEM*, you can simply copy and paste the value.
+
+1. For the *keyCLIENT_CERTIFICATE_PEM* and *keyCLIENT_PRIVATE_KEY_PEM* values, use the <a href="../../../cred_formatter/index.html" target="_blank">Credential Formatter</a>, the for **PEM Certificate or Key** browse to the downloaded certificate and private key (do each separately), then click on the *Display formatted PEM string to be copied into aws_clientcredential_keys.h*. That will display all the lines to replace for *keyCLIENT_CERTIFICATE_PEM* and *keyCLIENT_PRIVATE_KEY_PEM* respectively.
+
+    Here are examples of what the WiFi and Certificate values should look like when done:
 
     **BEFORE**:
     ![Source files before update](/images/lab6_c9_mod_before.png)
@@ -224,7 +228,9 @@ Please ensure the following checkpoints are validated before moving on to the ne
 
 In this lab we went through all the normal steps of firmware development--albeit as all manual steps. The process is similar to normal software development where you write code, compile, debug, and then repeat. In the case of firmware development, especially when working with hardware peripherals, the added step is flashing the firmware to development board.
 
-All of the steps completed manually can be automated. In a production environment, the development process could operate in this manner:
+While Cloud9 is a fully integrated development environment, we only used it to edit and build the firmware, and have not taken full advantage of its capabilities.
+
+While we used manual processes to illustrate the various steps, we would normally automate and use specific tools to make the development process more streamlined, consistent, and to reduce errors. All of the steps completed manually can be automated. In a more automated environment, the development process could operate in this manner:
 
 1. Developer uses local IDE with integrated test and debugging tools (non-physical) to write code, commits to source control
 1. Source control commit triggers AWS CodeBuild with toolchain image to compile code and update the `.bin` files to an Amazon S3 bucket.

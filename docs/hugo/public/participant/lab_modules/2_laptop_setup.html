@@ -783,6 +783,9 @@
 
 <h3 id="4-open-command-line-interface-and-test-all-components">4. Open Command Line Interface and Test All Components</h3>
 
+<p>Before testing, remove the ESP32 microcontroller (labeled as <em>Provided ESP32</em>) from the zip-top bag:
+<img src="../../images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/></p>
+
 <p>To interact with the microcontroller, you will be doing so from a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the <code>cdd</code> directory you created. Verify that you can run the esptool command, and then verify when you connect just the ESP32 via the serial cable that a new serial device is created.</p>
 
 
@@ -823,7 +826,7 @@ $</code></pre></div>
 <ol>
 <li>For Windows, <a href="https://superuser.com/questions/1059447/how-to-check-com-ports-in-windows-10">check the current COMx ports</a>. Note that as you connect and disconnect the ESP32, the COMx number may change for each connection.</li>
 <li>For macOS, <code>ls -l /dev/tty.*</code> will show the ports. You should <em>not</em> see a <code>tty.SLAB_USBtoUART</code> entry yet.</li>
-<li>FOr Linux, <code>ls -l /dev/tty.*</code> and note the port numbers.</li>
+<li>For Linux, <code>ls -l /dev/tty.*</code> and note the port numbers.</li>
 </ol></li>
 
 <li><p>Connect the ESP32, then run the same commands and look for a new addition. That will be the <em>port</em> you will use when flashing and monitoring the microcontroller.

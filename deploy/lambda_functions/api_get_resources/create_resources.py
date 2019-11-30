@@ -60,7 +60,7 @@ shadow_initial = json.dumps(
         "state": {
             "desired": {
                 "led": "off",
-                "led_ring": {"count": 1, "color": "#0610000"},
+                "led_ring": {"count": 1, "color": "#006600"},
                 "dispense_time_ms": 2000,
             }
         }
