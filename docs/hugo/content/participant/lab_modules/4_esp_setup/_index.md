@@ -39,20 +39,20 @@ Follow each step in order and use the *Click to open for detailed step-by-step i
 
 ### 1. Remove the Components to Use
 
-Remove these four components from the zip-top bag:
+Remove these four components from the zip-top bag (you should already have the ESP32 microcontroller and USB cable out from earlier testing):
 
 * ESP32 Microcontroller
 * Controller Board
 * Ring LED
 * USB Cable (Type-A to Micro USB data and power)
 
-TODO: image of four components
+<img src="/images/lab4_components.png" alt="Components" height="400"/>
 
 ### 2. Connect the LED Ring to the Controller Board
 
 Install the LED Ring into the `WS2812` 3-pin connector on the Controller Board with the tab aligned with the connector slot.
 
-TODO: image of LED connected to controller board.
+<img src="/images/lab4_led_connected.png" alt="Connecting LED Ring to Controller" height="400"/>
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
@@ -66,7 +66,7 @@ TODO: image of LED connected to controller board.
 
 Align the microcontroller to the dual inline socket on the other side of the Controller Board, aligning the large metal square package with the `Motor A Motor B` text on the controller board. Make sure all pins on the ESP32 are aligned with the socket, the pin tips slightly inserted, then gently insert until all the way in.
 
-TODO: pic of iso view of insertion
+<img src="/images/lab4_insert_esp32.png" alt="Inserting ESP32 into Controller Board" height="400"/>
 
 {{% notice tip %}}
 It is very easy to accidentally bend the pins on the microcontroller. Turn over the Controller Board with the socket facing up, and then with your other hand gently position the microcontroller pins into the holes. Once all are in place, gently apply pressure equally (center of microcontroller works best) to insert all the way in. If you accidentally install backwards, place a finger *underneath* one end of the microcontroller and apply pressure to lift slightly. The do the same on the other end and alternate back and forth until the microcontroller is out of the socket.
@@ -77,12 +77,9 @@ It is very easy to accidentally bend the pins on the microcontroller. Turn over 
 1. Hold the Controller Board in one hand with the socket side (opposite of the LED Ring connection) facing up.
 1. In your other hand hold the microcontroller and align the side with the large metal side with tab (antenna) to the Controller Board side with `Motor A Motor B` text.
 1. Align the pins on the microcontroller to the socket and put them in place lightly (do not apply any pressure). Ensure each pin is in a hole.
-
-   TODO: side image not flush
-
-1. With gentle, even pressure, press the microcontroller in the socket until flush.
-
-   TODO: side image fully flush
+ <img src="/images/lab4_side_not_flush.png" alt="ESP32 Aligned, not Plugged In" height="400"/>
+4. With gentle, even pressure, press the microcontroller in the socket until flush.
+   <img src="/images/lab4_side_flush.png" alt="ESP32 Aligned, Fully Inserted" width="600"/>
 
 {{% /expand%}}
 
@@ -90,7 +87,7 @@ It is very easy to accidentally bend the pins on the microcontroller. Turn over 
 
 Insert the USB cable's Micro USB connector end into the microcontroller, and the Type-A connector into your laptop. The red LED on the microcontroller indicates power, and the Ring LED *may* light up. Next, check that the serial port tested in the *Laptop Setup* module is there. Use the serial monitoring software to connect to the serial port. Press the button to the left of the USB connection (reset) and verify that you see text srolling in the serial monitor window after each press. Exit your monitoring software.
 
-TODO: image of lit unit
+<img src="/images/lab4_plugged_in.png" alt="Controller Plugged In" height="400"/>
 
 {{% notice info %}}
 A Micro USB to Type-A cable is provided as part of the kit. If your laptop only has Type-C connector and you have a Micro USB to Type-C cable, make sure that it supports *both* power and data connections. The workshop presenter may have Micro USB to Type-C cables to loan out.

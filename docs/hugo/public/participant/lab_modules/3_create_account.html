@@ -662,7 +662,11 @@
 
     </div>
 </div></section>
-<section class="doc-section level-2"><h3 id="_2_initial_log_in">2. Initial Log In</h3><p>With the account created and on the <em>Sign in</em> page, log in with your <em>username</em>/<em>password</em>. Initially you will see a <em>Loading Resource</em> page, and during this first log in, it will pause while the resources are created in the background. This can take approximately 30 seconds or so to complete. Once complete, the dispenser details page will load. Click the <em>MY DETAILS</em> button to open the resources section. Click on the <em>CERTIFICATE FILE</em>, <em>PRIVATE KEY FILE</em>, and <em>AMAZON ROOT CA1 FILE</em> links and save the files to your <code>cdd</code> directory on your laptop. Click the <em>MY DETAILS</em> button to toggle closed.</p>
+<section class="doc-section level-2"><h3 id="_2_initial_log_in">2. Initial Log In</h3><p>With the account created and on the <em>Sign in</em> page, log in with your <em>username</em>/<em>password</em>. Initially you will see a <em>Loading Resource</em> page, and during this first log in, it will pause while the resources are created in the background. This can take approximately 30 seconds or so to complete. Once complete, the dispenser details page will load. Click the <em>MY DETAILS</em> button to open the resources section. Click on the <em>CERTIFICATE FILE</em> and <em>PRIVATE KEY FILE</em> links and save the files to your <code>cdd</code> directory on your laptop. Click the <em>MY DETAILS</em> button to toggle closed.</p>
+
+<div class="notices note" ><p>The <em>AMAZON ROOT CA1 FILE</em> is not needed for this workshop, as the trusted certificate authorities are included in the Amazon FreeRTOS source code that you will be compiling. It is available here for use in other applications which you may wish use to emulate the dispenser (AWS IoT Thing).</p>
+</div>
+
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;text-decoration: underline" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-circle-down' : 'fas fa-chevron-circle-right';});});">
@@ -683,7 +687,7 @@
     </div>
 </div></section></section>
 <section class="doc-section level-1"><h2 id="_checkpoints">Checkpoints</h2><p>Please ensure the following checkpoints are validated before moving on to the next module.</p>
-<div class="olist arabic"><ol class="arabic"><li>You have successfully created a user account and saved the user username and password for future use.</li><li>You have downloaded the certificate file (e.g., <code>34ea05fe7b-certificate.pem.crt</code>), private key (e.g., <code>34ea05fe7b-private.pem.key</code>) and root certificate CA (<code>AmazonRootCA1.pem</code>). This validates that all resources have been created in the cloud based on your username and assigned dispenser Id.</li></ol></div></section>
+<div class="olist arabic"><ol class="arabic"><li>You have successfully created a user account and saved the user username and password for future use.</li><li>You have downloaded the certificate file (e.g., <code>34ea05fe7b-certificate.pem.crt</code>), private key (e.g., <code>34ea05fe7b-private.pem.key</code>) and <em>optionally</em> the root certificate CA (<code>AmazonRootCA1.pem</code>). This validates that all resources have been created in the cloud based on your username and assigned dispenser Id.</li></ol></div></section>
 <section class="doc-section level-1"><h2 id="_outcomes">Outcomes</h2><p>We provided a detailed explanation of what happens during account and resource creation to show a process for just in time registration of resources. In our case, it was the creation of the user account and resources, but a similar pattern can also be used to generate AWS IoT things, certificates, and policies <em>just</em> as a new device needs them, and not in advance.</p>
 <p>If you are interested in how the resource creation process takes place, look at the code for the <code>ApiGetResourcesFunction</code> Lambda function when you are logged into the AWS Console.</p></section>
 

@@ -704,13 +704,13 @@
 <tr>
 <td><code>aws_clientcredential_keys.h</code></td>
 <td>keyCLIENT_CERTIFICATE_PEM</td>
-<td>Converted X.509 certificate (<code>nnn-certificate.pem.crt</code>)  content from <a href="https://cdd.baah.io/cred_formatter/index.html" target="_blank">Credential Formatter</a></td>
+<td>Converted X.509 certificate (<code>nnn-certificate.pem.crt</code>)  content from <a href="../../../cred_formatter/index.html" target="_blank">Credential Formatter</a></td>
 </tr>
 
 <tr>
 <td><code>aws_clientcredential_keys.h</code></td>
 <td>keyCLIENT_PRIVATE_KEY_PEM</td>
-<td>Converted certificate private key <code>nnn-private.pem.key</code>  content from <a href="https://cdd.baah.io/cred_formatter/index.html" target="_blank">Credential Formatter</a></td>
+<td>Converted certificate private key <code>nnn-private.pem.key</code>  content from <a href="../../../cred_formatter/index.html" target="_blank">Credential Formatter</a></td>
 </tr>
 </tbody>
 </table>
@@ -750,7 +750,11 @@
 
 <p><img src="../../images/lab6_c9_includes.png" alt="Source file to update" /></p></li>
 
-<li><p>In each file reference above, replace the contents between the double-quotes. All values you need to replace start with <code>&quot;REPLACE_WITH_...&quot;</code>. Here are examples of what the WiFi and Certificate values should look like when done:</p>
+<li><p>In each file reference above, replace the contents between the double-quotes. All values you need to replace start with <code>&quot;REPLACE_WITH_...&quot;</code>. For all values except <em>keyCLIENT_CERTIFICATE_PEM</em> and <em>keyCLIENT_PRIVATE_KEY_PEM</em>, you can simply copy and paste the value.</p></li>
+
+<li><p>For the <em>keyCLIENT_CERTIFICATE_PEM</em> and <em>keyCLIENT_PRIVATE_KEY_PEM</em> values, use the <a href="../../../cred_formatter/index.html" target="_blank">Credential Formatter</a>, the for <strong>PEM Certificate or Key</strong> browse to the downloaded certificate and private key (do each separately), then click on the <em>Display formatted PEM string to be copied into aws_clientcredential_keys.h</em>. That will display all the lines to replace for <em>keyCLIENT_CERTIFICATE_PEM</em> and <em>keyCLIENT_PRIVATE_KEY_PEM</em> respectively.</p>
+
+<p>Here are examples of what the WiFi and Certificate values should look like when done:</p>
 
 <p><strong>BEFORE</strong>:
 <img src="../../images/lab6_c9_mod_before.png" alt="Source files before update" /></p>
@@ -933,7 +937,9 @@ I (1554) WIFI: SYSTEM_EVENT_STA_CONNECTED
 
 <p>In this lab we went through all the normal steps of firmware development&ndash;albeit as all manual steps. The process is similar to normal software development where you write code, compile, debug, and then repeat. In the case of firmware development, especially when working with hardware peripherals, the added step is flashing the firmware to development board.</p>
 
-<p>All of the steps completed manually can be automated. In a production environment, the development process could operate in this manner:</p>
+<p>While Cloud9 is a fully integrated development environment, we only used it to edit and build the firmware, and have not taken full advantage of its capabilities.</p>
+
+<p>While we used manual processes to illustrate the various steps, we would normally automate and use specific tools to make the development process more streamlined, consistent, and to reduce errors. All of the steps completed manually can be automated. In a more automated environment, the development process could operate in this manner:</p>
 
 <ol>
 <li>Developer uses local IDE with integrated test and debugging tools (non-physical) to write code, commits to source control</li>

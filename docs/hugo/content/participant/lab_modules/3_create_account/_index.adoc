@@ -119,6 +119,10 @@ The phone number must be in the "+county code" format. For instance, a US number
 
 With the account created and on the _Sign in_ page, log in with your _username_/_password_. Initially you will see a _Loading Resource_ page, and during this first log in, it will pause while the resources are created in the background. This can take approximately 30 seconds or so to complete. Once complete, the dispenser details page will load. Click the _MY DETAILS_ button to open the resources section. Click on the _CERTIFICATE FILE_ and _PRIVATE KEY FILE_, and save the files to your  `cdd` directory on your laptop. If the files are automatically saved in the Download folder, move them to the `cdd` directory. Click the _MY DETAILS_ button to hide the details.
 
+{{% notice note %}}
+The _AMAZON ROOT CA1 FILE_ is not needed for this workshop, as the trusted certificate authorities are included in the Amazon FreeRTOS source code that you will be compiling. It is available here for use in other applications which you may wish use to emulate the dispenser (AWS IoT Thing).
+{{% /notice %}} 
+
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
 . From the _Sign in page_, enter your your _username_ and _password_ and click _LOG IN_.
@@ -146,7 +150,7 @@ With the account created and on the _Sign in_ page, log in with your _username_/
 Please ensure the following checkpoints are validated before moving on to the next module.
 
 . You have successfully created a user account and saved the user username and password for future use.
-. You have downloaded the certificate file (e.g., `34ea05fe7b-certificate.pem.crt`), private key (e.g., `34ea05fe7b-private.pem.key`). This validates that all resources have been created in the cloud based on your username and assigned dispenser Id.
+. You have downloaded the certificate file (e.g., `34ea05fe7b-certificate.pem.crt`), private key (e.g., `34ea05fe7b-private.pem.key`) and _optionally_ the root certificate CA (`AmazonRootCA1.pem`). This validates that all resources have been created in the cloud based on your username and assigned dispenser Id.
 
 ## Outcomes
 

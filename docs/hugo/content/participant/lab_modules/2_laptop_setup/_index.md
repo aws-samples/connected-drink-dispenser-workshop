@@ -89,6 +89,9 @@ If you are unable to install the esptool or run it via the options above, there 
 
 ### 4. Open Command Line Interface and Test All Components
 
+Before testing, remove the ESP32 microcontroller (labeled as *Provided ESP32*) from the zip-top bag:
+<img src="/images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/>
+
 To interact with the microcontroller you will use a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the `cdd` directory you created. Verify that you can run the esptool command, and then verify that when you connect the ESP32 via the USB cable that a new serial device is created.
 
 {{% notice info %}}
