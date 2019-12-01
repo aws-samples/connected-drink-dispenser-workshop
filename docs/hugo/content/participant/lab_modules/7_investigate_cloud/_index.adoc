@@ -11,13 +11,15 @@ weight: 70
 
 == Objectives
 
-This lab module will walk through how the dispenser, webapp, and coupled services interact. It will go into level of detail specific for the workshop. If you would like to review more details, please reference the link:/presenter.html[Setting Up the Workshop] documentation for deeper insights. By then end of this module you will have:
+This lab module will walk through how the dispenser, webapp, and coupled services interact. It will go into level of detail specific for the workshop. If you would like to review more details, please reference the link:/presenter.html[Setting Up the Workshop] documentation for deeper insights. 
 
-* An understanding of the relationship between the dispenser (_thing_), your Cognito user, and the DynamoDB database tables that track and log dispenser activity and state.
-* Seen how the dispenser _thing_ uses the https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html[Device Shadow Service for AWS IoT] to listen for requested state changes, and also uses it for processing a dispense _request_ and acknowledging a _dispense_ response.
-* Tested a _dispense_ request/response operation and monitored what takes place in different scenarios.
-* Reviewed dispenser activity from both the DynamoDB _EventsTable_ and also webapp logging.
-* An understanding of how the webapp along with the API Lambda functions control how to give credits to others, as well as only initiating a dispense event when there sufficient credits.
+By then end of this module you will have:
+
+* An understanding of the relationship between the dispenser (_Thing_), your Cognito user, and the DynamoDB database tables that track and log dispenser activity and state.
+* Seen how the dispenser _Thing_ uses the https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html[Device Shadow Service for AWS IoT] to get notified of the requested state changes, and how it uses to acknoledge a dispense _request_ with a _dispense_ response.
+* Tested a _dispense_ operation and monitored what takes place in different scenarios.
+* Reviewed dispenser activity both in the DynamoDB _EventsTable_ and in the webapp logging.
+* An understanding of how the webapp along with the API Lambda functions control how to give credits to others dispensers, as well as ensuring that a dispense event can on;y be initiated when there sufficient credits.
 
 == Steps to Complete
 
@@ -25,7 +27,7 @@ Follow each step in order and use the *Click to open for detailed step-by-step i
 
 === Understand the AWS IoT Thing, Cognito User, and DynamoDB Table Relationships
 
-As a software-as-a-service (SaaS) environment, there needs to be a specific relationship between all of the resources to help enforce the security and operational controls of the actions. At a high level, for each user, this is how the resources are associated with each other:
+As this solution is designed as a software-as-a-service (SaaS) environment, there needs to be a specific relationship between all of the resources to help enforce the security and operational controls of the actions. At a high level this is how the resources are associated with each other:
 
 .Relationship between services
 [plantuml, Relationship_services, svg]
@@ -61,12 +63,12 @@ cognito <--> db : custom:dispenserId = partiton key
 @enduml
 ....
 
-Each thing has a unique X.509 client certificate for authentication allowing the dispenser to connect publish and subscribe to the MQTT topics specific for that dispenser. This authorization of MQTT topics comes from a common policy that uses substitution variables that read the _Common Name_ value (which is the dispenser Id). The relationship continues into a Cognito User attribute, `custom:dispenserId`, that is read for every API call. Finally, your dispenser has an entry in the DynamoDB _DispenserTable_ that tracks current the credit balance and also any in-flight or stale command operations.
+Each thing has a unique X.509 client certificate for authentication allowing the dispenser to connect to AWS IoT and publish and subscribe to the MQTT topics specific for that dispenser. This authorization of MQTT topics comes from a common policy attached to the certificate that uses substitution variables that read the _Common Name_ value from the X.509 certificate which contains the dispenser Id. This allows for an easier management of the authorization policies, as a single policy can be used for all dispensers. The relationship between the dispenser and the user is modeled into a Cognito User attribute, `custom:dispenserId`, that is read for every API call. Finally, your dispenser has an entry in the DynamoDB _DispenserTable_ that tracks the credit balance and any in-flight or stale command operations.
 
-From the browser tab opened to the AWS Console review the relationships by viewing your dispenser and user details in the following AWS services:
+Go to the AWS Console to review the relationships for your dispenser and your own user in the following AWS services:
 
 * *AWS IoT Core* - View your thing, the attached certificate details, and the policy associated with the certificate. Also, view the other security policy that is associated with your Cognito user (used to monitor update events).
-* *Amazon Cognito* - From _Manage User Pools_, select the _workshop-users_, Users and Groups, then your select your username. Note the `custom:user` and `custom:dispenserId` attribute values.
+* *Amazon Cognito* - From _Manage User Pools_, select the _workshop-users_, Users and Groups, then select your username. Note the `custom:group` and `custom:dispenserId` attribute values.
 * *Amazon DynamoDB* - From the _DispenserTable_ review the credits value for your dispenser via the _dispenserId_ sort key. From the _DispenserEvents_ table, query with the partition key equal to your dispenserId. As others start to create and operate their dispensers, filtering will limit to just your events.
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
@@ -76,10 +78,10 @@ From the browser tab opened to the AWS Console review the relationships by viewi
 TIP: During the workshop you will be changing from service to service quite often. When navigating to a different service via the _Service->SERVICENAME_, right-click on the service name and select "Open in a new tab" (or equivalent). This will have all the services referenced within a single browser window on separate tabs.
 +
 . Click on _Get Started_ to take you to the main page, then select _Manage_ from the left tab. Click on _Skip tour_. This will take you to the list of things. Either select your thing (same as dispenserId), or click on _Search things_, which is helpful for large amounts of items.
-. From your things page, click on _Security_. This shows that you have a single X.509 certificate (long hash value) associated with your thing. Click on the certificate which will show details on it. Note that the *Subject* contains values that are parsed when the certificate is presented, and the value for _CN_ (Common Name) is value of the dispenserId. This is how we relate different resources together.
-. To continue viewing the IoT relationship, from the Certificate page, click on _Policies_. This shows what IoT policies are associated with the certificate, and by relationship, to the thing. Click on the policy to view its content, which is a JSON document.
+. From your things page, click on _Security_. This shows that you have a single X.509 certificate (long hash value) associated with your thing. Click on the certificate which will show details on it. Note that the *Subject* contains values that are parsed when the certificate is presented, and the value for _CN_ (Common Name) is the dispenserId. This is how we can verify the identity of your device.
+. To continue viewing the IoT relationships, from the Certificate page, click on _Policies_. This shows what IoT policies are associated with the certificate, and by relationship, to the thing. Click on the policy to view its content, which is a JSON document.
 +
-Notice that all of the resources use the substitution variable `${iot:Certificate.Subject.CommonName}` as part of the string. What this does is on a per-certificate connection, evaluates the _CommonName_, or _CN_, of the certificate and replaces it. This allows for a single policy to used by all the dispensers.
+Notice that all of the resources use the substitution variable `${iot:Certificate.Subject.CommonName}` as part of the string. When a dispenser connects to AWS IoT the value in the client certificate  _CommonName_, or _CN_, is used to replace the variable, making the policy resources unique to each dispenser. This allows for a single policy to used by all the dispensers.
 +
 .Abbreviated DispenserLimitedAccess Policy
 [source,json]
@@ -117,15 +119,15 @@ Notice that all of the resources use the substitution variable `${iot:Certificat
 }
 ----
 +
-. Next, from the _Services_ menu, select Cognito, click _Manage User Pools_, and then click on the _workshop-users_ pool. This is the service that manages the user account you created from the webapp. Under _General Settings_ select _Users and groups_ to display all of the user account. Search for your username and click on it. At the bottom you will notice a couple `custom:` attributes. The first, `custom:group user` denotes that your account is a general user account (extra credit, check out the admin user). The second attribute, `custom:dispenserId` shows  your dispenserId value. These fields are passed whenever you make an API call from the webapp and used by the Lambda functions to validate what actions you are allowed to take.
-. From the _Services_ menu navigate to DynamoDB, which contains the database tables. Select _Tables_ from the left menu, select the _DispenserTable_ name, then select Items from the right pane. This table holds a single record for each dispenser. This most important field is _credits_, and should correspond to the value in the webapp ("1" in the table is $1.00 in the webapp). This record is modified every time someone gives you credits, or whenever you issue a dispense operation.
-. Finally, changes tables by selecting _DispenserEvents_ from the left pane. You will see all the various log entries for all dispensers. To view just your dispensers events, click on the _Scan_ dropdown and change to _Query_, the for `Partition key` enter your dispenser's value and click on _Start Search_.
+. Next, from the _Services_ menu, select Cognito, click _Manage User Pools_, and then click on the _workshop-users_ pool. This is the service that manages the user account you created from the webapp. Under _General Settings_ select _Users and groups_ to display all of the user accounts. Search for your username and click on it. At the bottom you will notice a couple of `custom:` attributes. The first, `custom:group` denotes that your account is a general `user` account (extra credit, check out the admin user). The second attribute, `custom:dispenserId` shows  your dispenserId value. These fields are passed whenever you make an API call from the webapp and used by the Lambda functions to validate what actions you are allowed to take.
+. From the _Services_ menu navigate to DynamoDB, which contains the database tables. Select _Tables_ from the left menu, select the _DispenserTable_ name, then select Items from the right pane. This table holds a single record for each dispenser. The most important field is _credits_, and should correspond to the value in the webapp ("1" in the table is $1.00 in the webapp). This record is modified every time someone gives you credits, or whenever you issue a dispense operation.
+. Finally, select the _DispenserEvents_ table from the left pane. You will see all the various log entries for all dispensers. To view just your dispenser's events, click on the _Scan_ dropdown and change to _Query_, for `Partition key` enter your dispenser's value and click on _Start Search_.
 
 {{% /expand%}}
 
 === Monitor Shadow Changes for a Simple Operation (change LED Status)
 
-The https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html[Device Shadow Service for AWS IoT] is an always available service that can be used by things and applications to set and track the state of device. There are two main sections to the shadow document, the _desired_ state and the _reported_ state. In this workshop, our desired settings will originate from the webapp and the dispenser will act upon them and set the correct reported state.
+The https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html[Device Shadow Service for AWS IoT] is a service that can be used by things and applications to set and track the state of device. There are two main sections in the shadow document: the _desired_ state and the _reported_ state. In our solution the desired settings originate from the webapp. The dispenser acts upon them and set the correct reported state.
 
 .Shadow state changes
 [plantuml, shadow state changes, svg]
@@ -154,9 +156,9 @@ reported -> match : Value removed
 @enduml
 ....
 
-To see this in action, from the AWS Console navigate to your thing in IoT Core, then select _Shadow_ which will show the current shadow. Note the `led` attribute in the _desired_ and _reported_ sections, which should be the same. Also notice the value for `version` in the metadata. This increments each time the shadow is updated. To show the shadow is working, use the webapp to change the state of the LED by either toggling or setting to the other state. You will see the value for `led` has changed in the shadow document, and `version` has incremented.
+To see this in action, from the AWS Console navigate to your Thing in IoT Core, then select _Shadow_ which will show the current shadow document. Note the `led` attribute in the _desired_ and _reported_ sections, which should be the same. Also notice the value for `version` in the metadata. This increments each time the shadow is updated. To see how the shadow is working, use the webapp to change the state of the LED by either toggling or setting to the other state. You will see the value for `led` has changed in the shadow document, in both _desired_ and _reported_ sections, and `version` has incremented.
 
-To see how the shadow works when the device is in a disconnected state, unplug the microcontroller from your laptop. Now, in the webapp change the state of the LED and notice that the _desired_ and _delta_ states show this new value,but that the _reported_ state is still what the dispenser was in before being disconnected. Plug the microcontroller back into your laptop. Once it has booted and connected AWS IoT, the LED will change to the _desired_ state value and the dispenser will update the _reported_ state. Since _desired_ and _reported_ states are the same, the _delta_ state for the LED is removed.
+To see how the shadow works when the device is in a disconnected state, unplug the microcontroller from your laptop. Now, in the webapp change the state of the LED and notice that the _desired_ change to show the new value but that the _reported_ state is still what the dispenser was in before being disconnected. Notice also that a new _delta_ section has appeared inthe document, containing just this `led` field. This is automatically calculated by the Shadow service. Plug the microcontroller back into your laptop. Once it has booted and connected AWS IoT, the LED will change to the _desired_ state value and the dispenser will update the _reported_ state. Since _desired_ and _reported_ states are the same, the _delta_ state for the LED is removed.
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
@@ -256,7 +258,7 @@ NOTE: In this expanded details section, we will only use a small subset of the e
 
 === Monitor Shadow  MQTT topics for a Complex Operation (Dispense Drink)
 
-The shadow can also be used for more complex operations. While changing the state of the LED can tracked via a single attribute, operations such as dispensing a drink are more complex and considered a _request_/_response_ pattern. The webapp initiates the dispense operation as a _request_, and when the dispenser completes the operation it, in turn, sends a corresponding _response_. We use a short, random, `requestId` value to match the correlate the _request_ and _response_ operations.
+The shadow can also be used for more complex operations. While changing the state of the LED can be tracked via a single attribute, operations such as dispensing a drink are more complex and require multiple states such as _request_ and _response_. The webapp initiates the dispense operation as a _request_, and when the dispenser completes the operation it, in turn, sets a corresponding _response_. We use a short, random, `requestId` value to match the correlate the _request_ and _response_ states.
 
 .Tracking request/response using shadow
 [plantuml, req_res_shadow, svg]
@@ -294,15 +296,15 @@ dispense -> db : Delete requestId from dispenser's record
 
 As we cannot be sure that the dispenser is online, the webapp initiates the request and sets the _desired_ state of the shadow with a `request` object containing the `command` to execute, a unique `requestId`, and the `timestamp` of when the user clicked "Dispense a Drink" in the webapp.
 
-To verify, ensure the microcontroller is connected and LED operations take place. Next, use  _Test_ from the IoT Core console and subscribe to the topic `$aws/things/dispenserId/shadow/#` (replace `dispenserId` with your value) to track all shadow operations. Next, from another tab or window, click the _Dispense!_ button (should still be green) to initiate a dispense operation. From the _MQTT Client_ tab, you should see a few shadow topic messages. Scroll through and review how the first message sets the `request` object, and after the dispenser completes turning the pump (indicated by the other LED on the controller board) the _reported_ state is updated with a `response` object that has the same `requestId`, and finally that the the `request` *and* `response` objects are both deleted from all shadow sections once the response has been reconciliated.
+To verify, ensure the microcontroller is connected and LED operations take place. Next, use  _Test_ from the IoT Core console and subscribe to the topic `$aws/things/dispenserId/shadow/#` (replace `dispenserId` with your value) to track all shadow operations. Next, in the webapp click the _Dispense!_ button (should still be green) to initiate a dispense operation. From the _MQTT Client_ tab, you should see a few shadow topic messages. Scroll through and review how the first message sets the `request` object, and after the dispenser completes turning the pump (indicated by the _other_ LED on the controller board) the _reported_ state is updated with a `response` object that has the same `requestId`, and finally that the the `request` *and* `response` objects are both deleted from all shadow sections once the response has been reconciliated.
 
 In this situation, we are using the shadow to track the status of a command sent to the dispenser, and the response once it acts upon it.
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
-. Ensure the microcontroller is connected and response to LED on/off events.
+. Ensure the microcontroller is connected and responds to LED on/off events.
 . Navigate to IoT Core->Test and in the _Subscription topic_ field, enter `$aws/things/dispenserId/shadow/#` (replace `dispenserId` with your value) and click _Subscribe to topic_.
-. From the webapp, click the _Dispense!_ button (should still be green) to initiate a dispense operation. This should turn the other LED on the controller board on for a short period of time and create a few messages in the _MQTT Client_.
+. From the webapp, click the _Dispense!_ button (should still be green) to initiate a dispense operation. This should turn on _other_ LED on the controller board on for a short period of time and create a few messages in the _MQTT Client_.
 . Scroll to the bottom (oldest message) and look for the shadow update with _desired_ state that has the first `request` object.
 +
 [source,json]
@@ -327,15 +329,15 @@ In this situation, we are using the shadow to track the status of a command sent
 
 === Review Logging and Credits
 
-We did something bad! We used up all of our credits testing the dispenser operation above. Each dispense operation costs $1.00, and has been deducted from our dispenser, as shown by the webapp. Navigate to the DynamoDB _DispenserTable_ and verify the credits match the webapp. Also, review the _EventsTable_ for your dispenser (review the first steps in this lab if needed) to see the various logging entries made while testing the LED and drink dispense test.
+Oops! While testing how the Shadow works We used up all of our credits. Each dispense operation costs $1.00, and has been deducted from our dispenser credit, as shown by the webapp. Navigate to the DynamoDB _DispenserTable_ and verify the credits match the webapp. Also, review the _EventsTable_ for your dispenser (review the first steps in this lab if needed) to see the various logging entries made while testing the LED and drink dispense test.
 
-We use these tables as the _source of truth_ for the status of our dispenser. While the dispenser code you compiled and installed could be modified, a dispense operation only is created if there are sufficient credits in your account (e.g., DynamoDB DispenserTable entry). We use the relationship of the `dispenserId` in your user account via the webapp, associated with the same values in IoT Core and DynamoDB, to track the business logic we want to enforce in the overall SaaS application.
+We use these tables as the _source of truth_ for the status of our dispenser. While the dispenser code you compiled and installed could be modified, a dispense operation can only be performed if there are sufficient credits in the account (e.g., DynamoDB DispenserTable entry). We use the value of the `dispenserId` across the webapp (user account custom attribute), IoT Core (Thing name, Certificate CN) and DynamoDB DispenserTable (dispenserId key) to enforce the desired controls in the overall SaaS application.
 
 === Webapp Overview
 
-The webapp is your main interface for seeing the state of the dispenser via LEDs, and how to initiate a dispense action. As the webapp is running inside your local browser, there are two methods that can be used to track what is the current status. We can continuously https://en.wikipedia.org/wiki/Polling_(computer_science)[poll] via API to return the status, or use a https://en.wikipedia.org/wiki/Callback_(computer_programming)[callback] mechanism to alert the webapp when something has changed. In this case, the _callback_ method is used. It reduces the overall load on the SaaS service and demonstrates how we again use AWS IoT Core to facilitate this.
+The webapp is your main interface for interacting with the dispenser, eg to dispense a drink, and to check its state. As the webapp is running inside your local browser, there are two methods that can be used to track what is the current status. We can continuously https://en.wikipedia.org/wiki/Polling_(computer_science)[poll] via an API to return the status, or use a https://en.wikipedia.org/wiki/Callback_(computer_programming)[callback] mechanism to alert the webapp when something has changed. In our app we use the _callback_ method, and specifically it does this by subscribing to the MQTT topics for your specific dispenser. This reduces the overall load on the SaaS service and demonstrates how we can use the features of AWS IoT Core to simplify the implementation.
 
-Modern web browsers have the ability to monitor what is running locally. Our webapp has additional debug, or `console.log()` statements to give an indication when something is happening. It does this b subscribing to the MQTT topics for your specific dispenser. From your browser, enable the _Web Console_ (name varies based on browser), and select the _Console_ tab. Now change the status of the LED. Every time you make a change, you will see an _Received MQTT message with change in LED or credit status_ message. This is alerted when an incoming MQTT message of interest such as a shadow update occurs.
+Modern web browsers have the ability to monitor what is running locally. Our webapp has additional debug, or `console.log()` statements to give an indication when something is happening. From your browser, enable the _Web Console_ (name varies based on browser), and select the _Console_ tab. Now change the status of the LED. Every time you make a change, you will see an _Received MQTT message with change in LED or credit status_ message. This is alerted when an incoming MQTT message of interest such as a shadow update occurs.
 
 These messages then trigger the webapp to make an API call requesting the complete status of the dispenser (LED status, credits, etc.), which in turn updates the main dispenser page. If there are no changes being made, no MQTT messages are generated, and subsequently, no API calls are made to request an update to the webapp.
 
@@ -354,9 +356,9 @@ These messages then trigger the webapp to make an API call requesting the comple
 
 === Share the Love!
 
-So far we have shown how the you interact with your dispenser via the webapp. Next, let's build our credits back up to a sufficient level to complete the rest of the lab. To do this, click on the _Share the Love!_ card underneath the LED status cards and follow the instructions. First, try giving credit to another dispenser number and monitor the _Last credit response_ message (with or without browser logging). Next, try to give yourself credits and note that the gray button to the right does not change to _SEND CREDIT!_. This is a constraint built into the webapp. However, even if you were to make a direct API call, the backend will also deny the request.
+Now that we have shown how you interact with your dispenser via the webapp, let's build our credits up to a sufficient level to complete the rest of the lab. To do this, click on the _Share the Love!_ panel underneath the LED status panel and follow the instructions. First, try giving credit to another dispenser number and monitor the _Last credit response_ message (with or without browser logging). Next, try to give yourself credits and note that the gray button to the right does not change to _SEND CREDIT!_. This is a constraint built into the webapp. However, even if you were to make a direct API call, the backend will also deny the request.
 
-Finally, talk to you neighbor to either side of you and ask them to start sending you credits. You may alsop see that as the credits increase, the ring LED will also start to fill until you have at least $1.00, and after that the colors will changes as your balance goes above $2.00, $3.00, etc.
+Finally, talk to your neighbors and ask them to start sending you credits. You may also see that as the credits increase, the LED ring will also start to fill until you have at least $1.00, and after that the colors will changes as your balance goes above $2.00, $3.00, etc.
 
 It is recommended that you have at least $2.00 or $3.00 to perform a couple dispenses with a fully built dispenser unit.
 
@@ -366,12 +368,12 @@ Good work!
 
 Please ensure the following checkpoints are validated before moving on to the next module.
 
-. The dispenser properly operates and toggles the LED status from the webapp
-. A dispense operation enabled the _other_ LED on the controller board (motor control)
-. You have an understanding of how the shadow document and DynamoDB tables are used to track the status of state (LEDs) and perform command and control (request/response) operations.
+. The dispenser board operates correctly and you can toggle the LED ring from the webapp
+. A dispense operation enables the _other_ LED on the controller board (motor control)
+. You have an understanding of how the shadow document and DynamoDB tables are used to track state (LEDs) and perform command and control (request/response) operations.
 
 ## Outcomes
 
-Why do we use the shadow document for command and control, when it could also be done with regular MQTT messages? While either pattern are good practices, combining all of the operations into a single location makes it easier to follow for the workshop. As long as there is a way to track each request, the mechanism used doesn't matter.
+Why do we use the shadow document for command and control, when it could also be done with regular MQTT messages? While either pattern are good practices, combining all of the operations into a single location makes it easier to follow for the workshop. As long as there is a way to track each request, the mechanism used doesn't matter. 
 
-One thing that we didn't discuss is the ring LED. In this case, it is used to give a visual indication of the credit levels. From the dispensers perspective, it is another shadow attribute set to manage. But instead of being set by clicking buttons in the webapp, this value is programmatically set by the cloud services whenever there is a change in the credit state of a dispenser. This demonstrates that functionality in not static and can be modified in either device (dispenser) or SaaS application (cloud-side).
+One thing that we didn't discuss is the LED ring. In this case, it is used to give a visual indication of the credit levels. From the dispensers perspective, it is another shadow attribute set to manage. But instead of being set by clicking buttons in the webapp, this value is programmatically set by the cloud services whenever there is a change in the credit state of a dispenser. This demonstrates that functionality in not static and can be modified in either device (dispenser) or the application (cloud-side).

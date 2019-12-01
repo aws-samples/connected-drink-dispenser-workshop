@@ -15,7 +15,7 @@ Okay, this is the moment of truth. You have:
 
 1. Setup your laptop to flash the dispenser.
 1. From Cloud9 compiled the firmware specific for your dispenser. 
-1. Flashed and tested the cloud capabilities and built up enough credits to operate.
+1. Flashed the microcontroller and tested the cloud capabilities and built up enough credits to operate.
 1. Optionally built the dispenser and are ready to test.
 
 With all that completed, let's dispenser a real liquid drink.
@@ -36,7 +36,7 @@ After completing the build step, ensure there is liquid in the bottle, an empty 
 If you wish to record this event for posterity, have someone else video you clicking _DISPENSE!_ and having the dispenser pour the drink. Workshop assistants are glad to be your personal videographer if needed!
 {{% /notice %}}
 
-If something does wrong or doesn't work, review the build steps from the previous lab, or ask a workshop assistant for help.
+If something goes wrong or doesn't work, review the build steps from the previous lab, or ask a workshop assistant for help.
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
@@ -51,7 +51,7 @@ If something does wrong or doesn't work, review the build steps from the previou
 .. Did you hear the motor whir or make noise?
 ... Yes: Check that the cap is securely seated on the bottle, there may be a air gap.
 ... No: Check the connection from the motor to the control board (disconnect the 9V battery first)
-.. If the LED ring change to the animated dispense pattern, verify there are enough credits and that the dispenser is online (toggle the LED)
+.. If the LED ring does not change to the animated dispense pattern, verify there are enough credits and that the dispenser is online (toggle the LED)
 .. You can also ask a workshop assistant for help in figuring out the problem.
 
 {{% /expand%}}

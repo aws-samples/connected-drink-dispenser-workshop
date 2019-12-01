@@ -62,7 +62,7 @@ Here are some tips for popular operating systems:
 
 To interact with the microcontroller via the serial USB connection, there is a specific application to be used called *esptool*. A pre-built executable can be downloaded [here for macOS](https://dl.espressif.com/dl/esptool-2.6.1-macos.tar.gz) and [here for Windows](https://dl.espressif.com/dl/esptool-2.6.1-windows.zip). Unzip or untar the file and place the file in the `cdd` directory.
 
-For Linux users, or to have installed as a Python package, [Follow the instructions](https://github.com/espressif/esptool) for your operating system to install the application. If installed correctly the command should accessible from any directory.
+For Linux users, or if you prefer to have it  installed as a Python package, [follow the instructions](https://github.com/espressif/esptool) for your operating system to install the application. If installed correctly the command should accessible from any directory.
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
@@ -92,10 +92,10 @@ If you are unable to install the esptool or run it via the options above, there 
 Before testing, remove the ESP32 microcontroller (labeled as *Provided ESP32*) from the zip-top bag:
 <img src="/images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/>
 
-To interact with the microcontroller, you will be doing so from a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the `cdd` directory you created. Verify that you can run the esptool command, and then verify when you connect just the ESP32 via the serial cable that a new serial device is created.
+To interact with the microcontroller you will use a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the `cdd` directory you created. Verify that you can run the esptool command, and then verify that when you connect the ESP32 via the USB cable that a new serial device is created.
 
 {{% notice info %}}
-When completed, remove the USB cable from the laptop and microcontroller.
+When you have verified the previous step, remove the USB cable from the laptop and microcontroller.
 {{% /notice %}}
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
@@ -119,7 +119,7 @@ When completed, remove the USB cable from the laptop and microcontroller.
     1. For Windows, [check the current COMx ports](https://superuser.com/questions/1059447/how-to-check-com-ports-in-windows-10). Note that as you connect and disconnect the ESP32, the COMx number may change for each connection.
     1. For macOS, `ls -l /dev/tty.*` will show the ports. You should *not* see a `tty.SLAB_USBtoUART` entry yet.
     1. For Linux, `ls -l /dev/tty.*` and note the port numbers.
-1. Connect the ESP32, then run the same commands and look for a new addition. That will be the *port* you will use when flashing and monitoring the microcontroller.
+1. Connect the ESP32, then run the same commands and look for a new entries: that will be the *port* you will use when flashing and monitoring the microcontroller.
     <img src="/images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/>
     When added to a MacBook Pro, a valid driver installation and good data+power USB connection would show this:
 
@@ -158,7 +158,7 @@ For Windows, you can either use a serial application already installed or downlo
     ![PuTTY Console Output](/images/lab2_putty_console_output.png)
 
 {{% notice warning %}}
-Only one application at a time can access a serial port. When working with *esptool*, you will have to close the PuTTY console before flashing the firmware. If you get an error about *port in use or unavailable*, this is most like;y why. Close the Putty Console and try again.
+Only one application at a time can access a serial port. When working with *esptool*, you will have to close the PuTTY console before flashing the firmware. If you get an error about *port in use or unavailable*, this is most likely the reason. Close the Putty Console and try again.
 {{% /notice %}}
 
 {{% /expand%}}
@@ -175,4 +175,4 @@ Please ensure the following checkpoints are validated before moving on to the ne
 
 Installation of device drivers, tool chains, and utilities such as *esptool* to interact with microcontrollers is complex, so why do we do it? Unlike cloud environments that can be stood up with infrastructure as code (IaaC), firmware development and testing takes place locally.
 
-By completing and testing the installation of the tools in advance of work, we know that our environment is working properly. And if we need to fix or have another laptop or desktop to develop from, the steps to complete setup are documented.
+By completing and testing the installation of the tools in advance, we know that our environment is working properly. And if we need to fix or have another laptop or desktop to develop from, the steps to complete the setup are documented.

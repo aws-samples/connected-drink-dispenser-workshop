@@ -11,10 +11,10 @@ weight: 50
 
 ## Objectives
 
-This lab module will walk you through how to launch the Cloud9 IDE and download the device firmware source code to modify and flash onto your drink dispenser. By the end of the module you will have:
+This lab module will walk you through how to launch the Cloud9 IDE and download the device firmware source code. By the end of the module you will have:
 
 * Installed the *toolchain* needed to compile and link the source code for the dispenser.
-* Cloned the workshop repository which include the dispenser firmware source code.
+* Cloned the workshop repository which includes the dispenser firmware source code.
 * Installed the supporting tools needed to compile.
 
 The AWS Cloud9 Integrated Development Environment (IDE) is a service that runs on EC2 and provides a interactive and consistent development environment. You interact with it via a web browser, and it allows for command line access, a folder tree, and the ability to upload and download files between it and your local laptop.
@@ -32,7 +32,7 @@ From the webapp, open the *MY DETAILS* section and open a new browser tab or win
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
-1. For the webapp, open the *MY DETAILS* section and click on the *Sign-In URL* to open a new browser tab. 
+1. In the webapp, open the *MY DETAILS* section and click on the *Sign-In URL* to open a new browser tab. 
 1. Use the username and password credentials from the web app to log into the AWS Console.
 1. From the console, click on *Services* from the top left menu bar, then in the *Find a service by name or feature* type `Cloud9` and right- click on the drop-down service name and select *Open Link in New Tab* (or something similar).
 1. On the Cloud9 tab, click on the *Your Environments* menu, click on the *Open IDE* button for your user. This will open a new tab with the IDE and start up the EC2 instance (it may take a minute to fully launch).
@@ -43,7 +43,7 @@ From the webapp, open the *MY DETAILS* section and open a new browser tab or win
 
 ### Install Dependencies Needed For Compilation
 
-With the IDE open, close the *Welcome* tab, and the click the green circled plus icon and select *New terminal* which will open a command line in the `~/environment` directory. From here, copy and paste these lines to the next terminal window to install the dependencies and the Xtensa toolchain for the microcontroller (ESP32). The final commands will add to your `PATH` so the build process can execute correctly.
+With the IDE open, close the *Welcome* tab, and the click the green circled plus icon and select *New terminal* which will open a command line in the `~/environment` directory. Copy and paste the following lines in the terminal window to install the dependencies and the Xtensa toolchain for the microcontroller (ESP32). The final commands will add the toolchain to your `PATH` so the build process can execute correctly.
 
 ```bash
 # Install OS utilities needed by toolchain
@@ -76,7 +76,9 @@ cd connected-drink-dispenser-workshop/device_firmware
 
 ### Verify Default Compilation
 
-To verify that all components are in place, run the following commands to create the build environment in the `device_firmware` directory, then change to the build directory (it will be created in root of the repository, at `~/environment/connected-drink-dispenser-workshop/build`). Run each of these commands and verify they completed without errors (warnings are okay).
+To verify that all components are in place, run the following commands to create the build environment in the `device_firmware` directory, then change to the build directory (it will be created in root of the repository, at `~/environment/connected-drink-dispenser-workshop/build`). 
+
+Run each of these commands and verify they completed without errors (warnings are okay).
 
 ```bash
 cd connected-drink-dispenser-workshop/device_firmware
@@ -102,7 +104,7 @@ esptool.py v2.6
 [100%] Built target app
 ```
 
-And there should be a lot of files in `~/environment/connected-drink-dispenser-workshop/build` which is the firmware output from the build process.
+As a result of the build process, files have been created in `~/environment/connected-drink-dispenser-workshop/build`. Among these there is also the the firmware that will be flashed onto the microcontroller.
 
 ## Checkpoints
 
@@ -110,7 +112,7 @@ Please ensure the following checkpoints are validated before moving on to the ne
 
 * In the Cloud9 IDE:
     * There is a file named `aws_demos.bin` in `~/environment/connected-drink-dispenser-workshop/build`.
-    * There were no errors (warning are okay) in either the `cmake` or `make all` steps.
+    * There were no errors (warnings are okay) in either the `cmake` or `make all` steps.
 
 ## Outcomes
 

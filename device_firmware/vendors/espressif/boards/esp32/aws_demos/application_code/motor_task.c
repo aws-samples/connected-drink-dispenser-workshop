@@ -56,9 +56,9 @@ void prvLedLightColor(struct led_strip_t* led_strip, int i)
     rgb rgb_color = hsv2rgb( hsv_color );
     rgb rgb_color_next = hsv2rgb( hsv_color_next );
 
-    led_strip_set_pixel_rgb( led_strip, i % 8, rgb_color.r * 255, rgb_color.g * 255, rgb_color.b * 255 );
-    led_strip_set_pixel_rgb( led_strip, ( i + 7 ) % 8, rgb_color_next.r * 255, rgb_color_next.g * 255, rgb_color_next.b * 255 );
-    led_strip_set_pixel_rgb( led_strip, ( i + 1 ) % 8, rgb_color_next.r * 255, rgb_color_next.g * 255, rgb_color_next.b * 255 );
+    led_strip_set_pixel_rgb( led_strip, i % LED_STRIP_LENGTH, rgb_color.r * 255, rgb_color.g * 255, rgb_color.b * 255 );
+    led_strip_set_pixel_rgb(led_strip, (i + LED_STRIP_LENGTH - 1) % LED_STRIP_LENGTH, rgb_color_next.r * 255, rgb_color_next.g * 255, rgb_color_next.b * 255);
+    led_strip_set_pixel_rgb(led_strip, (i + 1) % LED_STRIP_LENGTH, rgb_color_next.r * 255, rgb_color_next.g * 255, rgb_color_next.b * 255);
 
     led_strip_show( led_strip );
 }
@@ -106,8 +106,8 @@ void showCredits(struct State *state){
     prvLedTurnOff( &led_strip, LED_STRIP_LENGTH );
     if (state->led_state){
         configPRINTF(( "Show credits %d, color: #%2x%2x%2x\n", state->led_ring_count, (uint8_t)state->led_ring_color.r, (uint8_t)state->led_ring_color.g, (uint8_t)state->led_ring_color.b ));
-        prvLedShowNumber(&led_strip, state->led_ring_count > 8? 8 : state->led_ring_count ,
-                     (uint8_t)state->led_ring_color.r, (uint8_t)state->led_ring_color.g, (uint8_t)state->led_ring_color.b);
+        prvLedShowNumber(&led_strip, state->led_ring_count > LED_STRIP_LENGTH ? LED_STRIP_LENGTH : state->led_ring_count,
+                         (uint8_t)state->led_ring_color.r, (uint8_t)state->led_ring_color.g, (uint8_t)state->led_ring_color.b);
     }
 #endif
 }
