@@ -11,15 +11,11 @@ weight: 10
 
 The Connected Drink Dispenser, or CDD, simulates a fleet of physical devices managed and controlled by a cloud-based architecture. The physical device, which you will build, can dispense a drink from a standard bottle such as soda or water through an controlled air-pump, and uses an ESP32 microcontroller (MCU) as the brains of the operation. Connectivity to AWS IoT is done through a Wi-Fi network connection, and interaction and local device control is performed by an Amazon FreeRTOS application running on the MCU.
 
-{{% notice add image %}}
-Replace with image of controller calling out the components and connection to the cloud.
-{{% /notice %}}
+<img src="/images/lab2_esp32_connection.png" alt="ESP32 Microcontrollert" height="400"/>
 
 To simulate dispenser activities, a web application (webapp) with user authentication is used. It can control dispensing a drink via the dispenser associated with the user, and to provide credits to other dispensers. This demonstrates how devices can be *scoped down* to limited permissions and actions, while still taking advantage of robust serverless applications.
 
-{{% notice add image %}}
-Replace with image of controller icon, web app icon, and cloud with interaction.
-{{% /notice %}}
+<img src="/images/lab1_cloud_overview.png" alt="Cloud Architecture" width="70%"/>
 
 ## Using This Documentation
 
