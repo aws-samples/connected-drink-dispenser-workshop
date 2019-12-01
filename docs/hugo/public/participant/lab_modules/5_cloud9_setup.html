@@ -651,11 +651,11 @@
 
 <h2 id="objectives">Objectives</h2>
 
-<p>This lab module will walk you through how to launch the Cloud9 IDE and download the device firmware source code to modify and flash onto your drink dispenser. By the end of the module you will have:</p>
+<p>This lab module will walk you through how to launch the Cloud9 IDE and download the device firmware source code. By the end of the module you will have:</p>
 
 <ul>
 <li>Installed the <em>toolchain</em> needed to compile and link the source code for the dispenser.</li>
-<li>Cloned the workshop repository which include the dispenser firmware source code.</li>
+<li>Cloned the workshop repository which includes the dispenser firmware source code.</li>
 <li>Installed the supporting tools needed to compile.</li>
 </ul>
 
@@ -684,7 +684,7 @@
     </div>
     <div class="expand-content" style="display: none;">
         <ol>
-<li>For the webapp, open the <em>MY DETAILS</em> section and click on the <em>Sign-In URL</em> to open a new browser tab.</li>
+<li>In the webapp, open the <em>MY DETAILS</em> section and click on the <em>Sign-In URL</em> to open a new browser tab.</li>
 <li>Use the username and password credentials from the web app to log into the AWS Console.</li>
 <li>From the console, click on <em>Services</em> from the top left menu bar, then in the <em>Find a service by name or feature</em> type <code>Cloud9</code> and right- click on the drop-down service name and select <em>Open Link in New Tab</em> (or something similar).</li>
 
@@ -698,7 +698,7 @@
 
 <h3 id="install-dependencies-needed-for-compilation">Install Dependencies Needed For Compilation</h3>
 
-<p>With the IDE open, close the <em>Welcome</em> tab, and the click the green circled plus icon and select <em>New terminal</em> which will open a command line in the <code>~/environment</code> directory. From here, copy and paste these lines to the next terminal window to install the dependencies and the Xtensa toolchain for the microcontroller (ESP32). The final commands will add to your <code>PATH</code> so the build process can execute correctly.</p>
+<p>With the IDE open, close the <em>Welcome</em> tab, and the click the green circled plus icon and select <em>New terminal</em> which will open a command line in the <code>~/environment</code> directory. Copy and paste the following lines in the terminal window to install the dependencies and the Xtensa toolchain for the microcontroller (ESP32). The final commands will add the toolchain to your <code>PATH</code> so the build process can execute correctly.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Install OS utilities needed by toolchain</span>
 sudo yum -y install flex gperf
 <span style="color:#75715e"># Install Python modules (also used by toolchain)</span>
@@ -723,7 +723,9 @@ cd connected-drink-dispenser-workshop/device_firmware
 <span style="color:#75715e"># ============= Finished installation of Connected Drink Dispenser repository =============</span></code></pre></div>
 <h3 id="verify-default-compilation">Verify Default Compilation</h3>
 
-<p>To verify that all components are in place, run the following commands to create the build environment in the <code>device_firmware</code> directory, then change to the build directory (it will be created in root of the repository, at <code>~/environment/connected-drink-dispenser-workshop/build</code>). Run each of these commands and verify they completed without errors (warnings are okay).</p>
+<p>To verify that all components are in place, run the following commands to create the build environment in the <code>device_firmware</code> directory, then change to the build directory (it will be created in root of the repository, at <code>~/environment/connected-drink-dispenser-workshop/build</code>).</p>
+
+<p>Run each of these commands and verify they completed without errors (warnings are okay).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd connected-drink-dispenser-workshop/device_firmware
 cmake -DVENDOR<span style="color:#f92672">=</span>espressif -DBOARD<span style="color:#f92672">=</span>esp32_devkitc -DCOMPILER<span style="color:#f92672">=</span>xtensa-esp32 -S . -B ./build</code></pre></div>
 <p>This should only take a few seconds and end with no errors. Then run the <code>make</code> process:</p>
@@ -739,7 +741,7 @@ Scanning dependencies of target app
 <span style="color:#f92672">[</span><span style="color:#ae81ff">100</span>%<span style="color:#f92672">]</span> Generating ../aws_demos.bin
 esptool.py v2.6
 <span style="color:#f92672">[</span><span style="color:#ae81ff">100</span>%<span style="color:#f92672">]</span> Built target app</code></pre></div>
-<p>And there should be a lot of files in <code>~/environment/connected-drink-dispenser-workshop/build</code> which is the firmware output from the build process.</p>
+<p>As a result of the build process, files have been created in <code>~/environment/connected-drink-dispenser-workshop/build</code>. Among these there is also the the firmware that will be flashed onto the microcontroller.</p>
 
 <h2 id="checkpoints">Checkpoints</h2>
 
@@ -750,7 +752,7 @@ esptool.py v2.6
 
 <ul>
 <li>There is a file named <code>aws_demos.bin</code> in <code>~/environment/connected-drink-dispenser-workshop/build</code>.</li>
-<li>There were no errors (warning are okay) in either the <code>cmake</code> or <code>make all</code> steps.</li>
+<li>There were no errors (warnings are okay) in either the <code>cmake</code> or <code>make all</code> steps.</li>
 </ul></li>
 </ul>
 

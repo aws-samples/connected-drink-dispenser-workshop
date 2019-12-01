@@ -652,13 +652,13 @@
 
 <h2 id="objectives">Objectives</h2>
 
-<p>In this lab you will configure your laptop for the workshop. By the end of the module you will have:</p>
+<p>In this lab you will configure your laptop for the workshop. By the end of the module you will:</p>
 
 <ul>
-<li>A directory or folder to hold all the files required for your dispenser.</li>
-<li>Installed and tested a device driver to communicate with the microcontroller.</li>
-<li>Downloaded a command line utility to program (flashed) the microcontroller.</li>
-<li>Have an open terminal or command prompt ready to issue commands.</li>
+<li>Have a directory or folder to hold all the files required for your dispenser</li>
+<li>Have installed and tested a device driver to communicate with the microcontroller</li>
+<li>Downloaded a command line utility to program (flashed) the microcontroller</li>
+<li>Have an open terminal or command prompt ready to issue commands</li>
 </ul>
 
 <p>The microcontroller is programmed, or flashed, via a USB serial connection from a computer or laptop. Based on the microcontroller chipset, a specific driver is required.</p>
@@ -739,7 +739,7 @@
 
 <p>To interact with the microcontroller via the serial USB connection, there is a specific application to be used called <em>esptool</em>. A pre-built executable can be downloaded <a href="https://dl.espressif.com/dl/esptool-2.6.1-macos.tar.gz">here for macOS</a> and <a href="https://dl.espressif.com/dl/esptool-2.6.1-windows.zip">here for Windows</a>. Unzip or untar the file and place the file in the <code>cdd</code> directory.</p>
 
-<p>For Linux users, or to have installed as a Python package, <a href="https://github.com/espressif/esptool">Follow the instructions</a> for your operating system to install the application. If installed correctly the command should accessible from any directory.</p>
+<p>For Linux users, or if you prefer to have it  installed as a Python package, <a href="https://github.com/espressif/esptool">follow the instructions</a> for your operating system to install the application. If installed correctly the command should accessible from any directory.</p>
 
 
 <div class="expand">
@@ -786,10 +786,10 @@
 <p>Before testing, remove the ESP32 microcontroller (labeled as <em>Provided ESP32</em>) from the zip-top bag:
 <img src="../../images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/></p>
 
-<p>To interact with the microcontroller, you will be doing so from a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the <code>cdd</code> directory you created. Verify that you can run the esptool command, and then verify when you connect just the ESP32 via the serial cable that a new serial device is created.</p>
+<p>To interact with the microcontroller you will use a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the <code>cdd</code> directory you created. Verify that you can run the esptool command, and then verify that when you connect the ESP32 via the USB cable that a new serial device is created.</p>
 
 
-<div class="notices info" ><p>When completed, remove the USB cable from the laptop and microcontroller.</p>
+<div class="notices info" ><p>When you have verified the previous step, remove the USB cable from the laptop and microcontroller.</p>
 </div>
 
 
@@ -829,7 +829,7 @@ $</code></pre></div>
 <li>For Linux, <code>ls -l /dev/tty.*</code> and note the port numbers.</li>
 </ol></li>
 
-<li><p>Connect the ESP32, then run the same commands and look for a new addition. That will be the <em>port</em> you will use when flashing and monitoring the microcontroller.
+<li><p>Connect the ESP32, then run the same commands and look for a new entries: that will be the <em>port</em> you will use when flashing and monitoring the microcontroller.
 <img src="../../images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/>
 When added to a MacBook Pro, a valid driver installation and good data+power USB connection would show this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#75715e"># Before connecting ESP32 to laptop</span>
@@ -881,7 +881,7 @@ $ <span style="color:#75715e"># After connecting as above</span>
 <p><img src="../../images/lab2_putty_console_output.png" alt="PuTTY Console Output" /></p></li>
 </ol>
 
-<div class="notices warning" ><p>Only one application at a time can access a serial port. When working with <em>esptool</em>, you will have to close the PuTTY console before flashing the firmware. If you get an error about <em>port in use or unavailable</em>, this is most like;y why. Close the Putty Console and try again.</p>
+<div class="notices warning" ><p>Only one application at a time can access a serial port. When working with <em>esptool</em>, you will have to close the PuTTY console before flashing the firmware. If you get an error about <em>port in use or unavailable</em>, this is most likely the reason. Close the Putty Console and try again.</p>
 </div>
 
     </div>
@@ -901,7 +901,7 @@ $ <span style="color:#75715e"># After connecting as above</span>
 
 <p>Installation of device drivers, tool chains, and utilities such as <em>esptool</em> to interact with microcontrollers is complex, so why do we do it? Unlike cloud environments that can be stood up with infrastructure as code (IaaC), firmware development and testing takes place locally.</p>
 
-<p>By completing and testing the installation of the tools in advance of work, we know that our environment is working properly. And if we need to fix or have another laptop or desktop to develop from, the steps to complete setup are documented.</p>
+<p>By completing and testing the installation of the tools in advance, we know that our environment is working properly. And if we need to fix or have another laptop or desktop to develop from, the steps to complete the setup are documented.</p>
 
 
 

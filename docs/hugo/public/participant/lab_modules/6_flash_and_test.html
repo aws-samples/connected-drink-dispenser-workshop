@@ -650,13 +650,15 @@
 
 <h2 id="objectives">Objectives</h2>
 
-<p>In this lab module, you will complete the configuration of the dispenser firmware, download the compiled files to your laptop, and then use the tools to flash the microcontroller. At that point, the main components of the dispenser with the exception of the motor, will be fully operational. By the end of the module you will have:</p>
+<p>In this lab module, you will complete the configuration of the dispenser firmware, download the compiled files to your laptop, and then use the tools to flash the microcontroller. At that point, the main components of the dispenser with the exception of the motor, will be fully operational.</p>
+
+<p>By the end of the module you will have:</p>
 
 <ul>
-<li>Modified the base firmware code to work with your specific account.</li>
-<li>Compiled and downloaded the code files to your laptop.</li>
-<li>Flashed the microcontroller with the compiled code on your laptop.</li>
-<li>Verified it is communicating with AWS IoT by turning on and off the LED.</li>
+<li>Modified the base firmware code to work with your specific account</li>
+<li>Compiled and downloaded the code files to your laptop</li>
+<li>Flashed the microcontroller with the compiled code on your laptop</li>
+<li>Verified it is communicating with AWS IoT by turning on and off the LED</li>
 </ul>
 
 <h2 id="steps-to-complete">Steps to Complete</h2>
@@ -665,7 +667,7 @@
 
 <h3 id="modify-the-source-files-for-your-dispenser">Modify the Source Files for Your Dispenser</h3>
 
-<p>The X.509 client certificate and private key you downloaded earlier to your laptop&rsquo;s <code>cdd</code> directory uniquely identify your dispenser from all others. In order to communicate to AWS IoT core, you need to modify two of the source files in Cloud9 with the following in <code>device_firmware/demos/include</code>:</p>
+<p>The X.509 client certificate and private key you downloaded earlier to your laptop&rsquo;s <code>cdd</code> directory uniquely identify your dispenser from all others. In order to communicate to AWS IoT core, the firmware must be configured with this information. To do so, you need to modify two of the source files in in <code>device_firmware/demos/include</code> with the following:</p>
 
 <table>
 <thead>
@@ -715,7 +717,7 @@
 </tbody>
 </table>
 
-<p>In Cloud9, navigate to the <code>device_firmware/demos/include</code> folder, then double-click on the two files above and modify the contents. The output for the last two PEM files in <code>aws_clientcredential_keys.h</code>, when copied over should look similar to this before and after (certifcate only, do the same with private key):</p>
+<p>In Cloud9, navigate to the <code>device_firmware/demos/include</code> folder, then double-click on the two files above and modify the contents. The content of the <code>aws_clientcredential_keys.h</code> file should look similar to the following before and after copying the converted content of the two PEM files:</p>
 
 <p><strong>BEFORE</strong>:</p>
 
@@ -731,7 +733,9 @@
 &quot;-----END CERTIFICATE-----&quot; 
 </code></pre>
 
-<p>Once both files are modified, save them in the Cloud9 IDE, but leave them open to make changes if needed later.</p>
+<p>Ensure that you update both the Certificate and Private Key sections. Leave the rest as-is.</p>
+
+<p>Once both files are modified, save them from the Cloud9 IDE. You can leave the tabs open to quickly go back to the files if needed.</p>
 
 
 <div class="expand">
@@ -767,7 +771,7 @@
 </div>
 
 <ol>
-<li>For each file, click the tab the from the Cloud9 menu, save both files (<em>File-&gt;Save</em>). Leave both files open as it will be easier to correct and potential errors.</li>
+<li>For each file, click the tab the from the Cloud9 menu, save both files (<em>File-&gt;Save</em>). Leave both files open as it will be easier to correct any potential errors.</li>
 </ol>
 
     </div>
@@ -775,12 +779,12 @@
 
 <h3 id="compile-and-download-the-code-from-cloud9">Compile and Download the Code from Cloud9</h3>
 
-<p>With the updated files save, click on the terminal window where you did the compile steps in the previous lab. Run the <code>make</code> command again which will pick up the file changes and compile the firmware.</p>
+<p>After saving the updated files, click on the terminal window where you did the compile steps in the previous lab. Run the <code>make</code> command again which will pick up the file changes and recompile the firmware.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd ~/environment/connected-drink-dispenser-workshop/device_firmware/build
 make all -j4</code></pre></div>
-<p>Navigate in the Cloud9 file browser and open the <code>connected-drink-dispenser-workshop/device_firmware/build</code> folder. Scroll down and right-click on <code>aws_demos.bin</code> and select <em>Download</em> and save to your <code>cdd</code> directory. Do the same for the <code>build/bootloader/bootloader.bin</code> and <code>build/partition_table/partition_table.bin</code> files.</p>
+<p>In the Cloud9 file browser navigate to the <code>connected-drink-dispenser-workshop/device_firmware/build</code> folder and expand it. Scroll down and right-click on <code>aws_demos.bin</code> and select <em>Download</em> and save to your <code>cdd</code> directory. Do the same for the <code>build/bootloader/bootloader.bin</code> and <code>build/partition_table/partition_table.bin</code> files.</p>
 
-<p>In your laptop&rsquo;s <code>cdd</code> directory you should have these three files.</p>
+<p>In your laptop&rsquo;s <code>cdd</code> directory you should now have these three files.</p>
 
 
 <div class="expand">
@@ -800,6 +804,8 @@ make all -j4</code></pre></div>
 make all -j4</code></pre></div>
 <p><img src="../../images/lab6_c9_build.png" alt="Update firmware build" /></p></li>
 
+<li><p>In the Cloud9 file browser navigate to the <code>connected-drink-dispenser-workshop/device_firmware/build</code> folder and expand it.</p></li>
+
 <li><p>Right-click on <code>aws_demos.bin</code>, select <em>Download</em>, and save the file to your <code>cdd</code> directory. Do the same in the <code>bootloader</code> folder for <code>bootloader.bin</code>, and in <code>partition_table</code> for <code>partition-table.bin</code>.</p>
 
 <p><img src="../../images/lab6_c9_download.png" alt="Download firmware" /></p></li>
@@ -812,7 +818,7 @@ make all -j4</code></pre></div>
 
 <h3 id="flash-and-monitor-the-microcontroller-from-your-laptop">Flash and Monitor the Microcontroller from Your Laptop</h3>
 
-<p>The final step in the modify-&gt;build-&gt;download-&gt;flash sequence is to flash the microcontroller. Attach the microcontroller to your laptop. Next, from the command prompt or terminal opened earlier, ensure you are in the <code>cdd</code> directory and then use <em>esptool</em> to flash.</p>
+<p>The final step in the modify-&gt;build-&gt;download-&gt;flash sequence is to flash the microcontroller. Connect the microcontroller to your laptop. Next, from the command prompt or terminal opened earlier, ensure you are in the <code>cdd</code> directory and then use <em>esptool</em> to flash.</p>
 
 
 <div class="notices note" ><p>The command <code>esptool ...</code> will be used. Note the syntax that works for <em>your</em> laptop installation (e.g., <code>./esptool.py</code>, etc.).</p>
@@ -854,9 +860,9 @@ Leaving...
 Hard resetting via RTS pin...
 </code></pre>
 
-<p>At this point the microcontroller will reset and your code will be running on it! To verify, start your serial monitoring program (<em>PuTTY</em> or <em>screen</em>). Reset the microcontroller and view the output. A properly configured microcontroller will have an <em>I (nnn) WIFI: SYSTEM_EVENT_STA_CONNECTED</em> message indicating it connected to the WiFi network, and then <em>[ShadowTask]</em> operations with <em>SUCCESS</em>, indicating that it is communicating with AWS IoT.</p>
+<p>At this point the microcontroller will reset and your code will be running on it! To verify that the process was performed correctly, start your serial monitoring program (<em>PuTTY</em> or <em>screen</em>). Reset the microcontroller via the button right to the Micro USB connector, and view the output. A properly configured microcontroller will have an <em>I (nnn) WIFI: SYSTEM_EVENT_STA_CONNECTED</em> message indicating it connected to the WiFi network, and then <em>[ShadowTask]</em> operations with <em>SUCCESS</em>, indicating that it is communicating with AWS IoT.</p>
 
-<p>Exit your <em>screen</em> session (<code>Ctrl-a</code>+<code>Ctrl-\</code>) or close the console window in PuTTY if you need to correct any errors to flash the microcontroller again.</p>
+<p>If you need to correct any errors in the firwmare, ensure to exit your <em>screen</em> session (<code>Ctrl-a</code>+<code>Ctrl-\</code>) or close the console window in PuTTY before re-flashing it since the serial port can only be used by one process at the time.</p>
 
 
 <div class="expand">
@@ -871,7 +877,7 @@ Hard resetting via RTS pin...
     </div>
     <div class="expand-content" style="display: none;">
         <ol>
-<li>Attach the microcontroller to your laptop and ensure the red LED is lit and that the serial port is available.</li>
+<li>Connect the microcontroller to your laptop and ensure the red LED is lit and that the serial port is available.</li>
 
 <li><p>From your command prompt or terminal in the <code>cdd</code> directory, flash the microcontroller with <em>esptool</em>.</p>
 
@@ -916,7 +922,7 @@ I (1554) WIFI: SYSTEM_EVENT_STA_CONNECTED
 
 <p>NOTE: The <em>screen</em> command will take full control of the terminal. The fully exit, use the <code>Ctrl-a</code>+<code>Ctrl-\</code> to kill all windows. You can also use your arrow keys to navigate up by entering <code>Ctrl-a</code>+<code>ESC</code>. There are good <a href="https://linuxize.com/post/how-to-use-linux-screen/">primers</a> on how to use <em>screen</em>.</p></li>
 
-<li><p>Leave the controller and LED ring connected for the next module.</p></li>
+<li><p>Leave the microcontroller and the LED Ring connected for the next module.</p></li>
 </ol>
 
     </div>
@@ -927,10 +933,10 @@ I (1554) WIFI: SYSTEM_EVENT_STA_CONNECTED
 <p>Please ensure the following checkpoints are validated before moving on to the next module.</p>
 
 <ul>
-<li>Firmware build with no errors in Cloud9.</li>
-<li>You downloaded and flashed the firmware with no errors.</li>
-<li>You can monitor and see the dispenser connect to the WiFi network and establish a successful session to AWS IoT Core.</li>
-<li>You have left the microcontroller connected for the next lab.</li>
+<li>Firmware build with no errors in Cloud9</li>
+<li>You downloaded and flashed the firmware with no errors</li>
+<li>You can monitor and see the dispenser connect to the WiFi network and establish a successful session to AWS IoT Core</li>
+<li>You have left the microcontroller connected for the next lab</li>
 </ul>
 
 <h2 id="outcomes">Outcomes</h2>
