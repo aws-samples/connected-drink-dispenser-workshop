@@ -165,7 +165,7 @@ Hard resetting via RTS pin...
 
 At this point the microcontroller will reset and your code will be running on it! To verify that the process was performed correctly, start your serial monitoring program (*PuTTY* or *screen*). Reset the microcontroller via the button right to the Micro USB connector, and view the output. A properly configured microcontroller will have an *I (nnn) WIFI: SYSTEM_EVENT_STA_CONNECTED* message indicating it connected to the WiFi network, and then *\[ShadowTask\]* operations with *SUCCESS*, indicating that it is communicating with AWS IoT.
 
-If you need to correct any errors in the firwmare, ensure to exit your *screen* session (`Ctrl-a`+`Ctrl-\`) alt close the console window in PuTTY before re-flashing it since the serial port can only be used by one process at the time.
+If you need to correct any errors in the firwmare, ensure to exit your *screen* session (`Ctrl-a`+`Ctrl-\`) or close the console window in PuTTY before re-flashing it since the serial port can only be used by one process at the time.
 
 
 

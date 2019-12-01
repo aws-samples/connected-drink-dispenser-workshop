@@ -27,7 +27,7 @@ Follow each step in order and use the *Click to open for detailed step-by-step i
 
 === Understand the AWS IoT Thing, Cognito User, and DynamoDB Table Relationships
 
-As this solution is designed as a software-as-a-service (SaaS) environment, there need to be a specific relationship between all of the resources to help enforce the security and operational controls of the actions. At a high level this is how the resources are associated with each other:
+As this solution is designed as a software-as-a-service (SaaS) environment, there needs to be a specific relationship between all of the resources to help enforce the security and operational controls of the actions. At a high level this is how the resources are associated with each other:
 
 .Relationship between services
 [plantuml, Relationship_services, svg]
