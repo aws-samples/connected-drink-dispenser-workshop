@@ -25,7 +25,7 @@ Using Cloud9 is good because it gives a consistent compilation experience no mat
 
 Follow each step in order and use the *Click to open for detailed step-by-step instructions* if required.
 
-### Open New Browser Tab to Cloud9 Service and Launch IDE
+### 1. Open New Browser Tab to Cloud9 Service and Launch IDE
 
 From the webapp, open the *MY DETAILS* section and open a new browser tab or window to the Sign-in URL, then login in with the credentials provided. From the AWS Console, open a new tab to the *Cloud9* service. From the *Your Environments* menu, click on the *Open IDE* button for your user. This will open a new tab with the IDE and start up the EC2 instance (it may take a minute to fully launch).
 
@@ -41,7 +41,7 @@ From the webapp, open the *MY DETAILS* section and open a new browser tab or win
 
 {{% /expand%}}
 
-### Install Dependencies Needed For Compilation
+### 2. Install Dependencies Needed For Compilation
 
 With the IDE open, close the *Welcome* tab, and the click the green circled plus icon and select *New terminal* which will open a command line in the `~/environment` directory. Copy and paste the following lines in the terminal window to install the dependencies and the Xtensa toolchain for the microcontroller (ESP32). The final commands will add the toolchain to your `PATH` so the build process can execute correctly.
 
@@ -63,7 +63,7 @@ source ~/.bash_profile
 # ============= Finished installation of dependencies =============
 ```
 
-### Clone Workshop Repository
+### 3.Clone Workshop Repository
 
 The device firmware resides in the workshop's GitHub repository. Copy and paste the following lines to clone the repository locally and change to the directory where the compile operations will take place.
 
@@ -74,7 +74,7 @@ cd connected-drink-dispenser-workshop/device_firmware
 # ============= Finished installation of Connected Drink Dispenser repository =============
 ```
 
-### Verify Default Compilation
+### 4. Verify Default Compilation
 
 To verify that all components are in place, run the following commands to create the build environment in the `device_firmware` directory, then change to the build directory (it will be created in root of the repository, at `~/environment/connected-drink-dispenser-workshop/build`). 
 

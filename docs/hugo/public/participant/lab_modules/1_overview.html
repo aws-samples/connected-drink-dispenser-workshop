@@ -663,19 +663,19 @@
 
 <p><img src="../../images/lab1_cloud_overview.png" alt="Cloud Architecture" width="70%"/></p>
 
-<p>When interacting with the cloud, the CDD utilizes two main paths, AWS IoT Core for MQTT communication and then a webapp with authentication to interact with the device and supporting databases.</p>
+<p>When interacting with the cloud, the architecture utilizes two main paths, AWS IoT Core for MQTT communication and then a webapp with authentication to interact with the device and supporting databases.</p>
 
 <ul>
-<li><strong>IoT Bi-Directional Communication</strong> - This section uses MQTT to communicate bi-directionally between the AWS cloud and the device. We also use MQTT to notify the webapp user when there have been activities. This eliminates the need for constant polling and only to query via API when there is information to update.</li>
-<li><strong>API Logic</strong> - Most operations are completed via API calls. By using user authentication, each call can be verified to the specific dispenser via the AWS Lambda functionality.</li>
-<li><strong>Webapp and Authentication/Authorization</strong> - This uses Amazon Cognito to authenticate users and provide a Jason Web Token (JWT) with signed attributes such as the corresponding drink dispenser id. The vended credentials are then use to make API calls and to establish a persistent connection to AWS IoT.</li>
+<li><strong>IoT Bi-Directional Communication</strong> (upper path) - This section uses MQTT to communicate bi-directionally between the AWS cloud and the device. We also use MQTT to notify the webapp user when there have been activities. This eliminates the need for constant polling and only to query via API when there is information to update.</li>
+<li><strong>API Logic</strong> (both paths) - Most operations are completed via API calls. By using user authentication, each call can be verified to the specific dispenser via the AWS Lambda functionality.</li>
+<li><strong>Webapp and Authentication/Authorization</strong> (lower path) - This uses Amazon Cognito to authenticate users and provide a Jason Web Token (JWT) with signed attributes such as the corresponding drink dispenser id. The vended credentials are then use to make API calls and to establish a persistent connection to AWS IoT.</li>
 </ul>
 
 <h3 id="2-user-and-dispenser-relationships">2. User and Dispenser Relationships</h3>
 
 <p><img src="../../images/lab1_user_dispenser_relationship.png" alt="User and Dispenser Relationships" width="70%"/></p>
 
-<p>For each individual user, there is a set of resources created and related during the user account creation process. A user, <code>foo</code>, authenticates with Cognito and is returned a signed JWT that contains information used by the webapp and API Gateway. For instance, user <code>foo</code> is associated with dispenserId of <code>123</code>. Any API calls made use the <code>dispenserId</code> attribute to ensure that requests are only for the user&rsquo;s dispenser and not someone elses. The value is also used to send and receive messages on specific MQTT topics so that one dispenser cannot be affected by another dispensers actions. This is a common field used throughout the backend cloud services.</p>
+<p>For each individual user, there is a set of resources created and related during the user account creation process. A user, <code>foo</code>, authenticates with Cognito and is returned a signed <a href="https://en.wikipedia.org/wiki/JSON_Web_Token">JSON Web Token</a> (JWT) that contains information used by the webapp and API Gateway. For instance, user <code>foo</code> is associated with dispenserId of <code>123</code>. Any API calls made use the <code>dispenserId</code> attribute to ensure that requests are only for the user&rsquo;s dispenser and not someone elses. The value is also used to send and receive messages on specific MQTT topics so that one dispenser cannot be affected by another dispenser&rsquo;s actions. This is a common field used throughout the backend cloud services.</p>
 
 <h3 id="3-dispenser-operations">3. Dispenser Operations</h3>
 
@@ -683,7 +683,7 @@
 
 <p>Your dispenser will only use MQTT to communicate with the cloud services. There are two main methods that a device uses to communicate. The first is through regular topics such as <code>telem/123</code> where the device can <em>subscribe</em> to receive messages, or it can <em>publish</em> messages directly to the topic. In this case, <code>telem</code> indicates <em>telemetry</em> and normally would be messages sent from the device to the cloud.</p>
 
-<p>For this workshop. we actually will use the <em>shadow</em> set of topics. This is a provided service of AWS IoT that tracks the state of a device. Each device has both a <em>desired</em> and <em>reported</em> state. It is common that cloud services would set the <em>desired</em> state, and the next time the device is online, it would read those values, set them locally, and update the <em>reported</em> state accordingly.</p>
+<p>For this workshop. instead of command topics you will actually use the <em>shadow</em> set of topics. This is a provided service of AWS IoT that tracks the state of a device. Each device has both a <em>desired</em> and <em>reported</em> state. It is common that cloud services would set the <em>desired</em> state, and the next time the device is online, it would read those values, set them locally, and update the <em>reported</em> state accordingly.</p>
 
 <p>A device can also use the <em>delta</em> state that tracks the difference between desired and reported states.</p>
 
@@ -712,7 +712,7 @@
 }</code></pre></div>
 <p>In this example, there are two values that have been requested to be changed, <code>led</code> and <code>dispense_time_ms</code>, as reported by the <em>delta</em> state.</p>
 
-<p>Finally, there are AWS IoT <em>Rules</em> that are triggered upon the content of messages published. In the diagram above, the IoT rule is triggered when the shadow document changes, passing the details to a Lambda function that will write this to the Events database table.</p>
+<p>Finally, there are AWS IoT <em>Rules</em> that are triggered upon the content of messages published. In the diagram above, the IoT rule <em>LogEvent</em> is triggered when the shadow document changes, passing the details to an AWS Lambda function that will write the parsed message content to the Events database table.</p>
 
 <h2 id="checkpoints">Checkpoints</h2>
 

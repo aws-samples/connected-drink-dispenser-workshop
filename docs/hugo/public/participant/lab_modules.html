@@ -650,20 +650,6 @@
 
 <p>These are the labs to complete in order:</p>
 
-<p>TODO: Complete each bullet point lab</p>
-
-<ol>
-<li><del>Workshop overview and diagrams - Gavin - Understand relationship of user to dispenser, and AWS components used</del> - completed</li>
-<li><del>Local laptop setup - Gavin - Install serial drivers and software to flash and monitor connected ESP32</del> - completed</li>
-<li><del>Create workshop user account - Gavin - Create account, log in, download and describe user details section</del></li>
-<li><del>Build ESP32 + Carrier - Gavin - Install ESP32 into carrier, connect via USB to laptop, verify monitor command works. This time will allow C9 to complete</del></li>
-<li><del>Build C9 development environment and compile code - Gavin - Clone repo and the pull in ESP IDP components to dispenser code, build code, download</del></li>
-<li>Flash and test - Anton - Verify that ESP32 starts up, connects, and provides validation of shadow. If not, move back to previous lab with hints</li>
-<li><del>Investigate app and AWS account - Gavin - From console, IoT subscribe to shadow then click on LED on/off/toggle, view operations. Click on dispense (with $1), note change of Neo pixel LEDs. Share the love and build up at least $1/$2 in credits.</del></li>
-<li>Build the dispenser - Anton - Complete hardware build with explanation of how different components work, and why.</li>
-<li><del>Test - Gavin - Use their dispenser or optionally pre-built ones.</del></li>
-</ol>
-
 
 
 
@@ -696,7 +682,7 @@
 				
 					
 <p>Objectives In this initial lab, we will go through the overall architecture of the CDD. At the end of the lab, you will come away with the understanding of:
- The cloud components for interacting with the dispenser How user accounts, things, and database entries are interrelated How the dispenser updates local status ands responds to dispense commands  Steps to Complete 1. Overall Cloud Architecture When interacting with the cloud, the CDD utilizes two main paths, AWS IoT Core for MQTT communication and then a webapp with authentication to interact with the device and supporting databases.</p>
+ The cloud components for interacting with the dispenser How user accounts, things, and database entries are interrelated How the dispenser updates local status ands responds to dispense commands  Steps to Complete 1. Overall Cloud Architecture When interacting with the cloud, the architecture utilizes two main paths, AWS IoT Core for MQTT communication and then a webapp with authentication to interact with the device and supporting databases.</p>
 					
 				
 			
@@ -714,7 +700,7 @@
 				
 					
 <p>Objectives In this lab you will configure your laptop for the workshop. By the end of the module you will:
- Have a directory or folder to hold all the files required for your dispenser Have installed and tested a device driver to communicate with the microcontroller Downloaded a command line utility to program (flashed) the microcontroller Have an open terminal or command prompt ready to issue commands  The microcontroller is programmed, or flashed, via a USB serial connection from a computer or laptop.</p>
+ Have a local directory or folder to hold all the files required for your dispenser Have installed and tested a device driver to communicate with the microcontroller Downloaded a command line utility to program (flashed) the microcontroller Have an open terminal or command prompt ready to issue commands, and verified that the microcontroller appears as a serial device  The microcontroller is programmed, or flashed, via a USB serial connection from a computer or laptop.</p>
 					
 				
 			
@@ -826,7 +812,7 @@ An understanding of the relationship between the dispenser (Thing), your Cognito
 					
 <p>Objectives Statement of what and why we are doing this. Then more detailed list if needed.
 Steps to Complete Follow each step in order and use the Click to open for detailed step-by-step instructions if required.
-Specific action to complete Short description of what to do for experienced people
+1. Specific action to complete Short description of what to do for experienced people
   Click to open for detailed step-by-step instructions   detailed steps with markdown.
   Checkpoints Please ensure the following checkpoints are validated before moving on to the next module.</p>
 					

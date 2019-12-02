@@ -28,7 +28,7 @@ Follow each step in order and use the *Click to open for detailed step-by-step i
 The following steps are if you are using your own dispenser. If you elect to use one of the pre-built ones, bring your microcontroller (the ESP32) to one of the pre-built stations. Be careful when removing from the controller board as its easy to bend the pins on the ESP32.
 {{% /notice %}}
 
-### Power On the Dispenser
+### 1. Power On the Dispenser
 
 After completing the build step, ensure there is liquid in the bottle, an empty cup underneath, then connect the 9 Volt battery instead of the USB cable for power. Wait until the dispenser is online by viewing the LED status. Now. from 6 inches or 6 feet away click _DISPENSE!_ to pour yourself a drink!
 

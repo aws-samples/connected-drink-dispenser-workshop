@@ -24,7 +24,7 @@ By the end of the module you will have:
 
 Follow each step in order and use the *Click to open for detailed step-by-step instructions* if required.
 
-### Modify the Source Files for Your Dispenser
+### 1. Modify the Source Files for Your Dispenser
 
 The X.509 client certificate and private key you downloaded earlier to your laptop's `cdd` directory uniquely identify your dispenser from all others. In order to communicate to AWS IoT core, the firmware must be configured with this information. To do so, you need to modify two of the source files in in `device_firmware/demos/include` with the following:
 
@@ -83,7 +83,7 @@ The WiFi SSID must be entered exactly as given. Also, for the certificate and pr
 
 {{% /expand%}}
 
-### Compile and Download the Code from Cloud9
+### 2. Compile and Download the Code from Cloud9
 
 After saving the updated files, click on the terminal window where you did the compile steps in the previous lab. Run the `make` command again which will pick up the file changes and recompile the firmware.
 
@@ -118,7 +118,7 @@ In your laptop's `cdd` directory you should now have these three files.
 {{% /expand%}}
 
 
-### Flash and Monitor the Microcontroller from Your Laptop
+### 3. Flash and Monitor the Microcontroller from Your Laptop
 
 The final step in the modify->build->download->flash sequence is to flash the microcontroller. Connect the microcontroller to your laptop. Next, from the command prompt or terminal opened earlier, ensure you are in the `cdd` directory and then use *esptool* to flash.
 

@@ -17,7 +17,7 @@ Statement of what and why we are doing this. Then more detailed list if needed.
 
 Follow each step in order and use the *Click to open for detailed step-by-step instructions* if required.
 
-### Specific action to complete
+### 1. Specific action to complete
 
 Short description of what to do for experienced people
 

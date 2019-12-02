@@ -655,16 +655,16 @@
 <p>In this lab you will configure your laptop for the workshop. By the end of the module you will:</p>
 
 <ul>
-<li>Have a directory or folder to hold all the files required for your dispenser</li>
+<li>Have a local directory or folder to hold all the files required for your dispenser</li>
 <li>Have installed and tested a device driver to communicate with the microcontroller</li>
 <li>Downloaded a command line utility to program (flashed) the microcontroller</li>
-<li>Have an open terminal or command prompt ready to issue commands</li>
+<li>Have an open terminal or command prompt ready to issue commands, and verified that the microcontroller appears as a serial device</li>
 </ul>
 
 <p>The microcontroller is programmed, or flashed, via a USB serial connection from a computer or laptop. Based on the microcontroller chipset, a specific driver is required.</p>
 
 
-<div class="notices note" ><p>Each persons laptop is unique and the general instructions may not work for a variety of reasons such as having a older version of the driver loaded, insufficient permissions to install, or older versions of Operating Systems. Please ensure that the checkpoint at the end has been completed prior to starting the next lab.</p>
+<div class="notices note" ><p>Each persons laptop is unique and the general instructions may not work for a variety of reasons such as having a older version of the driver loaded, insufficient permissions to install, or older versions of Operating Systems. Please ensure that the checkpoint at the end has been completed prior to starting the next lab. If you run into problems, please <em>ask fro assistance from a workshop assistant.</em></p>
 </div>
 
 
@@ -690,8 +690,8 @@
     <div class="expand-content" style="display: none;">
         <ol>
 <li>Open a file browser for your operating system (Windows: Explorer, macOS: Finder) and navigate to the default download folder used by your web browser.</li>
-<li>Create a folder named <code>cdd</code> within Downloads.</li>
-<li>Leave the file browser open as we will be using it to move files around in later modules.</li>
+<li>Create a folder named <code>cdd</code> within Downloads and note the location</li>
+<li>Leave a file browser open as we will be using it to move files around in later modules.</li>
 </ol>
 
     </div>
@@ -699,7 +699,7 @@
 
 <h3 id="2-download-and-install-serial-driver">2. Download and Install Serial Driver</h3>
 
-<p>The microcontroller used in this workshop, the <a href="https://www.espressif.com/en/products/hardware/esp32-devkitc/overview">ESP32-DevKitC</a> has a built-in Silicon Labs CP210x serial controller. In order for you laptop to communicate, download and install the <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP210x USB to UART Bridge VCP Drivers</a> for your operating system. Follow the instructions <em>exactly</em>, you may be required to provide permissions to the driver and in some cases restart you laptop to complete the installation process.</p>
+<p>The microcontroller used in this workshop, the <a href="https://www.espressif.com/en/products/hardware/esp32-devkitc/overview">ESP32-DevKitC</a>, has a built-in Silicon Labs CP210x serial controller. In order for you laptop to communicate, download and install the <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP210x USB to UART Bridge VCP Drivers</a> for your operating system. Follow the instructions <em>exactly</em>, you may be required to provide permissions to the driver and in some cases restart you laptop to complete the installation process.</p>
 
 
 <div class="notices warning" ><p>Use the installer specific to the <em>exact version</em> of your operating system. Using the wrong driver will not work and may make it difficult to install the proper version later.</p>
@@ -727,9 +727,9 @@
 <p>Here are some tips for popular operating systems:</p>
 
 <ul>
-<li>Windows 10 - Unzip and use installer for either 32-bit or 64-bit. The VCP driver may have been installed by Windows Update, but using the SIlicon Labs provided driver will work with the ESP32-DevKitC.</li>
-<li>WIndows 7/8/8.1 - Use the default driver, <em>not</em> the serial emulation one. The VCP driver may have been installed by Windows Update, but using the SIlicon Labs provided driver will work with the ESP32-DevKitC. If the default driver does not work, you may try the other driver.</li>
-<li>macOS/OSX - Mount the DMG file, or use the legacy folder for OSX 10.9 or 101.10. <strong>NOTE:</strong> On MacOS 10.13 and later, the installation of the driver may be blocked. To unblock, open the System Preferences Security &amp; Privacy pane and unblock the system extension. See <a href="https://developer.apple.com/library/archive/technotes/tn2459/_index.html">Apple Technical Note TN2459</a> &ldquo;User-Approved Kernel Extension Loading&rdquo; for more information.</li>
+<li><strong>Windows 10</strong> - Unzip and use the installer for either 32-bit or 64-bit. The VCP driver may have been installed by Windows Update, but using the Silicon Labs provided driver will work with the ESP32-DevKitC.</li>
+<li><strong>Windows 7/8/8.1</strong> - Use the default driver, <em>not</em> the serial emulation one. The VCP driver may have been installed by Windows Update, but using the Silicon Labs provided driver will work with the ESP32-DevKitC. If the default driver does not work, you may try the other driver.</li>
+<li><strong>macOS/OSX</strong> - Mount the DMG file, or use the legacy folder for OSX 10.9 or 101.10. <strong>NOTE:</strong> On MacOS 10.13 and later, the installation of the driver may be blocked. To unblock, open the System Preferences Security &amp; Privacy pane and unblock the system extension. See <a href="https://developer.apple.com/library/archive/technotes/tn2459/_index.html">Apple Technical Note TN2459</a> &ldquo;User-Approved Kernel Extension Loading&rdquo; for more information.</li>
 </ul>
 
     </div>
@@ -783,7 +783,7 @@
 
 <h3 id="4-open-command-line-interface-and-test-all-components">4. Open Command Line Interface and Test All Components</h3>
 
-<p>Before testing, remove the ESP32 microcontroller (labeled as <em>Provided ESP32</em>) from the zip-top bag:
+<p>Before testing, remove the ESP32 microcontroller (labeled as <em>Provided ESP32</em>) and USB cable from the zip-top bag:
 <img src="../../images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/></p>
 
 <p>To interact with the microcontroller you will use a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the <code>cdd</code> directory you created. Verify that you can run the esptool command, and then verify that when you connect the ESP32 via the USB cable that a new serial device is created.</p>

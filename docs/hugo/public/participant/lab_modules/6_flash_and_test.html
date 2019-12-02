@@ -613,9 +613,9 @@
 <li><a href="#objectives">Objectives</a></li>
 <li><a href="#steps-to-complete">Steps to Complete</a>
 <ul>
-<li><a href="#modify-the-source-files-for-your-dispenser">Modify the Source Files for Your Dispenser</a></li>
-<li><a href="#compile-and-download-the-code-from-cloud9">Compile and Download the Code from Cloud9</a></li>
-<li><a href="#flash-and-monitor-the-microcontroller-from-your-laptop">Flash and Monitor the Microcontroller from Your Laptop</a></li>
+<li><a href="#1-modify-the-source-files-for-your-dispenser">1. Modify the Source Files for Your Dispenser</a></li>
+<li><a href="#2-compile-and-download-the-code-from-cloud9">2. Compile and Download the Code from Cloud9</a></li>
+<li><a href="#3-flash-and-monitor-the-microcontroller-from-your-laptop">3. Flash and Monitor the Microcontroller from Your Laptop</a></li>
 </ul></li>
 <li><a href="#checkpoints">Checkpoints</a></li>
 <li><a href="#outcomes">Outcomes</a></li>
@@ -665,7 +665,7 @@
 
 <p>Follow each step in order and use the <em>Click to open for detailed step-by-step instructions</em> if required.</p>
 
-<h3 id="modify-the-source-files-for-your-dispenser">Modify the Source Files for Your Dispenser</h3>
+<h3 id="1-modify-the-source-files-for-your-dispenser">1. Modify the Source Files for Your Dispenser</h3>
 
 <p>The X.509 client certificate and private key you downloaded earlier to your laptop&rsquo;s <code>cdd</code> directory uniquely identify your dispenser from all others. In order to communicate to AWS IoT core, the firmware must be configured with this information. To do so, you need to modify two of the source files in in <code>device_firmware/demos/include</code> with the following:</p>
 
@@ -777,7 +777,7 @@
     </div>
 </div>
 
-<h3 id="compile-and-download-the-code-from-cloud9">Compile and Download the Code from Cloud9</h3>
+<h3 id="2-compile-and-download-the-code-from-cloud9">2. Compile and Download the Code from Cloud9</h3>
 
 <p>After saving the updated files, click on the terminal window where you did the compile steps in the previous lab. Run the <code>make</code> command again which will pick up the file changes and recompile the firmware.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd ~/environment/connected-drink-dispenser-workshop/device_firmware/build
@@ -816,7 +816,7 @@ make all -j4</code></pre></div>
     </div>
 </div>
 
-<h3 id="flash-and-monitor-the-microcontroller-from-your-laptop">Flash and Monitor the Microcontroller from Your Laptop</h3>
+<h3 id="3-flash-and-monitor-the-microcontroller-from-your-laptop">3. Flash and Monitor the Microcontroller from Your Laptop</h3>
 
 <p>The final step in the modify-&gt;build-&gt;download-&gt;flash sequence is to flash the microcontroller. Connect the microcontroller to your laptop. Next, from the command prompt or terminal opened earlier, ensure you are in the <code>cdd</code> directory and then use <em>esptool</em> to flash.</p>
 

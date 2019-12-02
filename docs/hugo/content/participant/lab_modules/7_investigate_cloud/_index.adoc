@@ -25,7 +25,7 @@ By then end of this module you will have:
 
 Follow each step in order and use the *Click to open for detailed step-by-step instructions* if required.
 
-=== Understand the AWS IoT Thing, Cognito User, and DynamoDB Table Relationships
+=== 1. Understand the AWS IoT Thing, Cognito User, and DynamoDB Table Relationships
 
 As this solution is designed as a software-as-a-service (SaaS) environment, there needs to be a specific relationship between all of the resources to help enforce the security and operational controls of the actions. At a high level this is how the resources are associated with each other:
 
@@ -125,7 +125,7 @@ Notice that all of the resources use the substitution variable `${iot:Certificat
 
 {{% /expand%}}
 
-=== Monitor Shadow Changes for a Simple Operation (toggle LED Ring status)
+=== 2. Monitor Shadow Changes for a Simple Operation (toggle LED Ring status)
 
 The https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html[Device Shadow Service for AWS IoT] is a service that can be used by things and applications to set and track the state of device. There are two main sections in the shadow document: the _desired_ state and the _reported_ state. In our solution the desired settings originate from the webapp. The dispenser acts upon them and set the correct reported state.
 
@@ -256,7 +256,7 @@ NOTE: In this expanded details section, we will only use a small subset of the e
 ----
 {{% /expand%}}
 
-=== Monitor Shadow  MQTT topics for a Complex Operation (Dispense Drink)
+=== 3. Monitor Shadow  MQTT topics for a Complex Operation (Dispense Drink)
 
 The shadow can also be used for more complex operations. While changing the state of the LED can be tracked via a single attribute, operations such as dispensing a drink are more complex and require multiple states such as _request_ and _response_. The webapp initiates the dispense operation as a _request_, and when the dispenser completes the operation it, in turn, sets a corresponding _response_. We use a short, random, `requestId` value to match the correlate the _request_ and _response_ states.
 
@@ -327,13 +327,13 @@ In this situation, we are using the shadow to track the status of a command sent
 
 {{% /expand%}}
 
-=== Review Logging and Credits
+=== 4. Review Logging and Credits
 
 Oops! While testing how the Shadow works We used up all of our credits. Each dispense operation costs $1.00, and has been deducted from our dispenser credit, as shown by the webapp. Navigate to the DynamoDB _DispenserTable_ and verify the credits match the webapp. Also, review the _EventsTable_ for your dispenser (review the first steps in this lab if needed) to see the various logging entries made while testing the Ring LED and drink dispense test.
 
 We use these tables as the _source of truth_ for the status of our dispenser. While the dispenser code you compiled and installed could be modified, a dispense operation can only be performed if there are sufficient credits in the account (e.g., DynamoDB DispenserTable entry). We use the value of the `dispenserId` across the webapp (user account custom attribute), IoT Core (Thing name, Certificate CN) and DynamoDB DispenserTable (dispenserId key) to enforce the desired controls in the overall SaaS application.
 
-=== Webapp Overview
+=== 5. Webapp Overview
 
 The webapp is your main interface for interacting with the dispenser, eg to dispense a drink, and to check its state. As the webapp is running inside your local browser, there are two methods that can be used to track what is the current status. We can continuously https://en.wikipedia.org/wiki/Polling_(computer_science)[poll] via an API to return the status, or use a https://en.wikipedia.org/wiki/Callback_(computer_programming)[callback] mechanism to alert the webapp when something has changed. In our app we use the _callback_ method, and specifically it does this by subscribing to the MQTT topics for your specific dispenser. This reduces the overall load on the SaaS service and demonstrates how we can use the features of AWS IoT Core to simplify the implementation.
 
@@ -354,7 +354,7 @@ These messages then trigger the webapp to make an API call requesting the comple
 
 {{% /expand%}}
 
-=== Share the Love!
+=== 6. Share the Love!
 
 Now that we have shown how you interact with your dispenser via the webapp, let's build our credits up to a sufficient level to complete the rest of the lab. To do this, click on the _Share the Love!_ panel underneath the LED status panel and follow the instructions. First, try giving credit to another dispenser number and monitor the _Last credit response_ message (with or without browser logging). Next, try to give yourself credits and note that the gray button to the right does not change to _SEND CREDIT!_. This is a constraint built into the webapp. However, even if you were to make a direct API call, the backend will also deny the request.
 
