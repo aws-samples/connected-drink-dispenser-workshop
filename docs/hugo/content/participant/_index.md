@@ -9,7 +9,7 @@ weight: 10
 
 ## Welcome Workshop Participant!
 
-The Connected Drink Dispenser, or CDD, simulates a fleet of physical devices managed and controlled by a cloud-based architecture. The physical device, which you will build, can dispense a drink from a standard bottle such as soda or water through an controlled air-pump, and uses an ESP32 microcontroller (MCU) as the brains of the operation. Connectivity to AWS IoT is done through a Wi-Fi network connection, and interaction and local device control is performed by an Amazon FreeRTOS application running on the MCU.
+The Connected Drink Dispenser, or CDD, simulates a fleet of physical devices managed and controlled by a cloud-based architecture. The physical device, which you will build, can dispense a drink from a standard bottle such as soda or water through a controlled air-pump, and uses an ESP32 microcontroller (MCU) as the brains of the operation. Connectivity to AWS IoT is done through a Wi-Fi network connection, and interaction and local device control is performed by an Amazon FreeRTOS application running on the MCU.
 
 <img src="/images/lab2_esp32_connection.png" alt="ESP32 Microcontrollert" height="400"/>
 
@@ -25,8 +25,8 @@ This section of the document covers the exercises you will be working through to
 
 * **Comprehension over completion** - Each module will start with a set of objectives, a step-by-step walk through on *how* to complete. Besides the *how*, there will be a set of *why* takeaways which will be helpful in the future when using these skills.
 
-* **Lab context** - Some modules be more of seeing what happens when certain operations that place. These will be put into context for the overall architecture of the Connected Drink Dispenser workshop.
+* **Lab context** - Some modules are more of seeing what happens when certain operations that place. These will be put into context for the overall architecture of the Connected Drink Dispenser workshop.
 
 You can navigate either from the menu to the left, or by using the blue navigation arrows (<span style="color:blue"><</span> and <span style="color:blue">></span>) to move forward or back a page.
 
-Let's get started by navigating *forward* to *Activities Page*!
+Let's get started by navigating *forward* to the *Lab Modules Page*!

@@ -22,17 +22,4 @@ There are various modules to complete in this workshop. Each module has a specif
 
 These are the labs to complete in order:
 
-TODO: Complete each bullet point lab
-
-1. ~~Workshop overview and diagrams - Gavin - Understand relationship of user to dispenser, and AWS components used~~ - completed
-1. ~~Local laptop setup - Gavin - Install serial drivers and software to flash and monitor connected ESP32~~ - completed
-1. ~~Create workshop user account - Gavin - Create account, log in, download and describe user details section~~
-1. ~~Build ESP32 + Carrier - Gavin - Install ESP32 into carrier, connect via USB to laptop, verify monitor command works. This time will allow C9 to complete~~
-1. ~~Build C9 development environment and compile code - Gavin - Clone repo and the pull in ESP IDP components to dispenser code, build code, download~~
-1. Flash and test - Anton - Verify that ESP32 starts up, connects, and provides validation of shadow. If not, move back to previous lab with hints
-1. ~~Investigate app and AWS account - Gavin - From console, IoT subscribe to shadow then click on LED on/off/toggle, view operations. Click on dispense (with $1), note change of Neo pixel LEDs. Share the love and build up at least $1/$2 in credits.~~
-1. Build the dispenser - Anton - Complete hardware build with explanation of how different components work, and why.
-1. ~~Test - Gavin - Use their dispenser or optionally pre-built ones.~~
-
-
 {{% children description="true"   %}}

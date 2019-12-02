@@ -23,7 +23,7 @@ By the end of this module you will:
 Building the dispenser takes up a lot of room. For now, just remove the parts mentioned below and leave the rest in the zip-top bag. Promise: you *will* build the entire dispenser!
 {{% /notice %}}
 
-## Few words on the components
+## A Few words on the Components
 
 The LED Ring is controlled by the microprocessor, and is used to display the status of the overall application. It is powered and controlled by the microcontroller and the firmware you will compile and flash.
 
