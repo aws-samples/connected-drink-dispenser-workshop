@@ -15,7 +15,7 @@ virtual_dispenser/
 cdk.out/
 cdk.egg-info/
 # config files (may contain specific info)
-cdk/config.json
+deploy/config.json
 deploy/tests/*.json
 
 # SAM/CloudFormation build artifacts
