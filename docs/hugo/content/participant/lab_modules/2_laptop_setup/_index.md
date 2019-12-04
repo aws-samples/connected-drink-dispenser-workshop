@@ -125,7 +125,7 @@ When you have verified the previous step, remove the USB cable from the laptop a
 
 For macOS and Linux, you will use the built-in `screen` utility to connect to and monitor the microcontroller. There is no configuration required.
 
-{{% expand "Click to open for detailed step-by-step instructions for macOS" %}}
+{{% expand "Click to open for detailed step-by-step instructions for macOS and Linux" %}}
 
 1. Check what serial ports are in use *before* connecting the ESP32.
     1. `ls -l /dev/tty.*` will show the ports. You should *not* see a `tty.SLAB_USBtoUART` entry yet.
@@ -150,7 +150,11 @@ For macOS and Linux, you will use the built-in `screen` utility to connect to an
 1. To exit press press `CRTL+a d` and confirm with `y`
 1. Remove the USB cable from both the microcontroller and your laptop.
 
-{{% expand %}}
+{{% notice warning %}}
+In macOS or Linux you might not get any error, but flashing the firmware will not work if you have an ongoing `screen` session. Check it by running `screen -ls` at the command prompt and kill any existing session before trying to flash the firmware again.
+{{% /notice %}}
+
+{{% /expand %}}
 
 For Windows, you can either use a serial application already installed or download and use PuTTY.
 
@@ -179,7 +183,7 @@ For Windows, you can either use a serial application already installed or downlo
 {{% notice warning %}}
 Only one application at a time can access a serial port. When working with *esptool*, you will have to close the PuTTY console before flashing the firmware. If you get an error about *port in use or unavailable*, this is most likely the reason. Close the Putty Console and try again.
 
-In macOS you might not get any error, but flashing the firmware will not work if you have an ongoing `screen` session. Check it by running `screen -ls` at the command prompt and kill any existing session before trying to flash the firmware again
+In macOS you might not get any error, but flashing the firmware will not work if you have an ongoing `screen` session. Check it by running `screen -ls` at the command prompt and kill any existing session before trying to flash the firmware again.
 {{% /notice %}}
 
 {{% /expand%}}

@@ -85,9 +85,9 @@ It is very easy to accidentally bend the pins on the microcontroller. Turn over 
 
 ### 4. Connect the Microcontroller to Your Laptop and Test Serial Communication
 
-Insert the USB cable's Micro USB connector end into the microcontroller, and the Type-A connector into your laptop. The red LED on the microcontroller indicates power, and the Ring LED *may* light up. Next, check that the serial port tested in the *Laptop Setup* module is there. Use the serial monitoring software to connect to the serial port. Press the button to the left of the USB connection (reset) and verify that you see text srolling in the serial monitor window after each press. Exit your monitoring software.
+Insert the USB cable's Micro USB connector end into the microcontroller, and the Type-A connector into your laptop. The red LED on the microcontroller indicates power, and the Ring LED *may* light up, but if it doesn't, that is okay. Next, check that the serial port tested in the *Laptop Setup* module is there. Use the serial monitoring software to connect to the serial port. Press the button to the left of the USB connection (reset) and verify that you see text srolling in the serial monitor window after each press. Exit your monitoring software.
 
-<img src="/images/lab4_plugged_in.png" alt="Controller Plugged In" height="400"/>
+<!-- <img src="/images/lab4_plugged_in.png" alt="Controller Plugged In" height="400"/> -->
 
 {{% notice info %}}
 A Micro USB to Type-A cable is provided as part of the kit. If your laptop only has Type-C connector and you have a Micro USB to Type-C cable, make sure that it supports *both* power and data connections. The workshop presenter may have Micro USB to Type-C cables to loan out.
@@ -96,7 +96,7 @@ A Micro USB to Type-A cable is provided as part of the kit. If your laptop only 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
 1. Insert the USB cable into the microcontroller, and then your laptop and verify that red LED on the microcontroller is lit, showing that the microcontroller is powered up. 
-1. Use the serial monitoring tool to verify that the serial port for your laptop works. In some cases, especially in Windows, the COM port number might change after each connection. Check you are using the correct one.
+1. Use the serial monitoring tool (either `screen` or PuTTY) that you installed in the previous lab, verify that the serial port for your laptop works. In some cases, especially in Windows, the COM port number might change after each connection. Check you are using the correct one.
 1. Press the button to the left of the USB connection and verify you see text after each press. It should look similar to this:
 
     ```
@@ -121,13 +121,18 @@ A Micro USB to Type-A cable is provided as part of the kit. If your laptop only 
 1. Exit the monitoring program. You may leave the microcontroller attached if you like.
 {{% /expand%}}
 
+{{% notice warning %}}
+If after connecting the microcontroller, the controller board, *and* the LED, you get errors about *insufficient* power or the red LED doesn't not stay lit, your laptop or USB adapter may not be able to provide sufficient power. In that case, remove the microcontroller and connect a 9 volt battery to the controller board. It is connector under the microcontroller and *not* the one on the back next to LED Ring connector.
+{{% /notice %}}
+
 ## Checkpoints
 
 Please ensure the following checkpoints are validated before moving on to the next module.
 
 1. The LED Ring and the microcontroller are connected to the Controller Board.
-1. The microcontroller has power when connected to your laptop.
-1. You can see text via the serial monitoring tool.
+1. The microcontroller has power when connected to your laptop and that the onboard LED is lit and there are not messages indicating insufficient power.
+1. You can see text via the serial monitoring tool when you press the reboot button.
+1. You have exiting PuTTY or `screen` (`CTRL-a d`, the `y`).
 
 ## Outcomes
 

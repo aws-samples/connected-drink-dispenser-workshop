@@ -699,7 +699,7 @@
 
 <h3 id="2-download-and-install-serial-driver">2. Download and Install Serial Driver</h3>
 
-<p>The microcontroller used in this workshop, the <a href="https://www.espressif.com/en/products/hardware/esp32-devkitc/overview">ESP32-DevKitC</a>, has a built-in Silicon Labs CP210x serial controller. In order for you laptop to communicate, download and install the <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP210x USB to UART Bridge VCP Drivers</a> for your operating system. Follow the instructions <em>exactly</em>, you may be required to provide permissions to the driver and in some cases restart you laptop to complete the installation process.</p>
+<p>The microcontroller used in this workshop, the <a href="https://www.espressif.com/en/products/hardware/esp32-devkitc/overview">ESP32-DevKitC</a>, has a built-in Silicon Labs CP210x serial controller. In order for you laptop to communicate with the microcontroller you need to download and install the <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP210x USB to UART Bridge VCP Drivers</a> for your operating system. Follow the instructions <em>exactly</em>, you may be required to provide permissions to the driver and in some cases restart you laptop to complete the installation process.</p>
 
 
 <div class="notices warning" ><p>Use the installer specific to the <em>exact version</em> of your operating system. Using the wrong driver will not work and may make it difficult to install the proper version later.</p>
@@ -737,7 +737,7 @@
 
 <h3 id="3-download-and-install-esptool">3. Download and Install esptool</h3>
 
-<p>To interact with the microcontroller via the serial USB connection, there is a specific application to be used called <em>esptool</em>. A pre-built executable can be downloaded <a href="https://dl.espressif.com/dl/esptool-2.6.1-macos.tar.gz">here for macOS</a> and <a href="https://dl.espressif.com/dl/esptool-2.6.1-windows.zip">here for Windows</a>. Unzip or untar the file and place the file in the <code>cdd</code> directory.</p>
+<p>To be able to flash the firmware to the microcontroller we need to install a specific application called <em>esptool</em>. A pre-built executable can be downloaded <a href="https://dl.espressif.com/dl/esptool-2.6.1-macos.tar.gz">here for macOS</a> and <a href="https://dl.espressif.com/dl/esptool-2.6.1-windows.zip">here for Windows</a>. Unzip or untar the file and place the file in the <code>cdd</code> directory.</p>
 
 <p>For Linux users, or if you prefer to have it  installed as a Python package, <a href="https://github.com/espressif/esptool">follow the instructions</a> for your operating system to install the application. If installed correctly the command should accessible from any directory.</p>
 
@@ -783,8 +783,13 @@
 
 <h3 id="4-open-command-line-interface-and-test-all-components">4. Open Command Line Interface and Test All Components</h3>
 
-<p>Before testing, remove the ESP32 microcontroller (labeled as <em>Provided ESP32</em>) and USB cable from the zip-top bag:
-<img src="../../images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/></p>
+<p>Before testing, remove the ESP32 microcontroller (labeled as <em>Provided ESP32</em>) and USB cable from the zip-top bag:</p>
+
+<p><img src="../../images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/></p>
+
+
+<div class="notices info" >Ensure that you have installed both the <strong>esptool</strong> and the <strong>USB to serial</strong> device driver before continuing</div>
+
 
 <p>To interact with the microcontroller you will use a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the <code>cdd</code> directory you created. Verify that you can run the esptool command, and then verify that when you connect the ESP32 via the USB cable that a new serial device is created.</p>
 
@@ -820,12 +825,32 @@ usage: esptool <span style="color:#f92672">[</span>-h<span style="color:#f92672"
     ...
 $</code></pre></div>
 <p>For Windows the command would be <code>esptool.exe</code>, and depending if you installed or just downloaded the file, for macOS/Linux <code>./esptool.py</code>, <code>./esptool</code> or just <code>esptool</code> may be the syntax needed. <strong><em>Note what syntax worked, as you will need to use that for when you get to flashing the microcontroller</em></strong>.</p></li>
+</ol>
 
-<li><p>Monitor what serial ports are in use <em>before</em> connecting the ESP32.</p>
+    </div>
+</div>
+
+<h3 id="5-download-or-configure-serial-monitor-tool">5. Download or Configure Serial Monitor Tool</h3>
+
+<p>For macOS and Linux, you will use the built-in <code>screen</code> utility to connect to and monitor the microcontroller. There is no configuration required.</p>
+
+
+<div class="expand">
+    <div class="expand-label" style="cursor: pointer;text-decoration: underline" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-circle-down' : 'fas fa-chevron-circle-right';});});">
+        <i style="font-size:large;" class="fas fa-chevron-circle-right"></i>
+        <span>
+        
+    	
+    	Click to open for detailed step-by-step instructions for macOS and Linux
+    	
+    	</span>
+    </div>
+    <div class="expand-content" style="display: none;">
+        <ol>
+<li>Check what serial ports are in use <em>before</em> connecting the ESP32.
 
 <ol>
-<li>For Windows, <a href="https://superuser.com/questions/1059447/how-to-check-com-ports-in-windows-10">check the current COMx ports</a>. Note that as you connect and disconnect the ESP32, the COMx number may change for each connection.</li>
-<li>For macOS, <code>ls -l /dev/tty.*</code> will show the ports. You should <em>not</em> see a <code>tty.SLAB_USBtoUART</code> entry yet.</li>
+<li><code>ls -l /dev/tty.*</code> will show the ports. You should <em>not</em> see a <code>tty.SLAB_USBtoUART</code> entry yet.</li>
 <li>For Linux, <code>ls -l /dev/tty.*</code> and note the port numbers.</li>
 </ol></li>
 
@@ -838,17 +863,22 @@ $ ls /dev/tty.*
 $ <span style="color:#75715e"># After connecting as above</span>
 /dev/tty.Bluetooth-Incoming-Port /dev/tty.SLAB_USBtoUART</code></pre></div></li>
 
-<li><p>Remove the USB cable from both the microcontroller and your laptop.</p></li>
+<li><p>Run the following command and observe if output is showed in the terminal</p>
 
-<li><p>Run the <em>esptool</em> command and note which syntax works for you.</p></li>
+<pre><code>$ screen /dev/tty.SLAB_USBtoUART 115200
+&lt;a bunch of line should be printed&gt;
+</code></pre></li>
+
+<li><p>To exit press press <code>CRTL+a d</code> and confirm with <code>y</code></p></li>
+
+<li><p>Remove the USB cable from both the microcontroller and your laptop.</p></li>
 </ol>
+
+<div class="notices warning" ><p>In macOS or Linux you might not get any error, but flashing the firmware will not work if you have an ongoing <code>screen</code> session. Check it by running <code>screen -ls</code> at the command prompt and kill any existing session before trying to flash the firmware again.</p>
+</div>
 
     </div>
 </div>
-
-<h3 id="5-download-or-configure-serial-monitor-tool">5. Download or Configure Serial Monitor Tool</h3>
-
-<p>For macOS and Linux, you will use the built-in <code>screen</code> utility to connect to and monitor the microcontroller. There is no configuration required.</p>
 
 <p>For Windows, you can either use a serial application already installed or download and use PuTTY.</p>
 
@@ -872,16 +902,24 @@ $ <span style="color:#75715e"># After connecting as above</span>
 <p><img src="../../images/lab2_putty_installer.png" alt="Install PuTTY" />
 <img src="../../images/lab2_putty_setup.png" alt="Configure PuTTY" /></p></li>
 
-<li><p>Configure the <em>Serial line</em> and speed using the COMx port from above (e.g., <code>COM3</code> and <code>115200</code>).</p>
+<li><p>Select Session in the left panel, and Serial in the radio boxes list in the right panel. Do not use the Serial entry in the left panel</p></li>
+
+<li><p>Configure the <em>Serial line</em> using COMx port from above, and enter 115200 in the Speed field</p>
 
 <p><img src="../../images/lab2_putty_setup.png" alt="Open Port" /></p></li>
+
+<li><p>Create the session by clicking on <strong>Open</strong></p></li>
 
 <li><p>Open the Console to see the microcontroller output.</p>
 
 <p><img src="../../images/lab2_putty_console_output.png" alt="PuTTY Console Output" /></p></li>
+
+<li><p>Remove the USB cable from both the microcontroller and your laptop.</p></li>
 </ol>
 
 <div class="notices warning" ><p>Only one application at a time can access a serial port. When working with <em>esptool</em>, you will have to close the PuTTY console before flashing the firmware. If you get an error about <em>port in use or unavailable</em>, this is most likely the reason. Close the Putty Console and try again.</p>
+
+<p>In macOS you might not get any error, but flashing the firmware will not work if you have an ongoing <code>screen</code> session. Check it by running <code>screen -ls</code> at the command prompt and kill any existing session before trying to flash the firmware again.</p>
 </div>
 
     </div>
