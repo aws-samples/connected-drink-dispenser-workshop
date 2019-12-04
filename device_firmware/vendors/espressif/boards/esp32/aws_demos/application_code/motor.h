@@ -1,8 +1,8 @@
 #ifndef __MOTOR_H
 #define __MOTOR_H
 
-#define AIN1    34
-#define AIN2    35
+#define AIN1    26
+#define AIN2    27
 #define BIN1    12
 #define BIN2    14
 
