@@ -37,7 +37,9 @@ The X.509 client certificate and private key you downloaded earlier to your lapt
 | `aws_clientcredential_keys.h` | keyCLIENT_CERTIFICATE_PEM | Converted X.509 certificate (`nnn-certificate.pem.crt`)  content from <a href="../../../cred_formatter/index.html" target="_blank">Credential Formatter</a> |
 | `aws_clientcredential_keys.h` | keyCLIENT_PRIVATE_KEY_PEM | Converted certificate private key `nnn-private.pem.key`  content from <a href="../../../cred_formatter/index.html" target="_blank">Credential Formatter</a> |
 
-In Cloud9, navigate to the `device_firmware/demos/include` folder, then double-click on the two files above and modify the contents. The content of the `aws_clientcredential_keys.h` file should look similar to the following before and after copying the converted content of the two PEM files:
+In Cloud9, navigate to the `device_firmware/demos/include` folder, then double-click on the two files above and modify the contents. To modify the X.509 certificate and private key, use the <a href="../../../cred_formatter/index.html" target="_blank">Credential Formatter</a> and copy the converted PEM content into the file.
+
+The content of the `aws_clientcredential_keys.h` file should look similar to the following before and after copying the converted content of the two PEM files:
 
 **BEFORE**:
 ```
@@ -64,7 +66,7 @@ Once both files are modified, save them from the Cloud9 IDE. You can leave the t
 
 1. In each file reference above, replace the contents between the double-quotes. All values you need to replace start with `"REPLACE_WITH_..."`. For all values except *keyCLIENT_CERTIFICATE_PEM* and *keyCLIENT_PRIVATE_KEY_PEM*, you can simply copy and paste the value.
 
-1. For the *keyCLIENT_CERTIFICATE_PEM* and *keyCLIENT_PRIVATE_KEY_PEM* values, use the <a href="../../../cred_formatter/index.html" target="_blank">Credential Formatter</a>, the for **PEM Certificate or Key** browse to the downloaded certificate and private key (do each separately), then click on the *Display formatted PEM string to be copied into aws_clientcredential_keys.h*. That will display all the lines to replace for *keyCLIENT_CERTIFICATE_PEM* and *keyCLIENT_PRIVATE_KEY_PEM* respectively.
+1. For the *keyCLIENT_CERTIFICATE_PEM* and *keyCLIENT_PRIVATE_KEY_PEM* values, use the <a href="../../../cred_formatter/index.html" target="_blank">Credential Formatter</a>, then for **PEM Certificate or Key** browse to the downloaded certificate and private key (do each separately), then click on the *Display formatted PEM string to be copied into aws_clientcredential_keys.h*. That will display all the lines to replace for *keyCLIENT_CERTIFICATE_PEM* and *keyCLIENT_PRIVATE_KEY_PEM* respectively.
 
     Here are examples of what the WiFi and Certificate values should look like when done:
 
