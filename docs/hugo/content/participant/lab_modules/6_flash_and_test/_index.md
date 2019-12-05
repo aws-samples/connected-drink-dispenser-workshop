@@ -30,7 +30,7 @@ The X.509 client certificate and private key you downloaded earlier to your lapt
 
 | Firmware Source File  | `#define` Statement in File | Content  |
 |---|---|---|
-| `aws_clientcredential.h` | clientcredentialMQTT_BROKER_ENDPOINT | AWS IoT Endpoint value from *MY DETAILS* section of webapp  |
+| `aws_clientcredential.h` | clientcredentialMQTT_BROKER_ENDPOINT | AWS IoT Endpoint value from *MY DETAILS* section of dispenser app  |
 | `aws_clientcredential.h` | clientcredentialIOT_THING_NAME | Your assigned dispenser name (3-digit number) to use when connecting to the MQTT broker  |
 | `aws_clientcredential.h` | clientcredentialWIFI_SSID | WiFi network name provided by workshop presenter  |
 | `aws_clientcredential.h` | clientcredentialWIFI_PASSWORD | Provided password for the WiFi network  |
@@ -48,7 +48,6 @@ In Cloud9, navigate to the `device_firmware/demos/include` folder, then double-c
 ```
 #define keyCLIENT_CERTIFICATE_PEM                   "-----BEGIN CERTIFICATE-----\n"\
 "MIICxjCCAa6gAwIBAgIVAJhkG3c6wT05SEZKJ3OsVHrQov6nMA0GCSqGSIb3DQEB\n"\
-...
 "IdbvOv7LLT9BD2Z8Mx9H/BhCd9ylpZEyQcl948GjEXgBDGdxUKFhrEfx\n"\
 "-----END CERTIFICATE-----" 
 ```
@@ -120,10 +119,10 @@ In your laptop's `cdd` directory you should now have these three files.
 
 ### 3. Flash and Monitor the Microcontroller from Your Laptop
 
-The final step in the modify->build->download->flash sequence is to flash the microcontroller. Connect the microcontroller to your laptop. Next, from the command prompt or terminal opened earlier, ensure you are in the `cdd` directory and then use *esptool* to flash.
+The final step in the *modify->build->download->flash* sequence is to flash the microcontroller. Connect the microcontroller to your laptop. Next, from the command prompt or terminal opened earlier, ensure you are in the `cdd` directory and then use *esptool* to flash.
 
 {{% notice note %}}
-The command `esptool ...` will be used. Note the syntax that works for *your* laptop installation (e.g., `./esptool.py`, etc.).
+The command `esptool ...` will be used. Use the syntax that works for *your* laptop installation (e.g., `./esptool.py`, `esptool`, etc.).
 {{% /notice %}}
 
 Run the flashing program replacing the `--port` with your value (default for macOS used below).
@@ -165,7 +164,7 @@ Hard resetting via RTS pin...
 
 At this point the microcontroller will reset and your code will be running on it! To verify that the process was performed correctly, start your serial monitoring program (*PuTTY* or *screen*). Reset the microcontroller via the button right to the Micro USB connector, and view the output. A properly configured microcontroller will have an *I (nnn) WIFI: SYSTEM_EVENT_STA_CONNECTED* message indicating it connected to the WiFi network, and then *\[ShadowTask\]* operations with *SUCCESS*, indicating that it is communicating with AWS IoT.
 
-If you need to correct any errors in the firwmare, ensure to exit your *screen* session (`Ctrl-a`+`Ctrl-\`) or close the console window in PuTTY before re-flashing it since the serial port can only be used by one process at the time.
+If you need to correct any errors in the firmware, ensure to exit your *screen* session (`Ctrl-a`+`Ctrl-\`) or close the console window in PuTTY before re-flashing it since the serial port can only be used by one process at the time.
 
 
 

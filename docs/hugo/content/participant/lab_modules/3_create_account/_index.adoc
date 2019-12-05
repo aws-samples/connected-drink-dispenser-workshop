@@ -41,7 +41,7 @@ When you first go through the user creation process, there are no resources crea
 .. A Cloud9 development environment
 . All of the created resources are stored in a DynamoDB table that can only be accessed by the Lambda function.
 
-Finally, the `/getResources` returns John's specific details to be displayed in the webapp. This same sequence of events can also be presented using a sequence diagram. Each actor or participant is a column, and from top to bottom are the activities. See if you can associate the diagram above from this sequence diagram figure:
+Finally, the `/getResources` returns John's specific details to be displayed in the dispenser app. This same sequence of events can also be presented using a sequence diagram. Each actor or participant is a column, and from top to bottom are the activities. See if you can associate the diagram above from this sequence diagram figure:
 
 .Create User Resources Process
 [plantuml, Turn on the LED, svg]
@@ -102,7 +102,7 @@ The phone number must be in the "+county code" format. For instance, a US number
 . From the _Welcome to the Connected Drink Dispenser Workshop!_ section, click on the [blue underline]#create a new account# link.
 +
 ++++
-<img src="/images/lab3_main_page.png" alt="Main web site page - unathenticated" width="50%"/>
+<img src="/images/lab3_main_page.png" alt="Main web site page - unauthenticated" width="50%"/>
 ++++
 +
 . Choose a _username_ (an e-mail address works and will not be used to send any emails), _password_, and enter your mobile number for SMS verification code.

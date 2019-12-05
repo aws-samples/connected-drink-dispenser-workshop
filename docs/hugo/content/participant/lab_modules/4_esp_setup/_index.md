@@ -29,8 +29,8 @@ The LED Ring is controlled by the microprocessor, and is used to display the sta
 
 The Controller Board serves a few functions.
 
-* It acts as carrier for the microcontroller, and provides easy to use connectors for the other components being connected such as the LED Ring, external power, and the aquarium pump which will be installed later.
-* It can be powered either via USB, for the initial testing, or can be powered by an external battery, such as the 9V provided. The USB has too low voltage to drive the pump motor.
+* It acts as carrier for the microcontroller, and provides easy to use connectors for the other components being connected such as the LED Ring, external power, and the aquarium pump which will be installed later
+* It can be powered either via USB, for the initial testing, or can be powered by an external battery, such as the 9V provided. The USB has too low voltage to drive the pump motor, and with some computers, even the LED Ring
 * It also helps anchor all the components into the final build
 
 ## Steps to Complete
@@ -39,34 +39,38 @@ Follow each step in order and use the *Click to open for detailed step-by-step i
 
 ### 1. Remove the Components to Use
 
-Remove these four components from the zip-top bag (you should already have the ESP32 microcontroller and USB cable out from earlier testing):
+Take these five components from the zip-top bag (you should already have the ESP32 microcontroller and USB cable out from earlier testing):
 
 * ESP32 Microcontroller
+* USB Cable (Type-A to Micro USB data and power)
 * Controller Board
 * Ring LED
-* USB Cable (Type-A to Micro USB data and power)
+* 9 Volt Battery Lead
 
-<img src="/images/lab4_components.png" alt="Components" height="400"/>
+<img src="/images/lab4_components.jpg" alt="Components" height="400"/>
 
-### 2. Connect the LED Ring to the Controller Board
+### 2. Connect the LED Ring and 9 Volt Battery Lead to the Controller Board
 
-Install the LED Ring into the `WS2812` 3-pin connector on the Controller Board with the tab aligned with the connector slot.
+Install the LED Ring into the `WS2812` 3-pin connector on the back Controller Board with the tab aligned with the connector slot. Turn over the Controller Board and attach the 9 Volt battery lead.
 
 <img src="/images/lab4_led_connected.png" alt="Connecting LED Ring to Controller" height="400"/>
+
+<img src="/images/lab4_9v_lead_connected.jpg" alt="Connecting 9V Lead to Controller" height="400"/>
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
 1. Hold the LED Ring cable's connector between your fingers.
 1. Align the tab on the connector with the slot on the 3-pin `WS2812` labeled receptacle on the Controller Board.
 1. With slight pressure, insert the connector until it is fully in.
+1. Turn over the board and insert the 9V battery lead into the labeled `GND 9V`. The connector is keyed to only go in one way.
 
 {{% /expand%}}
 
 ### 3. Install the Microcontroller into the Controller Board
 
-Align the microcontroller to the dual inline socket on the other side of the Controller Board, aligning the large metal square package with the `Motor A Motor B` text on the controller board. Make sure all pins on the ESP32 are aligned with the socket, the pin tips slightly inserted, then gently insert until all the way in.
+Align the microcontroller to the dual inline socket on the other side of the Controller Board, aligning the large metal square package over the 9 Volt battery extending out from the controller board. Make sure all pins on the ESP32 are aligned with the socket, the pin tips slightly inserted, then gently insert until all the way in.
 
-<img src="/images/lab4_insert_esp32.png" alt="Inserting ESP32 into Controller Board" height="400"/>
+<img src="/images/lab4_insert_esp32.jpg" alt="Inserting ESP32 into Controller Board" height="400"/>
 
 {{% notice tip %}}
 It is very easy to accidentally bend the pins on the microcontroller. Turn over the Controller Board with the socket facing up, and then with your other hand gently position the microcontroller pins into the holes. Once all are in place, gently apply pressure equally (center of microcontroller works best) to insert all the way in. If you accidentally install backwards, place a finger *underneath* one end of the microcontroller and apply pressure to lift slightly. The do the same on the other end and alternate back and forth until the microcontroller is out of the socket.
@@ -75,7 +79,7 @@ It is very easy to accidentally bend the pins on the microcontroller. Turn over 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
 1. Hold the Controller Board in one hand with the socket side (opposite of the LED Ring connection) facing up.
-1. In your other hand hold the microcontroller and align the side with the large metal side with tab (antenna) to the Controller Board side with `Motor A Motor B` text.
+1. In your other hand hold the microcontroller and align the side with the large metal side with tab (antenna) to the Controller Board where the 9 Volt battery lead extends (not shown in pictures below--see above).
 1. Align the pins on the microcontroller to the socket and put them in place lightly (do not apply any pressure). Ensure each pin is in a hole.
  <img src="/images/lab4_side_not_flush.png" alt="ESP32 Aligned, not Plugged In" height="400"/>
 4. With gentle, even pressure, press the microcontroller in the socket until flush.
@@ -85,9 +89,9 @@ It is very easy to accidentally bend the pins on the microcontroller. Turn over 
 
 ### 4. Connect the Microcontroller to Your Laptop and Test Serial Communication
 
-Insert the USB cable's Micro USB connector end into the microcontroller, and the Type-A connector into your laptop. The red LED on the microcontroller indicates power, and the Ring LED *may* light up, but if it doesn't, that is okay. Next, check that the serial port tested in the *Laptop Setup* module is there. Use the serial monitoring software to connect to the serial port. Press the button to the left of the USB connection (reset) and verify that you see text srolling in the serial monitor window after each press. Exit your monitoring software.
+Insert the USB cable's Micro USB connector end into the microcontroller, and the Type-A connector into your laptop. The red LED on the microcontroller indicates power, and the Ring LED *may* light up, but if it doesn't, that is okay. Next, check that the serial port tested in the *Laptop Setup* module is there. Use the serial monitoring software to connect to the serial port. Press the button to the left of the USB connection (reset) and verify that you see text scrolling in the serial monitor window after each press. Exit your monitoring software.
 
-<!-- <img src="/images/lab4_plugged_in.png" alt="Controller Plugged In" height="400"/> -->
+<img src="/images/lab4_plugged_in.jpg" alt="Controller Plugged In" height="400"/>
 
 {{% notice info %}}
 A Micro USB to Type-A cable is provided as part of the kit. If your laptop only has Type-C connector and you have a Micro USB to Type-C cable, make sure that it supports *both* power and data connections. The workshop presenter may have Micro USB to Type-C cables to loan out.
@@ -132,8 +136,10 @@ Please ensure the following checkpoints are validated before moving on to the ne
 1. The LED Ring and the microcontroller are connected to the Controller Board.
 1. The microcontroller has power when connected to your laptop and that the onboard LED is lit and there are not messages indicating insufficient power.
 1. You can see text via the serial monitoring tool when you press the reboot button.
-1. You have exiting PuTTY or `screen` (`CTRL-a d`, the `y`).
+1. You have exiting PuTTY or `screen` (`CTRL-a CTRL-\`, the `y`).
 
 ## Outcomes
 
-Why are we only installing a few pieces of the entire dispenser instead of building it now? When doing embedded software development, it is easier to work first with a microcontroller development kit and the accessories you will be controlling. Normally this would be done with a breadboard or some other development kit (devkit). However, for those that are not familiar with that process, using the minimum pieces now will allow us to incrementally test the system up to the final build of the  dispenser.
+Why are we only installing a few pieces of the entire dispenser instead of building it now?
+
+When doing embedded software development, it is easier to work first with a microcontroller development kit and the accessories you will be controlling. Normally this would be done with a breadboard or some other development kit (devkit). However, for those that are not familiar with that process, using the minimum pieces now will allow us to incrementally test the system up to the final build of the  dispenser.

@@ -27,7 +27,7 @@ Follow each step in order and use the *Open for detailed step-by-step instructio
     - 8 M3-6mm 25mm standoffs
     - 9 M3 Cap nylon nuts
     - 4 M3-6mm nylon screws
-    - 4 M3-8mm mylon screws
+    - 4 M3-8mm nylon screws
     - 2 M3-12mm stainless steel screws
     - 1 M3 hex nut
     - Pump motor

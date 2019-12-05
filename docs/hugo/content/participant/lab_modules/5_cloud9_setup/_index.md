@@ -27,12 +27,12 @@ Follow each step in order and use the *Click to open for detailed step-by-step i
 
 ### 1. Open New Browser Tab to Cloud9 Service and Launch IDE
 
-From the webapp, open the *MY DETAILS* section and open a new browser tab or window to the Sign-in URL, then login in with the credentials provided. From the AWS Console, open a new tab to the *Cloud9* service. From the *Your Environments* menu, click on the *Open IDE* button for your user. This will open a new tab with the IDE and start up the EC2 instance (it may take a minute to fully launch).
+From the dispenser app, open the *MY DETAILS* section and open a new browser tab or window to the Sign-in URL, then login in with the credentials provided. From the AWS Console, open a new tab to the *Cloud9* service. From the *Your Environments* menu, click on the *Open IDE* button for your user. This will open a new tab with the IDE and start up the EC2 instance (it may take a minute to fully launch).
 
 
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
-1. In the webapp, open the *MY DETAILS* section and click on the *Sign-In URL* to open a new browser tab. 
+1. In the dispenser app, open the *MY DETAILS* section and click on the *Sign-In URL* to open a new browser tab. 
 1. Use the username and password credentials from the web app to log into the AWS Console.
 1. From the console, click on *Services* from the top left menu bar, then in the *Find a service by name or feature* type `Cloud9` and right- click on the drop-down service name and select *Open Link in New Tab* (or something similar).
 1. On the Cloud9 tab, click on the *Your Environments* menu, click on the *Open IDE* button for your user. This will open a new tab with the IDE and start up the EC2 instance (it may take a minute to fully launch).

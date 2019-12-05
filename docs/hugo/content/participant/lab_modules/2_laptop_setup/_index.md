@@ -107,7 +107,7 @@ When you have verified the previous step, remove the USB cable from the laptop a
     1. Windows - [Launch a cmd.exe (Command Prompt)](https://renenyffenegger.ch/notes/Windows/dirs/Windows/System32/cmd_exe/index).
     1. macOS -  + `Space` -> terminal.app
     1. Linux - `Control` + `Alt` + `T`
-1. From the terminal window, run esptool and verify proper operation:
+1. From the terminal window, run esptool and make sure it responds (the result doesn't matter, just that the executable can be run):
 
     ```bash
     $ esptool.py -h                                                                                                             
@@ -117,7 +117,6 @@ When you have verified the previous step, remove the USB cable from the laptop a
     ```
 
     For Windows the command would be `esptool.exe`, and depending if you installed or just downloaded the file, for macOS/Linux `./esptool.py`, `./esptool` or just `esptool` may be the syntax needed. ***Note what syntax worked, as you will need to use that for when you get to flashing the microcontroller***.
-
 
 {{% /expand%}}
 
@@ -147,7 +146,7 @@ For macOS and Linux, you will use the built-in `screen` utility to connect to an
    $ screen /dev/tty.SLAB_USBtoUART 115200
    <a bunch of line should be printed>
    ```
-1. To exit press press `CRTL+a d` and confirm with `y`
+1. To exit press press `CTRL+a CTRL-\` and confirm with `y`
 1. Remove the USB cable from both the microcontroller and your laptop.
 
 {{% notice warning %}}
@@ -193,8 +192,10 @@ In macOS you might not get any error, but flashing the firmware will not work if
 Please ensure the following checkpoints are validated before moving on to the next module.
 
 1. Folder `cdd` - Verify and note the location of the folder
-1. Serial driver installed and tested - When the ESP32 is connected, the driver is working if a new serial port is created (`/dev/tty.SLAB_USBtoUART` or similar for macOS, a `COMx` port for Windows).
-1. Command line window left open for other lab modules.
+1. Serial driver installed and tested - When the ESP32 is connected, the driver is working if a new serial port is created (`/dev/tty.SLAB_USBtoUART` or similar for macOS, a `COMx` port for Windows)
+1. **Serial Monitoring Tool** - Either PuTTY for Windows or `screen` for macOS/Linux. When you see _monitoring_ mentioned, this is the tool to use.
+1. **Flash Tool** - This is the `esptool` or `esptool.py` that you will use to flash the microcontroller
+1. Command line window left open for other lab modules
 
 ## Outcomes
 

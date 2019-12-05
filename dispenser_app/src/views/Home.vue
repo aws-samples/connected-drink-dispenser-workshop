@@ -41,7 +41,7 @@
               <p>
                 Reading values from AWS Cloud
               </p>
-              <p class="red--text">This may take up to 30 seconds after account creation, please wait and <i>DO NOT</i> refresh or reload.
+              <p class="red--text">Resources are being created and can take from 30 seconds to 2 minutes to complete, please wait and <i>DO NOT</i> refresh or reload.
               </p>
             </v-card-text>
           </v-card>

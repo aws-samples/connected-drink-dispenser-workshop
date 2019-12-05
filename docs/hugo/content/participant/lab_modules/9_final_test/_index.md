@@ -45,7 +45,7 @@ If something goes wrong or doesn't work, review the build steps from the previou
 .. Top assembly securely screwed down and the output hose centered
 .. An empty cup under the output hose
 . Now connect the 9 Volt battery. This will provide power to the microcontroller and the aquarium motor.
-. Wait for the dispenser to fully come online by waiting for the LEDs to sync to the same status in the webapp.
+. Wait for the dispenser to fully come online by waiting for the LEDs to sync to the same status in the dispenser app.
 . Okay, with no physical connection between your laptop and the dispenser, click _DISPENSE!_ to pour yourself a drink! 
 . If the dispenser didn't properly dispense a drink, perform some troubleshooting.
 .. Did you hear the motor whir or make noise?

@@ -682,7 +682,7 @@
 <tr>
 <td><code>aws_clientcredential.h</code></td>
 <td>clientcredentialMQTT_BROKER_ENDPOINT</td>
-<td>AWS IoT Endpoint value from <em>MY DETAILS</em> section of webapp</td>
+<td>AWS IoT Endpoint value from <em>MY DETAILS</em> section of dispenser app</td>
 </tr>
 
 <tr>
@@ -728,7 +728,6 @@
 
 <pre><code>#define keyCLIENT_CERTIFICATE_PEM                   &quot;-----BEGIN CERTIFICATE-----\n&quot;\
 &quot;MIICxjCCAa6gAwIBAgIVAJhkG3c6wT05SEZKJ3OsVHrQov6nMA0GCSqGSIb3DQEB\n&quot;\
-...
 &quot;IdbvOv7LLT9BD2Z8Mx9H/BhCd9ylpZEyQcl948GjEXgBDGdxUKFhrEfx\n&quot;\
 &quot;-----END CERTIFICATE-----&quot; 
 </code></pre>
@@ -818,10 +817,10 @@ make all -j4</code></pre></div>
 
 <h3 id="3-flash-and-monitor-the-microcontroller-from-your-laptop">3. Flash and Monitor the Microcontroller from Your Laptop</h3>
 
-<p>The final step in the modify-&gt;build-&gt;download-&gt;flash sequence is to flash the microcontroller. Connect the microcontroller to your laptop. Next, from the command prompt or terminal opened earlier, ensure you are in the <code>cdd</code> directory and then use <em>esptool</em> to flash.</p>
+<p>The final step in the <em>modify-&gt;build-&gt;download-&gt;flash</em> sequence is to flash the microcontroller. Connect the microcontroller to your laptop. Next, from the command prompt or terminal opened earlier, ensure you are in the <code>cdd</code> directory and then use <em>esptool</em> to flash.</p>
 
 
-<div class="notices note" ><p>The command <code>esptool ...</code> will be used. Note the syntax that works for <em>your</em> laptop installation (e.g., <code>./esptool.py</code>, etc.).</p>
+<div class="notices note" ><p>The command <code>esptool ...</code> will be used. Use the syntax that works for <em>your</em> laptop installation (e.g., <code>./esptool.py</code>, <code>esptool</code>, etc.).</p>
 </div>
 
 
@@ -862,7 +861,7 @@ Hard resetting via RTS pin...
 
 <p>At this point the microcontroller will reset and your code will be running on it! To verify that the process was performed correctly, start your serial monitoring program (<em>PuTTY</em> or <em>screen</em>). Reset the microcontroller via the button right to the Micro USB connector, and view the output. A properly configured microcontroller will have an <em>I (nnn) WIFI: SYSTEM_EVENT_STA_CONNECTED</em> message indicating it connected to the WiFi network, and then <em>[ShadowTask]</em> operations with <em>SUCCESS</em>, indicating that it is communicating with AWS IoT.</p>
 
-<p>If you need to correct any errors in the firwmare, ensure to exit your <em>screen</em> session (<code>Ctrl-a</code>+<code>Ctrl-\</code>) or close the console window in PuTTY before re-flashing it since the serial port can only be used by one process at the time.</p>
+<p>If you need to correct any errors in the firmware, ensure to exit your <em>screen</em> session (<code>Ctrl-a</code>+<code>Ctrl-\</code>) or close the console window in PuTTY before re-flashing it since the serial port can only be used by one process at the time.</p>
 
 
 <div class="expand">

@@ -819,7 +819,7 @@
 <li>Linux - <code>Control</code> + <code>Alt</code> + <code>T</code></li>
 </ol></li>
 
-<li><p>From the terminal window, run esptool and verify proper operation:</p>
+<li><p>From the terminal window, run esptool and make sure it responds (the result doesn&rsquo;t matter, just that the executable can be run):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ esptool.py -h                                                                                                             
 usage: esptool <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--chip <span style="color:#f92672">{</span>auto,esp8266,esp32<span style="color:#f92672">}]</span> <span style="color:#f92672">[</span>--port PORT<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--baud BAUD<span style="color:#f92672">]</span> 
     ...
@@ -869,7 +869,7 @@ $ <span style="color:#75715e"># After connecting as above</span>
 &lt;a bunch of line should be printed&gt;
 </code></pre></li>
 
-<li><p>To exit press press <code>CRTL+a d</code> and confirm with <code>y</code></p></li>
+<li><p>To exit press press <code>CTRL+a CTRL-\</code> and confirm with <code>y</code></p></li>
 
 <li><p>Remove the USB cable from both the microcontroller and your laptop.</p></li>
 </ol>
@@ -931,8 +931,10 @@ $ <span style="color:#75715e"># After connecting as above</span>
 
 <ol>
 <li>Folder <code>cdd</code> - Verify and note the location of the folder</li>
-<li>Serial driver installed and tested - When the ESP32 is connected, the driver is working if a new serial port is created (<code>/dev/tty.SLAB_USBtoUART</code> or similar for macOS, a <code>COMx</code> port for Windows).</li>
-<li>Command line window left open for other lab modules.</li>
+<li>Serial driver installed and tested - When the ESP32 is connected, the driver is working if a new serial port is created (<code>/dev/tty.SLAB_USBtoUART</code> or similar for macOS, a <code>COMx</code> port for Windows)</li>
+<li><strong>Serial Monitoring Tool</strong> - Either PuTTY for Windows or <code>screen</code> for macOS/Linux. When you see <em>monitoring</em> mentioned, this is the tool to use.</li>
+<li><strong>Flash Tool</strong> - This is the <code>esptool</code> or <code>esptool.py</code> that you will use to flash the microcontroller</li>
+<li>Command line window left open for other lab modules</li>
 </ol>
 
 <h2 id="outcomes">Outcomes</h2>
