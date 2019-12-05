@@ -1,0 +1,3 @@
+name,given_name,family_name,middle_name,nickname,preferred_username,profile,picture,website,email,email_verified,gender,birthdate,zoneinfo,locale,phone_number,phone_number_verified,address,updated_at,custom:group,custom:dispenserId,cognito:mfa_enabled,cognito:username
+user1,,,,,,,,,,false,,,,,18005551000,true,,,user,100,false,user1
+user2,,,,,,,,,,false,,,,,18005551000,true,,,user,101,false,user2

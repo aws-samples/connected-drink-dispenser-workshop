@@ -123,29 +123,95 @@ def iam_user(username, iam_group):
     # Read current IAM password policy and store
     # TODO - check for existing policy - new accounts don't have them
     # NOTE - Not safe for multiple users make changes at the same time
-    prodPasswordPolicy = iam_client.get_account_password_policy()["PasswordPolicy"]
-    prodPasswordPolicy.pop("ExpirePasswords", None)
-    temppol = {
-        "MinimumPasswordLength": 6,
-        "RequireSymbols": False,
-        "RequireNumbers": True,
-        "RequireUppercaseCharacters": False,
-        "RequireLowercaseCharacters": True,
-        "AllowUsersToChangePassword": False,
-    }
-    iam_client.update_account_password_policy(**temppol)
-    result = iam_client.create_user(UserName=username)
-    asset["iam_user"]["userArn"] = result["User"]["Arn"]
-    asset["iam_user"]["username"] = result["User"]["UserName"]
-    asset["iam_user"]["password"] = create_password()
-    iam_client.create_login_profile(
-        UserName=username,
-        Password=asset["iam_user"]["password"],
-        PasswordResetRequired=False,
-    )
-    iam_client.add_user_to_group(GroupName=iam_group, UserName=username)
+
+    start_time = time.time()
+    while (time.time() - start_time) < 300:
+        try:
+            prodPasswordPolicy = iam_client.get_account_password_policy()["PasswordPolicy"]
+            prodPasswordPolicy.pop("ExpirePasswords", None)
+            temppol = {
+                "MinimumPasswordLength": 6,
+                "RequireSymbols": False,
+                "RequireNumbers": True,
+                "RequireUppercaseCharacters": False,
+                "RequireLowercaseCharacters": True,
+                "AllowUsersToChangePassword": False,
+            }
+            break
+        except ClientError as e:
+            logger.warning(
+                f"Error calling iam.get_account_password_policy() (will retry) for user {username}, error: {e}"
+            )
+            time.sleep(2)
+            continue
+
+    start_time = time.time()
+    while (time.time() - start_time) < 300:
+        try:
+            iam_client.update_account_password_policy(**temppol)
+            break
+        except ClientError as e:
+            logger.warning(
+                f"Error calling iam.update_account_password_policy (will retry) for user {username}, error: {e}"
+            )
+            time.sleep(2)
+            continue
+
+    start_time = time.time()
+    while (time.time() - start_time) < 300:
+        try:
+            result = iam_client.create_user(UserName=username)
+            asset["iam_user"]["userArn"] = result["User"]["Arn"]
+            asset["iam_user"]["username"] = result["User"]["UserName"]
+            asset["iam_user"]["password"] = create_password()
+            break
+        except ClientError as e:
+            logger.warning(
+                f"Error calling iam.create_user (will retry) for user {username}, error: {e}"
+            )
+            time.sleep(2)
+            continue
+    start_time = time.time()
+    while (time.time() - start_time) < 300:
+        try:
+            iam_client.create_login_profile(
+                UserName=username,
+                Password=asset["iam_user"]["password"],
+                PasswordResetRequired=False,
+            )
+            break
+        except ClientError as e:
+            logger.warning(
+                f"Error calling iam.create_user (will retry) for user {username}, error: {e}"
+            )
+            time.sleep(2)
+            continue
+
+    start_time = time.time()
+    while (time.time() - start_time) < 300:
+        try:
+            iam_client.add_user_to_group(GroupName=iam_group, UserName=username)
+            break
+        except ClientError as e:
+            logger.warning(
+                f"Error calling iam.add_user_to_group (will retry) for user {username}, error: {e}"
+            )
+            time.sleep(2)
+            continue
+
     # Reset password policy back to original
-    iam_client.update_account_password_policy(**prodPasswordPolicy)
+    start_time = time.time()
+    while (time.time() - start_time) < 300:
+        try:
+            iam_client.update_account_password_policy(**prodPasswordPolicy)
+            break
+        except ClientError as e:
+            logger.warning(
+                f"Error calling iam.add_user_to_group (will retry) for user {username}, error: {e}"
+            )
+            time.sleep(2)
+            continue
+
     return asset
 
 
@@ -167,6 +233,7 @@ def iot_thing_certificate(dispenser_id, iot_policy):
         try:
             # Create thing
             iot_client.create_thing(thingName=dispenser_id)
+            break
         except ClientError as e:
             logger.warning(
                 f"Error calling iot.create_thing() (will retry) for dispenser {dispenser_id}, error: {e}"
@@ -218,6 +285,7 @@ def iot_thing_certificate(dispenser_id, iot_policy):
             asset["iot"]["certificateArn"] = result["certificateArn"]
             asset["iot"]["certificatePem"] = result["certificatePem"]
             asset["iot"]["rootCA"] = amazon_root_ca_ca1
+            break
         except ClientError as e:
             logger.warning(
                 f"Error calling iot.create_certificate() (will retry) for dispenser {dispenser_id}, error: {e}"
@@ -233,6 +301,7 @@ def iot_thing_certificate(dispenser_id, iot_policy):
             iot_client.attach_principal_policy(
                 policyName=iot_policy, principal=asset["iot"]["certificateArn"]
             )
+            break
         except ClientError as e:
             logger.warning(
                 f"Error calling iot.attach_principal_policy() policy to cert (will retry) for dispenser {dispenser_id}, error: {e}"
@@ -247,6 +316,7 @@ def iot_thing_certificate(dispenser_id, iot_policy):
             iot_client.attach_thing_principal(
                 thingName=asset["iot"]["thingName"], principal=asset["iot"]["certificateArn"]
             )
+            break
         except ClientError as e:
             logger.warning(
                 f"Error calling iot.attach_principal_policy() thing to cert (will retry) for dispenser {dispenser_id}, error: {e}"
@@ -266,6 +336,7 @@ def iot_thing_certificate(dispenser_id, iot_policy):
             iot_data_client.update_thing_shadow(
                 thingName=asset["iot"]["thingName"], payload=shadow_initial
             )
+            break
         except ClientError as e:
             logger.warning(
                 f"Error calling iot.update_thing_shadow()  (will retry) for dispenser {dispenser_id}, error: {e}"

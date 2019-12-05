@@ -45,6 +45,7 @@ def delete_participant_users(user_table):
             lambda_client.invoke(
                 FunctionName=delete_function_arn, Payload=json.dumps(event)
             )
+            print(f"user {i['userName']} successfully deleted")
             deleted_users += 1
 
     while "LastEvaluatedKey" in response:

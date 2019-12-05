@@ -130,7 +130,7 @@ The _AMAZON ROOT CA1 FILE_ is not needed for this workshop, as the trusted certi
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
 . From the _Sign in page_, enter your your _username_ and _password_ and click _LOG IN_.
-. The _Loading Resource_ page will appear, followed after a few seconds a notice about resource creation. *Do not refresh or click other links at this point.* Resource creation can take approximately 30 seconds up to 1-2 minutes to complete. If there are no changes after a minute or so, click on the log out icon (upper right in the menu bar), and log in again.
+. The _Loading Resource_ page will appear, followed after a few seconds a notice about resource creation. *Do not refresh or click other links at this point.* Resource creation can take approximately 30 seconds up to **1-2 minutes** to complete. If there are no changes after a minute or so, click on the log out icon (upper right in the menu bar), and log in again.
 +
 ++++
 <img src="/images/lab3_load_resources.png" alt="Loading Resources Page"/>
