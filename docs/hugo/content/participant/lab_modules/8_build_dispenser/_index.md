@@ -17,9 +17,10 @@ This module provides necessary steps to build and test your drink dispenser
 
 Follow each step in order and use the *Open for detailed step-by-step instructions* if required.
 
-### Specific action to complete
+### Bill of Materials
 
-1. Verify that you have all necessary parts:
+Verify that you have all the necessary parts. Some parts may already be installed from the previous labs, such as the 9V battery lead and ESP32-DevKitC development board into the controller board.
+
     - Base plate
     - 1/2" PVC Cap (white)
     - 1/2"x1' PVC pipe (orange)
@@ -39,6 +40,8 @@ Follow each step in order and use the *Open for detailed step-by-step instructio
     Consult with image below for the material list:
 
     ![DispenserParts.jpg](/images/lab8_materials.jpg)
+
+### Base Plate Build
 
 1. Build base plate:
 
@@ -80,6 +83,8 @@ Follow each step in order and use the *Open for detailed step-by-step instructio
 
 That completes the base assembly, now to build the top assembly.
 
+### Top Assembly Build
+
 1. Build top assembly stating with the motor:
 
     ![TopAssembly-s1.jpg](/images/lab8_top1.jpg)
@@ -100,7 +105,7 @@ That completes the base assembly, now to build the top assembly.
 
     ![TopAssembly-s5.jpg](/images/lab8_led_ring1.jpg)
 
-1. Attach 9 Volt batter cable's JST-2 connector (the small white connector at the end of the cable) to the JST-2 socket marked GND 9V. (Make sure you are not using LiPo socket!!!):
+1. If not already attached, connect the 9 Volt batter cable's JST-2 connector (the small white connector at the end of the cable) to the JST-2 socket marked GND 9V. (Make sure you are not using LiPo socket!!!):
 
     ![TopAssembly-s6.jpg](/images/lab8_battery_cable1.jpg)
     ![TopAssembly-s7.jpg](/images/lab8_battery_cable2.jpg)
@@ -110,7 +115,7 @@ That completes the base assembly, now to build the top assembly.
     ![TopAssembly-s8.jpg](/images/lab8_controller1.jpg)
     ![TopAssembly-s9.jpg](/images/lab8_controller2.jpg)
 
-1. Attach pump motor cable to the pins on the controller board:
+1. Attach pump motor cable to the right pins on the controller board (furthest from the 9V connector):
 
     ![TopAssembly-s10.jpg](/images/lab8_pump1.jpg)
     ![TopAssembly-s11.jpg](/images/lab8_pump2.jpg)
@@ -143,7 +148,7 @@ That completes the base assembly, now to build the top assembly.
 
     ![TopAssembly-s18.jpg](/images/lab8_tubing3.jpg)
 
-1. Fil the water bottle to 50-75% full. Then attach the bottle to the assembly (vertical so as not to spill water) and adjust height as needed (again, there will be a lot of resistance when moving, be careful!):
+1. Fill the water bottle to approximately 50-75% full. Then attach the bottle to the assembly (vertical so as not to spill water) and adjust height as needed (again, there will be a lot of resistance when moving, be careful!):
 
     ![TopAssembly-s19.jpg](/images/lab8_bottle1.jpg)
     ![TopAssembly-s20.jpg](/images/lab8_bottle2.jpg)

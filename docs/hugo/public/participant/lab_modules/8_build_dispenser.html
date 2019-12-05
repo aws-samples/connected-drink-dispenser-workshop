@@ -613,7 +613,9 @@
 <li><a href="#objectives">Objectives</a></li>
 <li><a href="#steps-to-complete">Steps to Complete</a>
 <ul>
-<li><a href="#specific-action-to-complete">Specific action to complete</a></li>
+<li><a href="#bill-of-materials">Bill of Materials</a></li>
+<li><a href="#base-plate-build">Base Plate Build</a></li>
+<li><a href="#top-assembly-build">Top Assembly Build</a></li>
 </ul></li>
 <li><a href="#checkpoints">Checkpoints</a></li>
 </ul></li>
@@ -653,33 +655,34 @@
 
 <p>Follow each step in order and use the <em>Open for detailed step-by-step instructions</em> if required.</p>
 
-<h3 id="specific-action-to-complete">Specific action to complete</h3>
+<h3 id="bill-of-materials">Bill of Materials</h3>
+
+<p>Verify that you have all the necessary parts. Some parts may already be installed from the previous labs, such as the 9V battery lead and ESP32-DevKitC development board into the controller board.</p>
+
+<pre><code>- Base plate
+- 1/2&quot; PVC Cap (white)
+- 1/2&quot;x1' PVC pipe (orange)
+- Top, middle (with LED ring), and bottom plates for top assembly
+- 8 M3-6mm 25mm standoffs
+- 9 M3 Cap nylon nuts
+- 4 M3-6mm nylon screws
+- 4 M3-8mm nylon screws
+- 2 M3-12mm stainless steel screws
+- 1 M3 hex nut
+- Pump motor
+- 9V battery
+- 9v battery clip with JST-2 connector
+- Electronics controller board
+- ESP32-DevKitC development board
+
+Consult with image below for the material list:
+
+![DispenserParts.jpg](/images/lab8_materials.jpg)
+</code></pre>
+
+<h3 id="base-plate-build">Base Plate Build</h3>
 
 <ol>
-<li><p>Verify that you have all necessary parts:</p>
-
-<ul>
-<li>Base plate</li>
-<li><sup>1</sup>&frasl;<sub>2</sub>&rdquo; PVC Cap (white)</li>
-<li><sup>1</sup>&frasl;<sub>2</sub>&rdquo;x1&rsquo; PVC pipe (orange)</li>
-<li>Top, middle (with LED ring), and bottom plates for top assembly</li>
-<li>8 M3-6mm 25mm standoffs</li>
-<li>9 M3 Cap nylon nuts</li>
-<li>4 M3-6mm nylon screws</li>
-<li>4 M3-8mm nylon screws</li>
-<li>2 M3-12mm stainless steel screws</li>
-<li>1 M3 hex nut</li>
-<li>Pump motor</li>
-<li>9V battery</li>
-<li>9v battery clip with JST-2 connector</li>
-<li>Electronics controller board</li>
-<li>ESP32-DevKitC development board</li>
-</ul>
-
-<p>Consult with image below for the material list:</p>
-
-<p><img src="../../images/lab8_materials.jpg" alt="DispenserParts.jpg" /></p></li>
-
 <li><p>Build base plate:</p>
 
 <p><img src="../../images/lab8_baseplate.jpg" alt="BasePlate-s1.jpg" /></p></li>
@@ -721,6 +724,8 @@
 
 <p>That completes the base assembly, now to build the top assembly.</p>
 
+<h3 id="top-assembly-build">Top Assembly Build</h3>
+
 <ol>
 <li><p>Build top assembly stating with the motor:</p>
 
@@ -742,7 +747,7 @@
 
 <p><img src="../../images/lab8_led_ring1.jpg" alt="TopAssembly-s5.jpg" /></p></li>
 
-<li><p>Attach 9 Volt batter cable&rsquo;s JST-2 connector (the small white connector at the end of the cable) to the JST-2 socket marked GND 9V. (Make sure you are not using LiPo socket!!!):</p>
+<li><p>If not already attached, connect the 9 Volt batter cable&rsquo;s JST-2 connector (the small white connector at the end of the cable) to the JST-2 socket marked GND 9V. (Make sure you are not using LiPo socket!!!):</p>
 
 <p><img src="../../images/lab8_battery_cable1.jpg" alt="TopAssembly-s6.jpg" />
 <img src="../../images/lab8_battery_cable2.jpg" alt="TopAssembly-s7.jpg" /></p></li>
@@ -752,7 +757,7 @@
 <p><img src="../../images/lab8_controller1.jpg" alt="TopAssembly-s8.jpg" />
 <img src="../../images/lab8_controller2.jpg" alt="TopAssembly-s9.jpg" /></p></li>
 
-<li><p>Attach pump motor cable to the pins on the controller board:</p>
+<li><p>Attach pump motor cable to the right pins on the controller board (furthest from the 9V connector):</p>
 
 <p><img src="../../images/lab8_pump1.jpg" alt="TopAssembly-s10.jpg" />
 <img src="../../images/lab8_pump2.jpg" alt="TopAssembly-s11.jpg" /></p></li>
@@ -785,7 +790,7 @@
 
 <p><img src="../../images/lab8_tubing3.jpg" alt="TopAssembly-s18.jpg" /></p></li>
 
-<li><p>Fil the water bottle to 50-75% full. Then attach the bottle to the assembly (vertical so as not to spill water) and adjust height as needed (again, there will be a lot of resistance when moving, be careful!):</p>
+<li><p>Fill the water bottle to approximately 50-75% full. Then attach the bottle to the assembly (vertical so as not to spill water) and adjust height as needed (again, there will be a lot of resistance when moving, be careful!):</p>
 
 <p><img src="../../images/lab8_bottle1.jpg" alt="TopAssembly-s19.jpg" />
 <img src="../../images/lab8_bottle2.jpg" alt="TopAssembly-s20.jpg" /></p></li>
