@@ -41,7 +41,7 @@
             v-model="phoneNumber"
             prepend-icon="mdi-cellphone-arrow-down"
             name="phoneNumber"
-            label="Phone number"
+            label="Mobile phone number for SMS"
             type="text"
           ></v-text-field>
           <v-card-actions>
@@ -51,7 +51,7 @@
           </v-card-actions>
         </v-form>
         <br />
-        <p align="center" class="red--text">{{statusMessage}}</p>
+        <p align="center" class="red--text"><span v-html="statusMessage"></span></p>
         <p align="center">
           Have an account?
           <a href="signIn">Sign in</a>
@@ -92,27 +92,33 @@ export default {
     },
     async createAccount() {
       this.isLoading = true;
-      Auth.signUp({
-        username: this.username,
-        password: this.password,
-        attributes: {
-          phone_number: this.phoneNumber
-        },
-        validationData: [] // optional
-      })
-        .then(data => {
-          this.isLoading = false;
-          console.log(data);
-          this.$router.push({
-            path: "/signUpConfirm",
-            query: { username: this.username }
-          });
+      if (this.phoneNumber === "") {
+        this.isLoading = false;
+        this.statusMessage =
+          'Mobile phone number cannot be empty and must be "+Country Code/Number" format, check <a href="https://46elks.com/kb/e164" target="_blank">here</a> for more details.';
+      } else {
+        Auth.signUp({
+          username: this.username,
+          password: this.password,
+          attributes: {
+            phone_number: this.phoneNumber
+          },
+          validationData: [] // optional
         })
-        .catch(err => {
-          this.isLoading = false;
-          this.statusMessage = err.message;
-          console.log(err);
-        });
+          .then(data => {
+            this.isLoading = false;
+            console.log(data);
+            this.$router.push({
+              path: "/signUpConfirm",
+              query: { username: this.username }
+            });
+          })
+          .catch(err => {
+            this.isLoading = false;
+            this.statusMessage = err.message;
+            console.log(err);
+          });
+      }
     }
   }
 };

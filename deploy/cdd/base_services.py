@@ -1001,7 +1001,7 @@ class CddBase(core.Stack):
             name=id + "-CR-DeleteParticipantUsers",
             lambda_directory="./lambda_functions/cr_delete_participant_users",
             handler="index.main",
-            timeout=30,
+            timeout=900,
             runtime=lambda_.Runtime.PYTHON_3_7,
             environment={
                 # Read user records from UserTable

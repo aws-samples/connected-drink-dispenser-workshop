@@ -98,24 +98,28 @@ def handler(event, context):
                 iam_user = AWS_resource.iam_user(
                     username, os.environ["USER_PERMISSIONS_GROUP"]
                 )
-                assets.update(iam_user)
+                if iam_user:
+                    assets.update(iam_user)
                 # IoT Thing and certificates
                 iot = AWS_resource.iot_thing_certificate(
                     dispenser_id=dispenser_id,
                     iot_policy=os.environ["IOT_POLICY_DISPENSER_LIMITED"],
                 )
-                assets.update(iot)
+                if iot:
+                    assets.update(iot)
                 # Associate IoT policy with Cognito identity
                 cognito = AWS_resource.cognito_iot_policy(
                     cognito_identity_id=cognito_identity_id,
                     iot_policy=os.environ["IOT_POLICY_CLIENT"]
                 )
-                assets.update(cognito)
+                if cognito:
+                    assets.update(cognito)
                 # Cloud9 Instance
                 cloud9 = AWS_resource.cloud9_instance(
                     iam_user["iam_user"]["userArn"], os.environ["CLOUD9_INSTANCE_SIZE"]
                 )
-                assets.update(cloud9)
+                if cloud9:
+                    assets.update(cloud9)
                 # Initial dispenser status in DDB - no assets returned
                 AWS_resource.initialize_dispenser_tables(dispenser_id)
             except Exception as e:

@@ -90,9 +90,9 @@ Follow each step in order and use the _Click to open for detailed step-by-step i
 
 ### 1. Register for an Account
 
-Open the URL provided in the presentation, and click on the [underline blue]#create a new account# link, or from the SIGN IN link, click on the [blue underline]#Sign up# link at the bottom of the Sign in page. For your account, enter a _Username_, _Password_, and _Phone number_ for your mobile phone to receive a validation code. Once you receive the verification code, enter it to complete the account sign up process. 
+Open the URL provided in the presentation, and click on the [underline blue]#create a new account# link, or from the SIGN IN link, click on the [blue underline]#Sign up# link at the bottom of the Sign in page. For your account, enter _Username_, _Password_, and _Phone number_ for your mobile phone to receive a validation code. Once you receive the verification code, enter it to complete the account sign up process. **The mobile phone number is mandatory to validate your account. If you do not receive a code within a couple minutes, or do not have access to SMS, please ask the workshop assistants to manually validate.**
 
-{{% notice info %}}
+{{% notice warning %}}
 The phone number must be in the "+county code" format. For instance, a US number would be "+18005551212" and for the UK "+447624...", etc. If you have questions about the format, or are unable to receive an SMS message, please let one of the lab helpers know and they can complete the process for you.
 {{% /notice %}}
 
@@ -117,7 +117,11 @@ The phone number must be in the "+county code" format. For instance, a US number
 
 ### 2. Initial Log In
 
-With the account created and on the _Sign in_ page, log in with your _username_/_password_. Initially you will see a _Loading Resource_ page, and during this first log in, it will pause while the resources are created in the background. This can take approximately 30 seconds or so to complete. Once complete, the dispenser details page will load. Click the _MY DETAILS_ button to open the resources section. Click on the _CERTIFICATE FILE_ and _PRIVATE KEY FILE_, and save the files to your  `cdd` directory on your laptop. If the files are automatically saved in the Download folder, move them to the `cdd` directory. Click the _MY DETAILS_ button to hide the details.
+With the account created and on the _Sign in_ page, log in with your _username_/_password_. Initially you will see a _Loading Resource_ page, and during this first log in, it will pause while the resources are created in the background. 
+
+There are various resources that are created, and this step normally takes around 30 second to upwards of 1-2 minutes. The reason for this is that different AWS services have different API call limits. With larger groups, you are simultaneously accessing the same resources, and API call may be throttled. If there are no changes after a minute or so, click on the log out icon (upper right in the menu bar), and log in again.
+
+Once the resource creation is complete, the dispenser details page will load. Click the _MY DETAILS_ button to open the resources section. Click on the _CERTIFICATE FILE_ and _PRIVATE KEY FILE_, and save the files to your  `cdd` directory on your laptop. If the files are automatically saved in the Download folder, move them to the `cdd` directory. Click the _MY DETAILS_ button to hide the details.
 
 {{% notice note %}}
 The _AMAZON ROOT CA1 FILE_ is not needed for this workshop, as the trusted certificate authorities are included in the Amazon FreeRTOS source code that you will be compiling. It is available here for use in other applications which you may wish use to emulate the dispenser (AWS IoT Thing).
@@ -126,7 +130,7 @@ The _AMAZON ROOT CA1 FILE_ is not needed for this workshop, as the trusted certi
 {{%expand "Click to open for detailed step-by-step instructions" %}}
 
 . From the _Sign in page_, enter your your _username_ and _password_ and click _LOG IN_.
-. The _Loading Resource_ page will appear, followed after a few seconds a notice about resource creation. *Do not refresh or click other links at this point.* Resource creation can take approximately 30 seconds or so to complete.
+. The _Loading Resource_ page will appear, followed after a few seconds a notice about resource creation. *Do not refresh or click other links at this point.* Resource creation can take approximately 30 seconds up to 1-2 minutes to complete. If there are no changes after a minute or so, click on the log out icon (upper right in the menu bar), and log in again.
 +
 ++++
 <img src="/images/lab3_load_resources.png" alt="Loading Resources Page"/>

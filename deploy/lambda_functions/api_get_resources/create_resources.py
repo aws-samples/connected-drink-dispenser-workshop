@@ -157,8 +157,22 @@ def iot_thing_certificate(dispenser_id, iot_policy):
     iot_data_client = boto3.client("iot-data")
     asset = {"iot": {"thingName": dispenser_id}}
 
-    # Create thing
-    iot_client.create_thing(thingName=dispenser_id)
+
+    # Due to API throttling, AWS IoT calls need to tried with backoff timers
+    # in lock-step to crete the resources. Track by dispenserId to match
+    # back to user.
+
+    start_time = time.time()
+    while (time.time() - start_time) < 300:
+        try:
+            # Create thing
+            iot_client.create_thing(thingName=dispenser_id)
+        except ClientError as e:
+            logger.warning(
+                f"Error calling iot.create_thing() (will retry) for dispenser {dispenser_id}, error: {e}"
+            )
+            time.sleep(2)
+            continue
 
     # Create certificate and private key
     key = ec.generate_private_key(curve=ec.SECP256R1(), backend=default_backend())
@@ -190,54 +204,100 @@ def iot_thing_certificate(dispenser_id, iot_policy):
         .sign(key, hashes.SHA256(), default_backend())
     )
 
-    # Generate AWS IoT certificate
+    # Generate and create AWS IoT certificate
     # NOTE: Use the ECDHE-ECDSA-AES128-SHA256 and CA3 root for communication
-    result = iot_client.create_certificate_from_csr(
-        certificateSigningRequest=str(
-            csr.public_bytes(serialization.Encoding.PEM), "utf-8"
-        ),
-        setAsActive=True,
-    )
-    asset["iot"]["certificateArn"] = result["certificateArn"]
-    asset["iot"]["certificatePem"] = result["certificatePem"]
-    asset["iot"]["rootCA"] = amazon_root_ca_ca1
+    start_time = time.time()
+    while (time.time() - start_time) < 300:
+        try:
+            result = iot_client.create_certificate_from_csr(
+                certificateSigningRequest=str(
+                    csr.public_bytes(serialization.Encoding.PEM), "utf-8"
+                ),
+                setAsActive=True,
+            )
+            asset["iot"]["certificateArn"] = result["certificateArn"]
+            asset["iot"]["certificatePem"] = result["certificatePem"]
+            asset["iot"]["rootCA"] = amazon_root_ca_ca1
+        except ClientError as e:
+            logger.warning(
+                f"Error calling iot.create_certificate() (will retry) for dispenser {dispenser_id}, error: {e}"
+            )
+            time.sleep(2)
+            continue
 
     # Thing and certificate created, attach thing <-> certificate <-> policy
     # Policy to certificate
-    iot_client.attach_principal_policy(
-        policyName=iot_policy, principal=asset["iot"]["certificateArn"]
-    )
-    # Thing to certificate
-    iot_client.attach_thing_principal(
-        thingName=asset["iot"]["thingName"], principal=asset["iot"]["certificateArn"]
-    )
+    start_time = time.time()
+    while (time.time() - start_time) < 300:
+        try:
+            iot_client.attach_principal_policy(
+                policyName=iot_policy, principal=asset["iot"]["certificateArn"]
+            )
+        except ClientError as e:
+            logger.warning(
+                f"Error calling iot.attach_principal_policy() policy to cert (will retry) for dispenser {dispenser_id}, error: {e}"
+            )
+            time.sleep(2)
+            continue
 
-    # Clear then create initial shadow state
-    iot_data_client.update_thing_shadow(
-        thingName=asset["iot"]["thingName"], payload=shadow_clear
-    )
-    # Then set initial state
-    iot_data_client.update_thing_shadow(
-        thingName=asset["iot"]["thingName"], payload=shadow_initial
-    )
+    # Thing to certificate
+    start_time = time.time()
+    while (time.time() - start_time) < 300:
+        try:
+            iot_client.attach_thing_principal(
+                thingName=asset["iot"]["thingName"], principal=asset["iot"]["certificateArn"]
+            )
+        except ClientError as e:
+            logger.warning(
+                f"Error calling iot.attach_principal_policy() thing to cert (will retry) for dispenser {dispenser_id}, error: {e}"
+            )
+            time.sleep(2)
+            continue
+
+    
+    start_time = time.time()
+    while (time.time() - start_time) < 300:
+        try:
+            # Clear then create initial shadow state
+            iot_data_client.update_thing_shadow(
+                thingName=asset["iot"]["thingName"], payload=shadow_clear
+            )
+            # Then set initial state
+            iot_data_client.update_thing_shadow(
+                thingName=asset["iot"]["thingName"], payload=shadow_initial
+            )
+        except ClientError as e:
+            logger.warning(
+                f"Error calling iot.update_thing_shadow()  (will retry) for dispenser {dispenser_id}, error: {e}"
+            )
+            time.sleep(2)
+            continue
     return asset
 
 
 def cognito_iot_policy(cognito_identity_id, iot_policy):
-    """Attach Cognitio identity to IoT policy"""
+    """Attach Cognito identity to IoT policy"""
 
     asset = {"cognito": {}}
-    try:
-        iot_client = boto3.client("iot")
-        iot_client.attach_policy(policyName=iot_policy, target=cognito_identity_id)
-        asset["cognito"]["principalId"] = cognito_identity_id
-        asset["cognito"]["iotPolicy"] = iot_policy
-        return asset
-    except ClientError as e:
-        logger.error(
-            f"ERROR: Could not attach principal {cognito_identity_id} to policy {iot_policy}, error: {e}"
-        )
-        return False
+    iot_client = boto3.client("iot")
+
+    start_time = time.time()
+    while (time.time() - start_time) < 300:
+        try:
+            iot_client.attach_policy(policyName=iot_policy, target=cognito_identity_id)
+            asset["cognito"]["principalId"] = cognito_identity_id
+            asset["cognito"]["iotPolicy"] = iot_policy
+            return asset
+        except ClientError as e:
+            logger.warning(
+                f"Error calling iot.attach_policy() cognito (will retry) for cognito_id {cognito_identity_id}, error: {e}"
+            )
+            time.sleep(2)
+            continue
+    logger.error(
+        f"ERROR: Could not attach principal {cognito_identity_id} to policy {iot_policy} after 300 seconds"
+    )
+    return False
 
 
 def initialize_dispenser_tables(dispenser_id):
@@ -276,9 +336,11 @@ def cloud9_instance(owner_arn, instance_type):
     client = boto3.client("cloud9")
     username = owner_arn.split("/")[-1]
 
-    # A new IAM user is not immediately available. Loop for up to 60 seconds before hard failing
+    # A new IAM user is not immediately available or throttling on EC23 create.
+    # Loop for up to 300 seconds before hard failing, log errors as info along
+    # the way.
     start_time = time.time()
-    while (time.time() - start_time) < 60:
+    while (time.time() - start_time) < 300:
         try:
             response = client.create_environment_ec2(
                 name=username,
@@ -289,16 +351,16 @@ def cloud9_instance(owner_arn, instance_type):
             )
             asset["cloud9"]["environmentId"] = response["environmentId"]
             logger.info(
-                f"It took {time.time() - start_time} seconds to create the Cloud9 environment"
+                f"It took {time.time() - start_time} seconds to create the Cloud9 environment for user: {username}"
             )
             return asset
         except ClientError as e:
             # Log to collect statistics on average creation time
             logger.warning(
-                f"Error creating Cloud9 environment (will retry), error: {e}"
+                f"Error creating Cloud9 environment (will retry) for user {username}, error: {e}"
             )
-            time.sleep(1)
+            time.sleep(2)
             continue
     # The Cloud9 instance was not created, log major error
-    logger.error(f"Error creating Cloud 9 environment within 60 seconds")
+    logger.error(f"Error creating Cloud 9 environment within 300 seconds for user: {username}")
     return asset
