@@ -4,10 +4,6 @@ copyright: Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserve
 title: Repository Main README file
 -->
 
-# UNDER CONSTRUCTION
-
-**Hi! You've reached this workshop in advance of the public launch. It has been made public in order to complete end-to-end testing, which requires performing operations on the repository as an anonymous user. The current content most likely will not fully work and there is the possibility of loss of data. Also, content is expected to change in the next few weeks.**
-
 # Connected Drink Dispenser Workshop
 
 <img align="left" height="400" src="docs/hugo/static/images/model-trans-bg.png">
