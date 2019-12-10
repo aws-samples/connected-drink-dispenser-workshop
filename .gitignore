@@ -37,6 +37,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 .python-version
+# C extensions (but allow in Lamda's)
+*.so
+!**/lambda_functions/**/*.so
 # Environments
 .env
 .venv
