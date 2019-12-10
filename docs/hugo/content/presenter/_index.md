@@ -31,12 +31,12 @@ Follow these steps to deploy from a Cloud9 instance in the account where you wis
 
 1. Ensure a Route 53 hosted public zone is [setup](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring.html) for a private domain name you have registered. The domain `example.com` is used below.
 1. Launch a Cloud9 IDE from an account with all the IAM permissions needed to deploy the Cloud Development Kit (CDK) stack, *from the region where you want to deploy the workshop*. As there are a *lot* of IAM related permissions needed, the AWS managed permissions group, *AdministratorAccess*, has the necessary permissions.
-1. Open a new terminal, install dependencies, clone this repository, and create the `config.json` file from the template.
+1. Open a new terminal, install dependencies, clone this repository, and create the `connected-drink-dispenser-workshop/deploy/config.json` file from the template.
 
     ```bash
     cd ~/environment/
     npm install -g cdk
-
+    npm install -g yarn
 
 
     git clone https://github.com/aws-samples/connected-drink-dispenser-workshop.git
@@ -47,7 +47,7 @@ Follow these steps to deploy from a Cloud9 instance in the account where you wis
 1. Update the `config.json` file's values and save the file when complete:
 
     * **ProfileName** - Change to `default` (this uses the permissions from our user account in Cloud9)
-    * **AdminPassword** - Enter the value for the dispenser app admin user
+    * **AdminPassword** - Enter the value for the dispenser app admin user, must include *lower case*, *upper case*, and a *number* 
     * **Region** - Set to the region you want the workshop to be deployed (should be the same as where Cloud9 was launched)
     * **Hostname** - Enter the fully qualified domain name to use for workshop for the Route 53 hosted zone (e.g., `cdd.example.com`)
 
@@ -83,5 +83,11 @@ Follow these steps to deploy from a Cloud9 instance in the account where you wis
     ```bash
     python deploy.py
     ... BUILD AND UPLOAD STEPS
-
+    DONE  Build complete. The dist directory is ready to be deployed.
+    INFO  Check out deployment instructions at https://cli.vuejs.org/guide/deployment.html
+                                    
+    Done in 65.14s.
+    Copying Single page web application to S3: 36 files [00:05,  6.22 files/s]                                              
+    Copying Credential C formatter page to S3: 6 files [00:00, 79.67 files/s]                                               
+    Copying Online documentation to S3: 446 files [00:13, 33.56 files/s]
     ```
