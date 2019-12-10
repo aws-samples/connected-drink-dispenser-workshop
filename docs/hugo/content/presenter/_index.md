@@ -37,8 +37,6 @@ Follow these steps to deploy from a Cloud9 instance in the account where you wis
     cd ~/environment/
     npm install -g cdk
     npm install -g yarn
-
-
     git clone https://github.com/aws-samples/connected-drink-dispenser-workshop.git
     cd connected-drink-dispenser-workshop/deploy/
     sudo pip-3.6 install -r requirements.txt
@@ -72,6 +70,14 @@ Follow these steps to deploy from a Cloud9 instance in the account where you wis
     Do you wish to deploy these changes (y/n)? y
     cdd-workshop: deploying...
     Updated: asset.d58800906a30c9e60c2dc7e40199f78f18842fa61a81094dd212ef1d9c4607a7 (zip)
+    ... BUILD STEPS ...
+    cdd-workshop.StaticSiteDistributionId8C64EF2A = E5J4ADZ0ZK1C5
+    cdd-workshop.UserPoolCognitoClientId49B6D8C4 = 2b38h8da7dds832qvio3vkds5b
+    cdd-workshop.UserPoolCognitoUserPoolIdA08E3514 = us-west-2_bnzrtUys3
+
+    Stack ARN:
+    arn:aws:cloudformation:us-west-2:904880203774:stack/cdd-workshop/832c88d0-1b7c-11ea-b1f9-02b80ff4b548
+    $
     ```
 
     If you see errors or *CREATE_FAILED* messages, review the reasons, which most likely will be permissions related. At this point the CDK will attempt to rollback and delete the deployment of resources. You may need to go into CloudFormation and delete the stack manually or issue the command `cdk destroy`. To resolve permissions errors, add the needed permissions to your account, and then close the Cloud9 IDE web page and relaunch from the console to refresh permissions.
@@ -91,3 +97,5 @@ Follow these steps to deploy from a Cloud9 instance in the account where you wis
     Copying Credential C formatter page to S3: 6 files [00:00, 79.67 files/s]                                               
     Copying Online documentation to S3: 446 files [00:13, 33.56 files/s]
     ```
+
+At this point, the stack if fully deployed and ready to start! Once the workshop is over, either delete via CloudFormation or from the same Cloud9 IDE, issue the command `cdk destroy` from the `deploy` directory.
