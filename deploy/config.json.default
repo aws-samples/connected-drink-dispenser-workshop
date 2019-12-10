@@ -4,6 +4,6 @@
     "ProfileName": "cdk-user",
     "AdminUserName": "admin",
     "AdminPassword": "",
-    "cloud9InstanceSize": "t3.small",
-    "ParticipantLimit": 20
+    "Cloud9InstanceSize": "t3.small",
+    "ParticipantLimit": "20"
 }
