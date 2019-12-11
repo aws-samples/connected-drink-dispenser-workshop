@@ -659,13 +659,15 @@
 <li>Launch a Cloud9 IDE from an account with all the IAM permissions needed to deploy the Cloud Development Kit (CDK) stack, <em>from the region where you want to deploy the workshop</em>. As there are a <em>lot</em> of IAM related permissions needed, the AWS managed permissions group, <em>AdministratorAccess</em>, has the necessary permissions.</li>
 
 <li><p>Open a new terminal, install dependencies, clone this repository, and create the <code>connected-drink-dispenser-workshop/deploy/config.json</code> file from the template.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd ~/environment/
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">### Copy and paste these lines into terminal</span>
+cd ~/environment/
 npm install -g cdk
 npm install -g yarn
 git clone https://github.com/aws-samples/connected-drink-dispenser-workshop.git
 cd connected-drink-dispenser-workshop/deploy/
 sudo pip-3.6 install -r requirements.txt
-cp config.json.default config.json</code></pre></div></li>
+cp config.json.default config.json
+<span style="color:#75715e">### end of copy/paste</span></code></pre></div></li>
 
 <li><p>Update the <code>config.json</code> file&rsquo;s values and save the file when complete:</p>
 
@@ -676,7 +678,7 @@ cp config.json.default config.json</code></pre></div></li>
 <li><strong>Hostname</strong> - Enter the fully qualified domain name to use for workshop for the Route 53 hosted zone (e.g., <code>cdd.example.com</code>)</li>
 </ul></li>
 
-<li><p>From the terminal, bootstrap the CDK into the region (optional if you are already using CDK in that region):</p>
+<li><p>From the terminal, bootstrap the CDK into the region (optional if you are already using CDK in that region) with the command <code>cdk bootstrap</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cdk bootstrap
     Bootstrapping environment aws://ACCOUNT/REGION...
 CDKToolkit: creating CloudFormation changeset...
@@ -686,8 +688,8 @@ CDKToolkit: creating CloudFormation changeset...
 <span style="color:#ae81ff">2</span>/2 | <span style="color:#ae81ff">3</span>:21:49 PM | CREATE_COMPLETE      | AWS::CloudFormation::Stack | CDKToolkit 
     Environment aws://ACCOUNT/REGION bootstrapped.</code></pre></div></li>
 
-<li><p>Deploy the workshop. This will create a lot of updates as the stack progresses and will take 30-50 minutes to complete due to the CloudFront deployment:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cdk deploy
+<li><p>Deploy the workshop with the command <code>cdk deploy</code>. This will create a lot of updates as the stack progresses and will take 30-50 minutes to complete due to the CloudFront deployment:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cdk deploy
 ... LIST OF RESOURCES ...
 Do you wish to deploy these changes <span style="color:#f92672">(</span>y/n<span style="color:#f92672">)</span>? y
 cdd-workshop: deploying...
@@ -704,8 +706,8 @@ $</code></pre></div>
 
 <p>With expanded permissions, attempt again to deploy the stack until the success message above is seen.</p></li>
 
-<li><p>Finally, issue the deploy command to build the single page application, and upload all resources to the S3 origin bucket:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python deploy.py
+<li><p>Finally, issue the command <code>python deploy</code> to build the single page application, and upload all resources to the S3 origin bucket:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python deploy.py
 ... BUILD AND UPLOAD STEPS
 DONE  Build complete. The dist directory is ready to be deployed.
 INFO  Check out deployment instructions at https://cli.vuejs.org/guide/deployment.html

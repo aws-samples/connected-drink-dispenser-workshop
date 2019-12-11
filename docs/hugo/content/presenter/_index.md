@@ -34,6 +34,7 @@ Follow these steps to deploy from a Cloud9 instance in the account where you wis
 1. Open a new terminal, install dependencies, clone this repository, and create the `connected-drink-dispenser-workshop/deploy/config.json` file from the template.
 
     ```bash
+    ### Copy and paste these lines into terminal
     cd ~/environment/
     npm install -g cdk
     npm install -g yarn
@@ -41,6 +42,7 @@ Follow these steps to deploy from a Cloud9 instance in the account where you wis
     cd connected-drink-dispenser-workshop/deploy/
     sudo pip-3.6 install -r requirements.txt
     cp config.json.default config.json
+    ### end of copy/paste
     ```
 1. Update the `config.json` file's values and save the file when complete:
 
@@ -49,7 +51,7 @@ Follow these steps to deploy from a Cloud9 instance in the account where you wis
     * **Region** - Set to the region you want the workshop to be deployed (should be the same as where Cloud9 was launched)
     * **Hostname** - Enter the fully qualified domain name to use for workshop for the Route 53 hosted zone (e.g., `cdd.example.com`)
 
-1. From the terminal, bootstrap the CDK into the region (optional if you are already using CDK in that region):
+1. From the terminal, bootstrap the CDK into the region (optional if you are already using CDK in that region) with the command `cdk bootstrap`:
 
     ```bash
     cdk bootstrap
@@ -62,10 +64,10 @@ Follow these steps to deploy from a Cloud9 instance in the account where you wis
         Environment aws://ACCOUNT/REGION bootstrapped.
     ```
 
-1. Deploy the workshop. This will create a lot of updates as the stack progresses and will take 30-50 minutes to complete due to the CloudFront deployment:
+1. Deploy the workshop with the command `cdk deploy`. This will create a lot of updates as the stack progresses and will take 30-50 minutes to complete due to the CloudFront deployment:
 
     ```bash
-    cdk deploy
+    $ cdk deploy
     ... LIST OF RESOURCES ...
     Do you wish to deploy these changes (y/n)? y
     cdd-workshop: deploying...
@@ -84,10 +86,10 @@ Follow these steps to deploy from a Cloud9 instance in the account where you wis
 
     With expanded permissions, attempt again to deploy the stack until the success message above is seen.
 
-1. Finally, issue the deploy command to build the single page application, and upload all resources to the S3 origin bucket:
+1. Finally, issue the command `python deploy` to build the single page application, and upload all resources to the S3 origin bucket:
 
     ```bash
-    python deploy.py
+    $ python deploy.py
     ... BUILD AND UPLOAD STEPS
     DONE  Build complete. The dist directory is ready to be deployed.
     INFO  Check out deployment instructions at https://cli.vuejs.org/guide/deployment.html
