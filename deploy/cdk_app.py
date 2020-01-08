@@ -17,6 +17,7 @@ __copyright__ = (
 )
 __license__ = "MIT-0"
 
+
 def read_config():
     configfile = Path("config.json")
     if configfile.is_file():
@@ -55,7 +56,11 @@ def verify_domain(host_name, session):
 
 
 def verify_certificate(host_name, session):
-    """Verify a certificate covers the domain name"""
+    """
+    Verify a certificate covers the domain name
+    NOTE: The region is hard-coded to us-east-1 as this is where CloudFront
+          required server certificates to reside
+    """
     cert_arn = False
     c = session.client("acm", region_name="us-east-1")
     paginator = c.get_paginator("list_certificates")
