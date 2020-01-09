@@ -102,31 +102,22 @@ class StaticSiteConstruct(core.Construct):
         )
         self.bucket_name = fqdn + "-static-site"
         self.bucket_resource = site_bucket
-        origin_access_identity = cloudfront.CfnCloudFrontOriginAccessIdentity(
+
+        # Uses new method for OAI (still breaking changes) - https://github.com/aws/aws-cdk/pull/4491
+        origin_access_identity = cloudfront.OriginAccessIdentity(
             self,
-            "OriginIdentity",
-            cloud_front_origin_access_identity_config={
-                "comment": "Allow CloudFront to access web site"
-            },
+            "OriginIdentity"
         )
-        # Create IAM policy for S3 Canonical User
-        policy_statement = iam.PolicyStatement()
-        policy_statement.add_actions("s3:GetBucket*")
-        policy_statement.add_actions("s3:GetObject*")
-        policy_statement.add_actions("s3:List**")
-        policy_statement.add_resources(site_bucket.bucket_arn)
-        policy_statement.add_resources(f"{site_bucket.bucket_arn}/*")
-        policy_statement.add_canonical_user_principal(
-            origin_access_identity.attr_s3_canonical_user_id
-        )
-        site_bucket.add_to_resource_policy(policy_statement)
+        # Add CloudFront Origin Access Identity to the bucket
+        site_bucket.grant_read(origin_access_identity)
+
         core.CfnOutput(self, "Bucket", value=site_bucket.bucket_name)
 
         # CloudFront distribution with or without certificate
         source_configuration = cloudfront.SourceConfiguration(
             s3_origin_source=cloudfront.S3OriginConfig(
                 s3_bucket_source=site_bucket,
-                origin_access_identity_id=origin_access_identity.ref,
+                origin_access_identity=origin_access_identity,
             ),
             behaviors=[cloudfront.Behavior(is_default_behavior=True)],
         )
@@ -173,8 +164,8 @@ class StaticSiteConstruct(core.Construct):
             self,
             "SiteAliasRecord",
             record_name=fqdn,
-            target=route53.AddressRecordTarget.from_alias(
-                targets.CloudFrontTarget(distribution)
+            target=route53.RecordTarget.from_alias(
+                alias_target=targets.CloudFrontTarget(distribution)
             ),
             zone=zone,
         )
