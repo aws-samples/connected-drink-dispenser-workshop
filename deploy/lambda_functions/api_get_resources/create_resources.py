@@ -121,24 +121,29 @@ def iam_user(username, iam_group):
     asset = {"iam_user": {}}
 
     # Read current IAM password policy and store
-    # TODO - check for existing policy - new accounts don't have them
-    # NOTE - Not safe for multiple users make changes at the same time
+    # NOTE - Not safe for multiple users make changes at the same time - worst case is password policy is set to
+    # workshop settings.
 
     start_time = time.time()
+    temppol = {
+        "MinimumPasswordLength": 6,
+        "RequireSymbols": False,
+        "RequireNumbers": True,
+        "RequireUppercaseCharacters": False,
+        "RequireLowercaseCharacters": True,
+        "AllowUsersToChangePassword": False,
+    }
     while (time.time() - start_time) < 300:
         try:
             prodPasswordPolicy = iam_client.get_account_password_policy()["PasswordPolicy"]
             prodPasswordPolicy.pop("ExpirePasswords", None)
-            temppol = {
-                "MinimumPasswordLength": 6,
-                "RequireSymbols": False,
-                "RequireNumbers": True,
-                "RequireUppercaseCharacters": False,
-                "RequireLowercaseCharacters": True,
-                "AllowUsersToChangePassword": False,
-            }
+            break
+        except iam_client.exceptions.NoSuchEntityException as e:
+            # There is no policy set, so create one based on temppol above to revert to when user created
+            prodPasswordPolicy = temppol
             break
         except ClientError as e:
+            # Any other errors, such as API limit timeouts
             logger.warning(
                 f"Error calling iam.get_account_password_policy() (will retry) for user {username}, error: {e}"
             )
