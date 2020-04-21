@@ -18,7 +18,7 @@ In this lab you will configure your laptop for the workshop. By the end of the m
 The microcontroller is programmed, or flashed, via a USB serial connection from a computer or laptop. Based on the microcontroller chipset, a specific driver is required.
 
 {{% notice note %}}
-Each persons laptop is unique and the general instructions may not work for a variety of reasons such as having a older version of the driver loaded, insufficient permissions to install, or older versions of Operating Systems. Please ensure that the checkpoint at the end has been completed prior to starting the next lab. If you run into problems, please *ask fro assistance from a workshop assistant.*
+Each persons laptop is unique and the general instructions may not work for a variety of reasons such as having a older version of the driver loaded, insufficient permissions to install, or older versions of Operating Systems. Please ensure that the checkpoint at the end has been completed prior to starting the next lab. If you run into problems, please *ask for assistance from a workshop assistant.*
 {{% /notice %}}
 
 ## Steps to Complete
