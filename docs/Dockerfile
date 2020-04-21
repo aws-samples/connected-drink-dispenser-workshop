@@ -2,10 +2,7 @@ FROM ubuntu:18.04
 
 # Run command to build new local image
 # docker build -t gadams999/hugo-ubuntu:0.59.1 .
-ARG HUGO_VERSION=0.59.0
-
-# docker build -t gavinaws/hugo54.0-ubuntu .
-# ARG HUGO_VERSION=0.54.0
+ARG HUGO_VERSION=0.64.1
 
 ENV DOCUMENT_DIR=/hugo-project
 
@@ -19,7 +16,7 @@ RUN apt-get update && apt-get upgrade -y \
       && rm -rf /tmp/*
 
 RUN mkdir -p /opt/plantuml && cd /opt/plantuml \
-      && UML=http://sourceforge.net/projects/plantuml/files/plantuml.jar/download \
+      && UML=https://sourceforge.net/projects/plantuml/files/plantuml.jar/download \
       && curl -JLO ${UML}
 COPY plantuml /usr/local/bin/plantuml
 RUN chmod a+x /usr/local/bin/plantuml
