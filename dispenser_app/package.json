@@ -11,7 +11,7 @@
     "aws-amplify": "^1.1.38",
     "aws-amplify-vue": "^0.2.17",
     "core-js": "^2.6.5",
-    "serialize-javascript": "^2.1.1",
+    "serialize-javascript": "^3.1.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuetify": "^2.0.0",
