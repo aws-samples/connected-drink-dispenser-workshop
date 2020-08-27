@@ -127,9 +127,17 @@ def s3_copy(s3_resource, bucket, local_directory, s3_key, message):
             continue
         content_type = mimetypes.guess_type(str(filename))[0]
         if content_type is None:
+            # mimetypes skips on some files, set content type manually
             if parts[-1].split(".")[-1] == "map":
-                # mimetypes skips on .map files, set content type manually
                 content_type = "application/json"
+            elif parts[-1].split(".")[-1] == "woff":
+                content_type = "font/woff"
+            elif parts[-1].split(".")[-1] == "woff2":
+                content_type = "font/woff2"
+            elif parts[-1].split(".")[-1] == "ttf":
+                content_type = "font/ttf"
+            else:
+                print(f"No content type for file: {parts}")
         if content_type is not None:
             if s3_key:
                 destination = Path(s3_key, os.path.join(*parts))
