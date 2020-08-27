@@ -66,6 +66,7 @@ class CognitoUserPoolProps(object):
     def username_attributes(self) -> str:
         return self._username_attributes
 
+
 class CognitoUserPoolConstruct(core.Construct):
     def __init__(
         self, scope: core.Construct, id: str, props: CognitoUserPoolProps
@@ -76,7 +77,7 @@ class CognitoUserPoolConstruct(core.Construct):
 
         if "phone_number" in props.auto_verified_attributes:
             sns_role = iam.Role(
-                # Role to allow Cognitio to send SNS (SMS) messages
+                # Role to allow Cognito to send SNS (SMS) messages
                 self,
                 "SNSRole",
                 assumed_by=iam.ServicePrincipal("cognito-idp.amazonaws.com"),
