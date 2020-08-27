@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.64.1" />
     <meta name="description" content="">
 
 
@@ -607,19 +607,17 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#objectives">Objectives</a></li>
-<li><a href="#steps-to-complete">Steps to Complete</a>
-<ul>
-<li><a href="#1-overall-cloud-architecture">1. Overall Cloud Architecture</a></li>
-<li><a href="#2-user-and-dispenser-relationships">2. User and Dispenser Relationships</a></li>
-<li><a href="#3-dispenser-operations">3. Dispenser Operations</a></li>
-</ul></li>
-<li><a href="#checkpoints">Checkpoints</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#objectives">Objectives</a></li>
+    <li><a href="#steps-to-complete">Steps to Complete</a>
+      <ul>
+        <li><a href="#1-overall-cloud-architecture">1. Overall Cloud Architecture</a></li>
+        <li><a href="#2-user-and-dispenser-relationships">2. User and Dispenser Relationships</a></li>
+        <li><a href="#3-dispenser-operations">3. Dispenser Operations</a></li>
+      </ul>
+    </li>
+    <li><a href="#checkpoints">Checkpoints</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -645,48 +643,30 @@
 
 
 
-	
-
-<h2 id="objectives">Objectives</h2>
-
+	<h2 id="objectives">Objectives</h2>
 <p>In this initial lab, we will go through the overall architecture of the CDD. At the end of the lab, you will come away with the understanding of:</p>
-
 <ol>
 <li>The cloud components for interacting with the dispenser</li>
 <li>How user accounts, things, and database entries are interrelated</li>
 <li>How the dispenser updates local status ands responds to dispense commands</li>
 </ol>
-
 <h2 id="steps-to-complete">Steps to Complete</h2>
-
 <h3 id="1-overall-cloud-architecture">1. Overall Cloud Architecture</h3>
-
-<p><img src="../../images/lab1_cloud_overview.png" alt="Cloud Architecture" width="70%"/></p>
-
+<!-- raw HTML omitted -->
 <p>When interacting with the cloud, the architecture utilizes two main paths, AWS IoT Core for MQTT communication and then a dispenser app with authentication to interact with the device and supporting databases.</p>
-
 <ul>
 <li><strong>IoT Bi-Directional Communication</strong> (upper path) - This section uses MQTT to communicate bi-directionally between the AWS cloud and the device. We also use MQTT to notify the dispenser app user when there have been activities. This eliminates the need for constant polling and only to query via API when there is information to update.</li>
 <li><strong>API Logic</strong> (both paths) - Most operations are completed via API calls. By using user authentication, each call can be verified to the specific dispenser via the AWS Lambda functionality.</li>
 <li><strong>Dispenser App and Authentication/Authorization</strong> (lower path) - This uses Amazon Cognito to authenticate users and provide a Jason Web Token (JWT) with signed attributes such as the corresponding drink dispenser id. The vended credentials are then use to make API calls and to establish a persistent connection to AWS IoT.</li>
 </ul>
-
 <h3 id="2-user-and-dispenser-relationships">2. User and Dispenser Relationships</h3>
-
-<p><img src="../../images/lab1_user_dispenser_relationship.png" alt="User and Dispenser Relationships" width="70%"/></p>
-
+<!-- raw HTML omitted -->
 <p>For each individual user, there is a set of resources created and related during the user account creation process. A user, <code>foo</code>, authenticates with Cognito and is returned a signed <a href="https://en.wikipedia.org/wiki/JSON_Web_Token">JSON Web Token</a> (JWT) that contains information used by the dispenser app and API Gateway. For instance, user <code>foo</code> is associated with dispenserId of <code>123</code>. Any API calls made use the <code>dispenserId</code> attribute to ensure that requests are only for the user&rsquo;s dispenser and not someone elses. The value is also used to send and receive messages on specific MQTT topics so that one dispenser cannot be affected by another dispenser&rsquo;s actions. This is a common field used throughout the backend cloud services.</p>
-
 <h3 id="3-dispenser-operations">3. Dispenser Operations</h3>
-
-<p><img src="../../images/lab1_dispenser_operations.png" alt="Dispenser Operations" width="70%"/></p>
-
+<!-- raw HTML omitted -->
 <p>Your dispenser will only use MQTT to communicate with the cloud services. There are two main methods that a device uses to communicate. The first is through regular topics such as <code>telem/123</code> where the device can <em>subscribe</em> to receive messages, or it can <em>publish</em> messages directly to the topic. In this case, <code>telem</code> indicates <em>telemetry</em> and normally would be messages sent from the device to the cloud.</p>
-
 <p>For this workshop. instead of command topics you will actually use the <em>shadow</em> set of topics. This is a provided service of AWS IoT that tracks the state of a device. Each device has both a <em>desired</em> and <em>reported</em> state. It is common that cloud services would set the <em>desired</em> state, and the next time the device is online, it would read those values, set them locally, and update the <em>reported</em> state accordingly.</p>
-
 <p>A device can also use the <em>delta</em> state that tracks the difference between desired and reported states.</p>
-
 <p>The shadow document will look similar to this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
     <span style="color:#f92672">&#34;desired&#34;</span>: {
@@ -709,22 +689,17 @@
         <span style="color:#f92672">&#34;led&#34;</span>: <span style="color:#e6db74">&#34;on&#34;</span>,
         <span style="color:#f92672">&#34;dispense_time_ms&#34;</span>: <span style="color:#ae81ff">4000</span>
     }
-}</code></pre></div>
-<p>In this example, there are two values that have been requested to be changed, <code>led</code> and <code>dispense_time_ms</code>, as reported by the <em>delta</em> state.</p>
-
+}
+</code></pre></div><p>In this example, there are two values that have been requested to be changed, <code>led</code> and <code>dispense_time_ms</code>, as reported by the <em>delta</em> state.</p>
 <p>Finally, there are AWS IoT <em>Rules</em> that are triggered upon the content of messages published. In the diagram above, the IoT rule <em>LogEvent</em> is triggered when the shadow document changes, passing the details to an AWS Lambda function that will write the parsed message content to the Events database table.</p>
-
 <h2 id="checkpoints">Checkpoints</h2>
-
 <p>This module provides a high-level description of the various components used in the workshop. After completing this lab, you should have an understanding of:</p>
-
 <ul>
 <li>The differences between the physical dispenser and the dispenser app used to monitor and control it</li>
 <li>How Cognito and API Gateway are used by the dispenser app to issue commands or actions</li>
 <li>How the Dispenser uses MQTT for bi-directional command and control of the device using the Shadow service</li>
 <li>The differences between the Shadow document states (desired, reported, and delta)</li>
 </ul>
-
 <p>As this lab is informational only, there are no specific checkpoints that need to be completed.</p>
 
 

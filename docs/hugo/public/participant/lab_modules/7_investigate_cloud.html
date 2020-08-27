@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.64.1" />
     <meta name="description" content="">
 
 
@@ -636,7 +636,7 @@
 <div class="ulist"><ul><li>An understanding of the relationship between the dispenser (<em>Thing</em>), your Cognito user, and the DynamoDB database tables that track and log dispenser activity and state.</li><li>Seen how the dispenser <em>Thing</em> uses the <a href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html">Device Shadow Service for AWS IoT</a> to get notified of the requested state changes, and how it uses to acknowledge a dispense <em>request</em> with a <em>dispense</em> response.</li><li>Tested a <em>dispense</em> operation and monitored what takes place in different scenarios.</li><li>Reviewed dispenser activity both in the DynamoDB <em>EventsTable</em> and in the dispenser app logging.</li><li>An understanding of how the dispenser app along with the API Lambda functions control how to give credits to others dispensers, as well as ensuring that a dispense event can on;y be initiated when there sufficient credits.</li></ul></div></section>
 <section class="doc-section level-1"><h2 id="_steps_to_complete">Steps to Complete</h2><p>Follow each step in order and use the <strong>Click to open for detailed step-by-step instructions</strong> if required.</p>
 <section class="doc-section level-2"><h3 id="_1_understand_the_aws_iot_thing_cognito_user_and_dynamodb_table_relationships">1. Understand the AWS IoT Thing, Cognito User, and DynamoDB Table Relationships</h3><p>As this solution is designed as a software-as-a-service (SaaS) environment, there needs to be a specific relationship between all of the resources to help enforce the security and operational controls of the actions. At a high level this is how the resources are associated with each other:</p>
-<figure class="image-block"><img src="../../Relationship_services.svg" alt="Relationship services" width="806" height="646">
+<figure class="image-block"><img src="../../Relationship_services.svg" alt="Relationship services" width="800" height="646">
 <figcaption>Figure 1. Relationship between services</figcaption></figure>
 <p>Each thing has a unique X.509 client certificate for authentication allowing the dispenser to connect to AWS IoT and publish and subscribe to the MQTT topics specific for that dispenser. This authorization of MQTT topics comes from a common policy attached to the certificate that uses substitution variables that read the <em>Common Name</em> value from the X.509 certificate which contains the dispenser Id. This allows for an easier management of the authorization policies, as a single policy can be used for all dispensers. The relationship between the dispenser and the user is modeled into a Cognito User attribute, <code>custom:dispenserId</code>, that is read for every API call. Finally, your dispenser has an entry in the DynamoDB <em>DispenserTable</em> that tracks the credit balance and any in-flight or stale command operations.</p>
 <p>Go to the AWS Console to review the relationships for your dispenser and your own user in the following AWS services:</p>

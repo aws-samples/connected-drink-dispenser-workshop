@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.64.1" />
     <meta name="description" content="">
 
 
@@ -601,15 +601,12 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#modify-template-files">Modify Template Files</a></li>
-<li><a href="#process-local-dependencies">Process Local Dependencies</a></li>
-<li><a href="#deploy-stack-via-cdk-and-cloudformation">Deploy Stack via CDK and CloudFormation</a></li>
-<li><a href="#deploy-application-and-documentation">Deploy Application and Documentation</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#modify-template-files">Modify Template Files</a></li>
+    <li><a href="#process-local-dependencies">Process Local Dependencies</a></li>
+    <li><a href="#deploy-stack-via-cdk-and-cloudformation">Deploy Stack via CDK and CloudFormation</a></li>
+    <li><a href="#deploy-application-and-documentation">Deploy Application and Documentation</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -635,34 +632,25 @@
 
 
 
-	
-
-<p>This section covers the steps to locally build and then deploy the stack to your preferred region. All steps are completed within the <code>deploy/</code> directory.</p>
-
+	<p>This section covers the steps to locally build and then deploy the stack to your preferred region. All steps are completed within the <code>deploy/</code> directory.</p>
 <h2 id="modify-template-files">Modify Template Files</h2>
-
 <p>Copy the <code>deploy/config.json.default</code> to <code>deploy/config.json</code> and modify the new file and change the following parameters with the values from the prerequisites section:</p>
-
 <ul>
 <li><code>Region</code> - AWS region to deploy and run the stack (for example, <code>us-west-2</code> from previous section).</li>
 <li><code>HostName</code> - Fully qualified domain name for the stack to build and use, must not exist, it will be created.</li>
 <li><code>ProfileName</code> - The name of the AWS CLI profile with administrative permissions.</li>
 </ul>
-
 <h2 id="process-local-dependencies">Process Local Dependencies</h2>
-
 <p>There are various python packages that need to be installed within the <code>deploy/.env</code> directory in order for CDK to run and process the stack. Follow these steps <em>once</em> to install the dependencies.</p>
-
 <p>Change to the <code>deploy/</code> directory and activate the Python virtual environment.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd Connected_drink_dispenser/cdk
 $ source .env/bin/activate     <span style="color:#75715e"># sh or bash</span>
-$ pip install -r requirements.txt</code></pre></div>
-<p>Verify by running <code>cdk synth</code> which will return a <em>long</em> CloudFormation stack in YAML. As long as no errors were returned, the <code>cdk synth</code> command has verified dependencies and created the artifacts in the <code>cdk.out/</code> subdirectory (don&rsquo;t delete this directory).</p>
-
+$ pip install -r requirements.txt
+</code></pre></div><p>Verify by running <code>cdk synth</code> which will return a <em>long</em> CloudFormation stack in YAML. As long as no errors were returned, the <code>cdk synth</code> command has verified dependencies and created the artifacts in the <code>cdk.out/</code> subdirectory (don&rsquo;t delete this directory).</p>
 <h2 id="deploy-stack-via-cdk-and-cloudformation">Deploy Stack via CDK and CloudFormation</h2>
-
 <p>With the prerequisites and <code>config.json</code> set, run <code>cdk deploy</code>. This will take at least 30 minutes if not longer as there is a CloudFront (CDN) distribution involved. The final output should look like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> ✅  cdd-workshop
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
+ ✅  cdd-workshop
 
 Outputs:
 cdd-workshop.StaticSiteBucket34E5D9AF <span style="color:#f92672">=</span> cdd.example.com-static-site
@@ -676,20 +664,18 @@ cdd-workshop.UserPoolCognitoUserPoolIdA08E3514 <span style="color:#f92672">=</sp
 
 Stack ARN:
 arn:aws:cloudformation:us-west-2:123456789012:stack/cdd-workshop/deadbeef-d008-11e9-8962-02dbab669d48
-$</code></pre></div>
-<p>When completed, you should be able to navigate to <a href="https://cdd.example.com">https://cdd.example.com</a> to verify that CloudFront is working. There will be a <em>NoSuchKey</em> error, which we will fix in the next step, but you can verify that the HTTPS certificate is in place.</p>
-
+$
+</code></pre></div><p>When completed, you should be able to navigate to <a href="https://cdd.example.com">https://cdd.example.com</a> to verify that CloudFront is working. There will be a <em>NoSuchKey</em> error, which we will fix in the next step, but you can verify that the HTTPS certificate is in place.</p>
 <p>If there are any errors running <code>cdk deploy</code>, the stack will automatically rollback and delete all the resources. Due to the CloudFront distribution, this will take 30 minutes or longer to complete. Review the error, correct, and re-run the deploy step. Most errors will either be related to permissions associated with the credentials used to deploy, or lack of one of the prerequisites.</p>
-
 <h2 id="deploy-application-and-documentation">Deploy Application and Documentation</h2>
-
 <p>With the stack deployed, we need to read some of the outputs from above, create the single page application, and then deploy it and this documentation. To do so, run the <code>deploy_app.py</code> script.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python deploy_app.py
 Verifying local configuration files
 Reading CloudFormation stack parameters to create files <span style="color:#66d9ef">for</span> web application
 Clearing S3 bucket of ALL objects
 Copying web application to S3 |<span style="color:#75715e">################################| xxx/xxx⏎</span>
-Copying online documentation to S3 |<span style="color:#75715e">################################| 121/121⏎</span></code></pre></div>
+Copying online documentation to S3 |<span style="color:#75715e">################################| 121/121⏎</span>
+</code></pre></div>
 
 
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.64.1" />
     <meta name="description" content="">
 
 
@@ -607,21 +607,19 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#objectives">Objectives</a></li>
-<li><a href="#steps-to-complete">Steps to Complete</a>
-<ul>
-<li><a href="#1-open-new-browser-tab-to-cloud9-service-and-launch-ide">1. Open New Browser Tab to Cloud9 Service and Launch IDE</a></li>
-<li><a href="#2-install-dependencies-needed-for-compilation">2. Install Dependencies Needed For Compilation</a></li>
-<li><a href="#3-clone-workshop-repository">3.Clone Workshop Repository</a></li>
-<li><a href="#4-verify-default-compilation">4. Verify Default Compilation</a></li>
-</ul></li>
-<li><a href="#checkpoints">Checkpoints</a></li>
-<li><a href="#outcomes">Outcomes</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#objectives">Objectives</a></li>
+    <li><a href="#steps-to-complete">Steps to Complete</a>
+      <ul>
+        <li><a href="#1-open-new-browser-tab-to-cloud9-service-and-launch-ide">1. Open New Browser Tab to Cloud9 Service and Launch IDE</a></li>
+        <li><a href="#2-install-dependencies-needed-for-compilation">2. Install Dependencies Needed For Compilation</a></li>
+        <li><a href="#3clone-workshop-repository">3.Clone Workshop Repository</a></li>
+        <li><a href="#4-verify-default-compilation">4. Verify Default Compilation</a></li>
+      </ul>
+    </li>
+    <li><a href="#checkpoints">Checkpoints</a></li>
+    <li><a href="#outcomes">Outcomes</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -647,30 +645,19 @@
 
 
 
-	
-
-<h2 id="objectives">Objectives</h2>
-
+	<h2 id="objectives">Objectives</h2>
 <p>This lab module will walk you through how to launch the Cloud9 IDE and download the device firmware source code. By the end of the module you will have:</p>
-
 <ul>
 <li>Installed the <em>toolchain</em> needed to compile and link the source code for the dispenser.</li>
 <li>Cloned the workshop repository which includes the dispenser firmware source code.</li>
 <li>Installed the supporting tools needed to compile.</li>
 </ul>
-
 <p>The AWS Cloud9 Integrated Development Environment (IDE) is a service that runs on EC2 and provides a interactive and consistent development environment. You interact with it via a web browser, and it allows for command line access, a folder tree, and the ability to upload and download files between it and your local laptop.</p>
-
 <p>Using Cloud9 is good because it gives a consistent compilation experience no matter the model or age of your laptop. It compiles within a couple minutes (older laptops can take 15 minutes or longer), and if compile times become too long, you can change the underlying instance size to obtain even more CPU or memory resources.</p>
-
 <h2 id="steps-to-complete">Steps to Complete</h2>
-
 <p>Follow each step in order and use the <em>Click to open for detailed step-by-step instructions</em> if required.</p>
-
 <h3 id="1-open-new-browser-tab-to-cloud9-service-and-launch-ide">1. Open New Browser Tab to Cloud9 Service and Launch IDE</h3>
-
 <p>From the dispenser app, open the <em>MY DETAILS</em> section and open a new browser tab or window to the Sign-in URL, then login in with the credentials provided. From the AWS Console, open a new tab to the <em>Cloud9</em> service. From the <em>Your Environments</em> menu, click on the <em>Open IDE</em> button for your user. This will open a new tab with the IDE and start up the EC2 instance (it may take a minute to fully launch).</p>
-
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;text-decoration: underline" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-circle-down' : 'fas fa-chevron-circle-right';});});">
@@ -684,20 +671,24 @@
     </div>
     <div class="expand-content" style="display: none;">
         <ol>
-<li>In the dispenser app, open the <em>MY DETAILS</em> section and click on the <em>Sign-In URL</em> to open a new browser tab.</li>
-<li>Use the username and password credentials from the web app to log into the AWS Console.</li>
-<li>From the console, click on <em>Services</em> from the top left menu bar, then in the <em>Find a service by name or feature</em> type <code>Cloud9</code> and right- click on the drop-down service name and select <em>Open Link in New Tab</em> (or something similar).</li>
-
-<li><p>On the Cloud9 tab, click on the <em>Your Environments</em> menu, click on the <em>Open IDE</em> button for your user. This will open a new tab with the IDE and start up the EC2 instance (it may take a minute to fully launch).</p>
-
-<p><img src="../../images/lab5_default_cloud9.png" alt="Default Cloud9" /></p></li>
+<li>
+<p>In the dispenser app, open the <em>MY DETAILS</em> section and click on the <em>Sign-In URL</em> to open a new browser tab.</p>
+</li>
+<li>
+<p>Use the username and password credentials from the web app to log into the AWS Console.</p>
+</li>
+<li>
+<p>From the console, click on <em>Services</em> from the top left menu bar, then in the <em>Find a service by name or feature</em> type <code>Cloud9</code> and right- click on the drop-down service name and select <em>Open Link in New Tab</em> (or something similar).</p>
+</li>
+<li>
+<p>On the Cloud9 tab, click on the <em>Your Environments</em> menu, click on the <em>Open IDE</em> button for your user. This will open a new tab with the IDE and start up the EC2 instance (it may take a minute to fully launch).</p>
+<p><img src="../../images/lab5_default_cloud9.png" alt="Default Cloud9"></p>
+</li>
 </ol>
 
     </div>
 </div>
-
 <h3 id="2-install-dependencies-needed-for-compilation">2. Install Dependencies Needed For Compilation</h3>
-
 <p>With the IDE open, close the <em>Welcome</em> tab, and the click the green circled plus icon and select <em>New terminal</em> which will open a command line in the <code>~/environment</code> directory. Copy and paste the following lines in the terminal window to install the dependencies and the Xtensa toolchain for the microcontroller (ESP32). The final commands will add the toolchain to your <code>PATH</code> so the build process can execute correctly.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Install OS utilities needed by toolchain</span>
 sudo yum -y install flex gperf
@@ -713,51 +704,43 @@ cd ~/environment
 <span style="color:#75715e"># Finally, add the toolchain path to your profile</span>
 echo <span style="color:#e6db74">&#39;PATH=$PATH:$HOME/environment/esp/xtensa-esp32-elf/bin&#39;</span> &gt;&gt; ~/.bash_profile
 source ~/.bash_profile
-<span style="color:#75715e"># ============= Finished installation of dependencies =============</span></code></pre></div>
-<h3 id="3-clone-workshop-repository">3.Clone Workshop Repository</h3>
-
+<span style="color:#75715e"># ============= Finished installation of dependencies =============</span>
+</code></pre></div><h3 id="3clone-workshop-repository">3.Clone Workshop Repository</h3>
 <p>The device firmware resides in the workshop&rsquo;s GitHub repository. Copy and paste the following lines to clone the repository locally and change to the directory where the compile operations will take place.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd ~/environment
 git clone --depth <span style="color:#ae81ff">1</span> https://github.com/aws-samples/connected-drink-dispenser-workshop.git
 cd connected-drink-dispenser-workshop/device_firmware
-<span style="color:#75715e"># ============= Finished installation of Connected Drink Dispenser repository =============</span></code></pre></div>
-<h3 id="4-verify-default-compilation">4. Verify Default Compilation</h3>
-
+<span style="color:#75715e"># ============= Finished installation of Connected Drink Dispenser repository =============</span>
+</code></pre></div><h3 id="4-verify-default-compilation">4. Verify Default Compilation</h3>
 <p>To verify that all components are in place, run the following commands to create the build environment in the <code>device_firmware</code> directory, then change to the build directory (it will be created in root of the repository, at <code>~/environment/connected-drink-dispenser-workshop/build</code>).</p>
-
 <p>Run each of these commands and verify they completed without errors (warnings are okay).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd connected-drink-dispenser-workshop/device_firmware
-cmake -DVENDOR<span style="color:#f92672">=</span>espressif -DBOARD<span style="color:#f92672">=</span>esp32_devkitc -DCOMPILER<span style="color:#f92672">=</span>xtensa-esp32 -S . -B ./build</code></pre></div>
-<p>This should only take a few seconds and end with no errors. Then run the <code>make</code> process:</p>
+cmake -DVENDOR<span style="color:#f92672">=</span>espressif -DBOARD<span style="color:#f92672">=</span>esp32_devkitc -DCOMPILER<span style="color:#f92672">=</span>xtensa-esp32 -S . -B ./build
+</code></pre></div><p>This should only take a few seconds and end with no errors. Then run the <code>make</code> process:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd build
 make all -j4
-cd ..</code></pre></div>
-<p>Again verify there were no errors. The final output of the build step should look like this:</p>
+cd ..
+</code></pre></div><p>Again verify there were no errors. The final output of the build step should look like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
-<span style="color:#f92672">[</span><span style="color:#ae81ff">100</span>%<span style="color:#f92672">]</span> Building C object CMakeFiles/aws_demos.dir/demos/wifi_provisioning/aws_wifi_connect_task.c.obj
-<span style="color:#f92672">[</span><span style="color:#ae81ff">100</span>%<span style="color:#f92672">]</span> Linking CXX executable aws_demos
-<span style="color:#f92672">[</span><span style="color:#ae81ff">100</span>%<span style="color:#f92672">]</span> Built target aws_demos
+<span style="color:#f92672">[</span>100%<span style="color:#f92672">]</span> Building C object CMakeFiles/aws_demos.dir/demos/wifi_provisioning/aws_wifi_connect_task.c.obj
+<span style="color:#f92672">[</span>100%<span style="color:#f92672">]</span> Linking CXX executable aws_demos
+<span style="color:#f92672">[</span>100%<span style="color:#f92672">]</span> Built target aws_demos
 Scanning dependencies of target app
-<span style="color:#f92672">[</span><span style="color:#ae81ff">100</span>%<span style="color:#f92672">]</span> Generating ../aws_demos.bin
+<span style="color:#f92672">[</span>100%<span style="color:#f92672">]</span> Generating ../aws_demos.bin
 esptool.py v2.6
-<span style="color:#f92672">[</span><span style="color:#ae81ff">100</span>%<span style="color:#f92672">]</span> Built target app</code></pre></div>
-<p>As a result of the build process, files have been created in <code>~/environment/connected-drink-dispenser-workshop/build</code>. Among these there is also the the firmware that will be flashed onto the microcontroller.</p>
-
+<span style="color:#f92672">[</span>100%<span style="color:#f92672">]</span> Built target app
+</code></pre></div><p>As a result of the build process, files have been created in <code>~/environment/connected-drink-dispenser-workshop/build</code>. Among these there is also the the firmware that will be flashed onto the microcontroller.</p>
 <h2 id="checkpoints">Checkpoints</h2>
-
 <p>Please ensure the following checkpoints are validated before moving on to the next module.</p>
-
 <ul>
 <li>In the Cloud9 IDE:
-
 <ul>
 <li>There is a file named <code>aws_demos.bin</code> in <code>~/environment/connected-drink-dispenser-workshop/build</code>.</li>
 <li>There were no errors (warnings are okay) in either the <code>cmake</code> or <code>make all</code> steps.</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="outcomes">Outcomes</h2>
-
 <p>We used a reproducible method (all the commands above can be automated) to create a development environment and toolchain build process. By doing this, you can always recreate the environment if something gets corrupted. Having the ability to quickly iterate in changes is an important factor in developing firmware.</p>
 
 

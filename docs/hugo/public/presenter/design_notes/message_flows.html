@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.64.1" />
     <meta name="description" content="">
 
 
@@ -633,7 +633,7 @@
 
 	<section class="doc-section level-1"><h2 id="_device_and_application_message_flows">Device and Application Message Flows</h2><p>The shadow document for devices tracks state of local resources. In the case of the motor board, this is <code>led</code> which maps to the <em>second</em> motor controller, which is not used. This give an indicator that things are working without having to activate the motor.</p>
 <p>The <code>led_ring</code> is the round ring and <code>count</code> determine how many LED elements to light up, and the color is the RBG color for all active elements. Each of these below will always be in the <em>desired</em> state of the shadow and once online, in the <em>reported</em> state for the device.</p>
-<div class="listing-block"><pre class="pygments highlight"><code class="language-json" data-lang="json"><span></span><span class="tok-p">{</span>
+<div class="listing-block"><pre class="pygments highlight"><code data-lang="json"><span></span><span class="tok-p">{</span>
     <span class="tok-nt">&quot;led_ring&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span>
         <span class="tok-nt">&quot;count&quot;</span><span class="tok-p">:</span> <span class="tok-mi">0</span><span class="tok-p">,</span>
         <span class="tok-nt">&quot;color&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;#RRGGBB&quot;</span>
@@ -643,7 +643,7 @@
 <span class="tok-p">}</span></code></pre></div>
 <p>There are also a temporary <strong>request</strong> and <strong>response</strong> objects used to track command state. The cloud logic will create the <strong>request</strong> object in the <em>desired</em> state section of the shadow, and once processed by the device, it will create the <strong>response</strong> object in the <em>reported</em> state section. Finally, cloud logic will reconcile and clean up the shadow document of any entries left.</p>
 <p>Below are what the <strong>request</strong> and <strong>response</strong> objects should look like. The <code>command</code> and <code>requestId</code> attribute and values must match. For the <strong>request</strong> object, the <code>timestamp</code> attribute is when the request was made, while in the <strong>response</strong> object it is when the dispenser completed the operation.</p>
-<div class="listing-block"><pre class="pygments highlight"><code class="language-json" data-lang="json"><span></span><span class="tok-p">{</span>
+<div class="listing-block"><pre class="pygments highlight"><code data-lang="json"><span></span><span class="tok-p">{</span>
     <span class="tok-nt">&quot;desired&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span>
         <span class="tok-nt">&quot;request&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span>
             <span class="tok-nt">&quot;command&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;dispense&quot;</span><span class="tok-p">,</span>
@@ -670,7 +670,7 @@
 <p>This is the same flow for <code>led1</code> and <code>led_ring</code>. For <code>led_ring</code>, the attributes are the amount of LEDs to light (0-5) and the RBG color in hex, e.g., <code>#ff0000</code> for full red.</p>
 <aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>The LED operation can be <code>on</code> or <code>off</code>.</p></aside></section>
 <section class="doc-section level-3"><h4 id="_activate_dispenser">Activate Dispenser</h4><p>Uses the device&#8217;s shadow <em>desired</em> state to send a command (request) to the dispenser. After the dispenser has completed the operation, it updates the shadow&#8217;s <em>reported</em> state to  acknowledge the request.</p>
-<figure class="image-block"><img src="../../Activate%20Dispenser.svg" alt="Activate Dispenser" width="1698" height="1729">
+<figure class="image-block"><img src="../../Activate%20Dispenser.svg" alt="Activate Dispenser" width="1576" height="1743">
 <figcaption>Figure 2. Activate Dispenser</figcaption></figure>
 <p>In this flow:</p>
 <div class="ulist"><ul><li>Request - User clicks on "dispense" button in web application<ul><li>Lambda is invoked for that request</li><li>Dispenser record read</li><li>If there is a good balance and no in-process requests &lt; 5 seconds old:<ul><li>Record a new request in the dispenser record</li><li>Publish the <strong>request</strong> object to the dispensers shadow <em>desired</em> state</li><li>Log a successful request event</li><li>Return to the API/web app a success message</li></ul></li><li>If there is <em>not</em> enough credits or a dispense request is still valid (&lt;5 seconds old):<ul><li>Log an error</li><li>Return to the API/web app a descriptive error</li></ul></li></ul></li></ul></div>
@@ -680,7 +680,7 @@
 <aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>A dispenser may get a free pour if it receives the dispense command and then goes offline before publishing the response message.</p></aside></section></section>
 <section class="doc-section level-2"><h3 id="_rules_engine_flows">Rules Engine Flows</h3><p>These flows are subscriptions made by the rules, and the actions they take.</p>
 <section class="doc-section level-3"><h4 id="_logging_events">Logging Events</h4><p>The logging rule monitors all messages published to <code>events</code> and <code>events/#</code>, and invokes a Lambda to persist the events into the DynamoDB <strong>EventsTable</strong>.</p>
-<figure class="image-block"><img src="../../General%20Events%20Logging.svg" alt="General Events Logging" width="871" height="910">
+<figure class="image-block"><img src="../../General%20Events%20Logging.svg" alt="General Events Logging" width="783" height="924">
 <figcaption>Figure 3. General Event Logging</figcaption></figure>
 <p>There are three logging rules for the workshop, all which log events to the <strong>EventsTable</strong>. The <strong>LogShadowEvents</strong> rule monitors for shadow update documents, adds the topic which will identify the dispenser, then invokes the <strong>ProcessEvents</strong> Lambda function. Similarly for messages published to the <code>events</code> and <code>events/nnn</code> (dispenser ID) topics, the <strong>LogGenericEvents</strong> and <strong>LogDispenserEvents</strong> rules process the messages and invoke <strong>ProcessEvents</strong>.</p>
 <p>The Lambda function parses the incoming details and creates the formatted entries that then published to the DynamoDB <strong>EventsTable</strong>.</p></section></section></section>

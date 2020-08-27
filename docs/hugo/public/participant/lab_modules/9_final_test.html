@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.64.1" />
     <meta name="description" content="">
 
 
@@ -607,18 +607,16 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#objectives">Objectives</a></li>
-<li><a href="#steps-to-complete">Steps to Complete</a>
-<ul>
-<li><a href="#1-power-on-the-dispenser">1. Power On the Dispenser</a></li>
-</ul></li>
-<li><a href="#checkpoints">Checkpoints</a></li>
-<li><a href="#outcomes">Outcomes</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#objectives">Objectives</a></li>
+    <li><a href="#steps-to-complete">Steps to Complete</a>
+      <ul>
+        <li><a href="#1-power-on-the-dispenser">1. Power On the Dispenser</a></li>
+      </ul>
+    </li>
+    <li><a href="#checkpoints">Checkpoints</a></li>
+    <li><a href="#outcomes">Outcomes</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -644,41 +642,28 @@
 
 
 
-	
-
-<h2 id="objectives">Objectives</h2>
-
+	<h2 id="objectives">Objectives</h2>
 <p>Okay, this is the moment of truth. You have:</p>
-
 <ol>
 <li>Setup your laptop to flash the dispenser.</li>
 <li>From Cloud9 compiled the firmware specific for your dispenser.</li>
 <li>Flashed the microcontroller and tested the cloud capabilities and built up enough credits to operate.</li>
 <li>Optionally built the dispenser and are ready to test.</li>
 </ol>
-
 <p>With all that completed, let&rsquo;s dispenser a real liquid drink.</p>
-
 <h2 id="steps-to-complete">Steps to Complete</h2>
-
 <p>Follow each step in order and use the <em>Click to open for detailed step-by-step instructions</em> if required.</p>
-
 
 <div class="notices " ><p>The following steps are if you are using your own dispenser. If you elect to use one of the pre-built ones, bring your microcontroller (the ESP32) to one of the pre-built stations. Be careful when removing from the controller board as its easy to bend the pins on the ESP32.</p>
 </div>
 
-
 <h3 id="1-power-on-the-dispenser">1. Power On the Dispenser</h3>
-
 <p>After completing the build step, ensure there is liquid in the bottle, an empty cup underneath, then connect the 9 Volt battery instead of the USB cable for power. Wait until the dispenser is online by viewing the LED status. Now. from 6 inches or 6 feet away click <em>DISPENSE!</em> to pour yourself a drink!</p>
-
 
 <div class="notices tip" ><p>If you wish to record this event for posterity, have someone else video you clicking <em>DISPENSE!</em> and having the dispenser pour the drink. Workshop assistants are glad to be your personal videographer if needed!</p>
 </div>
 
-
 <p>If something goes wrong or doesn&rsquo;t work, review the build steps from the previous lab, or ask a workshop assistant for help.</p>
-
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;text-decoration: underline" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-circle-down' : 'fas fa-chevron-circle-right';});});">
@@ -707,13 +692,9 @@
 
     </div>
 </div>
-
 <h2 id="checkpoints">Checkpoints</h2>
-
 <p>There is only one checkpoint to verify, and that is you successfully dispensed a drink!</p>
-
 <h2 id="outcomes">Outcomes</h2>
-
 <p>Congratulations! You have successfully completed the <em>Connected Drink Dispenser</em> workshop. We hope that you enjoyed the session and came away with a general understanding in how you can incorporate AWS IoT services into an overall multi-user or multi-tenant AWS workload.</p>
 
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.64.1" />
     <meta name="description" content="">
 
 
@@ -607,22 +607,20 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#objectives">Objectives</a></li>
-<li><a href="#a-few-words-on-the-components">A Few words on the Components</a></li>
-<li><a href="#steps-to-complete">Steps to Complete</a>
-<ul>
-<li><a href="#1-remove-the-components-to-use">1. Remove the Components to Use</a></li>
-<li><a href="#2-connect-the-led-ring-and-9-volt-battery-lead-to-the-controller-board">2. Connect the LED Ring and 9 Volt Battery Lead to the Controller Board</a></li>
-<li><a href="#3-install-the-microcontroller-into-the-controller-board">3. Install the Microcontroller into the Controller Board</a></li>
-<li><a href="#4-connect-the-microcontroller-to-your-laptop-and-test-serial-communication">4. Connect the Microcontroller to Your Laptop and Test Serial Communication</a></li>
-</ul></li>
-<li><a href="#checkpoints">Checkpoints</a></li>
-<li><a href="#outcomes">Outcomes</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#objectives">Objectives</a></li>
+    <li><a href="#a-few-words-on-the-components">A Few words on the Components</a></li>
+    <li><a href="#steps-to-complete">Steps to Complete</a>
+      <ul>
+        <li><a href="#1-remove-the-components-to-use">1. Remove the Components to Use</a></li>
+        <li><a href="#2-connect-the-led-ring-and-9-volt-battery-lead-to-the-controller-board">2. Connect the LED Ring and 9 Volt Battery Lead to the Controller Board</a></li>
+        <li><a href="#3-install-the-microcontroller-into-the-controller-board">3. Install the Microcontroller into the Controller Board</a></li>
+        <li><a href="#4-connect-the-microcontroller-to-your-laptop-and-test-serial-communication">4. Connect the Microcontroller to Your Laptop and Test Serial Communication</a></li>
+      </ul>
+    </li>
+    <li><a href="#checkpoints">Checkpoints</a></li>
+    <li><a href="#outcomes">Outcomes</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -648,45 +646,30 @@
 
 
 
-	
-
-<h2 id="objectives">Objectives</h2>
-
+	<h2 id="objectives">Objectives</h2>
 <p>This lab module will walk you through connecting the components to test the operation of the dispenser without having to build the entire dispenser at this time.</p>
-
 <p>By the end of this module you will:</p>
-
 <ul>
 <li>Have installed all the components needed to test the operation of the dispenser firmware with the cloud backend</li>
 <li>Have an understanding of what each component does</li>
 <li>Be able to communicate with the microcontroller via your laptop</li>
 </ul>
 
-
 <div class="notices warning" ><p>Building the dispenser takes up a lot of room. For now, just remove the parts mentioned below and leave the rest in the zip-top bag. Promise: you <em>will</em> build the entire dispenser!</p>
 </div>
 
-
 <h2 id="a-few-words-on-the-components">A Few words on the Components</h2>
-
 <p>The LED Ring is controlled by the microprocessor, and is used to display the status of the overall application. It is powered and controlled by the microcontroller and the firmware you will compile and flash.</p>
-
 <p>The Controller Board serves a few functions.</p>
-
 <ul>
 <li>It acts as carrier for the microcontroller, and provides easy to use connectors for the other components being connected such as the LED Ring, external power, and the aquarium pump which will be installed later</li>
 <li>It can be powered either via USB, for the initial testing, or can be powered by an external battery, such as the 9V provided. The USB has too low voltage to drive the pump motor, and with some computers, even the LED Ring</li>
 <li>It also helps anchor all the components into the final build</li>
 </ul>
-
 <h2 id="steps-to-complete">Steps to Complete</h2>
-
 <p>Follow each step in order and use the <em>Click to open for detailed step-by-step instructions</em> if required.</p>
-
 <h3 id="1-remove-the-components-to-use">1. Remove the Components to Use</h3>
-
 <p>Take these five components from the zip-top bag (you should already have the ESP32 microcontroller and USB cable out from earlier testing):</p>
-
 <ul>
 <li>ESP32 Microcontroller</li>
 <li>USB Cable (Type-A to Micro USB data and power)</li>
@@ -694,17 +677,11 @@
 <li>Ring LED</li>
 <li>9 Volt Battery Lead</li>
 </ul>
-
-<p><img src="../../images/lab4_components.jpg" alt="Components" height="400"/></p>
-
+<!-- raw HTML omitted -->
 <h3 id="2-connect-the-led-ring-and-9-volt-battery-lead-to-the-controller-board">2. Connect the LED Ring and 9 Volt Battery Lead to the Controller Board</h3>
-
 <p>Install the LED Ring into the <code>WS2812</code> 3-pin connector on the back Controller Board with the tab aligned with the connector slot. Turn over the Controller Board and attach the 9 Volt battery lead.</p>
-
-<p><img src="../../images/lab4_led_connected.png" alt="Connecting LED Ring to Controller" height="400"/></p>
-
-<p><img src="../../images/lab4_9v_lead_connected.jpg" alt="Connecting 9V Lead to Controller" height="400"/></p>
-
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;text-decoration: underline" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-circle-down' : 'fas fa-chevron-circle-right';});});">
@@ -726,17 +703,12 @@
 
     </div>
 </div>
-
 <h3 id="3-install-the-microcontroller-into-the-controller-board">3. Install the Microcontroller into the Controller Board</h3>
-
 <p>Align the microcontroller to the dual inline socket on the other side of the Controller Board, aligning the large metal square package over the 9 Volt battery extending out from the controller board. Make sure all pins on the ESP32 are aligned with the socket, the pin tips slightly inserted, then gently insert until all the way in.</p>
-
-<p><img src="../../images/lab4_insert_esp32.jpg" alt="Inserting ESP32 into Controller Board" height="400"/></p>
-
+<!-- raw HTML omitted -->
 
 <div class="notices tip" ><p>It is very easy to accidentally bend the pins on the microcontroller. Turn over the Controller Board with the socket facing up, and then with your other hand gently position the microcontroller pins into the holes. Once all are in place, gently apply pressure equally (center of microcontroller works best) to insert all the way in. If you accidentally install backwards, place a finger <em>underneath</em> one end of the microcontroller and apply pressure to lift slightly. The do the same on the other end and alternate back and forth until the microcontroller is out of the socket.</p>
 </div>
-
 
 
 <div class="expand">
@@ -754,24 +726,19 @@
 <li>Hold the Controller Board in one hand with the socket side (opposite of the LED Ring connection) facing up.</li>
 <li>In your other hand hold the microcontroller and align the side with the large metal side with tab (antenna) to the Controller Board where the 9 Volt battery lead extends (not shown in pictures below&ndash;see above).</li>
 <li>Align the pins on the microcontroller to the socket and put them in place lightly (do not apply any pressure). Ensure each pin is in a hole.
-<img src="../../images/lab4_side_not_flush.png" alt="ESP32 Aligned, not Plugged In" height="400"/></li>
+<!-- raw HTML omitted --></li>
 <li>With gentle, even pressure, press the microcontroller in the socket until flush.
-<img src="../../images/lab4_side_flush.png" alt="ESP32 Aligned, Fully Inserted" width="600"/></li>
+<!-- raw HTML omitted --></li>
 </ol>
 
     </div>
 </div>
-
 <h3 id="4-connect-the-microcontroller-to-your-laptop-and-test-serial-communication">4. Connect the Microcontroller to Your Laptop and Test Serial Communication</h3>
-
 <p>Insert the USB cable&rsquo;s Micro USB connector end into the microcontroller, and the Type-A connector into your laptop. The red LED on the microcontroller indicates power, and the Ring LED <em>may</em> light up, but if it doesn&rsquo;t, that is okay. Next, check that the serial port tested in the <em>Laptop Setup</em> module is there. Use the serial monitoring software to connect to the serial port. Press the button to the left of the USB connection (reset) and verify that you see text scrolling in the serial monitor window after each press. Exit your monitoring software.</p>
-
-<p><img src="../../images/lab4_plugged_in.jpg" alt="Controller Plugged In" height="400"/></p>
-
+<!-- raw HTML omitted -->
 
 <div class="notices info" ><p>A Micro USB to Type-A cable is provided as part of the kit. If your laptop only has Type-C connector and you have a Micro USB to Type-C cable, make sure that it supports <em>both</em> power and data connections. The workshop presenter may have Micro USB to Type-C cables to loan out.</p>
 </div>
-
 
 
 <div class="expand">
@@ -786,11 +753,14 @@
     </div>
     <div class="expand-content" style="display: none;">
         <ol>
-<li>Insert the USB cable into the microcontroller, and then your laptop and verify that red LED on the microcontroller is lit, showing that the microcontroller is powered up.</li>
-<li>Use the serial monitoring tool (either <code>screen</code> or PuTTY) that you installed in the previous lab, verify that the serial port for your laptop works. In some cases, especially in Windows, the COM port number might change after each connection. Check you are using the correct one.</li>
-
-<li><p>Press the button to the left of the USB connection and verify you see text after each press. It should look similar to this:</p>
-
+<li>
+<p>Insert the USB cable into the microcontroller, and then your laptop and verify that red LED on the microcontroller is lit, showing that the microcontroller is powered up.</p>
+</li>
+<li>
+<p>Use the serial monitoring tool (either <code>screen</code> or PuTTY) that you installed in the previous lab, verify that the serial port for your laptop works. In some cases, especially in Windows, the COM port number might change after each connection. Check you are using the correct one.</p>
+</li>
+<li>
+<p>Press the button to the left of the USB connection and verify you see text after each press. It should look similar to this:</p>
 <pre><code>rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
 configsip: 0, SPIWP:0xee
 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
@@ -808,33 +778,27 @@ I (38) boot: SPI Mode       : DIO
 I (42) boot: SPI Flash Size : 4MB
 I (46) boot: Partition Table:
 </code></pre></li>
-
-<li><p>Exit the monitoring program. You may leave the microcontroller attached if you like.</p></li>
+<li>
+<p>Exit the monitoring program. You may leave the microcontroller attached if you like.</p>
+</li>
 </ol>
 
     </div>
 </div>
 
-
 <div class="notices warning" ><p>If after connecting the microcontroller, the controller board, <em>and</em> the LED, you get errors about <em>insufficient</em> power or the red LED doesn&rsquo;t not stay lit, your laptop or USB adapter may not be able to provide sufficient power. In that case, remove the microcontroller and connect a 9 volt battery to the controller board. It is connector under the microcontroller and <em>not</em> the one on the back next to LED Ring connector.</p>
 </div>
 
-
 <h2 id="checkpoints">Checkpoints</h2>
-
 <p>Please ensure the following checkpoints are validated before moving on to the next module.</p>
-
 <ol>
 <li>The LED Ring and the microcontroller are connected to the Controller Board.</li>
 <li>The microcontroller has power when connected to your laptop and that the onboard LED is lit and there are not messages indicating insufficient power.</li>
 <li>You can see text via the serial monitoring tool when you press the reboot button.</li>
 <li>You have exiting PuTTY or <code>screen</code> (<code>CTRL-a CTRL-\</code>, the <code>y</code>).</li>
 </ol>
-
 <h2 id="outcomes">Outcomes</h2>
-
 <p>Why are we only installing a few pieces of the entire dispenser instead of building it now?</p>
-
 <p>When doing embedded software development, it is easier to work first with a microcontroller development kit and the accessories you will be controlling. Normally this would be done with a breadboard or some other development kit (devkit). However, for those that are not familiar with that process, using the minimum pieces now will allow us to incrementally test the system up to the final build of the  dispenser.</p>
 
 

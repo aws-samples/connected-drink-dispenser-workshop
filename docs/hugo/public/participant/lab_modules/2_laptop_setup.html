@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.64.1" />
     <meta name="description" content="">
 
 
@@ -607,22 +607,20 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#objectives">Objectives</a></li>
-<li><a href="#steps-to-complete">Steps to Complete</a>
-<ul>
-<li><a href="#1-create-local-folder">1. Create Local Folder</a></li>
-<li><a href="#2-download-and-install-serial-driver">2. Download and Install Serial Driver</a></li>
-<li><a href="#3-download-and-install-esptool">3. Download and Install esptool</a></li>
-<li><a href="#4-open-command-line-interface-and-test-all-components">4. Open Command Line Interface and Test All Components</a></li>
-<li><a href="#5-download-or-configure-serial-monitor-tool">5. Download or Configure Serial Monitor Tool</a></li>
-</ul></li>
-<li><a href="#checkpoints">Checkpoints</a></li>
-<li><a href="#outcomes">Outcomes</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#objectives">Objectives</a></li>
+    <li><a href="#steps-to-complete">Steps to Complete</a>
+      <ul>
+        <li><a href="#1-create-local-folder">1. Create Local Folder</a></li>
+        <li><a href="#2-download-and-install-serial-driver">2. Download and Install Serial Driver</a></li>
+        <li><a href="#3-download-and-install-esptool">3. Download and Install esptool</a></li>
+        <li><a href="#4-open-command-line-interface-and-test-all-components">4. Open Command Line Interface and Test All Components</a></li>
+        <li><a href="#5-download-or-configure-serial-monitor-tool">5. Download or Configure Serial Monitor Tool</a></li>
+      </ul>
+    </li>
+    <li><a href="#checkpoints">Checkpoints</a></li>
+    <li><a href="#outcomes">Outcomes</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -648,34 +646,23 @@
 
 
 
-	
-
-<h2 id="objectives">Objectives</h2>
-
+	<h2 id="objectives">Objectives</h2>
 <p>In this lab you will configure your laptop for the workshop. By the end of the module you will:</p>
-
 <ul>
 <li>Have a local directory or folder to hold all the files required for your dispenser</li>
 <li>Have installed and tested a device driver to communicate with the microcontroller</li>
 <li>Downloaded a command line utility to program (flashed) the microcontroller</li>
 <li>Have an open terminal or command prompt ready to issue commands, and verified that the microcontroller appears as a serial device</li>
 </ul>
-
 <p>The microcontroller is programmed, or flashed, via a USB serial connection from a computer or laptop. Based on the microcontroller chipset, a specific driver is required.</p>
 
-
-<div class="notices note" ><p>Each persons laptop is unique and the general instructions may not work for a variety of reasons such as having a older version of the driver loaded, insufficient permissions to install, or older versions of Operating Systems. Please ensure that the checkpoint at the end has been completed prior to starting the next lab. If you run into problems, please <em>ask fro assistance from a workshop assistant.</em></p>
+<div class="notices note" ><p>Each persons laptop is unique and the general instructions may not work for a variety of reasons such as having a older version of the driver loaded, insufficient permissions to install, or older versions of Operating Systems. Please ensure that the checkpoint at the end has been completed prior to starting the next lab. If you run into problems, please <em>ask for assistance from a workshop assistant.</em></p>
 </div>
 
-
 <h2 id="steps-to-complete">Steps to Complete</h2>
-
 <p>Follow each step in order and use the <em>Click to open for detailed step-by-step instructions</em> if required.</p>
-
 <h3 id="1-create-local-folder">1. Create Local Folder</h3>
-
 <p>Create a local folder called <code>cdd</code> that will contain all downloads and assets needed for the workshop. It is recommended to create this within your web browsers default download location. When asked to <em>download resource</em> X <em>to <code>cdd</code> folder</em>, save or move the files to that folder.</p>
-
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;text-decoration: underline" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-circle-down' : 'fas fa-chevron-circle-right';});});">
@@ -696,15 +683,11 @@
 
     </div>
 </div>
-
 <h3 id="2-download-and-install-serial-driver">2. Download and Install Serial Driver</h3>
-
 <p>The microcontroller used in this workshop, the <a href="https://www.espressif.com/en/products/hardware/esp32-devkitc/overview">ESP32-DevKitC</a>, has a built-in Silicon Labs CP210x serial controller. In order for you laptop to communicate with the microcontroller you need to download and install the <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP210x USB to UART Bridge VCP Drivers</a> for your operating system. Follow the instructions <em>exactly</em>, you may be required to provide permissions to the driver and in some cases restart you laptop to complete the installation process.</p>
-
 
 <div class="notices warning" ><p>Use the installer specific to the <em>exact version</em> of your operating system. Using the wrong driver will not work and may make it difficult to install the proper version later.</p>
 </div>
-
 
 
 <div class="expand">
@@ -723,9 +706,7 @@
 <li>Download the software (the <em>Download VCP</em> link) for your operating system. If in doubt, please verify the version and read the release notes to confirm.</li>
 <li>Once downloaded, follow the instructions to complete the installation of the driver.</li>
 </ol>
-
 <p>Here are some tips for popular operating systems:</p>
-
 <ul>
 <li><strong>Windows 10</strong> - Unzip and use the installer for either 32-bit or 64-bit. The VCP driver may have been installed by Windows Update, but using the Silicon Labs provided driver will work with the ESP32-DevKitC.</li>
 <li><strong>Windows 7/8/8.1</strong> - Use the default driver, <em>not</em> the serial emulation one. The VCP driver may have been installed by Windows Update, but using the Silicon Labs provided driver will work with the ESP32-DevKitC. If the default driver does not work, you may try the other driver.</li>
@@ -734,13 +715,9 @@
 
     </div>
 </div>
-
 <h3 id="3-download-and-install-esptool">3. Download and Install esptool</h3>
-
 <p>To be able to flash the firmware to the microcontroller we need to install a specific application called <em>esptool</em>. A pre-built executable can be downloaded <a href="https://dl.espressif.com/dl/esptool-2.6.1-macos.tar.gz">here for macOS</a> and <a href="https://dl.espressif.com/dl/esptool-2.6.1-windows.zip">here for Windows</a>. Unzip or untar the file and place the file in the <code>cdd</code> directory.</p>
-
 <p>For Linux users, or if you prefer to have it  installed as a Python package, <a href="https://github.com/espressif/esptool">follow the instructions</a> for your operating system to install the application. If installed correctly the command should accessible from any directory.</p>
-
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;text-decoration: underline" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-circle-down' : 'fas fa-chevron-circle-right';});});">
@@ -754,24 +731,18 @@
     </div>
     <div class="expand-content" style="display: none;">
         <p><strong>Option 1 - Executable for macOS and Windows</strong></p>
-
 <ol>
 <li>Save the <a href="https://dl.espressif.com/dl/esptool-2.6.1-macos.tar.gz">macOS</a> or <a href="https://dl.espressif.com/dl/esptool-2.6.1-windows.zip">Windows</a> compressed esptool file to your browsers <em>Downloads</em> directory.</li>
 <li>Unzip or untar and move the <em>esptool</em> file (<code>esptool</code> for macOS, <code>esptool.exe</code> for Windows) from the <code>esptool</code> folder to the <code>cdd</code> folder.</li>
 <li>This will allow you to run <em>esptool</em> without having to add it to your PATH.</li>
 </ol>
-
 <p><strong>Option 2 - Install as Python Module</strong></p>
-
 <ol>
 <li>Navigate to the <a href="https://github.com/espressif/esptool">esptool.py</a> GitHub repository and scroll down to the installation instructions section.</li>
 <li>For your operating system, follow the instructions to install the Python modules. It is recommended to install in a virtual environment or in such a way so that is doesn&rsquo;t affect your operating system&rsquo;s Python installation.</li>
 </ol>
-
-<p><strong><em>Optional Installations</em></strong></p>
-
+<p><em><strong>Optional Installations</strong></em></p>
 <p>If you are unable to install the esptool or run it via the options above, there are optional versions available for different operating systems. Please note that these have not been tested, and there may be differences between the arguments referenced in the lab modules and the actual software.</p>
-
 <ul>
 <li><strong>macOS</strong> - If you have <a href="https://brew.sh/">brew</a> installed, you can install esptool via <code>brew install esptool</code>.</li>
 <li><strong>Ubuntu</strong> - Recent versions of Ubuntu have <em>esptool</em> as an installable package: <code>sudo apt-get install -y esptool</code>. Other mainline Linux distributions may also have similar packages for installation.</li>
@@ -780,23 +751,16 @@
 
     </div>
 </div>
-
 <h3 id="4-open-command-line-interface-and-test-all-components">4. Open Command Line Interface and Test All Components</h3>
-
 <p>Before testing, remove the ESP32 microcontroller (labeled as <em>Provided ESP32</em>) and USB cable from the zip-top bag:</p>
-
-<p><img src="../../images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/></p>
-
+<!-- raw HTML omitted -->
 
 <div class="notices info" >Ensure that you have installed both the <strong>esptool</strong> and the <strong>USB to serial</strong> device driver before continuing</div>
 
-
 <p>To interact with the microcontroller you will use a terminal window (macOS and Linux) or a command prompt (Windows). Create a terminal window and change to the <code>cdd</code> directory you created. Verify that you can run the esptool command, and then verify that when you connect the ESP32 via the USB cable that a new serial device is created.</p>
-
 
 <div class="notices info" ><p>When you have verified the previous step, remove the USB cable from the laptop and microcontroller.</p>
 </div>
-
 
 
 <div class="expand">
@@ -811,29 +775,28 @@
     </div>
     <div class="expand-content" style="display: none;">
         <ol>
-<li>For macOS or Linux, launch a terminal window, for Windows launch a command prompt.
-
+<li>
+<p>For macOS or Linux, launch a terminal window, for Windows launch a command prompt.</p>
 <ol>
 <li>Windows - <a href="https://renenyffenegger.ch/notes/Windows/dirs/Windows/System32/cmd_exe/index">Launch a cmd.exe (Command Prompt)</a>.</li>
 <li>macOS -  + <code>Space</code> -&gt; terminal.app</li>
 <li>Linux - <code>Control</code> + <code>Alt</code> + <code>T</code></li>
-</ol></li>
-
-<li><p>From the terminal window, run esptool and make sure it responds (the result doesn&rsquo;t matter, just that the executable can be run):</p>
+</ol>
+</li>
+<li>
+<p>From the terminal window, run esptool and make sure it responds (the result doesn&rsquo;t matter, just that the executable can be run):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ esptool.py -h                                                                                                             
-usage: esptool <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--chip <span style="color:#f92672">{</span>auto,esp8266,esp32<span style="color:#f92672">}]</span> <span style="color:#f92672">[</span>--port PORT<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--baud BAUD<span style="color:#f92672">]</span> 
+usage: esptool <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--chip <span style="color:#f92672">{</span>auto,esp8266,esp32<span style="color:#f92672">}</span><span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--port PORT<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--baud BAUD<span style="color:#f92672">]</span> 
     ...
-$</code></pre></div>
-<p>For Windows the command would be <code>esptool.exe</code>, and depending if you installed or just downloaded the file, for macOS/Linux <code>./esptool.py</code>, <code>./esptool</code> or just <code>esptool</code> may be the syntax needed. <strong><em>Note what syntax worked, as you will need to use that for when you get to flashing the microcontroller</em></strong>.</p></li>
+$
+</code></pre></div><p>For Windows the command would be <code>esptool.exe</code>, and depending if you installed or just downloaded the file, for macOS/Linux <code>./esptool.py</code>, <code>./esptool</code> or just <code>esptool</code> may be the syntax needed. <em><strong>Note what syntax worked, as you will need to use that for when you get to flashing the microcontroller</strong></em>.</p>
+</li>
 </ol>
 
     </div>
 </div>
-
 <h3 id="5-download-or-configure-serial-monitor-tool">5. Download or Configure Serial Monitor Tool</h3>
-
 <p>For macOS and Linux, you will use the built-in <code>screen</code> utility to connect to and monitor the microcontroller. There is no configuration required.</p>
-
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;text-decoration: underline" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-circle-down' : 'fas fa-chevron-circle-right';});});">
@@ -847,41 +810,40 @@ $</code></pre></div>
     </div>
     <div class="expand-content" style="display: none;">
         <ol>
-<li>Check what serial ports are in use <em>before</em> connecting the ESP32.
-
+<li>
+<p>Check what serial ports are in use <em>before</em> connecting the ESP32.</p>
 <ol>
 <li><code>ls -l /dev/tty.*</code> will show the ports. You should <em>not</em> see a <code>tty.SLAB_USBtoUART</code> entry yet.</li>
 <li>For Linux, <code>ls -l /dev/tty.*</code> and note the port numbers.</li>
-</ol></li>
-
-<li><p>Connect the ESP32, then run the same commands and look for a new entries: that will be the <em>port</em> you will use when flashing and monitoring the microcontroller.
-<img src="../../images/lab2_esp32_connection.png" alt="ESP32 Serial Connection to Laptop" height="400"/>
+</ol>
+</li>
+<li>
+<p>Connect the ESP32, then run the same commands and look for a new entries: that will be the <em>port</em> you will use when flashing and monitoring the microcontroller.
+<!-- raw HTML omitted -->
 When added to a MacBook Pro, a valid driver installation and good data+power USB connection would show this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#75715e"># Before connecting ESP32 to laptop</span>
 $ ls /dev/tty.*
 /dev/tty.Bluetooth-Incoming-Port
 $ <span style="color:#75715e"># After connecting as above</span>
-/dev/tty.Bluetooth-Incoming-Port /dev/tty.SLAB_USBtoUART</code></pre></div></li>
-
-<li><p>Run the following command and observe if output is showed in the terminal</p>
-
+/dev/tty.Bluetooth-Incoming-Port /dev/tty.SLAB_USBtoUART
+</code></pre></div></li>
+<li>
+<p>Run the following command and observe if output is showed in the terminal</p>
 <pre><code>$ screen /dev/tty.SLAB_USBtoUART 115200
 &lt;a bunch of line should be printed&gt;
 </code></pre></li>
-
-<li><p>To exit press press <code>CTRL+a CTRL-\</code> and confirm with <code>y</code></p></li>
-
-<li><p>Remove the USB cable from both the microcontroller and your laptop.</p></li>
+<li>
+<p>To exit press press <code>CTRL+a CTRL-\</code> and confirm with <code>y</code></p>
+</li>
+<li>
+<p>Remove the USB cable from both the microcontroller and your laptop.</p>
+</li>
 </ol>
-
-<div class="notices warning" ><p>In macOS or Linux you might not get any error, but flashing the firmware will not work if you have an ongoing <code>screen</code> session. Check it by running <code>screen -ls</code> at the command prompt and kill any existing session before trying to flash the firmware again.</p>
-</div>
+<!-- raw HTML omitted -->
 
     </div>
 </div>
-
 <p>For Windows, you can either use a serial application already installed or download and use PuTTY.</p>
-
 
 <div class="expand">
     <div class="expand-label" style="cursor: pointer;text-decoration: underline" onclick="$h = $(this);$h.next('div').slideToggle(100,function () {$h.children('i').attr('class',function () {return $h.next('div').is(':visible') ? 'fas fa-chevron-circle-down' : 'fas fa-chevron-circle-right';});});">
@@ -895,40 +857,38 @@ $ <span style="color:#75715e"># After connecting as above</span>
     </div>
     <div class="expand-content" style="display: none;">
         <ol>
-<li>Download Putty from <a href="http://www.putty.org">here</a> or <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">here</a>.</li>
-
-<li><p>Run the installation wizard and select all options:</p>
-
-<p><img src="../../images/lab2_putty_installer.png" alt="Install PuTTY" />
-<img src="../../images/lab2_putty_setup.png" alt="Configure PuTTY" /></p></li>
-
-<li><p>Select Session in the left panel, and Serial in the radio boxes list in the right panel. Do not use the Serial entry in the left panel</p></li>
-
-<li><p>Configure the <em>Serial line</em> using COMx port from above, and enter 115200 in the Speed field</p>
-
-<p><img src="../../images/lab2_putty_setup.png" alt="Open Port" /></p></li>
-
-<li><p>Create the session by clicking on <strong>Open</strong></p></li>
-
-<li><p>Open the Console to see the microcontroller output.</p>
-
-<p><img src="../../images/lab2_putty_console_output.png" alt="PuTTY Console Output" /></p></li>
-
-<li><p>Remove the USB cable from both the microcontroller and your laptop.</p></li>
+<li>
+<p>Download Putty from <a href="http://www.putty.org">here</a> or <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">here</a>.</p>
+</li>
+<li>
+<p>Run the installation wizard and select all options:</p>
+<p><img src="../../images/lab2_putty_installer.png" alt="Install PuTTY">
+<img src="../../images/lab2_putty_setup.png" alt="Configure PuTTY"></p>
+</li>
+<li>
+<p>Select Session in the left panel, and Serial in the radio boxes list in the right panel. Do not use the Serial entry in the left panel</p>
+</li>
+<li>
+<p>Configure the <em>Serial line</em> using COMx port from above, and enter 115200 in the Speed field</p>
+<p><img src="../../images/lab2_putty_setup.png" alt="Open Port"></p>
+</li>
+<li>
+<p>Create the session by clicking on <strong>Open</strong></p>
+</li>
+<li>
+<p>Open the Console to see the microcontroller output.</p>
+<p><img src="../../images/lab2_putty_console_output.png" alt="PuTTY Console Output"></p>
+</li>
+<li>
+<p>Remove the USB cable from both the microcontroller and your laptop.</p>
+</li>
 </ol>
-
-<div class="notices warning" ><p>Only one application at a time can access a serial port. When working with <em>esptool</em>, you will have to close the PuTTY console before flashing the firmware. If you get an error about <em>port in use or unavailable</em>, this is most likely the reason. Close the Putty Console and try again.</p>
-
-<p>In macOS you might not get any error, but flashing the firmware will not work if you have an ongoing <code>screen</code> session. Check it by running <code>screen -ls</code> at the command prompt and kill any existing session before trying to flash the firmware again.</p>
-</div>
+<!-- raw HTML omitted -->
 
     </div>
 </div>
-
 <h2 id="checkpoints">Checkpoints</h2>
-
 <p>Please ensure the following checkpoints are validated before moving on to the next module.</p>
-
 <ol>
 <li>Folder <code>cdd</code> - Verify and note the location of the folder</li>
 <li>Serial driver installed and tested - When the ESP32 is connected, the driver is working if a new serial port is created (<code>/dev/tty.SLAB_USBtoUART</code> or similar for macOS, a <code>COMx</code> port for Windows)</li>
@@ -936,11 +896,8 @@ $ <span style="color:#75715e"># After connecting as above</span>
 <li><strong>Flash Tool</strong> - This is the <code>esptool</code> or <code>esptool.py</code> that you will use to flash the microcontroller</li>
 <li>Command line window left open for other lab modules</li>
 </ol>
-
 <h2 id="outcomes">Outcomes</h2>
-
 <p>Installation of device drivers, tool chains, and utilities such as <em>esptool</em> to interact with microcontrollers is complex, so why do we do it? Unlike cloud environments that can be stood up with infrastructure as code (IaaC), firmware development and testing takes place locally.</p>
-
 <p>By completing and testing the installation of the tools in advance, we know that our environment is working properly. And if we need to fix or have another laptop or desktop to develop from, the steps to complete the setup are documented.</p>
 
 

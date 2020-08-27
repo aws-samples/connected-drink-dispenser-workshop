@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.64.1" />
     <meta name="description" content="">
 
 
@@ -600,7 +600,7 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents"></nav>
     </div>
 </div>
 
@@ -626,21 +626,25 @@
 
 
 	<p>We have strived to keep the amount of prerequisites to a minimum in order to setup the infrastructure for the workshop. Please ensure that all of these are completed before progressing to the next step.</p>
-
 <ul>
-<li>An AWS account to be used to host the workshop services and participant IAM user accounts. It is recommended to use or create a new or sandbox account as the participants will have permissions to see resources.</li>
-
-<li><p>Have a local Workstation or laptop available</p>
-
+<li>
+<p>An AWS account to be used to host the workshop services and participant IAM user accounts. It is recommended to use or create a new or sandbox account as the participants will have permissions to see resources.</p>
+</li>
+<li>
+<p>Have a local Workstation or laptop available</p>
 <p>To build and run the CloudFormation steps, you will need a workstation, an EC2 instance, or a laptop. All the steps are written and based on Linux/macOS. If you don&rsquo;t have a similar environment, you may use an Amazon Linux based EC2 instance. No matter what you use, please ensure the following tools are installed:</p>
-
 <ul>
-<li>AWS CLI with admin credentials (see below)</li>
-<li>NodeJS &gt;= 8.11.x and npm</li>
-<li>Python &gt;= 3.6 and pip</li>
-<li><a href="https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html">AWS Cloud Development Kit (CDK)</a></li>
-</ul>
-
+<li>
+<p>AWS CLI with admin credentials (see below)</p>
+</li>
+<li>
+<p>NodeJS &gt;= 8.11.x and npm</p>
+</li>
+<li>
+<p>Python &gt;= 3.6 and pip</p>
+</li>
+<li>
+<p><a href="https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html">AWS Cloud Development Kit (CDK)</a></p>
 <p>The following commands will verify that the command line tools are properly installed:
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ aws iam get-account-summary       <span style="color:#75715e"># AWS CLI</span>
 <span style="color:#f92672">{</span>
@@ -651,36 +655,42 @@
 $ node -v                          <span style="color:#75715e"># NodeJS</span>
 v12.8.0
 $ npm -v                           <span style="color:#75715e"># Node package manager</span>
-<span style="color:#ae81ff">6</span>.10.2
+6.10.2
 $ python --version                 <span style="color:#75715e"># Python</span>
-Python <span style="color:#ae81ff">3</span>.7.4
+Python 3.7.4
 $ pip --version                    <span style="color:#75715e"># Python module manager</span>
-pip <span style="color:#ae81ff">19</span>.2.2 from ...
+pip 19.2.2 from ...
 $ cdk --version                    <span style="color:#75715e"># CDK utility (from npm)</span>
-<span style="color:#ae81ff">1</span>.4.0 <span style="color:#f92672">(</span>build 175471f<span style="color:#f92672">)</span>
-    </code></pre></div></p></li>
-
-<li><p><a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html">An AWS CLI named profile.</a> The profile in <code>~/.aws/config</code> should contain the target region, and the <code>~/.aws/credentials</code> file should have an access key and secret access key with administrative access (or minimum to deploy and run the stack). The profile name <code>cdk-user</code> will be used throughout this guide.</p></li>
-
-<li><p>A registered domain name managed by Route 53 in the workshop account. This can either be through registration in Route 53, or <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html">making Amazon Route 53 the DNS service for the domain</a>. If we want the URL for the workshop to be  <code>cdd.example.com</code>, in Route 53 there needs to be a public hosted zone for <code>example.com</code>.</p></li>
-
-<li><p>To target the appropriate account, region and other aspects, the following entries need to be considered and changed in the <code>config.json</code> file (the default value used in this guide listed first):</p>
-
+1.4.0 <span style="color:#f92672">(</span>build 175471f<span style="color:#f92672">)</span>
+    </code></pre></div></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html">An AWS CLI named profile.</a> The profile in <code>~/.aws/config</code> should contain the target region, and the <code>~/.aws/credentials</code> file should have an access key and secret access key with administrative access (or minimum to deploy and run the stack). The profile name <code>cdk-user</code> will be used throughout this guide.</p>
+</li>
+<li>
+<p>A registered domain name managed by Route 53 in the workshop account. This can either be through registration in Route 53, or <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html">making Amazon Route 53 the DNS service for the domain</a>. If we want the URL for the workshop to be  <code>cdd.example.com</code>, in Route 53 there needs to be a public hosted zone for <code>example.com</code>.</p>
+</li>
+<li>
+<p>To target the appropriate account, region and other aspects, the following entries need to be considered and changed in the <code>config.json</code> file (the default value used in this guide listed first):</p>
 <ul>
-<li><strong>Region</strong> - <code>us-west-2</code><br/>Region identifier, must support all AWS resources being used.</li>
-<li><strong>HostName</strong> - <code>cdd.example.com</code><br/>The fully qualified domain name entry to be created from the Route 53 hosted zone details above (<code>example.com</code>). Note, subdomain entries can also be used such as <code>cdd.foo.example.com</code>, but must be created from Route 53.</li>
-<li><strong>ProfileName</strong> - <code>cdk-user</code><br />The AWS CLI profile name referenced above. It is used by the build and deploy steps to use the right account and credentials.</li>
-<li><strong>AdminUserName</strong> - <code>admin</code><br/>The username to log into the web application for administrative purposes.</li>
-<li><strong>AdminPassword</strong> - <code>NO DEFAULT VALUE</code><br/>This needs to be completed in the <code>config.json</code> file and is only used for web application related tasks, and <em>not</em> for AWS account activities.</li>
-<li><strong>cloud9InstanceSize</strong> - <code>t3.small</code><br/>Instance size for each participants Cloud 9 environment. Select larger (or smaller) depending upon how long the Amazon FreeRTOS compilation should take.</li>
-<li><strong>ParticipantLimit</strong> - <code>20</code><br/>The maximum amount of user accounts that can be created, after which, new account creation will fail. It is best to set this to 5-10% above total expected participants.</li>
-</ul></li>
-
-<li><p>An Amazon Certificate Manager (ACM) validated server certificate in N. Virginia, to encrypt access to the web application.
+<li><strong>Region</strong> - <code>us-west-2</code><!-- raw HTML omitted -->Region identifier, must support all AWS resources being used.</li>
+<li><strong>HostName</strong> - <code>cdd.example.com</code><!-- raw HTML omitted -->The fully qualified domain name entry to be created from the Route 53 hosted zone details above (<code>example.com</code>). Note, subdomain entries can also be used such as <code>cdd.foo.example.com</code>, but must be created from Route 53.</li>
+<li><strong>ProfileName</strong> - <code>cdk-user</code><!-- raw HTML omitted -->The AWS CLI profile name referenced above. It is used by the build and deploy steps to use the right account and credentials.</li>
+<li><strong>AdminUserName</strong> - <code>admin</code><!-- raw HTML omitted -->The username to log into the web application for administrative purposes.</li>
+<li><strong>AdminPassword</strong> - <code>NO DEFAULT VALUE</code><!-- raw HTML omitted -->This needs to be completed in the <code>config.json</code> file and is only used for web application related tasks, and <em>not</em> for AWS account activities.</li>
+<li><strong>cloud9InstanceSize</strong> - <code>t3.small</code><!-- raw HTML omitted -->Instance size for each participants Cloud 9 environment. Select larger (or smaller) depending upon how long the Amazon FreeRTOS compilation should take.</li>
+<li><strong>ParticipantLimit</strong> - <code>20</code><!-- raw HTML omitted -->The maximum amount of user accounts that can be created, after which, new account creation will fail. It is best to set this to 5-10% above total expected participants.</li>
+</ul>
+</li>
+<li>
+<p>An Amazon Certificate Manager (ACM) validated server certificate in N. Virginia, to encrypt access to the web application.
 
 <div class="notices warning" ><p>The certificate needs to be created in the N. Virginia region to work with Amazon CloudFront. Also, the issued certificate must support the fully qualified domain name you wish to use. For example, a certificate for <code>*.example.com</code> is valid for the domain name <code>cdd.example.com</code>, but would <em>not</em> work for <code>cdd.foo.example.com</code> since the wildcard is only matches the third element <code>foo</code>, and not the  fourth one, <code>cdd</code>.</p>
 </div>
-</p></li>
+</p>
+</li>
 </ul>
 
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.64.1" />
     <meta name="description" content="">
 
 
@@ -595,15 +595,13 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#welcome-presenter">Welcome Presenter!</a>
-<ul>
-<li><a href="#quick-start-using-cloud9">Quick-start Using Cloud9</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#welcome-presenter">Welcome Presenter!</a>
+      <ul>
+        <li><a href="#quick-start-using-cloud9">Quick-start Using Cloud9</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -629,19 +627,13 @@
 
 
 
-	
-
-<h2 id="welcome-presenter">Welcome Presenter!</h2>
-
+	<h2 id="welcome-presenter">Welcome Presenter!</h2>
 <p>This section will walk you through setting up the <em>Connected Drink Dispenser</em> workshop for participants. It covers the workshop setup, how procure and build hardware, and the approach to introduce the workshop and mentor the participants attending the workshop.</p>
-
 
 <div class="notices warning" ><p>Deploying the workshop opens your account to anyone registering for an account from the single-page app. Each participant (user) is provisioned with a Cloud9 instance that allows them to run processes and access the Internet. Only deploy the workshop over a period of time (hours, not days) where you can monitor activity in your account, and destroy the workshop once completed to secure resources.</p>
 </div>
 
-
 <p>Each section covers details for understanding, setting up, and presenting the workshop. Follow each of these sections in order to fully build the workshop.</p>
-
 <ol>
 <li>Prerequisites to host the workshop for one or multiple runs.</li>
 <li>Building and deploying the workshop cloud assets.</li>
@@ -649,16 +641,17 @@
 <li>Presentation tips and FAQ for supporting participant.</li>
 <li>Layout of the repository.</li>
 </ol>
-
 <h3 id="quick-start-using-cloud9">Quick-start Using Cloud9</h3>
-
 <p>Follow these steps to deploy from a Cloud9 instance in the account where you wish to run the workshop:</p>
-
 <ol>
-<li>Ensure a Route 53 hosted public zone is <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring.html">setup</a> for a private domain name you have registered. The domain <code>example.com</code> is used below.</li>
-<li>Launch a Cloud9 IDE from an account with all the IAM permissions needed to deploy the Cloud Development Kit (CDK) stack, <em>from the region where you want to deploy the workshop</em>. As there are a <em>lot</em> of IAM related permissions needed, the AWS managed permissions group, <em>AdministratorAccess</em>, has the necessary permissions.</li>
-
-<li><p>Open a new terminal, install dependencies, clone this repository, and create the <code>connected-drink-dispenser-workshop/deploy/config.json</code> file from the template.</p>
+<li>
+<p>Ensure a Route 53 hosted public zone is <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring.html">setup</a> for a private domain name you have registered. The domain <code>example.com</code> is used below.</p>
+</li>
+<li>
+<p>Launch a Cloud9 IDE from an account with all the IAM permissions needed to deploy the Cloud Development Kit (CDK) stack, <em>from the region where you want to deploy the workshop</em>. As there are a <em>lot</em> of IAM related permissions needed, the AWS managed permissions group, <em>AdministratorAccess</em>, has the necessary permissions.</p>
+</li>
+<li>
+<p>Open a new terminal, install dependencies, clone this repository, and create the <code>connected-drink-dispenser-workshop/deploy/config.json</code> file from the template.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">### Copy and paste these lines into terminal</span>
 cd ~/environment/
 npm install -g cdk
@@ -667,28 +660,30 @@ git clone https://github.com/aws-samples/connected-drink-dispenser-workshop.git
 cd connected-drink-dispenser-workshop/deploy/
 sudo pip-3.6 install -r requirements.txt
 cp config.json.default config.json
-<span style="color:#75715e">### end of copy/paste</span></code></pre></div></li>
-
-<li><p>Update the <code>config.json</code> file&rsquo;s values and save the file when complete:</p>
-
+<span style="color:#75715e">### end of copy/paste</span>
+</code></pre></div></li>
+<li>
+<p>Update the <code>config.json</code> file&rsquo;s values and save the file when complete:</p>
 <ul>
 <li><strong>ProfileName</strong> - Change to <code>default</code> (this uses the permissions from our user account in Cloud9)</li>
 <li><strong>AdminPassword</strong> - Enter the value for the dispenser app admin user, must include <em>lower case</em>, <em>upper case</em>, and a <em>number</em></li>
 <li><strong>Region</strong> - Set to the region you want the workshop to be deployed (should be the same as where Cloud9 was launched)</li>
 <li><strong>Hostname</strong> - Enter the fully qualified domain name to use for workshop for the Route 53 hosted zone (e.g., <code>cdd.example.com</code>)</li>
-</ul></li>
-
-<li><p>From the terminal, bootstrap the CDK into the region (optional if you are already using CDK in that region) with the command <code>cdk bootstrap</code>:</p>
+</ul>
+</li>
+<li>
+<p>From the terminal, bootstrap the CDK into the region (optional if you are already using CDK in that region) with the command <code>cdk bootstrap</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cdk bootstrap
     Bootstrapping environment aws://ACCOUNT/REGION...
 CDKToolkit: creating CloudFormation changeset...
-<span style="color:#ae81ff">0</span>/2 | <span style="color:#ae81ff">3</span>:21:24 PM | CREATE_IN_PROGRESS   | AWS::S3::Bucket | StagingBucket 
-<span style="color:#ae81ff">0</span>/2 | <span style="color:#ae81ff">3</span>:21:25 PM | CREATE_IN_PROGRESS   | AWS::S3::Bucket | StagingBucket Resource creation Initiated
-<span style="color:#ae81ff">1</span>/2 | <span style="color:#ae81ff">3</span>:21:47 PM | CREATE_COMPLETE      | AWS::S3::Bucket | StagingBucket 
-<span style="color:#ae81ff">2</span>/2 | <span style="color:#ae81ff">3</span>:21:49 PM | CREATE_COMPLETE      | AWS::CloudFormation::Stack | CDKToolkit 
-    Environment aws://ACCOUNT/REGION bootstrapped.</code></pre></div></li>
-
-<li><p>Deploy the workshop with the command <code>cdk deploy</code>. This will create a lot of updates as the stack progresses and will take 30-50 minutes to complete due to the CloudFront deployment:</p>
+0/2 | 3:21:24 PM | CREATE_IN_PROGRESS   | AWS::S3::Bucket | StagingBucket
+0/2 | 3:21:25 PM | CREATE_IN_PROGRESS   | AWS::S3::Bucket | StagingBucket Resource creation Initiated
+1/2 | 3:21:47 PM | CREATE_COMPLETE      | AWS::S3::Bucket | StagingBucket
+2/2 | 3:21:49 PM | CREATE_COMPLETE      | AWS::CloudFormation::Stack | CDKToolkit
+    Environment aws://ACCOUNT/REGION bootstrapped.
+</code></pre></div></li>
+<li>
+<p>Deploy the workshop with the command <code>cdk deploy</code>. This will create a lot of updates as the stack progresses and will take 30-50 minutes to complete due to the CloudFront deployment:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cdk deploy
 ... LIST OF RESOURCES ...
 Do you wish to deploy these changes <span style="color:#f92672">(</span>y/n<span style="color:#f92672">)</span>? y
@@ -701,23 +696,23 @@ cdd-workshop.UserPoolCognitoUserPoolIdA08E3514 <span style="color:#f92672">=</sp
 
 Stack ARN:
 arn:aws:cloudformation:us-west-2:904880203774:stack/cdd-workshop/832c88d0-1b7c-11ea-b1f9-02b80ff4b548
-$</code></pre></div>
-<p>If you see errors or <em>CREATE_FAILED</em> messages, review the reasons, which most likely will be permissions related. At this point the CDK will attempt to rollback and delete the deployment of resources. You may need to go into CloudFormation and delete the stack manually or issue the command <code>cdk destroy</code>. To resolve permissions errors, add the needed permissions to your account, and then close the Cloud9 IDE web page and relaunch from the console to refresh permissions.</p>
-
-<p>With expanded permissions, attempt again to deploy the stack until the success message above is seen.</p></li>
-
-<li><p>Finally, issue the command <code>python deploy</code> to build the single page application, and upload all resources to the S3 origin bucket:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python deploy.py
+$
+</code></pre></div><p>If you see errors or <em>CREATE_FAILED</em> messages, review the reasons, which most likely will be permissions related. At this point the CDK will attempt to rollback and delete the deployment of resources. You may need to go into CloudFormation and delete the stack manually or issue the command <code>cdk destroy</code>. To resolve permissions errors, add the needed permissions to your account, and then close the Cloud9 IDE web page and relaunch from the console to refresh permissions.</p>
+<p>With expanded permissions, attempt again to deploy the stack until the success message above is seen.</p>
+</li>
+<li>
+<p>Finally, issue the command <code>python deploy_app</code> to build the single page application, and upload all resources to the S3 origin bucket:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python deploy_app.py
 ... BUILD AND UPLOAD STEPS
 DONE  Build complete. The dist directory is ready to be deployed.
 INFO  Check out deployment instructions at https://cli.vuejs.org/guide/deployment.html
-                                    
-Done in <span style="color:#ae81ff">65</span>.14s.
-Copying Single page web application to S3: <span style="color:#ae81ff">36</span> files <span style="color:#f92672">[</span><span style="color:#ae81ff">00</span>:05,  <span style="color:#ae81ff">6</span>.22 files/s<span style="color:#f92672">]</span>                                              
-Copying Credential C formatter page to S3: <span style="color:#ae81ff">6</span> files <span style="color:#f92672">[</span><span style="color:#ae81ff">00</span>:00, <span style="color:#ae81ff">79</span>.67 files/s<span style="color:#f92672">]</span>                                               
-Copying Online documentation to S3: <span style="color:#ae81ff">446</span> files <span style="color:#f92672">[</span><span style="color:#ae81ff">00</span>:13, <span style="color:#ae81ff">33</span>.56 files/s<span style="color:#f92672">]</span></code></pre></div></li>
-</ol>
 
+Done in 65.14s.
+Copying Single page web application to S3: <span style="color:#ae81ff">36</span> files <span style="color:#f92672">[</span>00:05,  6.22 files/s<span style="color:#f92672">]</span>
+Copying Credential C formatter page to S3: <span style="color:#ae81ff">6</span> files <span style="color:#f92672">[</span>00:00, 79.67 files/s<span style="color:#f92672">]</span>
+Copying Online documentation to S3: <span style="color:#ae81ff">446</span> files <span style="color:#f92672">[</span>00:13, 33.56 files/s<span style="color:#f92672">]</span>
+</code></pre></div></li>
+</ol>
 <p>At this point, the stack if fully deployed and ready to start! Once the workshop is over, either delete via CloudFormation or from the same Cloud9 IDE, issue the command <code>cdk destroy</code> from the <code>deploy</code> directory.</p>
 
 
