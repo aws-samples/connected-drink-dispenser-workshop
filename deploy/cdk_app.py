@@ -6,6 +6,7 @@ import json
 import shutil
 import re
 from pathlib import Path
+from string import ascii_lowercase, digits
 
 import boto3
 from botocore.exceptions import ClientError
@@ -117,6 +118,18 @@ if __name__ == "__main__":
     # Verify admin user and password values are not NULL
     if config["AdminUserName"] == "" or config["AdminPassword"] == "":
         print(f"Both AdminUserName and AdminPassword must have values set")
+        sys.exit(1)
+    # Validate password complexity of a minimum of 6 characters, lower case, and numeric
+    # are included
+    password = config["AdminPassword"]
+    if not (
+        len(password) >= 6
+        and any(c.islower() for c in password)
+        and any(c.isdigit() for c in password)
+    ):
+        print(
+            f"AdminPassword value must be at least 6 or more characters and contain both lower case and numeric characters"
+        )
         sys.exit(1)
 
     # Create app and resources
