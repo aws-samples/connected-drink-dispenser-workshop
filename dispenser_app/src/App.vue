@@ -12,9 +12,9 @@
 <template>
   <v-app class="gray lighten-4">
     <Navbar />
-    <v-content>
+    <v-main>
       <router-view/>
-    </v-content>
+    </v-main>
     <Footer />
   </v-app>
 </template>
