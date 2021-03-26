@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/deploy"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "npm"
+    directory: "/dispenser_app"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "@vue/cli-service"
+      # Used for local development only (devDependencies)
