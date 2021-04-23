@@ -20,7 +20,7 @@
     "ssri": "^8.0.1"
   },
   "devDependencies": {
-    "@mdi/font": "^4.4.95",
+    "@mdi/font": "^5.9.55",
     "@vue/cli-plugin-babel": "^4.5.12",
     "@vue/cli-plugin-eslint": "^4.5.12",
     "@vue/cli-service": "^4.5.12",
