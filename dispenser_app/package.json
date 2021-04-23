@@ -10,7 +10,7 @@
   "dependencies": {
     "aws-amplify": "^3.3.26",
     "aws-amplify-vue": "^2.1.5",
-    "core-js": "^2.6.5",
+    "core-js": "^3.11.0",
     "serialize-javascript": "^5.0.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
