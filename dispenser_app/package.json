@@ -12,12 +12,12 @@
     "aws-amplify-vue": "^2.1.5",
     "core-js": "^3.11.0",
     "serialize-javascript": "^5.0.1",
+    "ssri": "^8.0.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuetify": "^2.0.0",
     "vuex": "^3.1.1",
-    "vuex-persistedstate": "^3.2.0",
-    "ssri": "^8.0.1"
+    "vuex-persistedstate": "^3.2.0"
   },
   "devDependencies": {
     "@mdi/font": "^5.9.55",
@@ -25,8 +25,8 @@
     "@vue/cli-plugin-eslint": "^4.5.12",
     "@vue/cli-service": "^4.5.12",
     "babel-eslint": "^10.0.1",
-    "eslint": "^6.8.0",
-    "eslint-plugin-vue": "^6.2.2",
+    "eslint": "^7.25.0",
+    "eslint-plugin-vue": "^7.9.0",
     "sass": "^1.17.4",
     "sass-loader": "^11.0.1",
     "vue-cli-plugin-vuetify": "^2.3.1",
