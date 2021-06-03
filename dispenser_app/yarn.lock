@@ -9895,10 +9895,10 @@ vuetify-loader@^1.2.2:
     file-loader "^6.2.0"
     loader-utils "^2.0.0"
 
-vuetify@^2.0.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.5.0.tgz#5e510ed288c268c74fb791facadc7c899e286212"
-  integrity sha512-Lpnwm64xYVEXb5BXdadSRaH0QHjXLFhPPjuVU9VuqWp3Nzr+WP5vA9nMPkJAfUj8vKIJGTRXqyGTGVa4VwrO3A==
+vuetify@^2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.5.3.tgz#9d703414a736879673c94550035adc177a6ca394"
+  integrity sha512-c0oX063PzWrIV29Mi7Pyi63OcF0FlCDJcgMvu0woTt4GL4yVmNQMh5hyKS5NEwlsS66HcjKJERMoY0JJc1bYGA==
 
 vuex-persistedstate@^3.2.0:
   version "3.2.0"
