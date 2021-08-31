@@ -11,3 +11,6 @@ updates:
       interval: "daily"
     allow:
       - dependency-type: "production"
+    ignore:
+      - dependency-name: "glob-parent"
+      - dependency-name: "merge"
