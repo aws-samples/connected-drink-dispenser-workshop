@@ -7,30 +7,16 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
-  "dependencies": {
-    "aws-amplify": "^4.1.0",
-    "aws-amplify-vue": "^2.1.5",
-    "core-js": "^3.14.0",
-    "serialize-javascript": "^5.0.1",
-    "ssri": "^8.0.1",
-    "vue": "^2.6.10",
-    "vue-router": "^3.0.3",
-    "vuetify": "^2.5.4",
-    "vuex": "^3.1.1",
-    "vuex-persistedstate": "^3.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@mdi/font": "^5.9.55",
-    "@vue/cli-plugin-babel": "^4.5.12",
-    "@vue/cli-plugin-eslint": "^4.5.13",
-    "@vue/cli-service": "^4.5.12",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^7.28.0",
-    "eslint-plugin-vue": "^7.9.0",
-    "sass": "^1.35.1",
-    "sass-loader": "^11.0.1",
-    "vue-cli-plugin-vuetify": "^2.3.1",
-    "vue-template-compiler": "^2.6.10",
-    "vuetify-loader": "^1.2.2"
+    "@aws-amplify/ui-components": "^1.7.4",
+    "@nuxtjs/vuetify": "^1.12.1",
+    "@vue/cli": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
+    "aws-amplify": "^4.2.5",
+    "aws-amplify-vue": "^2.1.5",
+    "vue-router": "^3.5.2",
+    "vue-template-compiler": "^2.6.14",
+    "vuex": "^3.6.2"
   }
 }

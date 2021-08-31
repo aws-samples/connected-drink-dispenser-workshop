@@ -5,9 +5,9 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "npm"
+    # All packages here are for build only
     directory: "/dispenser_app"
     schedule:
       interval: "daily"
-    ignore:
-      - dependency-name: "@vue/cli-service"
-      # Used for local development only (devDependencies)
+    allow:
+      - dependency-type: "production"
