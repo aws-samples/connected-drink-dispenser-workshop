@@ -4,13 +4,3 @@ updates:
     directory: "/deploy"
     schedule:
       interval: "daily"
-  - package-ecosystem: "npm"
-    # All packages here are for build only
-    directory: "/dispenser_app"
-    schedule:
-      interval: "daily"
-    allow:
-      - dependency-type: "production"
-    ignore:
-      - dependency-name: "glob-parent"
-      - dependency-name: "merge"
