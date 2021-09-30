@@ -9,11 +9,11 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@aws-amplify/ui-components": "^1.7.4",
+    "@aws-amplify/ui-components": "^1.8.1",
     "@nuxtjs/vuetify": "^1.12.1",
     "@vue/cli": "^4.5.13",
     "@vue/cli-service": "^4.5.13",
-    "aws-amplify": "^4.2.5",
+    "aws-amplify": "^4.3.0",
     "aws-amplify-vue": "^2.1.5",
     "vue-router": "^3.5.2",
     "vue-template-compiler": "^2.6.14",
