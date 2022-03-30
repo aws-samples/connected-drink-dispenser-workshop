@@ -43,7 +43,7 @@ class DecimalEncoder(json.JSONEncoder):
 
 def handler(event, context):
     """This function does not process any parameters, but returns complete
-     details of the user based on username in token"""
+    details of the user based on username in token"""
 
     # Log event
     logger.info("Received event: %s", json.dumps(event))
@@ -75,7 +75,9 @@ def handler(event, context):
             try:
                 cognito_identity_id = json.loads(event["body"])["cognitoIdentityId"]
             except Exception as e:
-                logger.error("cognitoIdentityId parameter not found in body, error: %s", e)
+                logger.error(
+                    "cognitoIdentityId parameter not found in body, error: %s", e
+                )
                 retval = {
                     "body": "ERROR: cognitoIdentityId parameter and value not sent",
                     "headers": httpHeaders,
@@ -110,7 +112,7 @@ def handler(event, context):
                 # Associate IoT policy with Cognito identity
                 cognito = AWS_resource.cognito_iot_policy(
                     cognito_identity_id=cognito_identity_id,
-                    iot_policy=os.environ["IOT_POLICY_CLIENT"]
+                    iot_policy=os.environ["IOT_POLICY_CLIENT"],
                 )
                 if cognito:
                     assets.update(cognito)
@@ -138,9 +140,13 @@ def handler(event, context):
                     "assets": user_db_record["assets"],
                 }
             )
-        # Return completed assets
-        body = json.dumps(user_db_record)
-        retval = {"body": json.dumps(body), "headers": httpHeaders, "statusCode": 200}
+        # Return completed assets as a JSON object
+        # body = json.dumps(user_db_record)
+        retval = {
+            "body": json.dumps(user_db_record),
+            "headers": httpHeaders,
+            "statusCode": 200,
+        }
     else:
         # should not reach, only authenticated users can hit this
         logger.error("Exception, user record not found in UserTable")

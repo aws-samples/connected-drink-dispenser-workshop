@@ -64,3 +64,4 @@ Backup of *.doc*
 ~$*.ppt*
 # Visio autosave temporary files
 *.~vsd*
+yarn.lock
